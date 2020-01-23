@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Experimental;
 
 namespace AmoebaGameMatcherServer.Services
@@ -16,20 +15,46 @@ namespace AmoebaGameMatcherServer.Services
 
         public void RegisterPlayer(string playerId)
         {
-            //Добавление игрока в очередь
+            AddPlayerToQueue(playerId);
+            //так как коллекция могла наполнится можно попробовать создать комнату
+            TryCreateRoom();
+        }
+
+        public GameRoomData GetGameRoomData(string playerId)
+        {
+            bool thereIsInformationAboutThisPlayer = dataService.PlayersGameRooms.Keys.Contains(playerId);
+            if (thereIsInformationAboutThisPlayer)
+            {
+                dataService.GameRoomsData.TryGetValue(playerId, out var gameRoomData);
+                return gameRoomData;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        
+        
+        
+        
+        void AddPlayerToQueue(string playerId)
+        {
             PlayerRequest playerRequest = new PlayerRequest
             {
                 PlayerId = playerId,
                 Time = DateTime.UtcNow
             };
-            dataService.unsortedPlayers.Enqueue(playerRequest);
-            //Попытка создать комнату
-            if (dataService.unsortedPlayers.Count >= 10)
+            dataService.UnsortedPlayers.Enqueue(playerRequest);
+        }
+
+        void TryCreateRoom()
+        {
+            if (dataService.UnsortedPlayers.Count >= 10)
             {
                 List<PlayerRequest> playerRequests = new List<PlayerRequest>();
                 for (int i = 0; i < 10; i++)
                 {
-                    if (dataService.unsortedPlayers.TryDequeue(out var _playerRequest))
+                    if (dataService.UnsortedPlayers.TryDequeue(out var _playerRequest))
                     {
                         //номально достали из коллекции
                         playerRequests.Add(_playerRequest);
@@ -54,11 +79,6 @@ namespace AmoebaGameMatcherServer.Services
                 };
 
             }
-        }
-
-        public async Task<GameRoomData> GetGameRoomData(string playerId)
-        {
-            return null;
         }
     }
 }

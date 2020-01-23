@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AmoebaGameMatcherServer.Services
+namespace AmoebaGameMatcherServer.Experimental
 {
     public class PlayerRequest
     {

@@ -26,7 +26,7 @@ namespace AmoebaGameMatcherServer.Services
 
         private void TryCreateRoom()
         {
-            if (dataService.unsortedPlayers.TryPeek(out var oldestRequest))
+            if (dataService.UnsortedPlayers.TryPeek(out var oldestRequest))
             {
                 var deltaTime = DateTime.UtcNow - oldestRequest.Time;
                 if (deltaTime.TotalSeconds > 20)

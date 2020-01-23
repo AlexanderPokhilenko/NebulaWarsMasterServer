@@ -31,6 +31,7 @@ namespace AmoebaGameMatcherServer
             services.AddTransient<GameMatcherDataService>();
             services.AddTransient<GameMatcherService>();
             services.AddTransient<GameMatcherRoomCreator>();
+            services.AddTransient<GameMatcherDataCleanerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

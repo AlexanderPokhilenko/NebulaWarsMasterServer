@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using AmoebaGameMatcherServer.Services;
+﻿using AmoebaGameMatcherServer.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AmoebaGameMatcherServer.Controllers
@@ -8,7 +7,7 @@ namespace AmoebaGameMatcherServer.Controllers
     [ApiController]
     public class GameMatcherController : ControllerBase
     {
-        private GameMatcherService gameMatcher;
+        private readonly GameMatcherService gameMatcher;
 
         public GameMatcherController(GameMatcherService gameMatcher)
         {
@@ -23,12 +22,15 @@ namespace AmoebaGameMatcherServer.Controllers
         }
         
         [HttpGet]
-        public async Task<ActionResult<string>> GetGameRoomData(string playerId)
+        public ActionResult<string> GetGameRoomData(string playerId)
         {
-            var roomData = await gameMatcher.GetGameRoomData(playerId);
+            var roomData = gameMatcher.GetGameRoomData(playerId);
             if (roomData == null)
-                return StatusCode(500);
+                return "Об этом игроке нет информации";
+
+            return "Есть данные об этом игроке";
             
+            //TODO сериализовать данные о комнате
             return Ok();
         }
     }
