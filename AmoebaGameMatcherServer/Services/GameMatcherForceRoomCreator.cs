@@ -4,7 +4,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Experimental;
 
+//TODO async void что с ним делать?
 //TODO говнокод
+//TODO дублирование кода
 
 
 namespace AmoebaGameMatcherServer.Services
@@ -12,7 +14,7 @@ namespace AmoebaGameMatcherServer.Services
     public class GameMatcherForceRoomCreator
     {
         private readonly GameMatcherDataService dataService;
-
+        
         public GameMatcherForceRoomCreator(GameMatcherDataService dataService)
         {
             this.dataService = dataService;
@@ -34,10 +36,8 @@ namespace AmoebaGameMatcherServer.Services
 
         private void TryCreateRoom()
         {
-            Console.WriteLine($"Попытка собрать комнату насильно. Количество игроков в очереди = " +
-                              $"{dataService.UnsortedPlayers.Count}. id data = {dataService.Id}");
-            
-            
+            Console.WriteLine("Попытка собрать комнату принудительно.");
+
             if (dataService.UnsortedPlayers.TryPeek(out var oldestRequest))
             {
                 Console.WriteLine($"oldestRequest.Time = {oldestRequest.Time}");

@@ -1,43 +1,32 @@
 ﻿using System;
-using System.Text;
-using AmoebaGameMatcherServer.Experimental;
 using AmoebaGameMatcherServer.Services;
 using Microsoft.AspNetCore.Mvc;
 using ZeroFormatter;
+
+//TODO поменять на get
+//TODO убрать конвертацию в base64
+//TODO убрать костыльные статусы 
 
 namespace AmoebaGameMatcherServer.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class GameMatcherController : ControllerBase
+    public class GameMatcherPlayerController : ControllerBase
     {
         private readonly GameMatcherService gameMatcher;
 
-        public GameMatcherController(GameMatcherService gameMatcher)
+        public GameMatcherPlayerController(GameMatcherService gameMatcher)
         {
             this.gameMatcher = gameMatcher;
         }
 
-        /// <summary>
-        /// Метод вызывается из udp сервером при окончании игровой сессии
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        public ActionResult DeleteRoom([FromForm]string secretKey, [FromForm] int roomNumber)
-        {
-            bool requestCameFromARealGameServer = CheckSecretKey(secretKey);
-            if (!requestCameFromARealGameServer)
-                return new ForbidResult();
-
-            gameMatcher.DeleteRoom(roomNumber);
-            return Ok();
-        }
-        
         [Route("GetRoomData")]
-        //TODO поменять на get
         [HttpPost]
         public ActionResult<string> GetRoomData([FromForm]string playerId)
         {
+            if (string.IsNullOrEmpty(playerId))
+                return BadRequest();
+
             if (gameMatcher.PlayerInQueue(playerId))
             {
                 Console.WriteLine("PlayerInQueue");
@@ -58,11 +47,6 @@ namespace AmoebaGameMatcherServer.Controllers
                 gameMatcher.RegisterPlayer(playerId);
                 return StatusCode(1000);
             }
-        }
-
-        private bool CheckSecretKey(string secretKey)
-        {
-            return Globals.secretKey == secretKey;
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AmoebaGameMatcherServer.Experimental;
 
-//TODO ооп пошло по жопе
+//TODO говнокод
 
 namespace AmoebaGameMatcherServer.Services
 {
@@ -87,8 +87,7 @@ namespace AmoebaGameMatcherServer.Services
 
         public bool PlayerInQueue(string playerId)
         {
-            Console.WriteLine($"Обработка запроса от игрока. кол-во в очереди {dataService.UnsortedPlayers.Count}. " +
-                              $"id data = {dataService.Id}");
+            Console.WriteLine($"Обработка запроса от игрока. кол-во в очереди {dataService.UnsortedPlayers.Count}. ");
             var player = dataService.UnsortedPlayers.SingleOrDefault(request => request.PlayerId == playerId);
             return  player != null;
         }

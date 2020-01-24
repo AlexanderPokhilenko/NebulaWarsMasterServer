@@ -1,5 +1,6 @@
 ﻿namespace AmoebaGameMatcherServer.Experimental
 {
+    //TODO доставать из ресурсов
     public static class Globals
     {
         public static int NumbersOfPlayersInRoom = 10;
