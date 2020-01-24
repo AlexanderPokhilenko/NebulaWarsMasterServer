@@ -1,28 +1,25 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using AmoebaGameMatcherServer.Experimental;
 
 namespace AmoebaGameMatcherServer.Services
 {
     public class GameMatcherDataService
     {
-        /// <summary>
-        /// номер комнаты + участники комнаты
-        /// </summary>
-        public readonly ConcurrentDictionary<string, GameRoomData> GameRoomsData;
-        /// <summary>
-        /// id игрока + номер его комнаты
-        /// </summary>
-        public readonly ConcurrentDictionary<string, int> PlayersGameRooms;
-        /// <summary>
-        /// Несортированные игроки могут находиться в этой коллекции не дольше n секунд. Сейчас 20
-        /// </summary>
+        public int Id;
+        // номер комнаты + участники комнаты
+        public readonly ConcurrentDictionary<int, GameRoomData> GameRoomsData;
+        // id игрока + номер его комнаты
+        public readonly ConcurrentDictionary<string, int> PlayersInGameRooms;
+        // Несортированные игроки могут находиться в этой коллекции не дольше Globals.maxStandbyTimeSec секунд.
         public readonly ConcurrentQueue<PlayerRequest> UnsortedPlayers;
 
         public GameMatcherDataService()
         {
-            GameRoomsData = new ConcurrentDictionary<string, GameRoomData>();
+            Id = new Random().Next(100,1_000);
+            GameRoomsData = new ConcurrentDictionary<int, GameRoomData>();
+            PlayersInGameRooms = new ConcurrentDictionary<string, int>();
             UnsortedPlayers = new ConcurrentQueue<PlayerRequest>();
-            PlayersGameRooms = new ConcurrentDictionary<string, int>();
         }
     }
 }

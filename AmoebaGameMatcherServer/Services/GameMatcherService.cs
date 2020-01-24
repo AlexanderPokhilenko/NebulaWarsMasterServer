@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AmoebaGameMatcherServer.Experimental;
+
+//TODO ооп пошло по жопе
 
 namespace AmoebaGameMatcherServer.Services
 {
@@ -16,69 +19,110 @@ namespace AmoebaGameMatcherServer.Services
         public void RegisterPlayer(string playerId)
         {
             AddPlayerToQueue(playerId);
-            //так как коллекция могла наполнится можно попробовать создать комнату
             TryCreateRoom();
         }
 
-        public GameRoomData GetGameRoomData(string playerId)
-        {
-            bool thereIsInformationAboutThisPlayer = dataService.PlayersGameRooms.Keys.Contains(playerId);
-            if (thereIsInformationAboutThisPlayer)
-            {
-                dataService.GameRoomsData.TryGetValue(playerId, out var gameRoomData);
-                return gameRoomData;
-            }
-            else
-            {
-                return null;
-            }
-        }
-        
-        
-        
-        
+
         void AddPlayerToQueue(string playerId)
         {
-            PlayerRequest playerRequest = new PlayerRequest
+            if (!PlayerInQueue(playerId))
             {
-                PlayerId = playerId,
-                Time = DateTime.UtcNow
-            };
-            dataService.UnsortedPlayers.Enqueue(playerRequest);
+                Console.WriteLine("AddPlayerToQueue");
+                PlayerRequest playerRequest = new PlayerRequest
+                {
+                    PlayerId = playerId,
+                    Time = DateTime.UtcNow
+                };
+                dataService.UnsortedPlayers.Enqueue(playerRequest);    
+            }
         }
 
         void TryCreateRoom()
         {
-            if (dataService.UnsortedPlayers.Count >= 10)
+            Console.WriteLine("TryCreateRoom");
+            if (dataService.UnsortedPlayers.Count >= Globals.NumbersOfPlayersInRoom)
             {
-                List<PlayerRequest> playerRequests = new List<PlayerRequest>();
-                for (int i = 0; i < 10; i++)
-                {
-                    if (dataService.UnsortedPlayers.TryDequeue(out var _playerRequest))
-                    {
-                        //номально достали из коллекции
-                        playerRequests.Add(_playerRequest);
-                    }
-                }
+                var playersInfo = GetPlayersFromQueue(Globals.NumbersOfPlayersInRoom);
+                int newRoomNumber = GameRoomIdGenerator.CreateGameRoomNumber();
 
-                List<PlayerInfoForGameRoom> playersInfo = new List<PlayerInfoForGameRoom>();
-                foreach (var request in playerRequests)
+                AddPlayersToTheListOfPlayersInBattle(playersInfo, newRoomNumber);
+                
+                GameRoomData gameRoomData = new GameRoomData
+                {
+                    Players = playersInfo.ToArray(),
+                    GameRoomNumber = newRoomNumber,
+                    GameServerIp = "localhost:48956/"
+                };
+
+                dataService.GameRoomsData.TryAdd(gameRoomData.GameRoomNumber, gameRoomData);
+            }
+        }
+
+        List<PlayerInfoForGameRoom> GetPlayersFromQueue(int numberOfPlayers)
+        {
+            List<PlayerInfoForGameRoom> playersInfo = new List<PlayerInfoForGameRoom>();
+            for (int i = 0; i < numberOfPlayers; i++)
+            {
+                if (dataService.UnsortedPlayers.TryDequeue(out var playerRequest))
                 {
                     var dich = new PlayerInfoForGameRoom
                     {
                         IsBot = false,
-                        PlayerLogin = request.PlayerId
+                        PlayerLogin = playerRequest.PlayerId
                     };
                     playersInfo.Add(dich);
                 }
-
-                GameRoomData gameRoomData = new GameRoomData
-                {
-                    Players = playersInfo,
-                    GameToomNumber = 0
-                };
-
             }
+
+            return playersInfo;
+        }
+        
+        void AddPlayersToTheListOfPlayersInBattle(List<PlayerInfoForGameRoom> players, int gameRoomNumber)
+        {
+            foreach (var player in players)
+            {
+                dataService.PlayersInGameRooms.TryAdd(player.PlayerLogin, gameRoomNumber);
+            }
+        }
+
+        public bool PlayerInQueue(string playerId)
+        {
+            Console.WriteLine($"Обработка запроса от игрока. кол-во в очереди {dataService.UnsortedPlayers.Count}. " +
+                              $"id data = {dataService.Id}");
+            var player = dataService.UnsortedPlayers.SingleOrDefault(request => request.PlayerId == playerId);
+            return  player != null;
+        }
+
+        public bool PlayerInBattle(string playerId)
+        {
+            return dataService.PlayersInGameRooms.ContainsKey(playerId);
+        }
+
+        public GameRoomData GetRoomData(string playerId)
+        {
+            if (PlayerInBattle(playerId))
+            {
+                dataService.PlayersInGameRooms.TryGetValue(playerId, out int roomNumber);
+                dataService.GameRoomsData.TryGetValue(roomNumber, out var roomData);
+                return roomData;
+            }
+            else
+            {
+                throw new Exception($"Игрок с id={playerId} не находится в словаре игроков в бою");
+            }
+        }
+
+        public void DeleteRoom(int roomNumber)
+        {
+            var deletingRoom = dataService.GameRoomsData[roomNumber];
+            
+            //Удалить всех игроков
+            foreach (var player in deletingRoom.Players)
+            {
+                dataService.PlayersInGameRooms.TryRemove(player.PlayerLogin, out var dich);
+            }
+            //Удалить комнату
+            dataService.GameRoomsData.TryRemove(roomNumber, out var sich);
         }
     }
 }

@@ -1,5 +1,9 @@
-﻿using AmoebaGameMatcherServer.Services;
+﻿using System;
+using System.Text;
+using AmoebaGameMatcherServer.Experimental;
+using AmoebaGameMatcherServer.Services;
 using Microsoft.AspNetCore.Mvc;
+using ZeroFormatter;
 
 namespace AmoebaGameMatcherServer.Controllers
 {
@@ -14,24 +18,51 @@ namespace AmoebaGameMatcherServer.Controllers
             this.gameMatcher = gameMatcher;
         }
 
+        /// <summary>
+        /// Метод вызывается из udp сервером при окончании игровой сессии
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
-        public ActionResult<string> RegisterPlayer([FromForm]string playerId)
+        public ActionResult DeleteRoom([FromForm]string secretKey, [FromForm] int roomNumber)
         {
-            gameMatcher.RegisterPlayer(playerId);
+            bool requestCameFromARealGameServer = CheckSecretKey(secretKey);
+            if (!requestCameFromARealGameServer)
+                return new ForbidResult();
+
+            gameMatcher.DeleteRoom(roomNumber);
             return Ok();
         }
         
-        [HttpGet]
-        public ActionResult<string> GetGameRoomData(string playerId)
+        [Route("GetRoomData")]
+        //TODO поменять на get
+        [HttpPost]
+        public ActionResult<string> GetRoomData([FromForm]string playerId)
         {
-            var roomData = gameMatcher.GetGameRoomData(playerId);
-            if (roomData == null)
-                return "Об этом игроке нет информации";
+            if (gameMatcher.PlayerInQueue(playerId))
+            {
+                Console.WriteLine("PlayerInQueue");
+                return StatusCode(1020);
+            }
+            else if (gameMatcher.PlayerInBattle(playerId))
+            {
+                Console.WriteLine("PlayerInBattle");
+                GameRoomData roomData = gameMatcher.GetRoomData(playerId);
+                byte[] data = ZeroFormatterSerializer.Serialize(roomData);
+                Console.WriteLine("Размер массива = "+data.Length);
+                string suka = Convert.ToBase64String(data);
+                return suka;
+            }
+            else
+            {
+                Console.WriteLine("RegisterPlayer");
+                gameMatcher.RegisterPlayer(playerId);
+                return StatusCode(1000);
+            }
+        }
 
-            return "Есть данные об этом игроке";
-            
-            //TODO сериализовать данные о комнате
-            return Ok();
+        private bool CheckSecretKey(string secretKey)
+        {
+            return Globals.secretKey == secretKey;
         }
     }
 }
