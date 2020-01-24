@@ -19,7 +19,7 @@
     },
     "AmoebaGameMatcherServer": {
       "commandName": "Project",
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "api/values",
       "applicationUrl": "https://localhost:53847;http://localhost:53846",
       "environmentVariables": {
