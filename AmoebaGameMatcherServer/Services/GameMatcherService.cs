@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Experimental;
 
 //TODO говнокод
@@ -11,10 +12,12 @@ namespace AmoebaGameMatcherServer.Services
     public class GameMatcherService
     {
         private readonly GameMatcherDataService dataService;
+        private readonly GameServerNegotiatorService gameServerNegotiatorService;
         
-        public GameMatcherService(GameMatcherDataService dataService)
+        public GameMatcherService(GameMatcherDataService dataService, GameServerNegotiatorService gameServerNegotiatorService)
         {
             this.dataService = dataService;
+            this.gameServerNegotiatorService = gameServerNegotiatorService;
         }
 
         public void RegisterPlayer(string playerId)
@@ -42,13 +45,13 @@ namespace AmoebaGameMatcherServer.Services
         {
             Console.WriteLine("TryCreateRoom");
             bool thereIsAFullSetOfPlayers = dataService.UnsortedPlayers.Count >= Globals.NumbersOfPlayersInRoom;
-            if ( thereIsAFullSetOfPlayers) CreateRoom(Globals.NumbersOfPlayersInRoom);
+            if ( thereIsAFullSetOfPlayers) CreateRoom(Globals.NumbersOfPlayersInRoom).Wait();
         }
 
         /// <summary>
         /// Создаёт комнату если есть хотя бы один игрок.
         /// </summary>
-        public void CreateRoom(int maxNumberOfPlayers)
+        public async Task CreateRoom(int maxNumberOfPlayers)
         {
             //Достать игроков maxNumberOfPlayers игрокв
             var playersInfo = GetPlayersFromQueue(maxNumberOfPlayers);
@@ -71,7 +74,8 @@ namespace AmoebaGameMatcherServer.Services
             {
                 Players = playersInfo.ToArray(),
                 GameRoomNumber = newRoomNumber,
-                GameServerIp = "localhost:48956/"
+                GameServerIp = Globals.defaultGameServerIp,
+                GameServerPort = 48956
             };
             
             //Поставить игрокам статус "В бою"
@@ -90,6 +94,9 @@ namespace AmoebaGameMatcherServer.Services
                 //не удалось положить комнату в коллекцию
                 throw new Exception("Не удалось положить комнату в коллекцию");
             }
+            
+            //Отослать данные на игровой сервер
+            await gameServerNegotiatorService.SendRoomDataToGameServerAsync(gameRoomData);
         }
 
         void AddBotsToList(ref List<PlayerInfoForGameRoom> players, int botsCount)
@@ -124,7 +131,6 @@ namespace AmoebaGameMatcherServer.Services
 
             return playersInfo;
         }
-        
         bool TryAddPlayersToTheListOfPlayersInBattle(List<PlayerInfoForGameRoom> players, int gameRoomNumber)
         {
             bool success = true;
@@ -141,19 +147,16 @@ namespace AmoebaGameMatcherServer.Services
             }
             return success;
         }
-
         public bool PlayerInQueue(string playerId)
         {
             Console.WriteLine($"Обработка запроса от игрока. кол-во в очереди {dataService.UnsortedPlayers.Count}. ");
             var player = dataService.UnsortedPlayers.SingleOrDefault(request => request.PlayerId == playerId);
             return  player != null;
         }
-
         public bool PlayerInBattle(string playerId)
         {
             return dataService.PlayersInGameRooms.ContainsKey(playerId);
         }
-
         public GameRoomData GetRoomData(string playerId)
         {
             if (PlayerInBattle(playerId))
@@ -167,7 +170,6 @@ namespace AmoebaGameMatcherServer.Services
                 throw new Exception($"Игрок с id={playerId} не находится в словаре игроков в бою");
             }
         }
-
         public void DeleteRoom(int roomNumber)
         {
             var deletingRoom = dataService.GameRoomsData[roomNumber];

@@ -46,7 +46,7 @@ namespace AmoebaGameMatcherServer.Services
                 if (deltaTime.TotalSeconds > Globals.maxStandbyTimeSec)
                 {
                     //есть человек, который долго ждёт
-                    gameMatcherService.CreateRoom(Globals.NumbersOfPlayersInRoom);
+                    gameMatcherService.CreateRoom(Globals.NumbersOfPlayersInRoom).Wait();
                 }
                 else
                 {
