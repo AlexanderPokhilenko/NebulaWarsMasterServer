@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using ZeroFormatter;
 
 //TODO поменять на get
-//TODO убрать конвертацию в base64
-//TODO убрать костыльные статусы 
 
 namespace AmoebaGameMatcherServer.Controllers
 {
@@ -30,22 +28,32 @@ namespace AmoebaGameMatcherServer.Controllers
             if (gameMatcher.PlayerInQueue(playerId))
             {
                 Console.WriteLine("PlayerInQueue");
-                return StatusCode(1020);
+                GameMatherResponse response = new GameMatherResponse();
+                response.PlayerInQueue = true;
+                byte[] data = ZeroFormatterSerializer.Serialize(response);
+                string stub = Convert.ToBase64String(data);
+                return stub;
             }
             else if (gameMatcher.PlayerInBattle(playerId))
             {
                 Console.WriteLine("PlayerInBattle");
                 GameRoomData roomData = gameMatcher.GetRoomData(playerId);
-                byte[] data = ZeroFormatterSerializer.Serialize(roomData);
-                Console.WriteLine("Размер массива = "+data.Length);
-                string suka = Convert.ToBase64String(data);
-                return suka;
+                GameMatherResponse response = new GameMatherResponse();
+                response.PlayerInBattle = true;
+                response.GameRoomData = roomData;
+                byte[] data = ZeroFormatterSerializer.Serialize(response);
+                string stub = Convert.ToBase64String(data);
+                return stub;
             }
             else
             {
                 Console.WriteLine("RegisterPlayer");
                 gameMatcher.RegisterPlayer(playerId);
-                return StatusCode(1000);
+                GameMatherResponse response = new GameMatherResponse();
+                response.PlayerHasJustBeenRegistered = true;
+                byte[] data = ZeroFormatterSerializer.Serialize(response);
+                string stub = Convert.ToBase64String(data);
+                return stub;
             }
         }
     }

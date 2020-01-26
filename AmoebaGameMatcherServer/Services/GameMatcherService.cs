@@ -74,7 +74,7 @@ namespace AmoebaGameMatcherServer.Services
             {
                 Players = playersInfo.ToArray(),
                 GameRoomNumber = newRoomNumber,
-                GameServerIp = Globals.defaultGameServerIp,
+                GameServerIp = Globals.DefaultGameServerIp,
                 GameServerPort = 48956
             };
             
@@ -96,7 +96,7 @@ namespace AmoebaGameMatcherServer.Services
             }
             
             //Отослать данные на игровой сервер
-            await gameServerNegotiatorService.SendRoomDataToGameServerAsync(gameRoomData);
+            // await gameServerNegotiatorService.SendRoomDataToGameServerAsync(gameRoomData);
         }
 
         void AddBotsToList(ref List<PlayerInfoForGameRoom> players, int botsCount)

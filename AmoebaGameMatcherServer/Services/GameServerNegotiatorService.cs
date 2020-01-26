@@ -17,7 +17,7 @@ namespace AmoebaGameMatcherServer.Services
             if (string.IsNullOrEmpty(data.GameServerIp)) 
                 throw new Exception("При отправке данных на игровой сервер ip не указан");
             
-            string serverIp = data.GameServerIp+":"+Globals.defaultGameServerHttpPort.ToString();
+            string serverIp = data.GameServerIp+":"+Globals.DefaultGameServerHttpPort.ToString();
             byte[] roomData = ZeroFormatterSerializer.Serialize(data);
             Console.WriteLine($"Отправка данных на игровой сервер по ip = {serverIp}");
             HttpContent content = new ByteArrayContent(roomData);    

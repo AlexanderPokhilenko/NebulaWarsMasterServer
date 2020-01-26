@@ -43,7 +43,7 @@ namespace AmoebaGameMatcherServer.Services
             {
                 Console.WriteLine($"oldestRequest.Time = {oldestRequest.Time}");
                 var deltaTime = DateTime.UtcNow - oldestRequest.Time;
-                if (deltaTime.TotalSeconds > Globals.maxStandbyTimeSec)
+                if (deltaTime.TotalSeconds > Globals.MaxStandbyTimeSec)
                 {
                     //есть человек, который долго ждёт
                     gameMatcherService.CreateRoom(Globals.NumbersOfPlayersInRoom).Wait();

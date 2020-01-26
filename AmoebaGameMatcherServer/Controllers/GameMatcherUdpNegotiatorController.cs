@@ -34,7 +34,7 @@ namespace AmoebaGameMatcherServer.Controllers
         
         private bool CheckSecretKey(string secretKey)
         {
-            return Globals.secretKey == secretKey;
+            return Globals.SecretKey == secretKey;
         }
     }
 }
