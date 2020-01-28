@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Experimental;
+using NetworkLibrary.NetworkLibrary.Http;
 
 //TODO говнокод
 //TODO слишком большой класс
@@ -96,7 +97,7 @@ namespace AmoebaGameMatcherServer.Services
             }
             
             //Отослать данные на игровой сервер
-            // await gameServerNegotiatorService.SendRoomDataToGameServerAsync(gameRoomData);
+            await gameServerNegotiatorService.SendRoomDataToGameServerAsync(gameRoomData);
         }
 
         void AddBotsToList(ref List<PlayerInfoForGameRoom> players, int botsCount)
@@ -107,7 +108,7 @@ namespace AmoebaGameMatcherServer.Services
                 var dich = new PlayerInfoForGameRoom
                 {
                     IsBot = true,
-                    PlayerLogin = "Рандомное имя для бота "+ random.Next(1,Int32.MaxValue).ToString() 
+                    PlayerGoogleId = "Рандомное имя для бота "+ random.Next(1,Int32.MaxValue).ToString() 
                 };
                 players.Add(dich);
             }
@@ -123,7 +124,7 @@ namespace AmoebaGameMatcherServer.Services
                     var dich = new PlayerInfoForGameRoom
                     {
                         IsBot = false,
-                        PlayerLogin = playerRequest.PlayerId
+                        PlayerGoogleId = playerRequest.PlayerId
                     };
                     playersInfo.Add(dich);
                 }
@@ -136,7 +137,7 @@ namespace AmoebaGameMatcherServer.Services
             bool success = true;
             foreach (var player in players)
             {
-                if (dataService.PlayersInGameRooms.TryAdd(player.PlayerLogin, gameRoomNumber))
+                if (dataService.PlayersInGameRooms.TryAdd(player.PlayerGoogleId, gameRoomNumber))
                 {
                     
                 }
@@ -177,7 +178,7 @@ namespace AmoebaGameMatcherServer.Services
             //Удалить всех игроков
             foreach (var player in deletingRoom.Players)
             {
-                dataService.PlayersInGameRooms.TryRemove(player.PlayerLogin, out var dich);
+                dataService.PlayersInGameRooms.TryRemove(player.PlayerGoogleId, out var dich);
             }
             //Удалить комнату
             dataService.GameRoomsData.TryRemove(roomNumber, out var sich);
