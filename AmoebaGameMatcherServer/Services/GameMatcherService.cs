@@ -108,7 +108,7 @@ namespace AmoebaGameMatcherServer.Services
                 var dich = new PlayerInfoForGameRoom
                 {
                     IsBot = true,
-                    PlayerGoogleId = "Рандомное имя для бота "+ random.Next(1,Int32.MaxValue).ToString() 
+                    PlayerGoogleId = "Bot_"+ random.Next(1,Int32.MaxValue).ToString() 
                 };
                 players.Add(dich);
             }
