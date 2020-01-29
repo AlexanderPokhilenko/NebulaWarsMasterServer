@@ -80,22 +80,14 @@ namespace AmoebaGameMatcherServer.Services
             };
             
             //Поставить игрокам статус "В бою"
-            bool success = TryAddPlayersToTheListOfPlayersInBattle(playersInfo, newRoomNumber);
+            AddPlayersToTheListOfPlayersInBattle(playersInfo, newRoomNumber);
 
-            if(!success)
-                throw new Exception("Не удалось поставить всем игрокам статус \"В бою\"ю");
-            
             //Положить кооманту в коллекцию
-            if (dataService.GameRoomsData.TryAdd(gameRoomData.GameRoomNumber, gameRoomData))
+            while (!dataService.GameRoomsData.TryAdd(gameRoomData.GameRoomNumber, gameRoomData))
             {
-                //всё отработало нормально
+                
             }
-            else
-            {
-                //не удалось положить комнату в коллекцию
-                throw new Exception("Не удалось положить комнату в коллекцию");
-            }
-            
+
             //Отослать данные на игровой сервер
             await gameServerNegotiatorService.SendRoomDataToGameServerAsync(gameRoomData);
         }
@@ -132,21 +124,15 @@ namespace AmoebaGameMatcherServer.Services
 
             return playersInfo;
         }
-        bool TryAddPlayersToTheListOfPlayersInBattle(List<PlayerInfoForGameRoom> players, int gameRoomNumber)
+        private void AddPlayersToTheListOfPlayersInBattle(List<PlayerInfoForGameRoom> players, int gameRoomNumber)
         {
-            bool success = true;
             foreach (var player in players)
             {
-                if (dataService.PlayersInGameRooms.TryAdd(player.PlayerGoogleId, gameRoomNumber))
+                while (!dataService.PlayersInGameRooms.TryAdd(player.PlayerGoogleId, gameRoomNumber))
                 {
                     
                 }
-                else
-                {
-                    success = false;
-                }
             }
-            return success;
         }
         public bool PlayerInQueue(string playerId)
         {
