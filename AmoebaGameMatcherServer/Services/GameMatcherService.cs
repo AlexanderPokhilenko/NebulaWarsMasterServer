@@ -92,6 +92,7 @@ namespace AmoebaGameMatcherServer.Services
             await gameServerNegotiatorService.SendRoomDataToGameServerAsync(gameRoomData);
         }
 
+        //TODO: возможно, боты вообще должны быть отдельными и, например, без GoogleId
         void AddBotsToList(ref List<PlayerInfoForGameRoom> players, int botsCount)
         {
             Random random = new Random();
@@ -99,9 +100,9 @@ namespace AmoebaGameMatcherServer.Services
             {
                 var dich = new PlayerInfoForGameRoom
                 {
-                    IsBot = true,
-                    PlayerGoogleId = "Bot_"+ random.Next(1,Int32.MaxValue).ToString(),
-                    PlayerTemporaryIdentifierForTheMatch = PlayersTemporaryIdGenerator.GetPlayerId()
+                    //IsBot = true,
+                    GoogleId = "Bot_"+ random.Next(1,int.MaxValue),
+                    TemporaryIdentifier = PlayersTemporaryIdGenerator.GetPlayerId()
                 };
                 players.Add(dich);
             }
@@ -116,9 +117,8 @@ namespace AmoebaGameMatcherServer.Services
                 {
                     var dich = new PlayerInfoForGameRoom
                     {
-                        IsBot = false,
-                        PlayerGoogleId = playerRequest.PlayerId,
-                        PlayerTemporaryIdentifierForTheMatch = PlayersTemporaryIdGenerator.GetPlayerId()
+                        GoogleId = playerRequest.PlayerId,
+                        TemporaryIdentifier = PlayersTemporaryIdGenerator.GetPlayerId()
                     };
                     playersInfo.Add(dich);
                 }
@@ -130,7 +130,7 @@ namespace AmoebaGameMatcherServer.Services
         {
             foreach (var player in players)
             {
-                while (!dataService.PlayersInGameRooms.TryAdd(player.PlayerGoogleId, gameRoomNumber))
+                while (!dataService.PlayersInGameRooms.TryAdd(player.GoogleId, gameRoomNumber))
                 {
                     
                 }
@@ -166,7 +166,7 @@ namespace AmoebaGameMatcherServer.Services
             //Удалить всех игроков
             foreach (var player in deletingRoom.Players)
             {
-                if (dataService.PlayersInGameRooms.TryRemove(player.PlayerGoogleId, out var dich))
+                if (dataService.PlayersInGameRooms.TryRemove(player.GoogleId, out var dich))
                 {
                     
                 }
