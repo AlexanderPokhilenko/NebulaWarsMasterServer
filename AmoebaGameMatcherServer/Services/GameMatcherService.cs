@@ -54,7 +54,7 @@ namespace AmoebaGameMatcherServer.Services
         /// </summary>
         public async Task CreateRoom(int maxNumberOfPlayers)
         {
-            //Достать игроков maxNumberOfPlayers игрокв
+            //Достать maxNumberOfPlayers игроков
             var playersInfo = GetPlayersFromQueue(maxNumberOfPlayers);
             if (playersInfo.Count == 0)
             {
@@ -100,7 +100,8 @@ namespace AmoebaGameMatcherServer.Services
                 var dich = new PlayerInfoForGameRoom
                 {
                     IsBot = true,
-                    PlayerGoogleId = "Bot_"+ random.Next(1,Int32.MaxValue).ToString() 
+                    PlayerGoogleId = "Bot_"+ random.Next(1,Int32.MaxValue).ToString(),
+                    PlayerTemporaryIdentifierForTheMatch = PlayersTemporaryIdGenerator.GetPlayerId()
                 };
                 players.Add(dich);
             }
@@ -116,7 +117,8 @@ namespace AmoebaGameMatcherServer.Services
                     var dich = new PlayerInfoForGameRoom
                     {
                         IsBot = false,
-                        PlayerGoogleId = playerRequest.PlayerId
+                        PlayerGoogleId = playerRequest.PlayerId,
+                        PlayerTemporaryIdentifierForTheMatch = PlayersTemporaryIdGenerator.GetPlayerId()
                     };
                     playersInfo.Add(dich);
                 }
