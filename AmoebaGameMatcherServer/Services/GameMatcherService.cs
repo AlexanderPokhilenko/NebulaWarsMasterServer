@@ -102,7 +102,7 @@ namespace AmoebaGameMatcherServer.Services
                 {
                     //IsBot = true,
                     GoogleId = "Bot_"+ random.Next(1,int.MaxValue),
-                    TemporaryIdentifier = PlayersTemporaryIdGenerator.GetPlayerId()
+                    TemporaryId = PlayersTemporaryIdGenerator.GetPlayerId()
                 };
                 players.Add(dich);
             }
@@ -118,7 +118,7 @@ namespace AmoebaGameMatcherServer.Services
                     var dich = new PlayerInfoForGameRoom
                     {
                         GoogleId = playerRequest.PlayerId,
-                        TemporaryIdentifier = PlayersTemporaryIdGenerator.GetPlayerId()
+                        TemporaryId = PlayersTemporaryIdGenerator.GetPlayerId()
                     };
                     playersInfo.Add(dich);
                 }

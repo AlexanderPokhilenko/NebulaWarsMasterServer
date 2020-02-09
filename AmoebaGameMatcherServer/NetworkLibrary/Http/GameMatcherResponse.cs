@@ -3,7 +3,7 @@
 namespace NetworkLibrary.NetworkLibrary.Http
 {
     [ZeroFormattable]
-    public class GameMatherResponse
+    public class GameMatcherResponse
     {
         [Index(0)] public virtual bool PlayerHasJustBeenRegistered{ get; set; }
         [Index(1)] public virtual bool PlayerInQueue{ get; set; }
