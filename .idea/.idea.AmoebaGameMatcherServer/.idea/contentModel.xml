@@ -22,51 +22,11 @@
         </e>
         <e p="NetworkLibrary" t="Include">
           <e p="Http" t="Include">
-            <e p="GameMatherResponse.cs" t="Include" />
-            <e p="GameMatherResponse.cs.meta" t="Include" />
+            <e p="GameMatcherResponse.cs" t="Include" />
             <e p="GameRoomData.cs" t="Include" />
-            <e p="GameRoomData.cs.meta" t="Include" />
             <e p="GameRoomValidationResult.cs" t="Include" />
-            <e p="GameRoomValidationResult.cs.meta" t="Include" />
             <e p="PlayerInfoForGameRoom.cs" t="Include" />
-            <e p="PlayerInfoForGameRoom.cs.meta" t="Include" />
           </e>
-          <e p="Http.meta" t="Include" />
-          <e p="Udp" t="Include">
-            <e p="PlayerToServer" t="Include">
-              <e p="Ping" t="Include">
-                <e p="PlayerPingMessage.cs" t="Include" />
-                <e p="PlayerPingMessage.cs.meta" t="Include" />
-              </e>
-              <e p="Ping.meta" t="Include" />
-              <e p="UserInputMessage" t="Include">
-                <e p="PlayerInputMessage.cs" t="Include" />
-                <e p="PlayerInputMessage.cs.meta" t="Include" />
-              </e>
-              <e p="UserInputMessage.meta" t="Include" />
-            </e>
-            <e p="PlayerToServer.meta" t="Include" />
-            <e p="ServerToPlayer" t="Include">
-              <e p="PositionMessages" t="Include">
-                <e p="PositionsMessage.cs" t="Include" />
-                <e p="PositionsMessage.cs.meta" t="Include" />
-                <e p="Transform.cs" t="Include" />
-                <e p="Transform.cs.meta" t="Include" />
-              </e>
-              <e p="PositionMessages.meta" t="Include" />
-            </e>
-            <e p="ServerToPlayer.meta" t="Include" />
-            <e p="Utils" t="Include">
-              <e p="Message.cs" t="Include" />
-              <e p="Message.cs.meta" t="Include" />
-              <e p="MessageContainer.cs" t="Include" />
-              <e p="MessageContainer.cs.meta" t="Include" />
-              <e p="MessageFactory.cs" t="Include" />
-              <e p="MessageFactory.cs.meta" t="Include" />
-            </e>
-            <e p="Utils.meta" t="Include" />
-          </e>
-          <e p="Udp.meta" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -91,7 +51,6 @@
         <e p="Utils" t="Include">
           <e p="GameRoomIdGenerator.cs" t="Include" />
           <e p="Globals.cs" t="Include" />
-          <e p="PlayerRequest.cs" t="Include" />
           <e p="PlayersTemporaryIdGenerator.cs" t="Include" />
         </e>
       </e>

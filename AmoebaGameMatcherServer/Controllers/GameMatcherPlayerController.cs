@@ -20,6 +20,23 @@ namespace AmoebaGameMatcherServer.Controllers
             this.gameMatcher = gameMatcher;
         }
 
+        [Route("DeleteFromQueue")]
+        [HttpPost]
+        public ActionResult<string> DeleteFromQueue([FromForm]string playerId)
+        {
+            if (string.IsNullOrEmpty(playerId))
+                return BadRequest();
+
+            if (gameMatcher.TryRemovePlayerFromQueue(playerId))
+            {
+                return Ok();
+            }
+            else
+            {
+                return StatusCode(409);
+            }
+        }
+        
         [Route("GetRoomData")]
         [HttpPost]
         public ActionResult<string> GetRoomData([FromForm]string playerId)
@@ -55,6 +72,4 @@ namespace AmoebaGameMatcherServer.Controllers
             }
         }
     }
-
-    
 }

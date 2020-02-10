@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Experimental;
-
-//TODO async void что с ним делать?
-//TODO говнокод
-//TODO дублирование кода
 
 namespace AmoebaGameMatcherServer.Services
 {
     public class GameMatcherForceRoomCreator
     {
         private readonly GameMatcherDataService dataService;
-        private GameMatcherService gameMatcherService;
+        private readonly GameMatcherService gameMatcherService;
         
         public GameMatcherForceRoomCreator(GameMatcherDataService dataService, GameMatcherService gameMatcherService)
         {
@@ -33,32 +30,24 @@ namespace AmoebaGameMatcherServer.Services
                 await Task.Delay(1000);
                 TryCreateRoom();
             }
+            // ReSharper disable once FunctionNeverReturns
         }
 
         private void TryCreateRoom()
         {
             Console.WriteLine("Попытка собрать комнату принудительно.");
-
-            if (dataService.UnsortedPlayers.TryPeek(out var oldestRequest))
+            if (dataService.UnsortedPlayers.Count > 0)
             {
-                Console.WriteLine($"oldestRequest.Time = {oldestRequest.Time}");
-                var deltaTime = DateTime.UtcNow - oldestRequest.Time;
+                DateTime oldestRequestTime = dataService.UnsortedPlayers.Min(r => r.Value);
+           
+                Console.WriteLine($"oldestRequest.Time = {oldestRequestTime}");
+                var deltaTime = DateTime.UtcNow - oldestRequestTime;
                 if (deltaTime.TotalSeconds > Globals.MaxStandbyTimeSec)
                 {
                     //есть человек, который долго ждёт
                     gameMatcherService.CreateRoom(Globals.NumbersOfPlayersInRoom).Wait();
                 }
-                else
-                {
-                    //самое большое время ожидания в очереди меньше n сек
-                }
-            }
-            else
-            {
-                //коллекция пуста
             }
         }
-
-        
     }
 }

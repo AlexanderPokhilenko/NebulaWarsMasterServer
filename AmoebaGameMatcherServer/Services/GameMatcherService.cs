@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Experimental;
+using Microsoft.CodeAnalysis;
 using NetworkLibrary.NetworkLibrary.Http;
 
-//TODO говнокод
 //TODO слишком большой класс
 
 namespace AmoebaGameMatcherServer.Services
@@ -20,25 +21,24 @@ namespace AmoebaGameMatcherServer.Services
             this.dataService = dataService;
             this.gameServerNegotiatorService = gameServerNegotiatorService;
         }
-
         public void RegisterPlayer(string playerId)
         {
             AddPlayerToQueue(playerId);
             TryCreateRoom();
         }
 
-
-        void AddPlayerToQueue(string playerId)
+        public bool TryRemovePlayerFromQueue(string playerId)
+        {
+            Console.WriteLine("Удаление игрока с id = "+playerId + " из очереди.");
+            return dataService.UnsortedPlayers.TryRemove(playerId, out DateTime value);
+        }
+        
+        private void AddPlayerToQueue(string playerId)
         {
             if (!PlayerInQueue(playerId))
             {
                 Console.WriteLine("AddPlayerToQueue");
-                PlayerRequest playerRequest = new PlayerRequest
-                {
-                    PlayerId = playerId,
-                    Time = DateTime.UtcNow
-                };
-                dataService.UnsortedPlayers.Enqueue(playerRequest);    
+                dataService.UnsortedPlayers.TryAdd(playerId, DateTime.UtcNow);    
             }
         }
 
@@ -113,14 +113,20 @@ namespace AmoebaGameMatcherServer.Services
             List<PlayerInfoForGameRoom> playersInfo = new List<PlayerInfoForGameRoom>();
             for (int i = 0; i < numberOfPlayers; i++)
             {
-                if (dataService.UnsortedPlayers.TryDequeue(out var playerRequest))
+                var (playerId, requestTime) = dataService.UnsortedPlayers.Last();
+                
+                if (dataService.UnsortedPlayers.TryRemove(playerId, out var playerRequest))
                 {
                     var dich = new PlayerInfoForGameRoom
                     {
-                        GoogleId = playerRequest.PlayerId,
+                        GoogleId = playerId,
                         TemporaryId = PlayersTemporaryIdGenerator.GetPlayerId()
                     };
                     playersInfo.Add(dich);
+                }
+                else
+                {
+                    throw new Exception("Не удалось извлечь игрока из очереди. Ключ = "+playerId);
                 }
             }
 
@@ -130,17 +136,13 @@ namespace AmoebaGameMatcherServer.Services
         {
             foreach (var player in players)
             {
-                while (!dataService.PlayersInGameRooms.TryAdd(player.GoogleId, gameRoomNumber))
-                {
-                    
-                }
+                dataService.PlayersInGameRooms.TryAdd(player.GoogleId, gameRoomNumber);
             }
         }
         public bool PlayerInQueue(string playerId)
         {
             Console.WriteLine($"Обработка запроса от игрока. кол-во в очереди {dataService.UnsortedPlayers.Count}. ");
-            var player = dataService.UnsortedPlayers.SingleOrDefault(request => request.PlayerId == playerId);
-            return  player != null;
+            return dataService.UnsortedPlayers.ContainsKey(playerId);
         }
         public bool PlayerInBattle(string playerId)
         {
