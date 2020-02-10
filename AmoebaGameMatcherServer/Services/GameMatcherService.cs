@@ -113,20 +113,23 @@ namespace AmoebaGameMatcherServer.Services
             List<PlayerInfoForGameRoom> playersInfo = new List<PlayerInfoForGameRoom>();
             for (int i = 0; i < numberOfPlayers; i++)
             {
-                var (playerId, requestTime) = dataService.UnsortedPlayers.Last();
-                
-                if (dataService.UnsortedPlayers.TryRemove(playerId, out var playerRequest))
+                var (playerId, requestTime) = dataService.UnsortedPlayers.LastOrDefault();
+
+                if (playerId != null)
                 {
-                    var dich = new PlayerInfoForGameRoom
+                    if (dataService.UnsortedPlayers.TryRemove(playerId, out var playerRequest))
                     {
-                        GoogleId = playerId,
-                        TemporaryId = PlayersTemporaryIdGenerator.GetPlayerId()
-                    };
-                    playersInfo.Add(dich);
-                }
-                else
-                {
-                    throw new Exception("Не удалось извлечь игрока из очереди. Ключ = "+playerId);
+                        var dich = new PlayerInfoForGameRoom
+                        {
+                            GoogleId = playerId,
+                            TemporaryId = PlayersTemporaryIdGenerator.GetPlayerId()
+                        };
+                        playersInfo.Add(dich);
+                    }
+                    else
+                    {
+                        throw new Exception("Не удалось извлечь игрока из очереди. Ключ = "+playerId);
+                    }   
                 }
             }
 
@@ -186,6 +189,16 @@ namespace AmoebaGameMatcherServer.Services
             {
                 throw new Exception("Не удалось удалить комнату");
             }
+        }
+
+        public int GetNumberOfPlayersInQueue()
+        {
+            return dataService.UnsortedPlayers.Count;
+        }
+
+        public int GetNumberOfPlayersInBattles()
+        {
+            return dataService.PlayersInGameRooms.Count;
         }
     }
 }
