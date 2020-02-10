@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Zenit\.Rider2019.3\config\consoles\db" t="IncludeRecursive" />
+    <e p="C:\Users\Zenit\.Rider2019.3\config\extensions" t="IncludeRecursive" />
+    <e p="C:\Users\Zenit\.Rider2019.3\config\scratches" t="IncludeRecursive" />
+    <e p="C:\Users\Zenit\.Rider2019.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Zenit\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_AmoebaGameMatcherServer.-161366829.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Zenit\RiderProjects\AmoebaGameMatcherServer" t="IncludeFlat">
+      <e p="AmoebaGameMatcherServer" t="IncludeRecursive">
+        <e p="AmoebaGameMatcherServer.csproj" t="IncludeRecursive" />
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Controllers" t="Include">
+          <e p="GameMatcherPlayerController.cs" t="Include" />
+          <e p="GameServerController.cs" t="Include" />
+          <e p="GooglePurchasesValidationController.cs" t="Include" />
+        </e>
+        <e p="Experimental" t="Include">
+          <e p="GooglePlayApiService.cs" t="Include" />
+        </e>
+        <e p="NetworkLibrary" t="Include">
+          <e p="Http" t="Include">
+            <e p="GameMatherResponse.cs" t="Include" />
+            <e p="GameMatherResponse.cs.meta" t="Include" />
+            <e p="GameRoomData.cs" t="Include" />
+            <e p="GameRoomData.cs.meta" t="Include" />
+            <e p="GameRoomValidationResult.cs" t="Include" />
+            <e p="GameRoomValidationResult.cs.meta" t="Include" />
+            <e p="PlayerInfoForGameRoom.cs" t="Include" />
+            <e p="PlayerInfoForGameRoom.cs.meta" t="Include" />
+          </e>
+          <e p="Http.meta" t="Include" />
+          <e p="Udp" t="Include">
+            <e p="PlayerToServer" t="Include">
+              <e p="Ping" t="Include">
+                <e p="PlayerPingMessage.cs" t="Include" />
+                <e p="PlayerPingMessage.cs.meta" t="Include" />
+              </e>
+              <e p="Ping.meta" t="Include" />
+              <e p="UserInputMessage" t="Include">
+                <e p="PlayerInputMessage.cs" t="Include" />
+                <e p="PlayerInputMessage.cs.meta" t="Include" />
+              </e>
+              <e p="UserInputMessage.meta" t="Include" />
+            </e>
+            <e p="PlayerToServer.meta" t="Include" />
+            <e p="ServerToPlayer" t="Include">
+              <e p="PositionMessages" t="Include">
+                <e p="PositionsMessage.cs" t="Include" />
+                <e p="PositionsMessage.cs.meta" t="Include" />
+                <e p="Transform.cs" t="Include" />
+                <e p="Transform.cs.meta" t="Include" />
+              </e>
+              <e p="PositionMessages.meta" t="Include" />
+            </e>
+            <e p="ServerToPlayer.meta" t="Include" />
+            <e p="Utils" t="Include">
+              <e p="Message.cs" t="Include" />
+              <e p="Message.cs.meta" t="Include" />
+              <e p="MessageContainer.cs" t="Include" />
+              <e p="MessageContainer.cs.meta" t="Include" />
+              <e p="MessageFactory.cs" t="Include" />
+              <e p="MessageFactory.cs.meta" t="Include" />
+            </e>
+            <e p="Utils.meta" t="Include" />
+          </e>
+          <e p="Udp.meta" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.2" t="Include">
+              <e p="AmoebaGameMatcherServer.AssemblyInfo.cs" t="Include" />
+              <e p="AmoebaGameMatcherServer.RazorAssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="Services" t="Include">
+          <e p="GameMatcherDataService.cs" t="Include" />
+          <e p="GameMatcherForceRoomCreator.cs" t="Include" />
+          <e p="GameMatcherService.cs" t="Include" />
+          <e p="GameServerNegotiatorService.cs" t="Include" />
+        </e>
+        <e p="someDich.p12" t="Include" />
+        <e p="Startup.cs" t="Include" />
+        <e p="Utils" t="Include">
+          <e p="GameRoomIdGenerator.cs" t="Include" />
+          <e p="Globals.cs" t="Include" />
+          <e p="PlayerRequest.cs" t="Include" />
+          <e p="PlayersTemporaryIdGenerator.cs" t="Include" />
+        </e>
+      </e>
+      <e p="AmoebaGameMatcherServer.sln" t="IncludeFlat" />
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
