@@ -30,8 +30,7 @@ namespace AmoebaGameMatcherServer.Controllers
             if (gameMatcher.PlayerInQueue(playerId))
             {
                 Console.WriteLine("PlayerInQueue");
-                GameMatherResponse response = new GameMatherResponse();
-                response.PlayerInQueue = true;
+                GameMatcherResponse response = new GameMatcherResponse {PlayerInQueue = true};
                 byte[] data = ZeroFormatterSerializer.Serialize(response);
                 string stub = Convert.ToBase64String(data);
                 return stub;
@@ -40,9 +39,7 @@ namespace AmoebaGameMatcherServer.Controllers
             {
                 Console.WriteLine("PlayerInBattle");
                 GameRoomData roomData = gameMatcher.GetRoomData(playerId);
-                GameMatherResponse response = new GameMatherResponse();
-                response.PlayerInBattle = true;
-                response.GameRoomData = roomData;
+                GameMatcherResponse response = new GameMatcherResponse {PlayerInBattle = true, GameRoomData = roomData};
                 byte[] data = ZeroFormatterSerializer.Serialize(response);
                 string stub = Convert.ToBase64String(data);
                 return stub;
@@ -51,8 +48,7 @@ namespace AmoebaGameMatcherServer.Controllers
             {
                 Console.WriteLine("RegisterPlayer");
                 gameMatcher.RegisterPlayer(playerId);
-                GameMatherResponse response = new GameMatherResponse();
-                response.PlayerHasJustBeenRegistered = true;
+                GameMatcherResponse response = new GameMatcherResponse {PlayerHasJustBeenRegistered = true};
                 byte[] data = ZeroFormatterSerializer.Serialize(response);
                 string stub = Convert.ToBase64String(data);
                 return stub;
