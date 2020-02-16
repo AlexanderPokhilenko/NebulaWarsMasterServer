@@ -20,6 +20,24 @@ namespace AmoebaGameMatcherServer.Controllers
             this.gameMatcher = gameMatcher;
         }
 
+        [Route("ExitFromBattle")]
+        [HttpPost]
+        public ActionResult ExitFromBattle([FromForm]string playerId)
+        {
+            if (string.IsNullOrEmpty(playerId))
+                return BadRequest();
+
+            if (gameMatcher.TryRemovePlayerFromBattle(playerId))
+            {
+                Console.WriteLine("Игрок успешно удалён из комнаты.\n\n\n\n\n\n\n\n");
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+        
         [Route("DeleteFromQueue")]
         [HttpPost]
         public ActionResult<string> DeleteFromQueue([FromForm]string playerId)

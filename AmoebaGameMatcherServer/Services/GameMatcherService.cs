@@ -200,5 +200,24 @@ namespace AmoebaGameMatcherServer.Services
         {
             return dataService.PlayersInGameRooms.Count;
         }
+
+        public bool TryRemovePlayerFromBattle(string playerId)
+        {
+            if (dataService.PlayersInGameRooms.ContainsKey(playerId))
+            {
+                if (dataService.PlayersInGameRooms.Remove(playerId, out int roomId))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
