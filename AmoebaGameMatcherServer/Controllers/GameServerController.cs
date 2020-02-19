@@ -1,4 +1,5 @@
-﻿using AmoebaGameMatcherServer.Experimental;
+﻿using System;
+using AmoebaGameMatcherServer.Experimental;
 using AmoebaGameMatcherServer.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,23 +21,15 @@ namespace AmoebaGameMatcherServer.Controllers
         /// <summary>
         /// Метод вызывается гейм сервером при окончании игровой сессии
         /// </summary>
+        [Route("DeleteRoom")]
         [HttpDelete]
-        public ActionResult DeleteRoom([FromForm]string secretKey, [FromForm] int roomNumber)
+        public ActionResult DeleteRoom([FromQuery] int gameRoomId)
         {
-            // bool requestCameFromARealGameServer = CheckSecretKey(secretKey);
-            // if (!requestCameFromARealGameServer)
-            //     return new ForbidResult();
-
-            if(roomNumber == 0)
+            if(gameRoomId == 0)
                 return new BadRequestResult();
 
-            gameMatcher.DeleteRoom(roomNumber);
+            gameMatcher.DeleteRoom(gameRoomId);
             return Ok();
-        }
-        
-        private bool CheckSecretKey(string secretKey)
-        {
-            return Globals.SecretKey == secretKey;
         }
     }
 }

@@ -169,10 +169,12 @@ namespace AmoebaGameMatcherServer.Services
         {
             var deletingRoom = dataService.GameRoomsData[roomNumber];
             
+            Console.WriteLine("Старт удаления игроков");
             //Удалить всех игроков
             foreach (var player in deletingRoom.Players)
             {
-                if (dataService.PlayersInGameRooms.TryRemove(player.GoogleId, out var dich))
+                Console.WriteLine("Удаление игрока с id = "+player.GoogleId);
+                if (dataService.PlayersInGameRooms.TryRemove(player.GoogleId, out var roomNum))
                 {
                     
                 }
@@ -181,10 +183,11 @@ namespace AmoebaGameMatcherServer.Services
                     throw new Exception("Не удалось удалить игрока");
                 }
             }
+            Console.WriteLine("Старт удаления комнаты");
             //Удалить комнату
-            if (dataService.GameRoomsData.TryRemove(roomNumber, out var sich))
+            if (dataService.GameRoomsData.TryRemove(roomNumber, out var gameRoomData))
             {
-                
+                Console.WriteLine("Комната успешно удалена");
             }
             else
             {
