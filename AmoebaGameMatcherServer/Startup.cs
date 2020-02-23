@@ -41,7 +41,7 @@ namespace AmoebaGameMatcherServer
             }
 
             forceRoomCreator.StartPeriodicCreationInAnotherThread();
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             app.UseMvc();
         }
     }
