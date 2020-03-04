@@ -7,8 +7,37 @@
     <e p="C:\Users\Zenit\.Rider2019.3\system\extResources" t="IncludeRecursive" />
     <e p="C:\Users\Zenit\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_AmoebaGameMatcherServer.-161366829.00" t="ExcludeRecursive" />
     <e p="C:\Users\Zenit\RiderProjects\AmoebaGameMatcherServer" t="IncludeFlat">
-      <e p="AmoebaGameMatcherServer" t="IncludeRecursive">
-        <e p="AmoebaGameMatcherServer.csproj" t="IncludeRecursive" />
+      <e p=".git\info\exclude" t="IncludeRecursive" />
+      <e p="AmoebaGameMatcherServer.sln" t="IncludeFlat" />
+      <e p="DataLayer" t="IncludeRecursive">
+        <e p="ApplicationDbContext.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="DataLayer.csproj" t="IncludeRecursive" />
+        <e p="DbConfig.cs" t="Include" />
+        <e p="DbContextFactory.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.2" t="Include">
+              <e p="DataLayer.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Tables" t="Include">
+          <e p="Account.cs" t="Include" />
+          <e p="AccountInMatch.cs" t="Include" />
+          <e p="Event.cs" t="Include" />
+          <e p="EventType.cs" t="Include" />
+          <e p="FinishedMatch.cs" t="Include" />
+          <e p="MatchResult.cs" t="Include" />
+          <e p="RunningMatch.cs" t="Include" />
+          <e p="Warship.cs" t="Include" />
+          <e p="WarshipType.cs" t="Include" />
+        </e>
+        <e p="TablesConfiguration" t="Include">
+          <e p="WarshipsConfiguration.cs" t="Include" />
+        </e>
+      </e>
+      <e p="MatchmakerServer" t="IncludeRecursive">
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
@@ -20,6 +49,7 @@
         <e p="Experimental" t="Include">
           <e p="GooglePlayApiService.cs" t="Include" />
         </e>
+        <e p="MatchmakerServer.csproj" t="IncludeRecursive" />
         <e p="NetworkLibrary" t="Include">
           <e p="Http" t="Include">
             <e p="GameMatcherResponse.cs" t="Include" />
@@ -31,8 +61,8 @@
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp2.2" t="Include">
-              <e p="AmoebaGameMatcherServer.AssemblyInfo.cs" t="Include" />
-              <e p="AmoebaGameMatcherServer.RazorAssemblyInfo.cs" t="Include" />
+              <e p="MatchmakerServer.AssemblyInfo.cs" t="Include" />
+              <e p="MatchmakerServer.RazorAssemblyInfo.cs" t="Include" />
             </e>
           </e>
         </e>
@@ -54,7 +84,6 @@
           <e p="PlayersTemporaryIdGenerator.cs" t="Include" />
         </e>
       </e>
-      <e p="AmoebaGameMatcherServer.sln" t="IncludeFlat" />
       <e p="packages" t="ExcludeRecursive" />
     </e>
   </component>

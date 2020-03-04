@@ -174,14 +174,7 @@ namespace AmoebaGameMatcherServer.Services
             foreach (var player in deletingRoom.Players)
             {
                 Console.WriteLine("Удаление игрока с id = "+player.GoogleId);
-                if (dataService.PlayersInGameRooms.TryRemove(player.GoogleId, out var roomNum))
-                {
-                    
-                }
-                else
-                {
-                    throw new Exception("Не удалось удалить игрока");
-                }
+                dataService.PlayersInGameRooms.TryRemove(player.GoogleId, out var roomNum);
             }
             Console.WriteLine("Старт удаления комнаты");
             //Удалить комнату
