@@ -25,7 +25,7 @@ namespace AmoebaGameMatcherServer
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             
-            string connectionString = new DbConfig().GetConnectionString();
+            string connectionString = DbConfigIgnore.GetConnectionString();
 
             services
                 .AddEntityFrameworkNpgsql()
