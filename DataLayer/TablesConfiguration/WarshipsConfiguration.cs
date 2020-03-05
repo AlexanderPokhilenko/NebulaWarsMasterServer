@@ -13,14 +13,4 @@ namespace DataLayer.TablesConfiguration
                 .IsUnique();
         }
     }
-    
-    public class MatchResultsConfiguration:IEntityTypeConfiguration<MatchResult>
-    {
-        public void Configure(EntityTypeBuilder<MatchResult> builder)
-        {
-            builder
-                .HasIndex(r => new { r.AccountId, r.MatchId })
-                .IsUnique();
-        }
-    }
 }

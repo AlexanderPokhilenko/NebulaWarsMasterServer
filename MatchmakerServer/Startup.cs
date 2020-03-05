@@ -23,22 +23,17 @@ namespace AmoebaGameMatcherServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            
             string connectionString = DbConfigIgnore.GetConnectionString();
-
             services
                 .AddEntityFrameworkNpgsql()
                 .AddDbContext<ApplicationDbContext>(opt => opt.UseNpgsql(connectionString))
                 .BuildServiceProvider();
-            
             services.AddSingleton<GameMatcherDataService>();
             services.AddSingleton<GameMatcherService>();
             services.AddSingleton<GameMatcherForceRoomCreator>();
             services.AddSingleton<GameServerNegotiatorService>();
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, GameMatcherForceRoomCreator forceRoomCreator, ApplicationDbContext dbContext)
         {
             if (env.IsDevelopment())
@@ -54,9 +49,6 @@ namespace AmoebaGameMatcherServer
             forceRoomCreator.StartPeriodicCreationInAnotherThread();
             // app.UseHttpsRedirection();
             app.UseMvc();
-
-            int count = dbContext.Accounts.CountAsync().Result;
-            Console.WriteLine("account count = "+count);
         }
     }
 }

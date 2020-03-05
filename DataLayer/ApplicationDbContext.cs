@@ -1,6 +1,7 @@
 ﻿using DataLayer.Tables;
 using DataLayer.TablesConfiguration;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 namespace DataLayer
 {

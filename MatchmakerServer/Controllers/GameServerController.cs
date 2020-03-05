@@ -1,6 +1,4 @@
-﻿using System;
-using AmoebaGameMatcherServer.Experimental;
-using AmoebaGameMatcherServer.Services;
+﻿using AmoebaGameMatcherServer.Services;
 using Microsoft.AspNetCore.Mvc;
 
 //TODO добавить secretKey проверку

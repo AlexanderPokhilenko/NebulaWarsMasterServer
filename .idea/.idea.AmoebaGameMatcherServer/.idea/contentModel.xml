@@ -34,6 +34,7 @@
           <e p="WarshipType.cs" t="Include" />
         </e>
         <e p="TablesConfiguration" t="Include">
+          <e p="MatchResultsConfiguration.cs" t="Include" />
           <e p="WarshipsConfiguration.cs" t="Include" />
         </e>
       </e>

@@ -17,11 +17,13 @@ namespace AmoebaGameMatcherServer.Services
         private readonly GameMatcherDataService dataService;
         private readonly GameServerNegotiatorService gameServerNegotiatorService;
         
-        public GameMatcherService(GameMatcherDataService dataService, GameServerNegotiatorService gameServerNegotiatorService)
+        public GameMatcherService(GameMatcherDataService dataService, 
+            GameServerNegotiatorService gameServerNegotiatorService)
         {
             this.dataService = dataService;
             this.gameServerNegotiatorService = gameServerNegotiatorService;
         }
+        
         public void RegisterPlayer(string playerId)
         {
             AddPlayerToQueue(playerId);
@@ -47,7 +49,7 @@ namespace AmoebaGameMatcherServer.Services
         {
             Console.WriteLine("TryCreateRoom");
             bool thereIsAFullSetOfPlayers = dataService.UnsortedPlayers.Count >= Globals.NumbersOfPlayersInRoom;
-            if ( thereIsAFullSetOfPlayers) CreateRoom(Globals.NumbersOfPlayersInRoom).Wait();
+            if (thereIsAFullSetOfPlayers) CreateRoom(Globals.NumbersOfPlayersInRoom).Wait();
         }
 
         /// <summary>

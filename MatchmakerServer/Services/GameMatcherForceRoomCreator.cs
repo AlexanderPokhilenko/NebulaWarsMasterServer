@@ -40,7 +40,6 @@ namespace AmoebaGameMatcherServer.Services
             if (dataService.UnsortedPlayers.Count > 0)
             {
                 DateTime oldestRequestTime = dataService.UnsortedPlayers.Min(r => r.Value);
-           
                 Console.WriteLine($"oldestRequest.Time = {oldestRequestTime}");
                 var deltaTime = DateTime.UtcNow - oldestRequestTime;
                 if (deltaTime.TotalSeconds > Globals.MaxStandbyTimeSec)
