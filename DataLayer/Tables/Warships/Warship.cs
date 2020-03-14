@@ -10,11 +10,12 @@ namespace DataLayer.Tables
         
         [Required] public int AccountId { get; set; }
         [Required] public int WarshipTypeId { get; set; }
-        [Required] public int WarshipExperience { get; set; }
         
-        [Required] public int WarshipLevel { get; set; }
-        
-        [ForeignKey("AccountId")] public Account Account { get; set; }
-        [ForeignKey("WarshipId")] public WarshipType WarshipType { get; set; }
+        [Required] public int WarshipCombatPowerLevel { get; set; }
+        [Required] public int WarshipCombatPowerValue { get; set; }
+        [Required] public int WarshipRating { get; set; }
+
+        [ForeignKey(nameof(AccountId))] public Account Account { get; set; }
+        [ForeignKey(nameof(WarshipTypeId))] public WarshipType WarshipType { get; set; }
     }
 }

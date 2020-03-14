@@ -13,18 +13,31 @@ namespace DataLayer
         }
         
         public DbSet<Account> Accounts { get; set; }
-        public DbSet<Warship> AccountWarships { get; set; }
+        public DbSet<Warship> Warships { get; set; }
         public DbSet<WarshipType> WarshipTypes { get; set; }
-        public DbSet<Event> Events{ get; set; }
-        public DbSet<EventType> EventTypes { get; set; }
         public DbSet<FinishedMatch> FinishedMatches { get; set; }
-        public DbSet<AccountInMatch> AccountsInMatches{ get; set; }
-        public DbSet<RunningMatch> RunningMatches{ get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new WarshipsConfiguration());
             modelBuilder.ApplyConfiguration(new MatchResultsConfiguration());
+            modelBuilder.ApplyConfiguration(new WarshipTypeConfiguration());
+            
+            modelBuilder.Entity<Warship>()
+                .HasOne(w => w.Account)
+                .WithMany(a => a.Warships);
+            
+
+            modelBuilder.Entity<Account>()
+                .HasIndex(account => account.ServiceId)
+                .IsUnique();
+            
+            
+            modelBuilder.Entity<Warship>()
+                .HasOne(warship => warship.WarshipType)
+                .WithMany(warshipType => warshipType.Warships)
+                .HasForeignKey(warship => warship.WarshipTypeId);
+
         }
     }
 }

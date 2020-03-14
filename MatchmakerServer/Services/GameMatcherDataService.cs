@@ -11,13 +11,20 @@ namespace AmoebaGameMatcherServer.Services
         // id игрока + номер его комнаты
         public readonly ConcurrentDictionary<string, int> PlayersInGameRooms;
         // id игрока + время добавления в словарь
-        public readonly ConcurrentDictionary<string, DateTime> UnsortedPlayers;
+        public readonly ConcurrentDictionary<string, PlayerInfo> UnsortedPlayers;
 
         public GameMatcherDataService()
         {
             GameRoomsData = new ConcurrentDictionary<int, GameRoomData>();
             PlayersInGameRooms = new ConcurrentDictionary<string, int>();
-            UnsortedPlayers = new ConcurrentDictionary<string, DateTime>();
+            UnsortedPlayers = new ConcurrentDictionary<string, PlayerInfo>();
         }
+    }
+
+    public class PlayerInfo
+    {
+        public string PlayerId;
+        public DateTime DictionaryEntryTime;
+        public WarshipInfo WarshipInfo;
     }
 }

@@ -2,9 +2,9 @@
 
 namespace DataLayer
 {
-    public class DbContextFactory
+    public static class DbContextFactory
     {
-        public ApplicationDbContext CreateDbContext()
+        public static ApplicationDbContext CreateDbContext()
         {
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
             var connectionString = DbConfigIgnore.GetConnectionString();

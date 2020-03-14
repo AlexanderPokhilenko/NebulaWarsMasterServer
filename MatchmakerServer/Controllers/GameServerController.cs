@@ -19,7 +19,7 @@ namespace AmoebaGameMatcherServer.Controllers
         /// <summary>
         /// Метод вызывается гейм сервером при окончании игровой сессии
         /// </summary>
-        [Route("DeleteRoom")]
+        [Route(nameof(DeleteRoom))]
         [HttpDelete]
         public ActionResult DeleteRoom([FromQuery] int gameRoomId)
         {

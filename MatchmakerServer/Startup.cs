@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services;
 using DataLayer;
+using DataLayer.Tables;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -23,11 +26,21 @@ namespace AmoebaGameMatcherServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            
+            
+            
             string connectionString = DbConfigIgnore.GetConnectionString();
             services
                 .AddEntityFrameworkNpgsql()
                 .AddDbContext<ApplicationDbContext>(opt => opt.UseNpgsql(connectionString))
                 .BuildServiceProvider();
+            
+            
+            
+            services.AddTransient<PlayerLobbyInitializeService>();
+            services.AddTransient<WarshipInfoHelper>();
+            
+            
             services.AddSingleton<GameMatcherDataService>();
             services.AddSingleton<GameMatcherService>();
             services.AddSingleton<GameMatcherForceRoomCreator>();
@@ -46,6 +59,8 @@ namespace AmoebaGameMatcherServer
                 app.UseHsts();
             }
 
+            
+            
             forceRoomCreator.StartPeriodicCreationInAnotherThread();
             // app.UseHttpsRedirection();
             app.UseMvc();

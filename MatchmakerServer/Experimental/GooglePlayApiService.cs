@@ -46,7 +46,7 @@
 //             {
 //                 foreach (DirectoryList.ItemsData api in result.Items)
 //                 {
-//                     Console.WriteLine(api.Id + " - " + api.Title);
+//                     Console.WriteLine(api.PrefabName + " - " + api.Title);
 //                 }
 //             }
 //         }

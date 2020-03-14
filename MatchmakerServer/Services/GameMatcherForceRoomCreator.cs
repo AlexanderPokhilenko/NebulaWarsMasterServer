@@ -29,23 +29,26 @@ namespace AmoebaGameMatcherServer.Services
             while (true)
             {
                 await Task.Delay(1000);
-                TryCreateRoom();
+                await TryCreateRoom();
             }
             // ReSharper disable once FunctionNeverReturns
         }
 
-        private void TryCreateRoom()
+        private async Task TryCreateRoom()
         {
             Console.WriteLine("Попытка собрать комнату принудительно.");
             if (dataService.UnsortedPlayers.Count > 0)
             {
-                DateTime oldestRequestTime = dataService.UnsortedPlayers.Min(r => r.Value);
+                DateTime oldestRequestTime = dataService.UnsortedPlayers
+                    .Select(pair => pair.Value.DictionaryEntryTime)
+                    .Min(dateTime => dateTime);
+                
                 Console.WriteLine($"oldestRequest.Time = {oldestRequestTime}");
                 var deltaTime = DateTime.UtcNow - oldestRequestTime;
                 if (deltaTime.TotalSeconds > Globals.MaxStandbyTimeSec)
                 {
                     //есть человек, который долго ждёт
-                    gameMatcherService.CreateRoom(Globals.NumbersOfPlayersInRoom).Wait();
+                    await gameMatcherService.CreateRoomAsync(Globals.NumbersOfPlayersInRoom);
                 }
             }
         }

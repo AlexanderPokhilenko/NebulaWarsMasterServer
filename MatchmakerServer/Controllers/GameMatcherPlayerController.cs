@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services;
 using Microsoft.AspNetCore.Mvc;
 using NetworkLibrary.NetworkLibrary.Http;
@@ -20,7 +21,7 @@ namespace AmoebaGameMatcherServer.Controllers
             this.gameMatcher = gameMatcher;
         }
 
-        [Route("ExitFromBattle")]
+        [Route(nameof(ExitFromBattle))]
         [HttpPost]
         public ActionResult ExitFromBattle([FromForm]string playerId)
         {
@@ -29,7 +30,6 @@ namespace AmoebaGameMatcherServer.Controllers
 
             if (gameMatcher.TryRemovePlayerFromBattle(playerId))
             {
-                Console.WriteLine("Игрок успешно удалён из комнаты.\n\n\n\n\n\n\n\n");
                 return Ok();
             }
             else
@@ -38,7 +38,7 @@ namespace AmoebaGameMatcherServer.Controllers
             }
         }
         
-        [Route("DeleteFromQueue")]
+        [Route(nameof(DeleteFromQueue))]
         [HttpPost]
         public ActionResult<string> DeleteFromQueue([FromForm]string playerId)
         {
@@ -54,10 +54,20 @@ namespace AmoebaGameMatcherServer.Controllers
                 return StatusCode(409);
             }
         }
+
+       
+
+        private string DichSerialize(GameMatcherResponse response)
+        {
+            byte[] data = ZeroFormatterSerializer.Serialize(response);
+            string stub = Convert.ToBase64String(data);
+            return stub;  
+        }
         
-        [Route("GetRoomData")]
+        
+        [Route(nameof(GetRoomData))]
         [HttpPost]
-        public ActionResult<string> GetRoomData([FromForm]string playerId)
+        public async Task<ActionResult<string>> GetRoomData([FromForm]string playerId, [FromForm] int warshipId)
         {
             if (string.IsNullOrEmpty(playerId))
                 return BadRequest();
@@ -72,9 +82,7 @@ namespace AmoebaGameMatcherServer.Controllers
             {
                 Console.WriteLine("PlayerInQueue");
                 response.PlayerInQueue = true;
-                byte[] data = ZeroFormatterSerializer.Serialize(response);
-                string stub = Convert.ToBase64String(data);
-                return stub;
+                return DichSerialize(response);
             }
             else if (gameMatcher.PlayerInBattle(playerId))
             {
@@ -82,18 +90,17 @@ namespace AmoebaGameMatcherServer.Controllers
                 GameRoomData roomData = gameMatcher.GetRoomData(playerId);
                 response.PlayerInBattle = true;
                 response.GameRoomData = roomData;
-                byte[] data = ZeroFormatterSerializer.Serialize(response);
-                string stub = Convert.ToBase64String(data);
-                return stub;
+                return DichSerialize(response);
             }
             else
             {
                 Console.WriteLine("RegisterPlayer");
-                gameMatcher.RegisterPlayer(playerId);
+                if (!await gameMatcher.TryRegisterPlayer(playerId, warshipId))
+                {
+                    throw new Exception("Не удалось зарегистрировать игрока.");
+                }
                 response.PlayerHasJustBeenRegistered = true;
-                byte[] data = ZeroFormatterSerializer.Serialize(response);
-                string stub = Convert.ToBase64String(data);
-                return stub;
+                return DichSerialize(response);
             }
         }
     }

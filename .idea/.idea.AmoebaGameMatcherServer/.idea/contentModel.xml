@@ -7,7 +7,6 @@
     <e p="C:\Users\Zenit\.Rider2019.3\system\extResources" t="IncludeRecursive" />
     <e p="C:\Users\Zenit\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_AmoebaGameMatcherServer.-161366829.00" t="ExcludeRecursive" />
     <e p="C:\Users\Zenit\RiderProjects\AmoebaGameMatcherServer" t="IncludeFlat">
-      <e p=".git\info\exclude" t="IncludeRecursive" />
       <e p="AmoebaGameMatcherServer.sln" t="IncludeFlat" />
       <e p="DataLayer" t="IncludeRecursive">
         <e p="ApplicationDbContext.cs" t="Include" />
@@ -24,14 +23,14 @@
         </e>
         <e p="Tables" t="Include">
           <e p="Account.cs" t="Include" />
-          <e p="AccountInMatch.cs" t="Include" />
-          <e p="Event.cs" t="Include" />
-          <e p="EventType.cs" t="Include" />
-          <e p="FinishedMatch.cs" t="Include" />
-          <e p="MatchResult.cs" t="Include" />
-          <e p="RunningMatch.cs" t="Include" />
-          <e p="Warship.cs" t="Include" />
-          <e p="WarshipType.cs" t="Include" />
+          <e p="MatchesInfo" t="Include">
+            <e p="FinishedMatch.cs" t="Include" />
+            <e p="MatchResult.cs" t="Include" />
+          </e>
+          <e p="Warships" t="Include">
+            <e p="Warship.cs" t="Include" />
+            <e p="WarshipType.cs" t="Include" />
+          </e>
         </e>
         <e p="TablesConfiguration" t="Include">
           <e p="MatchResultsConfiguration.cs" t="Include" />
@@ -43,9 +42,13 @@
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Controllers" t="Include">
+          <e p="GameEntryController.cs" t="Include" />
           <e p="GameMatcherPlayerController.cs" t="Include" />
           <e p="GameServerController.cs" t="Include" />
           <e p="GooglePurchasesValidationController.cs" t="Include" />
+          <e p="InitializeLobbyController.cs" t="Include" />
+          <e p="LobbyWarshipsController.cs" t="Include" />
+          <e p="LootboxController.cs" t="Include" />
         </e>
         <e p="Experimental" t="Include">
           <e p="GooglePlayApiService.cs" t="Include" />
@@ -53,10 +56,13 @@
         <e p="MatchmakerServer.csproj" t="IncludeRecursive" />
         <e p="NetworkLibrary" t="Include">
           <e p="Http" t="Include">
+            <e p="AccountInfo.cs" t="Include" />
             <e p="GameMatcherResponse.cs" t="Include" />
             <e p="GameRoomData.cs" t="Include" />
             <e p="GameRoomValidationResult.cs" t="Include" />
+            <e p="MatchType.cs" t="Include" />
             <e p="PlayerInfoForGameRoom.cs" t="Include" />
+            <e p="WarshipInfo.cs" t="Include" />
           </e>
         </e>
         <e p="obj" t="ExcludeRecursive">
@@ -76,6 +82,8 @@
           <e p="GameMatcherForceRoomCreator.cs" t="Include" />
           <e p="GameMatcherService.cs" t="Include" />
           <e p="GameServerNegotiatorService.cs" t="Include" />
+          <e p="PlayerLobbyInitializeService.cs" t="Include" />
+          <e p="WarshipInfoHelper.cs" t="Include" />
         </e>
         <e p="someDich.p12" t="Include" />
         <e p="Startup.cs" t="Include" />

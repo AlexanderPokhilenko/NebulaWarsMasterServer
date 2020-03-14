@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using DataLayer.Tables;
+﻿using DataLayer.Tables;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -15,5 +13,4 @@ namespace DataLayer.TablesConfiguration
                 .IsUnique();
         }
     }
-  
 }

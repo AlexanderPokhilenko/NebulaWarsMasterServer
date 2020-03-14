@@ -16,46 +16,59 @@ namespace AmoebaGameMatcherServer.Services
     {
         private readonly GameMatcherDataService dataService;
         private readonly GameServerNegotiatorService gameServerNegotiatorService;
+        private readonly WarshipInfoHelper warshipInfoHelper;
         
         public GameMatcherService(GameMatcherDataService dataService, 
-            GameServerNegotiatorService gameServerNegotiatorService)
+            GameServerNegotiatorService gameServerNegotiatorService, WarshipInfoHelper warshipInfoHelper)
         {
             this.dataService = dataService;
             this.gameServerNegotiatorService = gameServerNegotiatorService;
+            this.warshipInfoHelper = warshipInfoHelper;
         }
         
-        public void RegisterPlayer(string playerId)
+        public async Task<bool> TryRegisterPlayer(string playerId, int warshipId)
         {
-            AddPlayerToQueue(playerId);
-            TryCreateRoom();
+            bool result = await TryAddPlayerToQueue(playerId, warshipId);
+            await TryCreateRoom();
+            return result;
         }
 
         public bool TryRemovePlayerFromQueue(string playerId)
         {
             Console.WriteLine("Удаление игрока с id = "+playerId + " из очереди.");
-            return dataService.UnsortedPlayers.TryRemove(playerId, out DateTime value);
+            return dataService.UnsortedPlayers.TryRemove(playerId, out var value);
         }
         
-        private void AddPlayerToQueue(string playerId)
+        private async Task<bool> TryAddPlayerToQueue(string playerId, int warshipId)
         {
-            if (!PlayerInQueue(playerId))
+            if (PlayerInQueue(playerId))
             {
-                Console.WriteLine("AddPlayerToQueue");
-                dataService.UnsortedPlayers.TryAdd(playerId, DateTime.UtcNow);    
+                return false;
+            }
+            else
+            {
+                var warshipInfo = await warshipInfoHelper.GetWarshipInfo(warshipId);
+                return dataService.UnsortedPlayers.TryAdd(playerId, new PlayerInfo
+                {
+                    PlayerId = playerId,
+                    DictionaryEntryTime = DateTime.UtcNow,
+                    WarshipInfo = warshipInfo  
+                });
             }
         }
 
-        void TryCreateRoom()
+        async Task TryCreateRoom()
         {
             Console.WriteLine("TryCreateRoom");
             bool thereIsAFullSetOfPlayers = dataService.UnsortedPlayers.Count >= Globals.NumbersOfPlayersInRoom;
-            if (thereIsAFullSetOfPlayers) CreateRoom(Globals.NumbersOfPlayersInRoom).Wait();
+            if (thereIsAFullSetOfPlayers)
+                await CreateRoomAsync(Globals.NumbersOfPlayersInRoom);
         }
 
         /// <summary>
         /// Создаёт комнату если есть хотя бы один игрок.
         /// </summary>
-        public async Task CreateRoom(int maxNumberOfPlayers)
+        public async Task CreateRoomAsync(int maxNumberOfPlayers)
         {
             //Достать maxNumberOfPlayers игроков
             var playersInfo = GetPlayersFromQueue(maxNumberOfPlayers);
@@ -86,11 +99,9 @@ namespace AmoebaGameMatcherServer.Services
             AddPlayersToTheListOfPlayersInBattle(playersInfo, newRoomNumber);
 
             //Положить кооманту в коллекцию
-            while (!dataService.GameRoomsData.TryAdd(gameRoomData.GameRoomNumber, gameRoomData))
-            {
-                
-            }
-
+            if(!dataService.GameRoomsData.TryAdd(gameRoomData.GameRoomNumber, gameRoomData))
+                throw new Exception("Не удалось положить команту в коллекцию");
+            
             //Отослать данные на игровой сервер
             await gameServerNegotiatorService.SendRoomDataToGameServerAsync(gameRoomData);
         }
@@ -116,18 +127,20 @@ namespace AmoebaGameMatcherServer.Services
             List<PlayerInfoForGameRoom> playersInfo = new List<PlayerInfoForGameRoom>();
             for (int i = 0; i < numberOfPlayers; i++)
             {
-                var (playerId, requestTime) = dataService.UnsortedPlayers.LastOrDefault();
+                var (playerId, playerInf) = dataService.UnsortedPlayers.LastOrDefault();
 
                 if (playerId != null)
                 {
-                    if (dataService.UnsortedPlayers.TryRemove(playerId, out var playerRequest))
+                    if (dataService.UnsortedPlayers.TryRemove(playerId, out var playerInfo))
                     {
-                        var dich = new PlayerInfoForGameRoom
+                        var playerInfoForGameRoom = new PlayerInfoForGameRoom
                         {
                             GoogleId = playerId,
-                            TemporaryId = PlayersTemporaryIdGenerator.GetPlayerId()
+                            TemporaryId = PlayersTemporaryIdGenerator.GetPlayerId(),
+                            WarshipName = playerInfo.WarshipInfo.PrefabName,
+                            WarshipCombatPowerLevel = playerInfo.WarshipInfo.CombatPowerLevel
                         };
-                        playersInfo.Add(dich);
+                        playersInfo.Add(playerInfoForGameRoom);
                     }
                     else
                     {
