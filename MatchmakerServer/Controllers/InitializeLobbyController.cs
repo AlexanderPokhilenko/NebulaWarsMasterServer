@@ -6,6 +6,9 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Controllers
 {
+    /// <summary>
+    /// Нужен для получения данных о кораблях, статистике аккаунта.
+    /// </summary>
     [Route("[controller]")]
     [ApiController]
     public class InitializeLobbyController : ControllerBase
@@ -29,10 +32,10 @@ namespace AmoebaGameMatcherServer.Controllers
             if (accountInfo == null)
                 return BadRequest();
 
-            return GetStub(accountInfo);
+            return DichSerialize(accountInfo);
         }
 
-        private string GetStub(AccountInfo accountInfo)
+        private string DichSerialize(AccountInfo accountInfo)
         {
             byte[] data = ZeroFormatter.ZeroFormatterSerializer.Serialize(accountInfo);
             string base64Dich = Convert.ToBase64String(data);

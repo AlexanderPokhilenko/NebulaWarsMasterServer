@@ -3,6 +3,7 @@
     //TODO доставать из ресурсов
     public static class Globals
     {
+        public static readonly int GameVersionNumber = 65;
         public const int NumbersOfPlayersInRoom = 10;
         public const int MaxStandbyTimeSec = 10;
         public const string DefaultGameServerIp = "127.0.0.1";

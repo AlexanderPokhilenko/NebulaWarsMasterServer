@@ -42,12 +42,11 @@
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Controllers" t="Include">
-          <e p="GameEntryController.cs" t="Include" />
           <e p="GameMatcherPlayerController.cs" t="Include" />
           <e p="GameServerController.cs" t="Include" />
+          <e p="GameUpdatesController.cs" t="Include" />
           <e p="GooglePurchasesValidationController.cs" t="Include" />
           <e p="InitializeLobbyController.cs" t="Include" />
-          <e p="LobbyWarshipsController.cs" t="Include" />
           <e p="LootboxController.cs" t="Include" />
         </e>
         <e p="Experimental" t="Include">
