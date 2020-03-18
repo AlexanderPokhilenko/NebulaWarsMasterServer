@@ -39,7 +39,8 @@ namespace AmoebaGameMatcherServer
             
             services.AddTransient<PlayerLobbyInitializeService>();
             services.AddTransient<WarshipInfoHelper>();
-            
+
+            services.AddSingleton<GooglePurchasesWrapperService>();
             
             services.AddSingleton<GameMatcherDataService>();
             services.AddSingleton<GameMatcherService>();

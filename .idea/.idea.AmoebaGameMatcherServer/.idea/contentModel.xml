@@ -37,6 +37,18 @@
           <e p="WarshipsConfiguration.cs" t="Include" />
         </e>
       </e>
+      <e p="Experimental" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Experimental.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.2" t="Include">
+              <e p="Experimental.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+      </e>
       <e p="MatchmakerServer" t="IncludeRecursive">
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
@@ -48,9 +60,10 @@
           <e p="GooglePurchasesValidationController.cs" t="Include" />
           <e p="InitializeLobbyController.cs" t="Include" />
           <e p="LootboxController.cs" t="Include" />
+          <e p="PurchasesController.cs" t="Include" />
         </e>
         <e p="Experimental" t="Include">
-          <e p="GooglePlayApiService.cs" t="Include" />
+          <e p="GoogleApiGlobals.cs" t="Include" />
         </e>
         <e p="MatchmakerServer.csproj" t="IncludeRecursive" />
         <e p="NetworkLibrary" t="Include">
@@ -81,6 +94,8 @@
           <e p="GameMatcherForceRoomCreator.cs" t="Include" />
           <e p="GameMatcherService.cs" t="Include" />
           <e p="GameServerNegotiatorService.cs" t="Include" />
+          <e p="GooglePlayApiPurchasesWrapper.cs" t="Include" />
+          <e p="GooglePurchasesWrapperService.cs" t="Include" />
           <e p="PlayerLobbyInitializeService.cs" t="Include" />
           <e p="WarshipInfoHelper.cs" t="Include" />
         </e>

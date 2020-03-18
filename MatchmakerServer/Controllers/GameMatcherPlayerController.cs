@@ -30,6 +30,8 @@ namespace AmoebaGameMatcherServer.Controllers
         [HttpPost]
         public ActionResult ExitFromBattle([FromForm]string playerId)
         {
+            Console.WriteLine(nameof(ExitFromBattle)+" был вызван");
+            Console.WriteLine(nameof(playerId)+" "+playerId);
             if (string.IsNullOrEmpty(playerId))
                 return BadRequest();
 
@@ -39,6 +41,7 @@ namespace AmoebaGameMatcherServer.Controllers
             }
             else
             {
+                Console.WriteLine("Не удалось удалить игрока");
                 return BadRequest();
             }
         }
