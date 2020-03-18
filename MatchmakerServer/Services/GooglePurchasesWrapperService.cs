@@ -11,27 +11,61 @@ namespace AmoebaGameMatcherServer.Services
 {
     public class GooglePurchasesWrapperService
     {
-        private readonly AndroidPublisherService service;
+        private AndroidPublisherService service;
+        private UserCredential userCredential;
         
         public GooglePurchasesWrapperService()
         {
             try
             {
-                var userCredential = GetUserCredential().Result;
-                service = new AndroidPublisherService(new BaseClientService.Initializer
+                service = CreateService();
+                if (service == null)
                 {
-                    HttpClientInitializer = userCredential,
-                    ApplicationName = "Nebula Wars Battle Royale"
-                });
+                    Console.WriteLine($"{nameof(service)} was null in ctor");
+                }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
             }
         }
+
+        private AndroidPublisherService CreateService()
+        {
+            if (userCredential == null)
+            {
+                Console.WriteLine($"{nameof(userCredential)} was null");
+                userCredential = GetUserCredential().Result;
+            }
+            
+            var serviceTmp = new AndroidPublisherService(new BaseClientService.Initializer
+            {
+                HttpClientInitializer = userCredential,
+                ApplicationName = "Nebula Wars Battle Royale"
+            });
+            return serviceTmp;
+        }
         
         public void Validate(string productId, string token)
         {
+            if (service == null)
+            {
+                service = CreateService();
+            }
+            
+            if (service == null)
+            {
+                throw new Exception($"{nameof(service)} was null");
+            }
+            if (productId == null)
+            {
+                throw new Exception($"{nameof(productId)} was null");
+            }
+            if (token == null)
+            {
+                throw new Exception($"{nameof(token)} was null");
+            }
+            
             var request = service.Purchases.Products.Get(GoogleApiGlobals.PackageName, productId, token);
             var result = request.Execute();
 

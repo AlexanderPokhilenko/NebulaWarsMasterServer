@@ -99,7 +99,6 @@
           <e p="PlayerLobbyInitializeService.cs" t="Include" />
           <e p="WarshipInfoHelper.cs" t="Include" />
         </e>
-        <e p="someDich.p12" t="Include" />
         <e p="Startup.cs" t="Include" />
         <e p="Utils" t="Include">
           <e p="GameRoomIdGenerator.cs" t="Include" />
