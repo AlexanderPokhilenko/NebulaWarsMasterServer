@@ -35,32 +35,38 @@ namespace AmoebaGameMatcherServer.Services
         private void SaveResponseContentToDb(string responseContent)
         {
             dynamic responseObj = JsonConvert.DeserializeObject(responseContent);
-            
-            string kind = responseObj.kind;
-            long purchaseTimeMillis = responseObj.purchaseTimeMillis;
-            int purchaseState = responseObj.purchaseState;
-            int consumptionState = responseObj.consumptionState;
-            string developerPayload = responseObj.developerPayload;
-            string orderId = responseObj.orderId;
-            int purchaseType = responseObj.purchaseType;
-            int acknowledgementState = responseObj.acknowledgementState;
-            
-            using (ApplicationDbContext dbContext = DbContextFactory.CreateDbContext())
+            try
             {
-                Purchase purchase = new Purchase
+                string kind = responseObj.kind;
+                long purchaseTimeMillis = responseObj.purchaseTimeMillis;
+                int purchaseState = responseObj.purchaseState;
+                int consumptionState = responseObj.consumptionState;
+                string developerPayload = responseObj.developerPayload;
+                string orderId = responseObj.orderId;
+                int purchaseType = responseObj.purchaseType;
+                int acknowledgementState = responseObj.acknowledgementState;
+            
+                using (ApplicationDbContext dbContext = DbContextFactory.CreateDbContext())
                 {
-                    Json = responseContent,
-                    Kind = kind,
-                    PurchaseTimeMillis = purchaseTimeMillis,
-                    PurchaseState = purchaseState,
-                    ConsumptionState = consumptionState,
-                    DeveloperPayload = developerPayload,
-                    OrderId = orderId,
-                    PurchaseType = purchaseType,
-                    AcknowledgementState = acknowledgementState
-                };
-                dbContext.Purchases.Add(purchase);
-                dbContext.SaveChanges();
+                    Purchase purchase = new Purchase
+                    {
+                        Json = responseContent,
+                        Kind = kind,
+                        PurchaseTimeMillis = purchaseTimeMillis,
+                        PurchaseState = purchaseState,
+                        ConsumptionState = consumptionState,
+                        DeveloperPayload = developerPayload,
+                        OrderId = orderId,
+                        PurchaseType = purchaseType,
+                        AcknowledgementState = acknowledgementState
+                    };
+                    dbContext.Purchases.Add(purchase);
+                    dbContext.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
             }
         }
     }

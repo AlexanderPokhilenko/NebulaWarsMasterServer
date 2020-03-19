@@ -51,6 +51,7 @@ public class PurchasesController : ControllerBase
         return Ok();
     }
     
+    [Route(nameof(ValidateTest))]
     [HttpPost]
     public ActionResult ValidateTest(string productId, string token)
     {
