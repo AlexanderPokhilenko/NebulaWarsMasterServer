@@ -39,13 +39,13 @@ public class PurchasesController : ControllerBase
             return BadRequest();
         }
         
-        //TODO это костыль
-        //Превращает no_ads => com.tikaytech.nebulaWars.no_ads
-        if (!productId.Contains('.'))
-        {
-            productId = GoogleApiGlobals.PackageName + "." + productId;
-            Console.WriteLine($"{nameof(productId)} был изменён на {productId}");
-        }
+        // //TODO это костыль
+        // //Превращает no_ads => com.tikaytech.nebulaWars.no_ads
+        // if (!productId.Contains('.'))
+        // {
+        //     productId = GoogleApiGlobals.PackageName + "." + productId;
+        //     Console.WriteLine($"{nameof(productId)} был изменён на {productId}");
+        // }
 
         purchasesValidatorService.Validate(productId, token);
         return Ok();
@@ -73,13 +73,13 @@ public class PurchasesController : ControllerBase
             return BadRequest();
         }
         
-        //TODO это костыль
-        //Превращает no_ads => com.tikaytech.nebulaWars.no_ads
-        if (!productId.Contains('.'))
-        {
-            productId = GoogleApiGlobals.PackageName + "." + productId;
-            Console.WriteLine($"{nameof(productId)} был изменён на {productId}");
-        }
+        // //TODO это костыль
+        // //Превращает no_ads => com.tikaytech.nebulaWars.no_ads
+        // if (!productId.Contains('.'))
+        // {
+        //     productId = GoogleApiGlobals.PackageName + "." + productId;
+        //     Console.WriteLine($"{nameof(productId)} был изменён на {productId}");
+        // }
 
         purchasesValidatorService.Validate(productId, token);
         return Ok();
