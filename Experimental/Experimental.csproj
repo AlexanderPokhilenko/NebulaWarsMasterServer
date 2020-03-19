@@ -9,4 +9,8 @@
       <PackageReference Include="Google.Apis.AndroidPublisher.v3" Version="1.44.1.1893" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\MatchmakerServer\MatchmakerServer.csproj" />
+    </ItemGroup>
+
 </Project>

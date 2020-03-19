@@ -13,6 +13,7 @@ namespace DataLayer
         }
         
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<Purchase> Purchases { get; set; }
         public DbSet<Warship> Warships { get; set; }
         public DbSet<WarshipType> WarshipTypes { get; set; }
         public DbSet<FinishedMatch> FinishedMatches { get; set; }

@@ -2,43 +2,15 @@
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using AmoebaGameMatcherServer.Services;
 using DataLayer;
-using Google.Apis.Upload;
 using Newtonsoft.Json;
 
-namespace Experimental
+namespace AmoebaGameMatcherServer.Services
 {
-
-    static class Program
+    public static class GoogleApiFileManager
     {
-        static async Task Main()
+        public static async Task WriteGoogleApiDataToFile(MyGoogleApiData data)
         {
-            // await GoogleApiFileManager.WriteGoogleApiDataToFile();
-            var data = await FileTesting.GetApiDataFromFile();
-            if (data != null)
-            {
-                Console.WriteLine(data.AccessToken);
-                Console.WriteLine(data.RefreshToken);
-                Console.WriteLine(data.ExpiresInSec);    
-            }
-            else
-            {
-                Console.WriteLine("data was null");
-            }
-        }
-    }
-
-    public static class FileTesting
-    {
-        public static async Task WriteGoogleApiDataToFile()
-        {
-            MyGoogleApiData data = new MyGoogleApiData
-            {
-                AccessToken = "mydichAccess",
-                RefreshToken = "refreshDich",
-                ExpiresInSec = 999
-            };
             string text = JsonConvert.SerializeObject(data);
             using (StreamWriter sw = new StreamWriter(GoogleApiGlobals.FileName, false, Encoding.UTF8))
             {
@@ -61,6 +33,7 @@ namespace Experimental
                     try
                     {
                         var result = JsonConvert.DeserializeObject<MyGoogleApiData>(fileContent);
+                     
                         return result;
                     }
                     catch (Exception e)
@@ -77,6 +50,19 @@ namespace Experimental
                 Console.WriteLine(e.Message);
                 return null;
             }
+        }
+        
+        public static void RemoveFile()
+        {
+            if (File.Exists(GoogleApiGlobals.FileName))
+            {
+                File.Delete(GoogleApiGlobals.FileName);
+            }
+        }
+
+        public static string GetCurrentDirectory()
+        {
+            return Directory.GetCurrentDirectory();
         }
     }
 }
