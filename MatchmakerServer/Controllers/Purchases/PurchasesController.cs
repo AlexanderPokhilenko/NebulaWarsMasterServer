@@ -46,8 +46,9 @@ public class PurchasesController : ControllerBase
         //     productId = GoogleApiGlobals.PackageName + "." + productId;
         //     Console.WriteLine($"{nameof(productId)} был изменён на {productId}");
         // }
-
+        
         purchasesValidatorService.Validate(productId, token);
+        purchasesValidatorService.Validate(GoogleApiGlobals.PackageName + "." +productId, token);
         return Ok();
     }
     
