@@ -11,6 +11,7 @@ namespace AmoebaGameMatcherServer.Services
         {
             HttpClient httpClient = new HttpClient();
             string url = CreateUrlForPurchaseCheck(sku, token, accessToken);
+            Console.WriteLine($"{nameof(url)} {url}");
             var result = await httpClient.GetAsync(url);
             
             string content = await result.Content.ReadAsStringAsync();

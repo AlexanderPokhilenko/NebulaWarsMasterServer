@@ -16,8 +16,10 @@ namespace AmoebaGameMatcherServer.Services
 
         public void Validate(string sku, string token)
         {
+            Console.WriteLine($"{nameof(sku)} {sku} {nameof(token)} {token}");
+            
             string accessToken = accessTokenService.GetAccessToken();
-            Console.WriteLine($"{nameof(accessToken)} получен");
+            Console.WriteLine($"{nameof(accessToken)} {accessToken}");
 
             string responseContent = GooglePurchasesApiWrapper.Get(sku, token, accessToken).Result;
 
