@@ -5,13 +5,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Experimental;
 using AmoebaGameMatcherServer.Utils;
+using DataLayer;
+using DataLayer.Tables;
 using Microsoft.CodeAnalysis;
 using NetworkLibrary.NetworkLibrary.Http;
 
-//TODO слишком большой класс
-
 namespace AmoebaGameMatcherServer.Services
 {
+
+    public class UnsortedPlayersQueueService
+    {
+        
+    }
     public class GameMatcherService
     {
         private readonly GameMatcherDataService dataService;
@@ -39,32 +44,6 @@ namespace AmoebaGameMatcherServer.Services
             return dataService.UnsortedPlayers.TryRemove(playerId, out var value);
         }
         
-        private async Task<bool> TryAddPlayerToQueue(string playerId, int warshipId)
-        {
-            if (PlayerInQueue(playerId))
-            {
-                return false;
-            }
-            else
-            {
-                var warshipInfo = await warshipInfoHelper.GetWarshipInfo(warshipId);
-                return dataService.UnsortedPlayers.TryAdd(playerId, new PlayerInfo
-                {
-                    PlayerId = playerId,
-                    DictionaryEntryTime = DateTime.UtcNow,
-                    WarshipInfo = warshipInfo  
-                });
-            }
-        }
-
-        async Task TryCreateRoom()
-        {
-            Console.WriteLine("TryCreateRoom");
-            bool thereIsAFullSetOfPlayers = dataService.UnsortedPlayers.Count >= Globals.NumbersOfPlayersInRoom;
-            if (thereIsAFullSetOfPlayers)
-                await CreateRoomAsync(Globals.NumbersOfPlayersInRoom);
-        }
-
         /// <summary>
         /// Создаёт комнату если есть хотя бы один игрок.
         /// </summary>
@@ -102,74 +81,27 @@ namespace AmoebaGameMatcherServer.Services
             if(!dataService.GameRoomsData.TryAdd(gameRoomData.GameRoomNumber, gameRoomData))
                 throw new Exception("Не удалось положить команту в коллекцию");
             
+            //TODO записать данные про бой в БД
+
+            
             //Отослать данные на игровой сервер
             await gameServerNegotiatorService.SendRoomDataToGameServerAsync(gameRoomData);
         }
-
-        //TODO: возможно, боты вообще должны быть отдельными и, например, без GoogleId
-        void AddBotsToList(ref List<PlayerInfoForGameRoom> players, int botsCount)
-        {
-            Random random = new Random();
-            for (int i = 0; i < botsCount; i++)
-            {
-                var dich = new PlayerInfoForGameRoom
-                {
-                    //IsBot = true,
-                    GoogleId = "Bot_"+ random.Next(1,int.MaxValue),
-                    TemporaryId = PlayersTemporaryIdGenerator.GetPlayerId()
-                };
-                players.Add(dich);
-            }
-            
-        }
-        List<PlayerInfoForGameRoom> GetPlayersFromQueue(int numberOfPlayers)
-        {
-            List<PlayerInfoForGameRoom> playersInfo = new List<PlayerInfoForGameRoom>();
-            for (int i = 0; i < numberOfPlayers; i++)
-            {
-                var (playerId, playerInf) = dataService.UnsortedPlayers.LastOrDefault();
-
-                if (playerId != null)
-                {
-                    if (dataService.UnsortedPlayers.TryRemove(playerId, out var playerInfo))
-                    {
-                        var playerInfoForGameRoom = new PlayerInfoForGameRoom
-                        {
-                            GoogleId = playerId,
-                            TemporaryId = PlayersTemporaryIdGenerator.GetPlayerId(),
-                            WarshipName = playerInfo.WarshipInfo.PrefabName,
-                            WarshipCombatPowerLevel = playerInfo.WarshipInfo.CombatPowerLevel
-                        };
-                        playersInfo.Add(playerInfoForGameRoom);
-                    }
-                    else
-                    {
-                        throw new Exception("Не удалось извлечь игрока из очереди. Ключ = "+playerId);
-                    }   
-                }
-            }
-
-            return playersInfo;
-        }
-        private void AddPlayersToTheListOfPlayersInBattle(List<PlayerInfoForGameRoom> players, int gameRoomNumber)
-        {
-            foreach (var player in players)
-            {
-                dataService.PlayersInGameRooms.TryAdd(player.GoogleId, gameRoomNumber);
-            }
-        }
-        public bool PlayerInQueue(string playerId)
+        
+        public bool IsPlayerInQueue(string playerId)
         {
             Console.WriteLine($"Обработка запроса от игрока. кол-во в очереди {dataService.UnsortedPlayers.Count}. ");
             return dataService.UnsortedPlayers.ContainsKey(playerId);
         }
-        public bool PlayerInBattle(string playerId)
+        
+        public bool IsPlayerInBattle(string playerId)
         {
             return dataService.PlayersInGameRooms.ContainsKey(playerId);
         }
+        
         public GameRoomData GetRoomData(string playerId)
         {
-            if (PlayerInBattle(playerId))
+            if (IsPlayerInBattle(playerId))
             {
                 dataService.PlayersInGameRooms.TryGetValue(playerId, out int roomNumber);
                 dataService.GameRoomsData.TryGetValue(roomNumber, out var roomData);
@@ -180,6 +112,7 @@ namespace AmoebaGameMatcherServer.Services
                 throw new Exception($"Игрок с id={playerId} не находится в словаре игроков в бою");
             }
         }
+        
         public void DeleteRoom(int roomNumber)
         {
             var deletingRoom = dataService.GameRoomsData[roomNumber];
@@ -229,6 +162,85 @@ namespace AmoebaGameMatcherServer.Services
             else
             {
                 return false;
+            }
+        }
+
+        private async Task<bool> TryAddPlayerToQueue(string playerId, int warshipId)
+        {
+            if (IsPlayerInQueue(playerId))
+            {
+                return false;
+            }
+            else
+            {
+                var warshipInfo = await warshipInfoHelper.GetWarshipInfo(warshipId);
+                return dataService.UnsortedPlayers.TryAdd(playerId, new PlayerInfo
+                {
+                    PlayerId = playerId,
+                    DictionaryEntryTime = DateTime.UtcNow,
+                    WarshipInfo = warshipInfo  
+                });
+            }
+        }
+
+        private async Task TryCreateRoom()
+        {
+            Console.WriteLine("TryCreateRoom");
+            bool thereIsAFullSetOfPlayers = dataService.UnsortedPlayers.Count >= Globals.NumbersOfPlayersInRoom;
+            if (thereIsAFullSetOfPlayers)
+                await CreateRoomAsync(Globals.NumbersOfPlayersInRoom);
+        }
+
+        //TODO: возможно, боты вообще должны быть отдельными и, например, без GoogleId
+        private void AddBotsToList(ref List<PlayerInfoForGameRoom> players, int botsCount)
+        {
+            Random random = new Random();
+            for (int i = 0; i < botsCount; i++)
+            {
+                var dich = new PlayerInfoForGameRoom
+                {
+                    IsBot = true,
+                    GoogleId = "Bot_"+ random.Next(1,int.MaxValue),
+                    TemporaryId = PlayersTemporaryIdGenerator.GetPlayerId()
+                };
+                players.Add(dich);
+            }
+        }
+        
+        private List<PlayerInfoForGameRoom> GetPlayersFromQueue(int numberOfPlayers)
+        {
+            List<PlayerInfoForGameRoom> playersInfo = new List<PlayerInfoForGameRoom>();
+            for (int i = 0; i < numberOfPlayers; i++)
+            {
+                var (playerId, playerInf) = dataService.UnsortedPlayers.LastOrDefault();
+
+                if (playerId != null)
+                {
+                    if (dataService.UnsortedPlayers.TryRemove(playerId, out var playerInfo))
+                    {
+                        var playerInfoForGameRoom = new PlayerInfoForGameRoom
+                        {
+                            GoogleId = playerId,
+                            TemporaryId = PlayersTemporaryIdGenerator.GetPlayerId(),
+                            WarshipName = playerInfo.WarshipInfo.PrefabName,
+                            WarshipCombatPowerLevel = playerInfo.WarshipInfo.CombatPowerLevel
+                        };
+                        playersInfo.Add(playerInfoForGameRoom);
+                    }
+                    else
+                    {
+                        throw new Exception("Не удалось извлечь игрока из очереди. Ключ = "+playerId);
+                    }   
+                }
+            }
+            return playersInfo;
+        }
+        
+        private void AddPlayersToTheListOfPlayersInBattle(List<PlayerInfoForGameRoom> players, int gameRoomNumber)
+        {
+            foreach (var player in players)
+            {
+                dataService.PlayersInGameRooms.TryAdd(player.GoogleId, gameRoomNumber);
             }
         }
     }

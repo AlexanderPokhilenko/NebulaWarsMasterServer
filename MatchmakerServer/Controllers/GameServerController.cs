@@ -1,4 +1,5 @@
-﻿using AmoebaGameMatcherServer.Services;
+﻿using System;
+using AmoebaGameMatcherServer.Services;
 using Microsoft.AspNetCore.Mvc;
 
 //TODO добавить secretKey проверку
@@ -26,7 +27,23 @@ namespace AmoebaGameMatcherServer.Controllers
             if(gameRoomId == 0)
                 return new BadRequestResult();
 
+            //TODO сделать запись об окончании боя
+            
             gameMatcher.DeleteRoom(gameRoomId);
+            return Ok();
+        }
+        
+        /// <summary>
+        /// Метод вызывается гейм сервером при смерти игрока.
+        /// </summary>
+        [Route(nameof(PlayerDeath))]
+        [HttpDelete]
+        public ActionResult PlayerDeath([FromQuery] int playerId, [FromQuery] int placeInBattle)
+        {
+            Console.WriteLine($"test {nameof(playerId)} {playerId} {nameof(placeInBattle)} {placeInBattle}");
+            
+            //TODO дописать результат боя игрока в бд
+
             return Ok();
         }
     }

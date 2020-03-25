@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services;
+using Libraries.NetworkLibrary.Experimental;
 using Microsoft.AspNetCore.Mvc;
 using NetworkLibrary.NetworkLibrary.Http;
 using ZeroFormatter;
@@ -8,17 +9,21 @@ using ZeroFormatter;
 namespace AmoebaGameMatcherServer.Controllers
 {
     /// <summary>
-    /// Принимает сообщения на вход/выход из очереди в бой. Принимает сообщения о преждевременоом выходе из боя.
+    /// Принимает заявки на вход/выход из очереди в бой.
+    /// Принимает сообщения о преждевременоом выходе из боя.
+    /// Принимает запросы на результат конкретного боя.
     /// </summary>
     [Route("[controller]")]
     [ApiController]
-    public class GameMatcherPlayerController : ControllerBase
+    public class PlayerController : ControllerBase
     {
         private readonly GameMatcherService gameMatcher;
+        private readonly PlayersAchievementsService achievementsService;
 
-        public GameMatcherPlayerController(GameMatcherService gameMatcher)
+        public PlayerController(GameMatcherService gameMatcher, PlayersAchievementsService achievementsService)
         {
             this.gameMatcher = gameMatcher;
+            this.achievementsService = achievementsService;
         }
 
         /// <summary>
@@ -89,15 +94,15 @@ namespace AmoebaGameMatcherServer.Controllers
                 NumberOfPlayersInBattles = gameMatcher.GetNumberOfPlayersInBattles()
             };
             
-            if (gameMatcher.PlayerInQueue(playerId))
+            if (gameMatcher.IsPlayerInQueue(playerId))
             {
-                Console.WriteLine("PlayerInQueue");
+                Console.WriteLine("IsPlayerInQueue");
                 response.PlayerInQueue = true;
                 return DichSerialize(response);
             }
-            else if (gameMatcher.PlayerInBattle(playerId))
+            else if (gameMatcher.IsPlayerInBattle(playerId))
             {
-                Console.WriteLine("PlayerInBattle");
+                Console.WriteLine("IsPlayerInBattle");
                 GameRoomData roomData = gameMatcher.GetRoomData(playerId);
                 response.PlayerInBattle = true;
                 response.GameRoomData = roomData;
@@ -115,7 +120,41 @@ namespace AmoebaGameMatcherServer.Controllers
             }
         }
         
-        private string DichSerialize(GameMatcherResponse response)
+        
+   
+        [Route(nameof(GetMatchResult))]
+        [HttpPost]
+        public async Task<ActionResult<string>> GetMatchResult([FromForm] int? matchId, [FromForm] string playerServiceId)
+        {
+            Console.WriteLine(
+                $"{nameof(GetMatchResult)} {nameof(matchId)} {matchId} {nameof(playerServiceId)} {playerServiceId}");
+            //Чек на адекватность данных
+            if (matchId == null || playerServiceId == null)
+            {
+                return BadRequest();
+            }
+            
+            //Запрос в сервис
+            var matchResult = await achievementsService.GetMatchResult(matchId.Value, playerServiceId);
+
+            matchResult = new PlayerAchievements()
+            {
+                DoubleTokens = true,
+                BattleRatingDelta = 5,
+                OldSpaceshipRating = 8,
+                RankingRewardTokens = 20,
+                SpaceshipPrefabName = "Bird"
+            };
+                
+            //Чек на адекватность ответа
+            if (matchResult == null)
+            {
+                return BadRequest();
+            }
+            return DichSerialize(matchResult);
+        }
+        
+        private string DichSerialize<T>(T response)
         {
             byte[] data = ZeroFormatterSerializer.Serialize(response);
             string stub = Convert.ToBase64String(data);

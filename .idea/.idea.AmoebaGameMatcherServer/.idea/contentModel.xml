@@ -28,9 +28,10 @@
         <e p="Tables" t="Include">
           <e p="Account.cs" t="Include" />
           <e p="MatchesInfo" t="Include">
-            <e p="FinishedMatch.cs" t="Include" />
-            <e p="MatchResult.cs" t="Include" />
+            <e p="Match.cs" t="Include" />
+            <e p="PlayerMatchResult.cs" t="Include" />
           </e>
+          <e p="Purchase.cs" t="Include" />
           <e p="Warships" t="Include">
             <e p="Warship.cs" t="Include" />
             <e p="WarshipType.cs" t="Include" />
@@ -58,10 +59,10 @@
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Controllers" t="Include">
-          <e p="GameMatcherPlayerController.cs" t="Include" />
           <e p="GameServerController.cs" t="Include" />
           <e p="GameUpdatesController.cs" t="Include" />
           <e p="InitializeLobbyController.cs" t="Include" />
+          <e p="PlayerController.cs" t="Include" />
           <e p="Purchases" t="Include">
             <e p="PurchasesController.cs" t="Include" />
             <e p="TestController.cs" t="Include" />
@@ -74,15 +75,84 @@
         <e p="googleApiData.txt" t="Include" />
         <e p="MatchmakerServer.csproj" t="IncludeRecursive" />
         <e p="NetworkLibrary" t="Include">
+          <e p="Experimental" t="Include">
+            <e p="PlayerAchievements.cs" t="Include" />
+            <e p="PlayerAchievements.cs.meta" t="Include" />
+          </e>
+          <e p="Experimental.meta" t="Include" />
           <e p="Http" t="Include">
             <e p="AccountInfo.cs" t="Include" />
+            <e p="AccountInfo.cs.meta" t="Include" />
             <e p="GameMatcherResponse.cs" t="Include" />
+            <e p="GameMatcherResponse.cs.meta" t="Include" />
             <e p="GameRoomData.cs" t="Include" />
+            <e p="GameRoomData.cs.meta" t="Include" />
             <e p="GameRoomValidationResult.cs" t="Include" />
+            <e p="GameRoomValidationResult.cs.meta" t="Include" />
             <e p="MatchType.cs" t="Include" />
+            <e p="MatchType.cs.meta" t="Include" />
             <e p="PlayerInfoForGameRoom.cs" t="Include" />
+            <e p="PlayerInfoForGameRoom.cs.meta" t="Include" />
             <e p="WarshipInfo.cs" t="Include" />
+            <e p="WarshipInfo.cs.meta" t="Include" />
           </e>
+          <e p="Http.meta" t="Include" />
+          <e p="Udp" t="Include">
+            <e p="Common" t="Include">
+              <e p="DeliveryConfirmationMessage.cs" t="Include" />
+              <e p="DeliveryConfirmationMessage.cs.meta" t="Include" />
+            </e>
+            <e p="Common.meta" t="Include" />
+            <e p="PlayerToServer" t="Include">
+              <e p="BattleExitMessage.cs" t="Include" />
+              <e p="BattleExitMessage.cs.meta" t="Include" />
+              <e p="PlayerInputMessage.cs" t="Include" />
+              <e p="PlayerInputMessage.cs.meta" t="Include" />
+              <e p="PlayerPingMessage.cs" t="Include" />
+              <e p="PlayerPingMessage.cs.meta" t="Include" />
+            </e>
+            <e p="PlayerToServer.meta" t="Include" />
+            <e p="ServerToPlayer" t="Include">
+              <e p="BattleStatus" t="Include">
+                <e p="KillMessage.cs" t="Include" />
+                <e p="KillMessage.cs.meta" t="Include" />
+                <e p="PlayerTrackingMessage.cs" t="Include" />
+                <e p="PlayerTrackingMessage.cs.meta" t="Include" />
+                <e p="PointTrackingMessage.cs" t="Include" />
+                <e p="PointTrackingMessage.cs.meta" t="Include" />
+                <e p="ShowPlayerAchievementsMessage.cs" t="Include" />
+                <e p="ShowPlayerAchievementsMessage.cs.meta" t="Include" />
+              </e>
+              <e p="BattleStatus.meta" t="Include" />
+              <e p="Health" t="Include">
+                <e p="HealthPointsMessage.cs" t="Include" />
+                <e p="HealthPointsMessage.cs.meta" t="Include" />
+                <e p="MaxHealthPointsMessage.cs" t="Include" />
+                <e p="MaxHealthPointsMessage.cs.meta" t="Include" />
+              </e>
+              <e p="Health.meta" t="Include" />
+              <e p="PositionMessages" t="Include">
+                <e p="PositionsMessage.cs" t="Include" />
+                <e p="PositionsMessage.cs.meta" t="Include" />
+                <e p="ViewTransform.cs" t="Include" />
+                <e p="ViewTransform.cs.meta" t="Include" />
+              </e>
+              <e p="PositionMessages.meta" t="Include" />
+            </e>
+            <e p="ServerToPlayer.meta" t="Include" />
+            <e p="Utils" t="Include">
+              <e p="MessageFactory.cs" t="Include" />
+              <e p="MessageFactory.cs.meta" t="Include" />
+              <e p="MessagesContainer.cs" t="Include" />
+              <e p="MessagesContainer.cs.meta" t="Include" />
+              <e p="MessageWrapper.cs" t="Include" />
+              <e p="MessageWrapper.cs.meta" t="Include" />
+              <e p="ViewTypeId.cs" t="Include" />
+              <e p="ViewTypeId.cs.meta" t="Include" />
+            </e>
+            <e p="Utils.meta" t="Include" />
+          </e>
+          <e p="Udp.meta" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -97,12 +167,14 @@
           <e p="launchSettings.json" t="Include" />
         </e>
         <e p="Services" t="Include">
+          <e p="DoubleTokensManagerService.cs" t="Include" />
           <e p="GameMatcherDataService.cs" t="Include" />
           <e p="GameMatcherForceRoomCreator.cs" t="Include" />
           <e p="GameMatcherService.cs" t="Include" />
           <e p="GameServerNegotiatorService.cs" t="Include" />
           <e p="GooglePlayApiPurchasesWrapper.cs" t="Include" />
           <e p="PlayerLobbyInitializeService.cs" t="Include" />
+          <e p="PlayersAchievementsService.cs" t="Include" />
           <e p="Purchases" t="Include">
             <e p="CustomAccessTokenManager.cs" t="Include" />
             <e p="CustomGoogleApiInitializer.cs" t="Include" />
