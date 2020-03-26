@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AmoebaGameMatcherServer.Experimental;
 using AmoebaGameMatcherServer.Utils;
 
 namespace AmoebaGameMatcherServer.Services
 {
     /// <summary>
-    /// Создаёт бой наполненный ботами, если есть человек, который ждёт в очереди больше максимального времени.
+    /// Инициирует создание матчей для всех режимов
     /// </summary>
     public class MatchCreationInitiatorSingletonService
     {
@@ -25,11 +22,11 @@ namespace AmoebaGameMatcherServer.Services
 
         public void StartThread()
         {
-            Thread thread = new Thread(PeriodicCreationOfGameRooms);
+            Thread thread = new Thread(PeriodicDich);
             thread.Start();
         }
         
-        private async void PeriodicCreationOfGameRooms()
+        private async void PeriodicDich()
         {
             while (true)
             {
@@ -41,7 +38,7 @@ namespace AmoebaGameMatcherServer.Services
 
         private async Task TryCreateMatch()
         {
-            await battleRoyaleMatchCreatorService.TryCreateMatch(Globals.NumbersOfPlayersInRoom);
+            await battleRoyaleMatchCreatorService.TryCreateMatch(Globals.NumbersOfPlayersInBattleRoyaleMatch);
         }
         
         private async Task TryCreateBattleRoyaleMatch()
@@ -49,7 +46,7 @@ namespace AmoebaGameMatcherServer.Services
             Console.WriteLine("Попытка собрать комнату принудительно.");
             if (IsWaitingTimeExceeded())
             {
-                await battleRoyaleMatchCreatorService.CreateWithBots(Globals.NumbersOfPlayersInRoom);
+                await battleRoyaleMatchCreatorService.CreateWithBots(Globals.NumbersOfPlayersInBattleRoyaleMatch);
             }
         }
 

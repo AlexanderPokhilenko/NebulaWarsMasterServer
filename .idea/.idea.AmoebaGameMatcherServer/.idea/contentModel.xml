@@ -207,6 +207,7 @@
         </e>
       </e>
       <e p="MatchmakerTest" t="IncludeRecursive">
+        <e p="BattleCreatingTests.cs" t="Include" />
         <e p="BattleRoyaleQueueSingletonServiceTests.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="MatchmakerTest.csproj" t="IncludeRecursive" />
@@ -217,7 +218,7 @@
             </e>
           </e>
         </e>
-        <e p="Test2.cs" t="Include" />
+        <e p="QueueExtenderServiceTestы.cs" t="Include" />
       </e>
       <e p="packages" t="ExcludeRecursive" />
     </e>

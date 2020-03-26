@@ -94,7 +94,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 return BadRequest();
             }
 
-            //Данные для окошка ожидания боя
+            //Данные для окна ожидания боя
             GameMatcherResponse response = new GameMatcherResponse
             {
                 NumberOfPlayersInQueue = queueSingletonService.GetNumberOfPlayersInQueue(),
@@ -130,9 +130,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 return DichSerialize(response);
             }
         }
-        
-        
-   
+
         [Route(nameof(GetMatchResult))]
         [HttpPost]
         public async Task<ActionResult<string>> GetMatchResult([FromForm] int? matchId, [FromForm] string playerServiceId)

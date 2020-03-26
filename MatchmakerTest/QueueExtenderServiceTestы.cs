@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MatchmakerTest
 {
     [TestClass]
-    public class Test2
+    public class QueueExtenderServiceTests
     {
         /// <summary>
         /// При добавлении игроков они все появятся в очереди после валидации данных.
@@ -24,7 +24,7 @@ namespace MatchmakerTest
                 warshipValidatorServiceStub);
 
             //Act    
-            for (int i = 0; i < Globals.NumbersOfPlayersInRoom; i++)
+            for (int i = 0; i < Globals.NumbersOfPlayersInBattleRoyaleMatch; i++)
             {
                 bool success = queueExtenderService.TryEnqueuePlayer(i.ToString(), i).Result;
                 if (!success)Assert.Fail();
@@ -32,7 +32,7 @@ namespace MatchmakerTest
             int numberOfPlayersInQueue = battleRoyaleQueueSingletonService.GetNumberOfPlayersInQueue();
             
             //Assert
-            Assert.AreEqual(Globals.NumbersOfPlayersInRoom, numberOfPlayersInQueue);
+            Assert.AreEqual(Globals.NumbersOfPlayersInBattleRoyaleMatch, numberOfPlayersInQueue);
         }
         
         /// <summary>

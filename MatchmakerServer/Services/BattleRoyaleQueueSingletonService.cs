@@ -53,7 +53,7 @@ namespace AmoebaGameMatcherServer.Services
         /// Возвращает игроков без исключения из очереди 
         /// </summary>
         /// <param name="maxNumberOfPlayersInBattle"></param>
-        public List<PlayerInfo> GetPlayersFromQueue(int maxNumberOfPlayersInBattle)
+        public List<PlayerInfo> TakeHead(int maxNumberOfPlayersInBattle)
         {
             return unsortedPlayers.TakeHead(maxNumberOfPlayersInBattle);
         }

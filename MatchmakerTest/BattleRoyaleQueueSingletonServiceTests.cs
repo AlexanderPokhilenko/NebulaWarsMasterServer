@@ -132,7 +132,7 @@ namespace MatchmakerTest
 
             //Act    
             battleRoyaleQueue.TryEnqueuePlayer(str1, new WarshipCopy());
-            var playersInfo= battleRoyaleQueue.GetPlayersFromQueue(5);
+            var playersInfo= battleRoyaleQueue.TakeHead(5);
             
             //Assert
             Assert.AreEqual(1, playersInfo.Count);
@@ -155,7 +155,7 @@ namespace MatchmakerTest
             battleRoyaleQueue.TryEnqueuePlayer(str3, new WarshipCopy());
             battleRoyaleQueue.TryEnqueuePlayer(str4, new WarshipCopy());
             battleRoyaleQueue.TryEnqueuePlayer(str5, new WarshipCopy());
-            var playersInfo= battleRoyaleQueue.GetPlayersFromQueue(3);
+            var playersInfo= battleRoyaleQueue.TakeHead(3);
             
             //Assert
             Assert.AreEqual(3, playersInfo.Count);
@@ -194,7 +194,7 @@ namespace MatchmakerTest
             battleRoyaleQueue.TryEnqueuePlayer(str1, new WarshipCopy());
             battleRoyaleQueue.TryEnqueuePlayer(str2, new WarshipCopy());
             DateTime? dateTime = battleRoyaleQueue.GetOldestRequestTime();
-            var playerInfo = battleRoyaleQueue.GetPlayersFromQueue(1);
+            var playerInfo = battleRoyaleQueue.TakeHead(1);
 
             //Assert
             Assert.IsNotNull(dateTime);
