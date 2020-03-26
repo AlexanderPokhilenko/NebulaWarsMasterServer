@@ -5,6 +5,7 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services
 {
+    //TODO сделать это говно многопоточным
     /// <summary>
     /// Хранит данные о текущих боях.
     /// </summary>
@@ -14,14 +15,12 @@ namespace AmoebaGameMatcherServer.Services
         private readonly ConcurrentDictionary<int, BattleRoyaleMatchData> matchesData;
         // id игрока + номер его матча
         private readonly ConcurrentDictionary<string, int> playersInMatches;
-        //id игроков
-        private readonly ConcurrentDictionary<string, PlayerInfo> playerWhoAreProcessed;
+        
 
         public BattleRoyaleUnfinishedMatchesSingletonService()
         {
             matchesData = new ConcurrentDictionary<int, BattleRoyaleMatchData>();
             playersInMatches = new ConcurrentDictionary<string, int>();
-            playerWhoAreProcessed = new ConcurrentDictionary<string, PlayerInfo>();
         }
         
         public int GetNumberOfPlayersInBattles()
@@ -66,17 +65,15 @@ namespace AmoebaGameMatcherServer.Services
                 return false;
             }
         }
-
-        public bool TryTransferPlayers(List<PlayerInfo> playersInfo)
+        
+        //TODO добавить чеки
+        public void AddPlayersToMatch(BattleRoyaleMatchData matchData)
         {
-            foreach (var playerInfo in playersInfo)
+            matchesData.TryAdd(matchData.MatchId, matchData);
+            foreach (var playerInfoForMatch in matchData.Players)
             {
-                if(!playerWhoAreProcessed.ContainsKey(playerInfo.PlayerId))
-                {
-                    playerWhoAreProcessed.TryAdd(playerInfo.PlayerId, playerInfo);
-                }
-            }   
-            return true;
+                playersInMatches.TryAdd(playerInfoForMatch.ServiceId, matchData.MatchId);
+            }
         }
     }
 }

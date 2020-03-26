@@ -4,7 +4,7 @@
 namespace NetworkLibrary.NetworkLibrary.Http
 {
     /// <summary>
-    /// Нужен для
+    /// Нужен для передачи данных о бое между матчером и гейм сервером.
     /// </summary>
     [ZeroFormattable]
     public class BattleRoyaleMatchData

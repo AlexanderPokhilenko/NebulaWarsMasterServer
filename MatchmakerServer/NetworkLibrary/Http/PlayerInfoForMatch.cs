@@ -3,7 +3,7 @@
 namespace NetworkLibrary.NetworkLibrary.Http
 {
     /// <summary>
-    /// Нужен для 
+    /// Нужен для гейм сервера. Хранит все характеристики, которые влияют на боевые характеристики корабля игрока.
     /// </summary>
     [ZeroFormattable]
     public class PlayerInfoForMatch

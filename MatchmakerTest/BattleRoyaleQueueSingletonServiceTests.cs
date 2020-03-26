@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using AmoebaGameMatcherServer.Services;
+using DataLayer.Tables;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NetworkLibrary.NetworkLibrary.Http;
 
@@ -19,8 +20,8 @@ namespace MatchmakerTest
             string str1 = "a";
 
             //Act    
-            bool success1 = battleRoyaleQueue.TryEnqueuePlayer(str1, new WarshipCopy());
-            bool success2 = battleRoyaleQueue.TryEnqueuePlayer(str1, new WarshipCopy());
+            bool success1 = battleRoyaleQueue.TryEnqueuePlayer(str1, new Warship());
+            bool success2 = battleRoyaleQueue.TryEnqueuePlayer(str1, new Warship());
 
             //Assert
             Assert.IsTrue(success1);
@@ -36,8 +37,8 @@ namespace MatchmakerTest
             string str2 = "a";
 
             //Act    
-            bool success1 = battleRoyaleQueue.TryEnqueuePlayer(str1, new WarshipCopy());
-            bool success2 = battleRoyaleQueue.TryEnqueuePlayer(str2, new WarshipCopy());
+            bool success1 = battleRoyaleQueue.TryEnqueuePlayer(str1, new Warship());
+            bool success2 = battleRoyaleQueue.TryEnqueuePlayer(str2, new Warship());
 
             //Assert
             Assert.IsTrue(success1);
@@ -53,8 +54,8 @@ namespace MatchmakerTest
             string str2 = "b";
 
             //Act    
-            battleRoyaleQueue.TryEnqueuePlayer(str1, new WarshipCopy());
-            battleRoyaleQueue.TryEnqueuePlayer(str2, new WarshipCopy());
+            battleRoyaleQueue.TryEnqueuePlayer(str1, new Warship());
+            battleRoyaleQueue.TryEnqueuePlayer(str2, new Warship());
             int count = battleRoyaleQueue.GetNumberOfPlayersInQueue();
             
             //Assert
@@ -69,7 +70,7 @@ namespace MatchmakerTest
             string str1 = "a";
 
             //Act    
-            battleRoyaleQueue.TryEnqueuePlayer(str1, new WarshipCopy());
+            battleRoyaleQueue.TryEnqueuePlayer(str1, new Warship());
             bool success = battleRoyaleQueue.TryRemovePlayerFromQueue(str1);
             
             //Assert
@@ -85,7 +86,7 @@ namespace MatchmakerTest
             string str2 = "b";
 
             //Act    
-            battleRoyaleQueue.TryEnqueuePlayer(str1, new WarshipCopy());
+            battleRoyaleQueue.TryEnqueuePlayer(str1, new Warship());
             bool success = battleRoyaleQueue.TryRemovePlayerFromQueue(str2);
             
             //Assert
@@ -100,7 +101,7 @@ namespace MatchmakerTest
             string str1 = "a";
 
             //Act    
-            battleRoyaleQueue.TryEnqueuePlayer(str1, new WarshipCopy());
+            battleRoyaleQueue.TryEnqueuePlayer(str1, new Warship());
             bool success = battleRoyaleQueue.IsPlayerInQueue(str1);
             
             //Assert
@@ -116,7 +117,7 @@ namespace MatchmakerTest
             string str2 = "b";
             
             //Act    
-            battleRoyaleQueue.TryEnqueuePlayer(str1, new WarshipCopy());
+            battleRoyaleQueue.TryEnqueuePlayer(str1, new Warship());
             bool success = battleRoyaleQueue.IsPlayerInQueue(str2);
             
             //Assert
@@ -131,7 +132,7 @@ namespace MatchmakerTest
             string str1 = "a";
 
             //Act    
-            battleRoyaleQueue.TryEnqueuePlayer(str1, new WarshipCopy());
+            battleRoyaleQueue.TryEnqueuePlayer(str1, new Warship());
             var playersInfo= battleRoyaleQueue.TakeHead(5);
             
             //Assert
@@ -150,18 +151,18 @@ namespace MatchmakerTest
             string str5 = "e";
 
             //Act    
-            battleRoyaleQueue.TryEnqueuePlayer(str1, new WarshipCopy());
-            battleRoyaleQueue.TryEnqueuePlayer(str2, new WarshipCopy());
-            battleRoyaleQueue.TryEnqueuePlayer(str3, new WarshipCopy());
-            battleRoyaleQueue.TryEnqueuePlayer(str4, new WarshipCopy());
-            battleRoyaleQueue.TryEnqueuePlayer(str5, new WarshipCopy());
+            battleRoyaleQueue.TryEnqueuePlayer(str1, new Warship());
+            battleRoyaleQueue.TryEnqueuePlayer(str2, new Warship());
+            battleRoyaleQueue.TryEnqueuePlayer(str3, new Warship());
+            battleRoyaleQueue.TryEnqueuePlayer(str4, new Warship());
+            battleRoyaleQueue.TryEnqueuePlayer(str5, new Warship());
             var playersInfo= battleRoyaleQueue.TakeHead(3);
             
             //Assert
             Assert.AreEqual(3, playersInfo.Count);
-            Assert.AreEqual(str1, playersInfo[0].PlayerId);
-            Assert.AreEqual(str2, playersInfo[1].PlayerId);
-            Assert.AreEqual(str3, playersInfo[2].PlayerId);
+            Assert.AreEqual(str1, playersInfo[0].PlayerServiceId);
+            Assert.AreEqual(str2, playersInfo[1].PlayerServiceId);
+            Assert.AreEqual(str3, playersInfo[2].PlayerServiceId);
         }
         
         [TestMethod]
@@ -173,8 +174,8 @@ namespace MatchmakerTest
             string str2 = "b";
 
             //Act    
-            battleRoyaleQueue.TryEnqueuePlayer(str1, new WarshipCopy());
-            battleRoyaleQueue.TryEnqueuePlayer(str2, new WarshipCopy());
+            battleRoyaleQueue.TryEnqueuePlayer(str1, new Warship());
+            battleRoyaleQueue.TryEnqueuePlayer(str2, new Warship());
             battleRoyaleQueue.TryRemovePlayerFromQueue(str1);
             int number = battleRoyaleQueue.GetNumberOfPlayersInQueue();
             
@@ -191,8 +192,8 @@ namespace MatchmakerTest
             string str2 = "b";
 
             //Act    
-            battleRoyaleQueue.TryEnqueuePlayer(str1, new WarshipCopy());
-            battleRoyaleQueue.TryEnqueuePlayer(str2, new WarshipCopy());
+            battleRoyaleQueue.TryEnqueuePlayer(str1, new Warship());
+            battleRoyaleQueue.TryEnqueuePlayer(str2, new Warship());
             DateTime? dateTime = battleRoyaleQueue.GetOldestRequestTime();
             var playerInfo = battleRoyaleQueue.TakeHead(1);
 

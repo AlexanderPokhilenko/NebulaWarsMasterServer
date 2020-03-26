@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DataLayer.Tables;
 using Google.Apis.Upload;
 using NetworkLibrary.NetworkLibrary.Http;
 
@@ -18,9 +19,9 @@ namespace AmoebaGameMatcherServer.Services
         /// <param name="playerServiceId"></param>
         /// <param name="warshipCopy"></param>
         /// <returns></returns>
-        public bool TryEnqueuePlayer(string playerServiceId, WarshipCopy warshipCopy)
+        public bool TryEnqueuePlayer(string playerServiceId, Warship warship)
         {
-            return unsortedPlayers.TryEnqueuePlayer(playerServiceId, warshipCopy);
+            return unsortedPlayers.TryEnqueuePlayer(playerServiceId, warship);
         }
 
         public bool TryRemovePlayerFromQueue(string playerServiceId)
@@ -53,7 +54,7 @@ namespace AmoebaGameMatcherServer.Services
         /// Возвращает игроков без исключения из очереди 
         /// </summary>
         /// <param name="maxNumberOfPlayersInBattle"></param>
-        public List<PlayerInfo> TakeHead(int maxNumberOfPlayersInBattle)
+        public List<PlayerQueueInfo> TakeHead(int maxNumberOfPlayersInBattle)
         {
             return unsortedPlayers.TakeHead(maxNumberOfPlayersInBattle);
         }

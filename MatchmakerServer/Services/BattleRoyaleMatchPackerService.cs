@@ -1,9 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AmoebaGameMatcherServer.Utils;
 using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services
 {
+    public class QueueHelperSukaService
+    {
+        private readonly BattleRoyaleQueueSingletonService battleRoyaleQueueSingletonService;
+
+        public QueueHelperSukaService(BattleRoyaleQueueSingletonService battleRoyaleQueueSingletonService)
+        {
+            this.battleRoyaleQueueSingletonService = battleRoyaleQueueSingletonService;
+        }
+
+        public void RemovePlayersFromQueue(List<PlayerInfoForMatch> sukaList)
+        {
+            foreach (var sukaInfo in sukaList)
+            {
+                battleRoyaleQueueSingletonService.TryRemovePlayerFromQueue(sukaInfo.ServiceId);
+            }
+        }
+    }
     /// <summary>
     /// Отвечает за доставание набора игроков для матча.
     /// Есть возможность дополнять игроков ботами.
@@ -16,8 +34,8 @@ namespace AmoebaGameMatcherServer.Services
         {
             this.battleRoyaleQueueService = battleRoyaleQueueService;
         }
-
-        public (bool success, List<PlayerInfo> playersInfo) GetPLayersForMatch(int maxNumberOfPlayersInBattle, 
+        
+        public (bool success, List<PlayerQueueInfo> playersInfo) GetPlayersForMatch(int maxNumberOfPlayersInBattle, 
             bool botsCanBeUsed)
         {
             //Если мало игроков и нельзя дополнять ботами, то матч собрать не получится
@@ -57,18 +75,16 @@ namespace AmoebaGameMatcherServer.Services
         /// </summary>
         /// <param name="numberOdBots"></param>
         /// <returns></returns>
-        private List<PlayerInfo> CreateBots(int numberOdBots)
+        private List<PlayerQueueInfo> CreateBots(int numberOdBots)
         {
-            List<PlayerInfo> bots = new List<PlayerInfo>();
+            throw new NotImplementedException();
+            List<PlayerQueueInfo> bots = new List<PlayerQueueInfo>();
             for (int i = 0; i < numberOdBots; i++)
             {
-                PlayerInfo bot = new PlayerInfo
+                PlayerQueueInfo bot = new PlayerQueueInfo
                 {
-                    PlayerId = "Bot_" + PlayersTemporaryIdGenerator.GetPlayerId(),
-                    WarshipCopy = new WarshipCopy
-                    {
-                        PrefabName = "Bird"
-                    }
+                    PlayerServiceId = "Bot_" + PlayersTemporaryIdGenerator.GetPlayerId(),
+                    
                 };
             }
             return bots;

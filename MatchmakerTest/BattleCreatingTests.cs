@@ -22,16 +22,21 @@ namespace MatchmakerTest
             IGameServerNegotiatorService gameServerNegotiatorServiceStub = new GameServerNegotiatorServiceStub();
             var dbContext = InMemoryDatabaseFactory.Create();
             IWarshipValidatorService warshipValidatorService = new WarshipValidatorService(dbContext);
-            QueueExtenderService queueExtenderService = new QueueExtenderService(battleRoyaleQueueSingletonService, warshipValidatorService);
+            QueueExtenderService queueExtenderService = 
+                new QueueExtenderService(battleRoyaleQueueSingletonService, warshipValidatorService);
+            
+            QueueHelperSukaService sukaService = new QueueHelperSukaService(battleRoyaleQueueSingletonService);
             BattleRoyaleMatchCreatorService battleRoyaleMatchCreatorService = new BattleRoyaleMatchCreatorService(
                 battleRoyaleMatchPackerService,
                 dbContext,
                 gameServerNegotiatorServiceStub,
                 matchmakerDichService,
-                battleRoyaleUnfinishedMatchesSingletonService
+                battleRoyaleUnfinishedMatchesSingletonService,
+                sukaService
                 );
-            int countOfAccounts = 15;
-            for (int i = 0; i < countOfAccounts; i++)
+            
+            int countOfAccountsInDb = 15;
+            for (int i = 0; i < countOfAccountsInDb; i++)
             {
                 Account account = new Account
                 {

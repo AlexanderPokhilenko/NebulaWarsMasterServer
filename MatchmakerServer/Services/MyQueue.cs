@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services
@@ -10,20 +11,20 @@ namespace AmoebaGameMatcherServer.Services
     public class MyQueue
     {
         //key is playerServiceId
-        private readonly ConcurrentDictionary<string, PlayerInfo> unsortedPlayers;
+        private readonly ConcurrentDictionary<string, PlayerQueueInfo> unsortedPlayers;
 
         public MyQueue()
         {
-            unsortedPlayers = new ConcurrentDictionary<string, PlayerInfo>();
+            unsortedPlayers = new ConcurrentDictionary<string, PlayerQueueInfo>();
         }
         
-        public bool TryEnqueuePlayer(string playerServiceId, WarshipCopy warshipCopy)
+        public bool TryEnqueuePlayer(string playerServiceId, Warship warship)
         {
-            var playerInfo = new PlayerInfo
+            var playerInfo = new PlayerQueueInfo
             {
-                PlayerId = playerServiceId,
+                PlayerServiceId = playerServiceId,
                 DictionaryEntryTime = DateTime.UtcNow,
-                WarshipCopy = warshipCopy
+                Warship = warship
             };
 
             return unsortedPlayers.TryAdd(playerServiceId, playerInfo);
@@ -56,7 +57,7 @@ namespace AmoebaGameMatcherServer.Services
             return oldestRequestTime;
         }
 
-        public List<PlayerInfo> TakeHead(int maxNumberOfPlayersInBattle)
+        public List<PlayerQueueInfo> TakeHead(int maxNumberOfPlayersInBattle)
         {
             var playersInfo = unsortedPlayers.Values
                 .OrderBy(info => info.DictionaryEntryTime)

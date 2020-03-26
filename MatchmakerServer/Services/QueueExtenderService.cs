@@ -76,7 +76,7 @@ namespace AmoebaGameMatcherServer.Services
         }
         
         /// <summary>
-        /// Проверяет данные и добавляет игрок в очередь.
+        /// Проверяет данные и добавляет игрока в очередь.
         /// </summary>
         /// <param name="playerServiceId"></param>
         /// <param name="warshipId"></param>
@@ -90,16 +90,7 @@ namespace AmoebaGameMatcherServer.Services
                 return false;
             }
             
-            //Попытка добавить в очередь
-            WarshipCopy warshipCopy = new WarshipCopy
-            {
-                Id = warship.Id,
-                Rating = warship.Rating,
-                PrefabName = warship.WarshipType.Name,
-                CombatPowerLevel = warship.CombatPowerLevel,
-                CombatPowerValue = warship.CombatPowerValue
-            };
-            return battleRoyaleQueueSingletonServiceService.TryEnqueuePlayer(playerServiceId, warshipCopy);
+            return battleRoyaleQueueSingletonServiceService.TryEnqueuePlayer(playerServiceId, warship);
         }
     }
 }

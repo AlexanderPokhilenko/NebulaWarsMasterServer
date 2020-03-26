@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
 using DataLayer.Tables;
@@ -17,17 +18,19 @@ namespace AmoebaGameMatcherServer.Services
         private readonly MatchmakerDichService matchmakerDichService;
         private readonly BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService;
         private readonly ApplicationDbContext dbContext;
+        private readonly QueueHelperSukaService sukaService;
 
         public BattleRoyaleMatchCreatorService(BattleRoyaleMatchPackerService battleRoyaleMatchPackerService, 
             ApplicationDbContext dbContext, IGameServerNegotiatorService gameServerNegotiatorService,
             MatchmakerDichService matchmakerDichService, 
-            BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService)
+            BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService, QueueHelperSukaService sukaService)
         {
             this.battleRoyaleMatchPackerService = battleRoyaleMatchPackerService;
             this.dbContext = dbContext;
             this.gameServerNegotiatorService = gameServerNegotiatorService;
             this.matchmakerDichService = matchmakerDichService;
             this.unfinishedMatchesService = unfinishedMatchesService;
+            this.sukaService = sukaService;
         }
         
         public async Task<(bool success, MatchCreationFailureReason? failureReason)> 
@@ -35,7 +38,7 @@ namespace AmoebaGameMatcherServer.Services
         {
             //Попробовать достать игроков из очереди
             var (success, playersInfo) = battleRoyaleMatchPackerService
-                .GetPLayersForMatch(maxNumberOfPlayersInBattle, botsCanBeUsed);
+                .GetPlayersForMatch(maxNumberOfPlayersInBattle, botsCanBeUsed);
 
             //Достаточно игроков?
             if (!success)
@@ -46,22 +49,23 @@ namespace AmoebaGameMatcherServer.Services
             //На каком сервере будет запучаться матч?
             var matchRoutingData = matchmakerDichService.GetMatchRoutingData();
 
-            //перенести игроков в очередь ожидания            
-            
-            
             //Сделать запись об матче в БД
             BattleRoyaleMatchData matchData = await WriteMatchDataToDb(matchRoutingData, playersInfo);
-
+            
             //Добавить игроков в таблицу тех кто в бою
+            unfinishedMatchesService.AddPlayersToMatch(matchData);
+            
+            //Извлечь игроков из очереди
+            sukaService.RemovePlayersFromQueue(matchData.Players);
             
             //Сообщить на гейм сервер
-            await gameServerNegotiatorService.SendRoomDataToGameServerAsync(null);
+            await gameServerNegotiatorService.SendRoomDataToGameServerAsync(matchData);
             
             return (true, null);
         }
 
         private async Task<BattleRoyaleMatchData> WriteMatchDataToDb(MatchRoutingData matchRoutingData, 
-            List<PlayerInfo> playersInfo)
+            List<PlayerQueueInfo> playersInfo)
         {
             var playersResult = new List<PlayerMatchResult>();
             foreach (var player in playersInfo)
@@ -69,7 +73,7 @@ namespace AmoebaGameMatcherServer.Services
                 PlayerMatchResult playerMatchResult = new PlayerMatchResult
                 {
                     AccountId = player.AccountId,
-                    WarshipId = player.WarshipCopy.Id
+                    WarshipId = player.Warship.Id
                 };
                 playersResult.Add(playerMatchResult);
             }
@@ -87,7 +91,7 @@ namespace AmoebaGameMatcherServer.Services
 
             BattleRoyaleMatchData battleRoyaleMatchData = new BattleRoyaleMatchData()
             {
-                Players = playersInfo,
+                Players = playersInfo.Select((info, i) => info.ToMatchInfo()).ToList(),
                 MatchId = match.Id,
                 GameServerIp = matchRoutingData.GameServerIp,
                 GameServerPort = matchRoutingData.GameServerPort

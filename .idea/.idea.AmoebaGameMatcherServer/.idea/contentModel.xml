@@ -184,8 +184,8 @@
           <e p="GameServersManagerService.cs" t="Include" />
           <e p="MatchCreationInitiatorSingletonService.cs" t="Include" />
           <e p="MyQueue.cs" t="Include" />
-          <e p="PlayerInfo.cs" t="Include" />
           <e p="PlayerLobbyInitializeService.cs" t="Include" />
+          <e p="PlayerQueueInfo.cs" t="Include" />
           <e p="PlayersAchievementsService.cs" t="Include" />
           <e p="Purchases" t="Include">
             <e p="CustomAccessTokenManager.cs" t="Include" />
