@@ -24,6 +24,7 @@
           <e p="AccessTokenUpdatingArg.cs" t="Include" />
           <e p="InitializeAccessTokenArg.cs" t="Include" />
         </e>
+        <e p="InMemoryDatabaseFactory.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp2.2" t="Include">
@@ -206,6 +207,7 @@
         </e>
       </e>
       <e p="MatchmakerTest" t="IncludeRecursive">
+        <e p="BattleRoyaleQueueSingletonServiceTests.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="MatchmakerTest.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
@@ -215,7 +217,7 @@
             </e>
           </e>
         </e>
-        <e p="UnitTest1.cs" t="Include" />
+        <e p="Test2.cs" t="Include" />
       </e>
       <e p="packages" t="ExcludeRecursive" />
     </e>

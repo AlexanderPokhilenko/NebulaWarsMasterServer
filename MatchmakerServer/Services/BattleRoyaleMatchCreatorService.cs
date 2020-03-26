@@ -49,17 +49,17 @@ namespace AmoebaGameMatcherServer.Services
     
     public class BattleRoyaleMatchPackerService
     {
-        private BattleRoyaleQueueSingletonService battleRoyaleQueueService;
-        
+        private readonly BattleRoyaleQueueSingletonService battleRoyaleQueueService;
+
+        public BattleRoyaleMatchPackerService(BattleRoyaleQueueSingletonService battleRoyaleQueueService)
+        {
+            this.battleRoyaleQueueService = battleRoyaleQueueService;
+        }
+
         public BattleRoyaleMatchData CreateMatch(int maxNumberOfPlayersInBattle)
         {
             var playersInfo = battleRoyaleQueueService.GetPlayersFromQueue(maxNumberOfPlayersInBattle);
-            
-            if (playersInfo.Count == 0)
-            {
-                throw new Exception("такого не должно происходить");
-            }
-            
+
             //Дополнить ботами
             playersInfo.AddRange(CreateBots(maxNumberOfPlayersInBattle-playersInfo.Count));
             
