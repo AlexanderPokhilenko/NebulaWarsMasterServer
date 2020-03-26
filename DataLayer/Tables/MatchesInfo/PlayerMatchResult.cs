@@ -12,12 +12,12 @@ namespace DataLayer.Tables
         [Required] public int AccountId { get; set; }
         [Required] public int WarshipId { get; set; }
         
-        [Required] public int AccountRatingDelta { get; set; }
-        [Required] public int WarshipRatingDelta { get; set; }
-        [Required] public int RegularCurrencyDelta { get; set; }
-        [Required] public int PremiumCurrencyDelta { get; set; }
-        [Required] public int PointsForBigChest { get; set; }
-        [Required] public int PointsForSmallChest { get; set; }
+        
+        public int? WarshipRatingDelta { get; set; }
+        public int? RegularCurrencyDelta { get; set; }
+        public int? PremiumCurrencyDelta { get; set; }
+        public int? PointsForBigChest { get; set; }
+        public int? PointsForSmallChest { get; set; }
         public int? PlaceInMatch { get; set; }
         
         [ForeignKey("MatchId")] public Match Match { get; set; }

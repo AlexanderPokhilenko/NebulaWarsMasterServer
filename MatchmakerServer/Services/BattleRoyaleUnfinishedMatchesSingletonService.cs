@@ -5,40 +5,46 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services
 {
+    /// <summary>
+    /// Хранит данные о текущих боях.
+    /// </summary>
     public class BattleRoyaleUnfinishedMatchesSingletonService
     {
-        // номер комнаты + участники комнаты
+        // номер матча + участники комнаты
         private readonly ConcurrentDictionary<int, BattleRoyaleMatchData> matchesData;
-        // id игрока + номер его комнаты
+        // id игрока + номер его матча
         private readonly ConcurrentDictionary<string, int> playersInMatches;
+        //id игроков
+        private readonly ConcurrentDictionary<string, PlayerInfo> playerWhoAreProcessed;
 
         public BattleRoyaleUnfinishedMatchesSingletonService()
         {
-            matchesData = default;
-            playersInMatches = default;
+            matchesData = new ConcurrentDictionary<int, BattleRoyaleMatchData>();
+            playersInMatches = new ConcurrentDictionary<string, int>();
+            playerWhoAreProcessed = new ConcurrentDictionary<string, PlayerInfo>();
         }
         
         public int GetNumberOfPlayersInBattles()
         {
-            throw new NotImplementedException();
+            return playersInMatches.Count;
         }
         
-        public bool IsPlayerInMatch(string playerId)
+        public bool IsPlayerInMatch(string playerServiceId)
         {
-            return playersInMatches.ContainsKey(playerId);
+            return playersInMatches.ContainsKey(playerServiceId);
         }
         
-        public BattleRoyaleMatchData GetMatchData(string playerId)
+        public BattleRoyaleMatchData GetMatchData(string playerServiceId)
         {
-            if (IsPlayerInMatch(playerId))
+            if (IsPlayerInMatch(playerServiceId))
             {
-                playersInMatches.TryGetValue(playerId, out int roomNumber);
+                playersInMatches.TryGetValue(playerServiceId, out int roomNumber);
                 matchesData.TryGetValue(roomNumber, out var roomData);
                 return roomData;
             }
             else
             {
-                throw new Exception($"Игрок с id={playerId} не находится в словаре игроков в бою");
+                throw new Exception($"Игрок с id={playerServiceId} не находится в словаре игроков в бою");
             }
         }
         
@@ -61,9 +67,16 @@ namespace AmoebaGameMatcherServer.Services
             }
         }
 
-        public bool AddMatchData(BattleRoyaleMatchData battleRoyaleMatchData)
+        public bool TryTransferPlayers(List<PlayerInfo> playersInfo)
         {
-            throw new NotImplementedException();
+            foreach (var playerInfo in playersInfo)
+            {
+                if(!playerWhoAreProcessed.ContainsKey(playerInfo.PlayerId))
+                {
+                    playerWhoAreProcessed.TryAdd(playerInfo.PlayerId, playerInfo);
+                }
+            }   
+            return true;
         }
     }
 }

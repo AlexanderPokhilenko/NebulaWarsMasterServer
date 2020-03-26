@@ -9,10 +9,23 @@ using ZeroFormatter;
 
 namespace AmoebaGameMatcherServer.Services
 {
+    public interface IGameServerNegotiatorService
+    {
+        Task SendRoomDataToGameServerAsync(BattleRoyaleMatchData data);
+    }
+
+    public class GameServerNegotiatorServiceStub : IGameServerNegotiatorService
+    {
+        public async Task SendRoomDataToGameServerAsync(BattleRoyaleMatchData data)
+        {
+            Console.WriteLine(nameof(SendRoomDataToGameServerAsync));
+        }
+    }
+    
     /// <summary>
     /// Отвечает за отправку http сообщения с данными про матч на гейм сервер для запуска боя.
     /// </summary>
-    public class GameServerNegotiatorService
+    public class GameServerNegotiatorService:IGameServerNegotiatorService
     {
         private readonly HttpClient httpClient = new HttpClient();
         

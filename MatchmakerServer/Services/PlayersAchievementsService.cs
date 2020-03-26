@@ -27,10 +27,23 @@ namespace AmoebaGameMatcherServer.Services
                 .Include(rec=>rec.Warship)
                     .ThenInclude(warship => warship.WarshipType)
                 .Include(rec=>rec.Account)
-                .SingleOrDefaultAsync(rec => rec.MatchId == matchId && rec.Account.ServiceId == playerServiceId);
+                .SingleOrDefaultAsync(rec => 
+                    rec.MatchId == matchId 
+                    && rec.Account.ServiceId == playerServiceId);
             
             //Такой матч существует?
             if (matchResult == null)
+            {
+                return null;
+            }
+            
+            //Этот матч окончен?
+            if (matchResult.PlaceInMatch == null
+                || matchResult.PremiumCurrencyDelta == null
+                || matchResult.RegularCurrencyDelta == null
+                || matchResult.WarshipRatingDelta == null
+                || matchResult.PointsForBigChest == null
+                || matchResult.PointsForSmallChest == null)
             {
                 return null;
             }
@@ -38,7 +51,7 @@ namespace AmoebaGameMatcherServer.Services
             var playerAchievements = new PlayerAchievements
             {
                 DoubleTokens = doubleTokensManagerService.IsDoubleTokensEnabled(0,0),
-                BattleRatingDelta = matchResult.WarshipRatingDelta,
+                BattleRatingDelta = matchResult.WarshipRatingDelta.Value,
                 OldSpaceshipRating = 9,
                 RankingRewardTokens = 20,
                 SpaceshipPrefabName = matchResult.Warship.WarshipType.Name

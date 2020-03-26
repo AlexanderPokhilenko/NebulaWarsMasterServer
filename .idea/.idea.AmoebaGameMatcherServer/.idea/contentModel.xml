@@ -98,8 +98,8 @@
             <e p="GameRoomValidationResult.cs.meta" t="Include" />
             <e p="MatchType.cs" t="Include" />
             <e p="MatchType.cs.meta" t="Include" />
-            <e p="PlayerInfoForGameRoom.cs" t="Include" />
             <e p="PlayerInfoForGameRoom.cs.meta" t="Include" />
+            <e p="PlayerInfoForMatch.cs" t="Include" />
             <e p="WarshipCopy.cs" t="Include" />
             <e p="WarshipInfo.cs.meta" t="Include" />
           </e>
@@ -220,7 +220,7 @@
             </e>
           </e>
         </e>
-        <e p="QueueExtenderServiceTestы.cs" t="Include" />
+        <e p="QueueExtenderServiceTests.cs" t="Include" />
       </e>
       <e p="packages" t="ExcludeRecursive" />
     </e>

@@ -43,7 +43,13 @@ namespace AmoebaGameMatcherServer.Services
             bool tryMore = true;
             while (tryMore)
             {
-                tryMore = await battleRoyaleMatchCreatorService.TryCreateMatch(numberOfPlayers, false);
+                var (success, failureReason) = 
+                    await battleRoyaleMatchCreatorService.TryCreateMatch(numberOfPlayers, false);
+                tryMore = success;
+                if (!success)
+                {
+                    Console.WriteLine("Не удалось созбать матч по причине "+failureReason);
+                }
             }
             
             //Собери бой с ботами, если кто-то долго ждёт

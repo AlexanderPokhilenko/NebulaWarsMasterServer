@@ -2,15 +2,39 @@
 
 namespace AmoebaGameMatcherServer.Services
 {
+    public class MatchRoutingData
+    {
+        public string GameServerIp;
+        public int GameServerPort;
+    }
+    
+    public class MatchmakerDichService
+    {
+        private readonly GameServersManagerService serversManagerService;
+
+        public MatchmakerDichService(GameServersManagerService serversManagerService)
+        {
+            this.serversManagerService = serversManagerService;
+        }
+
+        public MatchRoutingData GetMatchRoutingData()
+        {
+            var result = new MatchRoutingData();
+            var (ip, port) = serversManagerService.GetGameServerAddress();
+            result.GameServerIp = ip;
+            result.GameServerPort = port;
+            return result;
+        }
+    }
+
     public class GameServersManagerService
     {
-        public GameServerData GetGameServerData()
+        public (string ip, int port) GetGameServerAddress()
         {
-            return new GameServerData()
-            {
-                GameServerIp = Globals.DefaultGameServerIp,
-                GameServerPort = Globals.DefaultGameServerUdpPort
-            };
+            (string ip, int port) result;
+            result.ip = Globals.DefaultGameServerIp;
+            result.port = Globals.DefaultGameServerUdpPort;
+            return result;
         }
     }
 }

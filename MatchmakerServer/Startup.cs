@@ -32,6 +32,8 @@ namespace AmoebaGameMatcherServer
             services.AddTransient<QueueExtenderService>();
             services.AddTransient<PlayersAchievementsService>();
             services.AddTransient<DoubleTokensManagerService>();
+            services.AddTransient<MatchmakerDichService>();
+            services.AddTransient<GameServersManagerService>();
             
             services.AddSingleton<BattleRoyaleQueueSingletonService>();
             services.AddTransient<BattleRoyaleMatchCreatorService>();
