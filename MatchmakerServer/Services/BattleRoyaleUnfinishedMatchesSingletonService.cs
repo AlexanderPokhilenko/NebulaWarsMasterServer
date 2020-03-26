@@ -8,14 +8,14 @@ namespace AmoebaGameMatcherServer.Services
     public class BattleRoyaleUnfinishedMatchesSingletonService
     {
         // номер комнаты + участники комнаты
-        private readonly ConcurrentDictionary<int, BattleRoyaleMatchData> gameRoomsData;
+        private readonly ConcurrentDictionary<int, BattleRoyaleMatchData> matchesData;
         // id игрока + номер его комнаты
-        private readonly ConcurrentDictionary<string, int> playersInGameRooms;
+        private readonly ConcurrentDictionary<string, int> playersInMatches;
 
         public BattleRoyaleUnfinishedMatchesSingletonService()
         {
-            gameRoomsData = default;
-            playersInGameRooms = default;
+            matchesData = default;
+            playersInMatches = default;
         }
         
         public int GetNumberOfPlayersInBattles()
@@ -25,15 +25,15 @@ namespace AmoebaGameMatcherServer.Services
         
         public bool IsPlayerInMatch(string playerId)
         {
-            return playersInGameRooms.ContainsKey(playerId);
+            return playersInMatches.ContainsKey(playerId);
         }
         
         public BattleRoyaleMatchData GetMatchData(string playerId)
         {
             if (IsPlayerInMatch(playerId))
             {
-                playersInGameRooms.TryGetValue(playerId, out int roomNumber);
-                gameRoomsData.TryGetValue(roomNumber, out var roomData);
+                playersInMatches.TryGetValue(playerId, out int roomNumber);
+                matchesData.TryGetValue(roomNumber, out var roomData);
                 return roomData;
             }
             else
@@ -44,9 +44,9 @@ namespace AmoebaGameMatcherServer.Services
         
         public bool TryRemovePlayerFromMatch(string playerId)
         {
-            if (playersInGameRooms.ContainsKey(playerId))
+            if (playersInMatches.ContainsKey(playerId))
             {
-                if (playersInGameRooms.Remove(playerId, out int roomId))
+                if (playersInMatches.Remove(playerId, out int roomId))
                 {
                     return true;
                 }
@@ -59,6 +59,11 @@ namespace AmoebaGameMatcherServer.Services
             {
                 return false;
             }
+        }
+
+        public bool AddMatchData(BattleRoyaleMatchData battleRoyaleMatchData)
+        {
+            throw new NotImplementedException();
         }
     }
 }

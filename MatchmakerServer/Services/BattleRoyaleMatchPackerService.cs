@@ -17,7 +17,7 @@ namespace AmoebaGameMatcherServer.Services
             this.battleRoyaleQueueService = battleRoyaleQueueService;
         }
 
-        public (bool success, List<PlayerInfo> playersInfo) TryCreateMatch(int maxNumberOfPlayersInBattle, 
+        public (bool success, List<PlayerInfo> playersInfo) GetPLayersForMatch(int maxNumberOfPlayersInBattle, 
             bool botsCanBeUsed)
         {
             //Если мало игроков и нельзя дополнять ботами, то матч собрать не получится

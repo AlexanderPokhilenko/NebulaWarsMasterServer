@@ -176,10 +176,12 @@
         <e p="Services" t="Include">
           <e p="BattleRoyaleMatchCreatorService.cs" t="Include" />
           <e p="BattleRoyaleMatchFinisherService.cs" t="Include" />
+          <e p="BattleRoyaleMatchPackerService.cs" t="Include" />
           <e p="BattleRoyaleQueueSingletonService.cs" t="Include" />
           <e p="BattleRoyaleUnfinishedMatchesSingletonService.cs" t="Include" />
           <e p="DoubleTokensManagerService.cs" t="Include" />
           <e p="GameServerNegotiatorService.cs" t="Include" />
+          <e p="GameServersManagerService.cs" t="Include" />
           <e p="MatchCreationInitiatorSingletonService.cs" t="Include" />
           <e p="MyQueue.cs" t="Include" />
           <e p="PlayerInfo.cs" t="Include" />

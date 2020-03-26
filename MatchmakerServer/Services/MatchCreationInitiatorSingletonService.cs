@@ -12,7 +12,8 @@ namespace AmoebaGameMatcherServer.Services
     {
         private readonly BattleRoyaleQueueSingletonService battleRoyaleQueueService;
         private readonly BattleRoyaleMatchCreatorService battleRoyaleMatchCreatorService;
-
+        private readonly int numberOfPlayers = Globals.NumbersOfPlayersInBattleRoyaleMatch;
+        
         public MatchCreationInitiatorSingletonService(BattleRoyaleQueueSingletonService battleRoyaleQueueService, 
             BattleRoyaleMatchCreatorService battleRoyaleMatchCreatorService)
         {
@@ -36,17 +37,19 @@ namespace AmoebaGameMatcherServer.Services
             // ReSharper disable once FunctionNeverReturns
         }
 
-        private async Task TryCreateMatch()
-        {
-            await battleRoyaleMatchCreatorService.TryCreateMatch(Globals.NumbersOfPlayersInBattleRoyaleMatch);
-        }
-        
         private async Task TryCreateBattleRoyaleMatch()
         {
-            Console.WriteLine("Попытка собрать комнату принудительно.");
+            //Собирай бои только из игроков, пока можешь
+            bool tryMore = true;
+            while (tryMore)
+            {
+                tryMore = await battleRoyaleMatchCreatorService.TryCreateMatch(numberOfPlayers, false);
+            }
+            
+            //Собери бой с ботами, если кто-то долго ждёт
             if (IsWaitingTimeExceeded())
             {
-                await battleRoyaleMatchCreatorService.CreateWithBots(Globals.NumbersOfPlayersInBattleRoyaleMatch);
+                await battleRoyaleMatchCreatorService.TryCreateMatch(numberOfPlayers, true);
             }
         }
 

@@ -4,6 +4,12 @@ using DataLayer;
 
 namespace AmoebaGameMatcherServer.Services
 {
+    public class GameServerData
+    {
+        public string GameServerIp;
+        public int GameServerPort;
+    }
+
     /// <summary>
     /// Полностью управляет созданием боя для батл рояль режима.
     /// </summary>
@@ -24,7 +30,7 @@ namespace AmoebaGameMatcherServer.Services
         public async Task<bool> TryCreateMatch(int maxNumberOfPlayersInBattle, bool botsCanBeUsed)
         {
             var (success, playersInfo) = battleRoyaleMatchPackerService
-                .TryCreateMatch(maxNumberOfPlayersInBattle,botsCanBeUsed);
+                .GetPLayersForMatch(maxNumberOfPlayersInBattle, botsCanBeUsed);
 
             if (!success)
             {
@@ -32,11 +38,10 @@ namespace AmoebaGameMatcherServer.Services
                 return false;
             }
             
+            //TODO перенести игроков в список тех, кто в бою
             await WriteMatchDataToDb(battleRoyaleMatchData);
-            //TODO удалить игроков из очереди
-            //TODO отправить запрос на гейм сервер
             await gameServerNegotiatorService.SendRoomDataToGameServerAsync(null);
-            throw new NotImplementedException();
+            return true;
         }
 
         private async Task WriteMatchDataToDb(object matchData)
