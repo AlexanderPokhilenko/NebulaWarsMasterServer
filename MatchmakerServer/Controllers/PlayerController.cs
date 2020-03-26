@@ -17,13 +17,20 @@ namespace AmoebaGameMatcherServer.Controllers
     [ApiController]
     public class PlayerController : ControllerBase
     {
-        private readonly GameMatcherService gameMatcher;
+        private readonly QueueExtenderService queueExtenderService;
+        private readonly BattleRoyaleQueueSingletonService queueSingletonService;
+        private readonly BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService;
         private readonly PlayersAchievementsService achievementsService;
 
-        public PlayerController(GameMatcherService gameMatcher, PlayersAchievementsService achievementsService)
+        public PlayerController(PlayersAchievementsService achievementsService,
+            BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService, 
+            BattleRoyaleQueueSingletonService queueSingletonService,
+            QueueExtenderService queueExtenderService)
         {
-            this.gameMatcher = gameMatcher;
             this.achievementsService = achievementsService;
+            this.unfinishedMatchesService = unfinishedMatchesService;
+            this.queueSingletonService = queueSingletonService;
+            this.queueExtenderService = queueExtenderService;
         }
 
         /// <summary>
@@ -37,10 +44,11 @@ namespace AmoebaGameMatcherServer.Controllers
         {
             Console.WriteLine(nameof(ExitFromBattle)+" был вызван");
             Console.WriteLine(nameof(playerId)+" "+playerId);
+            
             if (string.IsNullOrEmpty(playerId))
                 return BadRequest();
-
-            if (gameMatcher.TryRemovePlayerFromBattle(playerId))
+            
+            if (unfinishedMatchesService.TryRemovePlayerFromMatch(playerId))
             {
                 return Ok();
             }
@@ -63,7 +71,7 @@ namespace AmoebaGameMatcherServer.Controllers
             if (string.IsNullOrEmpty(playerId))
                 return BadRequest();
 
-            if (gameMatcher.TryRemovePlayerFromQueue(playerId))
+            if (queueSingletonService.TryRemovePlayerFromQueue(playerId))
             {
                 return Ok();
             }
@@ -77,41 +85,44 @@ namespace AmoebaGameMatcherServer.Controllers
         /// <summary>
         /// Добавление в очередь. 
         /// </summary>
-        /// <param name="playerId"></param>
-        /// <param name="warshipId"></param>
-        /// <returns></returns>
-        /// <exception cref="Exception"></exception>
         [Route(nameof(GetRoomData))]
         [HttpPost]
         public async Task<ActionResult<string>> GetRoomData([FromForm]string playerId, [FromForm] int warshipId)
         {
             if (string.IsNullOrEmpty(playerId))
+            {
                 return BadRequest();
+            }
 
+            //Данные для окошка ожидания боя
             GameMatcherResponse response = new GameMatcherResponse
             {
-                NumberOfPlayersInQueue = gameMatcher.GetNumberOfPlayersInQueue(),
-                NumberOfPlayersInBattles = gameMatcher.GetNumberOfPlayersInBattles()
+                NumberOfPlayersInQueue = queueSingletonService.GetNumberOfPlayersInQueue(),
+                NumberOfPlayersInBattles = unfinishedMatchesService.GetNumberOfPlayersInBattles()
             };
             
-            if (gameMatcher.IsPlayerInQueue(playerId))
+            //Игрок в очереди?
+            if (queueSingletonService.IsPlayerInQueue(playerId))
             {
                 Console.WriteLine("IsPlayerInQueue");
                 response.PlayerInQueue = true;
                 return DichSerialize(response);
             }
-            else if (gameMatcher.IsPlayerInBattle(playerId))
+            //Игрок в бою?
+            else if (unfinishedMatchesService.IsPlayerInMatch(playerId))
             {
-                Console.WriteLine("IsPlayerInBattle");
-                GameRoomData roomData = gameMatcher.GetRoomData(playerId);
+                Console.WriteLine("IsPlayerInMatch");
+                BattleRoyaleMatchData roomData = unfinishedMatchesService.GetMatchData(playerId);
                 response.PlayerInBattle = true;
-                response.GameRoomData = roomData;
+                response.BattleRoyaleMatchData = roomData;
                 return DichSerialize(response);
             }
+            //Добавить в очередь
             else
             {
-                Console.WriteLine("RegisterPlayer");
-                if (!await gameMatcher.TryRegisterPlayer(playerId, warshipId))
+                Console.WriteLine("TryEnqueuePlayer");
+                bool successfulQueuing = await queueExtenderService.TryEnqueuePlayer(playerId, warshipId); 
+                if (!successfulQueuing)
                 {
                     throw new Exception("Не удалось зарегистрировать игрока.");
                 }

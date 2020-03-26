@@ -9,11 +9,14 @@ using ZeroFormatter;
 
 namespace AmoebaGameMatcherServer.Services
 {
+    /// <summary>
+    /// Отвечает за отправку http сообщения с данными про матч на гейм сервер для запуска боя.
+    /// </summary>
     public class GameServerNegotiatorService
     {
         private readonly HttpClient httpClient = new HttpClient();
         
-        public async Task SendRoomDataToGameServerAsync(GameRoomData data)
+        public async Task SendRoomDataToGameServerAsync(BattleRoyaleMatchData data)
         {
             if (string.IsNullOrEmpty(data.GameServerIp)) 
                 throw new Exception("При отправке данных на игровой сервер ip не указан");

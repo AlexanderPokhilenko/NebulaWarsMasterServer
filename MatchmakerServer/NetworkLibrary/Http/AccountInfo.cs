@@ -13,6 +13,6 @@ namespace NetworkLibrary.NetworkLibrary.Http
         [Index(4)] public virtual int PointsForBigChest { get; set; }
         [Index(5)] public virtual int PointsForSmallChest { get; set; }
         
-        [Index(6)] public virtual List<WarshipInfo> Warships { get; set; }
+        [Index(6)] public virtual List<WarshipCopy> Warships { get; set; }
     }
 }

@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace AmoebaGameMatcherServer.Services
 {
+    /// <summary>
+    /// Нужен для проверки accessToken-а.
+    /// </summary>
     public class IpAppProductsService
     {
         private readonly CustomGoogleApiAccessTokenService accessTokenService;
@@ -12,6 +15,10 @@ namespace AmoebaGameMatcherServer.Services
             this.accessTokenService = accessTokenService;
         }
         
+        /// <summary>
+        /// Выводт в консоль данные, которые могут быть получены из google api только после правильной авторизации.
+        /// </summary>
+        /// <returns></returns>
         public async Task GetInAppProducts()
         {
             string accessToken = accessTokenService.GetAccessToken();

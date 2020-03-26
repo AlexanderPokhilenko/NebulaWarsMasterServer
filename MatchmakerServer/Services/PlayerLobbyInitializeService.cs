@@ -9,6 +9,9 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services
 {
+    /// <summary>
+    /// Отвечает за получение данных про конкретный аккаунт из БД
+    /// </summary>
     public class PlayerLobbyInitializeService
     {
         private readonly ApplicationDbContext dbContext;
@@ -43,7 +46,7 @@ namespace AmoebaGameMatcherServer.Services
         
         private AccountInfo GetAccountInfo(Account account)
         {
-            int accountRating = account.Warships.Sum(warship => warship.WarshipRating);
+            int accountRating = account.Warships.Sum(warship => warship.Rating);
             AccountInfo accountInfo = new AccountInfo
             {
                 Username = account.Username,
@@ -52,17 +55,17 @@ namespace AmoebaGameMatcherServer.Services
                 PointsForBigChest = account.PointsForBigChest,
                 PointsForSmallChest = account.PointsForSmallChest,
                 AccountRating = accountRating,
-                Warships = new List<WarshipInfo>()
+                Warships = new List<WarshipCopy>()
             };
             foreach (var warship in account.Warships)
             {
-                WarshipInfo warshipInfo = new WarshipInfo();
-                warshipInfo.Id = warship.Id;
-                warshipInfo.PrefabName = warship.WarshipType.Name;
-                warshipInfo.Rating = warship.WarshipRating;
-                warshipInfo.CombatPowerLevel = warship.WarshipCombatPowerLevel;
-                warshipInfo.CombatPowerValue = warship.WarshipCombatPowerValue;
-                accountInfo.Warships.Add(warshipInfo);
+                WarshipCopy warshipCopy = new WarshipCopy();
+                warshipCopy.Id = warship.Id;
+                warshipCopy.PrefabName = warship.WarshipType.Name;
+                warshipCopy.Rating = warship.Rating;
+                warshipCopy.CombatPowerLevel = warship.CombatPowerLevel;
+                warshipCopy.CombatPowerValue = warship.CombatPowerValue;
+                accountInfo.Warships.Add(warshipCopy);
             }
             return accountInfo;
         }
@@ -95,17 +98,17 @@ namespace AmoebaGameMatcherServer.Services
                 {
                     new Warship
                     {
-                        WarshipRating = defaultWarshipRating,
+                        Rating = defaultWarshipRating,
                         WarshipTypeId = warshipTypeHare,
-                        WarshipCombatPowerLevel = defaultWarshipCombatPowerLevel,
-                        WarshipCombatPowerValue = defaultWarshipCombatPowerValue
+                        CombatPowerLevel = defaultWarshipCombatPowerLevel,
+                        CombatPowerValue = defaultWarshipCombatPowerValue
                     },
                     new Warship
                     {
-                        WarshipRating = defaultWarshipRating,
+                        Rating = defaultWarshipRating,
                         WarshipTypeId = warshipTypeBird,
-                        WarshipCombatPowerLevel = defaultWarshipCombatPowerLevel,
-                        WarshipCombatPowerValue = defaultWarshipCombatPowerValue
+                        CombatPowerLevel = defaultWarshipCombatPowerLevel,
+                        CombatPowerValue = defaultWarshipCombatPowerValue
                     }
                 }
             };

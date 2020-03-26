@@ -5,6 +5,9 @@ using DataLayer;
 
 namespace AmoebaGameMatcherServer.Services
 {
+    /// <summary>
+    /// Отвечает за обновление accessToken-а и сохранение данных в файл на случай перезагрузки.
+    /// </summary>
     public class CustomGoogleApiAccessTokenService
     {
         private MyGoogleApiData apiData;

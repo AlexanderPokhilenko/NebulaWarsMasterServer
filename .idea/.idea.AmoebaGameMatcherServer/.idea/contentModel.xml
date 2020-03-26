@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
+    <e p="C:\Users\Zenit\.nuget\packages\microsoft.net.test.sdk\16.0.1\build\netcoreapp1.0" t="Include">
+      <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
+    </e>
+    <e p="C:\Users\Zenit\.nuget\packages\mstest.testadapter\1.4.0\build\_common\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll" t="Include" />
+    <e p="C:\Users\Zenit\.nuget\packages\mstest.testadapter\1.4.0\build\_common\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll" t="Include" />
+    <e p="C:\Users\Zenit\.nuget\packages\mstest.testadapter\1.4.0\build\netcoreapp1.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll" t="Include" />
     <e p="C:\Users\Zenit\.Rider2019.3\config\consoles\db" t="IncludeRecursive" />
     <e p="C:\Users\Zenit\.Rider2019.3\config\extensions" t="IncludeRecursive" />
     <e p="C:\Users\Zenit\.Rider2019.3\config\scratches" t="IncludeRecursive" />
@@ -83,9 +89,9 @@
           <e p="Http" t="Include">
             <e p="AccountInfo.cs" t="Include" />
             <e p="AccountInfo.cs.meta" t="Include" />
+            <e p="BattleRoyaleMatchData.cs" t="Include" />
             <e p="GameMatcherResponse.cs" t="Include" />
             <e p="GameMatcherResponse.cs.meta" t="Include" />
-            <e p="GameRoomData.cs" t="Include" />
             <e p="GameRoomData.cs.meta" t="Include" />
             <e p="GameRoomValidationResult.cs" t="Include" />
             <e p="GameRoomValidationResult.cs.meta" t="Include" />
@@ -93,7 +99,7 @@
             <e p="MatchType.cs.meta" t="Include" />
             <e p="PlayerInfoForGameRoom.cs" t="Include" />
             <e p="PlayerInfoForGameRoom.cs.meta" t="Include" />
-            <e p="WarshipInfo.cs" t="Include" />
+            <e p="WarshipCopy.cs" t="Include" />
             <e p="WarshipInfo.cs.meta" t="Include" />
           </e>
           <e p="Http.meta" t="Include" />
@@ -167,12 +173,15 @@
           <e p="launchSettings.json" t="Include" />
         </e>
         <e p="Services" t="Include">
+          <e p="BattleRoyaleMatchCreatorService.cs" t="Include" />
+          <e p="BattleRoyaleMatchFinisherService.cs" t="Include" />
+          <e p="BattleRoyaleQueueSingletonService.cs" t="Include" />
+          <e p="BattleRoyaleUnfinishedMatchesSingletonService.cs" t="Include" />
           <e p="DoubleTokensManagerService.cs" t="Include" />
-          <e p="GameMatcherDataService.cs" t="Include" />
-          <e p="GameMatcherForceRoomCreator.cs" t="Include" />
-          <e p="GameMatcherService.cs" t="Include" />
           <e p="GameServerNegotiatorService.cs" t="Include" />
-          <e p="GooglePlayApiPurchasesWrapper.cs" t="Include" />
+          <e p="MatchCreationInitiatorSingletonService.cs" t="Include" />
+          <e p="MyQueue.cs" t="Include" />
+          <e p="PlayerInfo.cs" t="Include" />
           <e p="PlayerLobbyInitializeService.cs" t="Include" />
           <e p="PlayersAchievementsService.cs" t="Include" />
           <e p="Purchases" t="Include">
@@ -187,7 +196,7 @@
             <e p="RefreshedData.cs" t="Include" />
             <e p="TokenManagerService.cs" t="Include" />
           </e>
-          <e p="WarshipInfoHelper.cs" t="Include" />
+          <e p="QueueExtenderService.cs" t="Include" />
         </e>
         <e p="Startup.cs" t="Include" />
         <e p="Utils" t="Include">
@@ -195,6 +204,18 @@
           <e p="Globals.cs" t="Include" />
           <e p="PlayersTemporaryIdGenerator.cs" t="Include" />
         </e>
+      </e>
+      <e p="MatchmakerTest" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="MatchmakerTest.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.2" t="Include">
+              <e p="MatchmakerTest.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="UnitTest1.cs" t="Include" />
       </e>
       <e p="packages" t="ExcludeRecursive" />
     </e>

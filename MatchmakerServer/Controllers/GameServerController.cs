@@ -1,8 +1,5 @@
 ﻿using System;
-using AmoebaGameMatcherServer.Services;
 using Microsoft.AspNetCore.Mvc;
-
-//TODO добавить secretKey проверку
 
 namespace AmoebaGameMatcherServer.Controllers
 {
@@ -10,13 +7,7 @@ namespace AmoebaGameMatcherServer.Controllers
     [ApiController]
     public class GameServerController : ControllerBase
     {
-        private readonly GameMatcherService gameMatcher;
-
-        public GameServerController(GameMatcherService gameMatcher)
-        {
-            this.gameMatcher = gameMatcher;
-        }
-
+        
         /// <summary>
         /// Метод вызывается гейм сервером при окончании игровой сессии.
         /// </summary>
@@ -29,7 +20,7 @@ namespace AmoebaGameMatcherServer.Controllers
 
             //TODO сделать запись об окончании боя
             
-            gameMatcher.DeleteRoom(gameRoomId);
+            // gameMatcher.DeleteRoom(gameRoomId);
             return Ok();
         }
         

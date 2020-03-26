@@ -3,7 +3,7 @@
 namespace NetworkLibrary.NetworkLibrary.Http
 {
     [ZeroFormattable]
-    public class GameRoomData
+    public class BattleRoyaleMatchData
     {
         [Index(0)] public virtual string GameServerIp{ get; set; }
         [Index(1)] public virtual int GameRoomNumber{ get; set; }

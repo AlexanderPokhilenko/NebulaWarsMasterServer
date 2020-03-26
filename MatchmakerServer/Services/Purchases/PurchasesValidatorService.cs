@@ -5,6 +5,9 @@ using Newtonsoft.Json;
 
 namespace AmoebaGameMatcherServer.Services
 {
+    /// <summary>
+    /// Отвечает за начисление предметов после совершения покупки в google play store
+    /// </summary>
     public class PurchasesValidatorService
     {
         private readonly CustomGoogleApiAccessTokenService accessTokenService;

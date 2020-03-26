@@ -20,29 +20,36 @@ namespace AmoebaGameMatcherServer
                 .AddDbContext<ApplicationDbContext>(opt => opt.UseNpgsql(connectionString))
                 .BuildServiceProvider();
 
-            services.AddTransient<PlayerLobbyInitializeService>();
-            services.AddTransient<WarshipInfoHelper>();
-            
-            services.AddTransient<DoubleTokensManagerService>();
-            services.AddTransient<PlayersAchievementsService>();
-
-            // services.AddSingleton<GooglePurchasesWrapperService>();
-            
-            services.AddSingleton<CustomGoogleApiAccessTokenService>();
+            //Работа с покупками
             services.AddSingleton<PurchasesValidatorService>();
+            services.AddSingleton<CustomGoogleApiAccessTokenService>();
             services.AddSingleton<IpAppProductsService>();
             
-            services.AddSingleton<GameMatcherDataService>();
-            services.AddSingleton<GameMatcherService>();
-            services.AddSingleton<GameMatcherForceRoomCreator>();
-            services.AddSingleton<GameServerNegotiatorService>();
+            //Работа с данными игрока в лобби
+            services.AddTransient<PlayerLobbyInitializeService>();
+            
+            //Создание боёв и данные игрока в бою
+            services.AddTransient<QueueExtenderService>();
+            services.AddTransient<PlayersAchievementsService>();
+            services.AddTransient<DoubleTokensManagerService>();
+            
+            services.AddSingleton<BattleRoyaleQueueSingletonService>();
+            services.AddTransient<BattleRoyaleMatchCreatorService>();
+            services.AddTransient<BattleRoyaleMatchFinisherService>();
+            services.AddSingleton<BattleRoyaleUnfinishedMatchesSingletonService>();
+
+            services.AddSingleton<MatchCreationInitiatorSingletonService>();
+            
+            //Работа с гейм севером
+            services.AddTransient<GameServerNegotiatorService>();
+            
         }
         
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
-            GameMatcherForceRoomCreator forceRoomCreator, ApplicationDbContext dbContext, 
+            MatchCreationInitiatorSingletonService matchCreationInitiatorSingletonService, ApplicationDbContext dbContext, 
             CustomGoogleApiAccessTokenService googleApiAccessTokenManagerService)
         {
-            forceRoomCreator.StartPeriodicCreationInAnotherThread();
+            matchCreationInitiatorSingletonService.StartThread();
             googleApiAccessTokenManagerService.Initialize().Wait();
 
             if (env.IsDevelopment())

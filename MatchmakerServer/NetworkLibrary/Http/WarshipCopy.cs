@@ -3,7 +3,7 @@
 namespace NetworkLibrary.NetworkLibrary.Http
 {
     [ZeroFormattable]
-    public class WarshipInfo
+    public class WarshipCopy
     {
         [Index(0)] public virtual string PrefabName { get; set; }
         [Index(1)] public virtual int CombatPowerLevel { get; set; }
