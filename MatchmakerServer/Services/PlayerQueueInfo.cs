@@ -27,11 +27,9 @@ namespace AmoebaGameMatcherServer.Services
             var result = new PlayerInfoForMatch
             {
                 AccountId = AccountId,
-                IsBot = false,
                 ServiceId = Warship.Account.ServiceId,
                 TemporaryId = 0,
-                WarshipId = Warship.Id,
-                WarshipName = Warship.WarshipType.Name,
+                PrefabName = Warship.WarshipType.Name,
                 WarshipCombatPowerLevel = Warship.CombatPowerLevel
             };
             return result;

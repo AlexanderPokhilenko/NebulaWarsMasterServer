@@ -1,27 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AmoebaGameMatcherServer.Utils;
 using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services
 {
-    public class QueueHelperSukaService
-    {
-        private readonly BattleRoyaleQueueSingletonService battleRoyaleQueueSingletonService;
-
-        public QueueHelperSukaService(BattleRoyaleQueueSingletonService battleRoyaleQueueSingletonService)
-        {
-            this.battleRoyaleQueueSingletonService = battleRoyaleQueueSingletonService;
-        }
-
-        public void RemovePlayersFromQueue(List<PlayerInfoForMatch> sukaList)
-        {
-            foreach (var sukaInfo in sukaList)
-            {
-                battleRoyaleQueueSingletonService.TryRemovePlayerFromQueue(sukaInfo.ServiceId);
-            }
-        }
-    }
     /// <summary>
     /// Отвечает за доставание набора игроков для матча.
     /// Есть возможность дополнять игроков ботами.
@@ -35,38 +19,48 @@ namespace AmoebaGameMatcherServer.Services
             this.battleRoyaleQueueService = battleRoyaleQueueService;
         }
         
-        public (bool success, List<PlayerQueueInfo> playersInfo) GetPlayersForMatch(int maxNumberOfPlayersInBattle, 
-            bool botsCanBeUsed)
+        public (bool success, GameUnitsForMatch, List<PlayerQueueInfo> playersQueueInfo) GetPlayersForMatch(
+            int maxNumberOfPlayersInBattle, bool botsCanBeUsed)
         {
             //Если мало игроков и нельзя дополнять ботами, то матч собрать не получится
             if (battleRoyaleQueueService.GetNumberOfPlayersInQueue() < Globals.NumbersOfPlayersInBattleRoyaleMatch
                 && !botsCanBeUsed)
             {
-                return (false, null);
+                Console.WriteLine("Если мало игроков и нельзя дополнять ботами, то матч собрать не получится");
+                return (false, null, null);
             }
 
+            GameUnitsForMatch gameUnitsForMatch = new GameUnitsForMatch();
+            
             //Достать игроков из очереди без извлечения
-            var playersInfo = battleRoyaleQueueService.TakeHead(maxNumberOfPlayersInBattle);
-
+            List<PlayerQueueInfo> playersQueueInfo = 
+                battleRoyaleQueueService.GetPlayersQueueInfo(maxNumberOfPlayersInBattle);
+            gameUnitsForMatch.Players = playersQueueInfo.Select(info => info.ToMatchInfo()).ToList();
+            
             //Дополнить ботами, если нужно
-            if (playersInfo.Count < Globals.NumbersOfPlayersInBattleRoyaleMatch)
+            if (gameUnitsForMatch.Players.Count < Globals.NumbersOfPlayersInBattleRoyaleMatch)
             {
+                Console.WriteLine("gameUnitsForMatch.Players.Count < Globals.NumbersOfPlayersInBattleRoyaleMatch");
                 //Дополнить ботами, если можно
                 if (botsCanBeUsed)
                 {
-                    playersInfo.AddRange(CreateBots(maxNumberOfPlayersInBattle-playersInfo.Count));
+                    Console.WriteLine("botsCanBeUsed");
+                    int countOfBots = maxNumberOfPlayersInBattle - gameUnitsForMatch.Players.Count;
+                    gameUnitsForMatch.Bots = CreateBots(countOfBots);
                 }
             }
         
-            //Если игроков достаточно, то был матч может быть запущен
-            if (playersInfo.Count == Globals.NumbersOfPlayersInBattleRoyaleMatch)
+            
+            //Если игроков достаточно, то матч может быть запущен
+            if (gameUnitsForMatch.Count() == Globals.NumbersOfPlayersInBattleRoyaleMatch)
             {
-                return (true, playersInfo);
+                return (true, gameUnitsForMatch, playersQueueInfo);
             }
             //Иначе собрать матч не удалось
             else
             {
-                return (false, null);
+                Console.WriteLine("Иначе собрать матч не удалось");
+                return (false, null, null);
             }
         }
         
@@ -75,9 +69,22 @@ namespace AmoebaGameMatcherServer.Services
         /// </summary>
         /// <param name="numberOdBots"></param>
         /// <returns></returns>
-        private List<PlayerQueueInfo> CreateBots(int numberOdBots)
+        private List<BotInfo> CreateBots(int numberOdBots)
         {
-            throw new NotImplementedException();
+            List<BotInfo> bots = new List<BotInfo>();
+            for (int i = 0; i < numberOdBots; i++)
+            {
+                BotInfo botInfo = new BotInfo()
+                {
+                    BotName = "Игорь",
+                    PrefabName = "Bird",
+                    TemporaryId = 0, //TODO suka
+                    WarshipCombatPowerLevel = 1
+                };
+                bots.Add(botInfo);
+            }
+            
+            return bots;
         }
     }
 }

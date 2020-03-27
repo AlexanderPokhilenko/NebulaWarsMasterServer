@@ -91,6 +91,7 @@
             <e p="AccountInfo.cs" t="Include" />
             <e p="AccountInfo.cs.meta" t="Include" />
             <e p="BattleRoyaleMatchData.cs" t="Include" />
+            <e p="BotInfo.cs" t="Include" />
             <e p="GameMatcherResponse.cs" t="Include" />
             <e p="GameMatcherResponse.cs.meta" t="Include" />
             <e p="GameRoomData.cs.meta" t="Include" />
@@ -183,11 +184,16 @@
           <e p="GameServerNegotiatorService.cs" t="Include" />
           <e p="GameServersManagerService.cs" t="Include" />
           <e p="IWarshipValidatorService.cs" t="Include" />
+          <e p="MatchCreationInitiator.cs" t="Include" />
           <e p="MatchCreationInitiatorSingletonService.cs" t="Include" />
+          <e p="MatchCreationMessage.cs" t="Include" />
+          <e p="MatchDataDbWriterService.cs" t="Include" />
           <e p="MyQueue.cs" t="Include" />
+          <e p="PeriodicTaskExecutor.cs" t="Include" />
           <e p="PlayerLobbyInitializeService.cs" t="Include" />
           <e p="PlayerQueueInfo.cs" t="Include" />
           <e p="PlayersAchievementsService.cs" t="Include" />
+          <e p="PlayerTimeoutControllerService.cs" t="Include" />
           <e p="Purchases" t="Include">
             <e p="CustomAccessTokenManager.cs" t="Include" />
             <e p="CustomGoogleApiInitializer.cs" t="Include" />
@@ -201,6 +207,7 @@
             <e p="TokenManagerService.cs" t="Include" />
           </e>
           <e p="QueueExtenderService.cs" t="Include" />
+          <e p="QueueHelperSukaService.cs" t="Include" />
           <e p="WarshipValidatorService.cs" t="Include" />
           <e p="WarshipValidatorServiceStub.cs" t="Include" />
         </e>

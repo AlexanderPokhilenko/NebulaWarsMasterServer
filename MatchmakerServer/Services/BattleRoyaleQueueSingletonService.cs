@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DataLayer.Tables;
 using Google.Apis.Upload;
 using NetworkLibrary.NetworkLibrary.Http;
@@ -51,7 +52,7 @@ namespace AmoebaGameMatcherServer.Services
         /// Возвращает игроков без исключения из очереди 
         /// </summary>
         /// <param name="maxNumberOfPlayersInBattle"></param>
-        public List<PlayerQueueInfo> TakeHead(int maxNumberOfPlayersInBattle)
+        public List<PlayerQueueInfo> GetPlayersQueueInfo(int maxNumberOfPlayersInBattle)
         {
             return unsortedPlayers.TakeHead(maxNumberOfPlayersInBattle);
         }

@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DataLayer;
+﻿using System.Threading.Tasks;
 using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services
 {
-    public struct MatchCreationMessage
-    {
-        public bool Success;
-        public MatchCreationFailureReason? FailureReason;
-        public int? MatchId;
-    }
     /// <summary>
     /// Полностью управляет созданием боя для батл рояль режима.
     /// </summary>
@@ -23,27 +13,29 @@ namespace AmoebaGameMatcherServer.Services
         private readonly IGameServerNegotiatorService gameServerNegotiatorService;
         private readonly MatchmakerDichService matchmakerDichService;
         private readonly BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService;
-        private readonly ApplicationDbContext dbContext;
+        private readonly MatchDataDbWriterService matchDataDbWriterService;
         private readonly QueueHelperSukaService sukaService;
 
         public BattleRoyaleMatchCreatorService(BattleRoyaleMatchPackerService battleRoyaleMatchPackerService, 
-            ApplicationDbContext dbContext, IGameServerNegotiatorService gameServerNegotiatorService,
+            IGameServerNegotiatorService gameServerNegotiatorService,
             MatchmakerDichService matchmakerDichService, 
-            BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService, QueueHelperSukaService sukaService)
+            BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService, QueueHelperSukaService sukaService,
+            MatchDataDbWriterService matchDataDbWriterService)
         {
             this.battleRoyaleMatchPackerService = battleRoyaleMatchPackerService;
-            this.dbContext = dbContext;
+            
             this.gameServerNegotiatorService = gameServerNegotiatorService;
             this.matchmakerDichService = matchmakerDichService;
             this.unfinishedMatchesService = unfinishedMatchesService;
             this.sukaService = sukaService;
+            this.matchDataDbWriterService = matchDataDbWriterService;
         }
         
         public async Task<MatchCreationMessage> 
             TryCreateMatch(int maxNumberOfPlayersInBattle, bool botsCanBeUsed)
         {
             //Попробовать достать игроков из очереди
-            var (success, playersInfo) = battleRoyaleMatchPackerService
+            var (success, gameUnitsForMatch, playersQueueInfo) = battleRoyaleMatchPackerService
                 .GetPlayersForMatch(maxNumberOfPlayersInBattle, botsCanBeUsed);
 
             //Достаточно игроков?
@@ -61,7 +53,10 @@ namespace AmoebaGameMatcherServer.Services
             var matchRoutingData = matchmakerDichService.GetMatchRoutingData();
 
             //Сделать запись об матче в БД
-            BattleRoyaleMatchData matchData = await WriteMatchDataToDb(matchRoutingData, playersInfo);
+            Match match = await matchDataDbWriterService.WriteMatchDataToDb(matchRoutingData, playersQueueInfo);
+
+            //Создать объект со всей инфой про бой
+            BattleRoyaleMatchData matchData = MatchDataFactory.Create(gameUnitsForMatch, match);
             
             //Добавить игроков в таблицу тех кто в бою
             unfinishedMatchesService.AddPlayersToMatch(matchData);
@@ -78,42 +73,6 @@ namespace AmoebaGameMatcherServer.Services
                 FailureReason = null,
                 MatchId = matchData.MatchId
             };
-        }
-
-        private async Task<BattleRoyaleMatchData> WriteMatchDataToDb(MatchRoutingData matchRoutingData, 
-            List<PlayerQueueInfo> playersInfo)
-        {
-            var playersResult = new List<PlayerMatchResult>();
-            foreach (var playerQueueInfo in playersInfo)
-            {
-                PlayerMatchResult playerMatchResult = new PlayerMatchResult
-                {
-                    AccountId = playerQueueInfo.AccountId,
-                    WarshipId = playerQueueInfo.Warship.Id
-                };
-                playersResult.Add(playerMatchResult);
-            }
-
-            Match match = new Match
-            {
-                StartTime = DateTime.UtcNow,
-                GameServerIp = matchRoutingData.GameServerIp,
-                GameServerUdpPort = matchRoutingData.GameServerPort,
-                PlayerMatchResults = playersResult
-            };
-
-            await dbContext.Matches.AddAsync(match);
-            await dbContext.SaveChangesAsync();
-
-            BattleRoyaleMatchData battleRoyaleMatchData = new BattleRoyaleMatchData()
-            {
-                Players = playersInfo.Select((info, i) => info.ToMatchInfo()).ToList(),
-                MatchId = match.Id,
-                GameServerIp = matchRoutingData.GameServerIp,
-                GameServerPort = matchRoutingData.GameServerPort
-            };
-
-            return battleRoyaleMatchData;
         }
     }
 

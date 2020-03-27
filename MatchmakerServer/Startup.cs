@@ -17,7 +17,8 @@ namespace AmoebaGameMatcherServer
             string connectionString = DbConfigIgnore.GetConnectionString();
             services
                 .AddEntityFrameworkNpgsql()
-                .AddDbContext<ApplicationDbContext>(opt => opt.UseNpgsql(connectionString))
+                .AddDbContext<ApplicationDbContext>(
+                    opt => opt.UseNpgsql(connectionString))
                 .BuildServiceProvider();
 
             //Работа с покупками
@@ -37,11 +38,11 @@ namespace AmoebaGameMatcherServer
             services.AddTransient<QueueHelperSukaService>();
             
             services.AddSingleton<BattleRoyaleQueueSingletonService>();
-            services.AddTransient<BattleRoyaleMatchCreatorService>();
+            services.AddTransient<MatchCreationInitiatorSingletonService>();
             services.AddTransient<BattleRoyaleMatchFinisherService>();
             services.AddSingleton<BattleRoyaleUnfinishedMatchesSingletonService>();
 
-            services.AddSingleton<MatchCreationInitiatorSingletonService>();
+            
             
             //Работа с гейм севером
             services.AddTransient<GameServerNegotiatorService>();
@@ -49,10 +50,10 @@ namespace AmoebaGameMatcherServer
         }
         
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
-            MatchCreationInitiatorSingletonService matchCreationInitiatorSingletonService, ApplicationDbContext dbContext, 
+            MatchCreationInitiatorSingletonService matchCreationInitiator, ApplicationDbContext dbContext, 
             CustomGoogleApiAccessTokenService googleApiAccessTokenManagerService)
         {
-            matchCreationInitiatorSingletonService.StartThread();
+            matchCreationInitiator.StartThread();
             googleApiAccessTokenManagerService.Initialize().Wait();
 
             if (env.IsDevelopment())

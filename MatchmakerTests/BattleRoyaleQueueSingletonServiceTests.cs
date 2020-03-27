@@ -187,7 +187,7 @@ namespace MatchmakerTest
         //
         //     //Act    
         //     battleRoyaleQueue.TryEnqueuePlayer(str1, new Warship());
-        //     var playersInfo= battleRoyaleQueue.TakeHead(5);
+        //     var playersInfo= battleRoyaleQueue.GetPlayersQueueInfo(5);
         //     
         //     //Assert
         //     Assert.AreEqual(1, playersInfo.Count);
@@ -210,7 +210,7 @@ namespace MatchmakerTest
         //     battleRoyaleQueue.TryEnqueuePlayer(str3, new Warship());
         //     battleRoyaleQueue.TryEnqueuePlayer(str4, new Warship());
         //     battleRoyaleQueue.TryEnqueuePlayer(str5, new Warship());
-        //     var playersInfo= battleRoyaleQueue.TakeHead(3);
+        //     var playersInfo= battleRoyaleQueue.GetPlayersQueueInfo(3);
         //     
         //     //Assert
         //     Assert.AreEqual(3, playersInfo.Count);
@@ -249,7 +249,7 @@ namespace MatchmakerTest
         //     battleRoyaleQueue.TryEnqueuePlayer(str1, new Warship());
         //     battleRoyaleQueue.TryEnqueuePlayer(str2, new Warship());
         //     DateTime? dateTime = battleRoyaleQueue.GetOldestRequestTime();
-        //     var playerInfo = battleRoyaleQueue.TakeHead(1);
+        //     var playerInfo = battleRoyaleQueue.GetPlayersQueueInfo(1);
         //
         //     //Assert
         //     Assert.IsNotNull(dateTime);
