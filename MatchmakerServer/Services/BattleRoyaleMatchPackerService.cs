@@ -6,7 +6,7 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services
 {
-    //есть
+     
     /// <summary>
     /// Отвечает за доставание набора игроков для матча.
     /// Есть возможность дополнять игроков ботами.
@@ -75,13 +75,23 @@ namespace AmoebaGameMatcherServer.Services
                 {
                     BotName = "Игорь",
                     PrefabName = "Bird",
-                    TemporaryId = 0, //TODO suka
+                    TemporaryId = StubTmpIdGenerator.CreateDich(), //TODO suka
                     WarshipCombatPowerLevel = 1
                 };
                 bots.Add(botInfo);
             }
             
             return bots;
+        }
+    }
+
+    public static class StubTmpIdGenerator
+    {
+        private static int lastId=0;
+        public static int CreateDich()
+        {
+            lastId++;
+            return lastId;
         }
     }
 }

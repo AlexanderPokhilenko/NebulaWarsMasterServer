@@ -28,7 +28,7 @@ namespace AmoebaGameMatcherServer.Services
             {
                 AccountId = AccountId,
                 ServiceId = Warship.Account.ServiceId,
-                TemporaryId = 0,
+                TemporaryId = StubTmpIdGenerator.CreateDich(),//TODO исправить это говно
                 PrefabName = Warship.WarshipType.Name,
                 WarshipCombatPowerLevel = Warship.CombatPowerLevel
             };

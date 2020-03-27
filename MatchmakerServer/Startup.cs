@@ -44,7 +44,7 @@ namespace AmoebaGameMatcherServer
             services.AddTransient<IPlayerTimeoutManager, PlayerTimeoutManagerService>();
             services.AddTransient<MatchDataDbWriterService>();
             services.AddTransient<QueueHelperSukaService>();
-            services.AddTransient<WarshipValidatorService>();
+            services.AddTransient<IWarshipValidatorService, WarshipValidatorService>();
             
             services.AddSingleton<BattleRoyaleQueueSingletonService>();
             services.AddSingleton<BattleRoyaleUnfinishedMatchesSingletonService>();

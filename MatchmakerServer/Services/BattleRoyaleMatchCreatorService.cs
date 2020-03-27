@@ -4,7 +4,7 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services
 {
-    //есть
+     
     /// <summary>
     /// Полностью управляет созданием боя для батл рояль режима.
     /// </summary>

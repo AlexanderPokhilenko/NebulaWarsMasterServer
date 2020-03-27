@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace AmoebaGameMatcherServer.Services
 {
-    //есть
+     
     /// <summary>
     /// Отвечает за проверку данных игрока перед добавлением в очередь (пока один режим)
     /// </summary>

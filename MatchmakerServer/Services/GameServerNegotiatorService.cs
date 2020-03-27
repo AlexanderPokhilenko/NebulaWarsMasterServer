@@ -24,7 +24,7 @@ namespace AmoebaGameMatcherServer.Services
         }
     }
     
-    //есть
+     
     /// <summary>
     /// Отвечает за отправку http сообщения с данными про матч на гейм сервер для запуска боя.
     /// </summary>

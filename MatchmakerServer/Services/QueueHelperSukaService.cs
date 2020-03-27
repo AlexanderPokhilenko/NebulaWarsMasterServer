@@ -3,7 +3,7 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services
 {
-    //есть
+     
     public class QueueHelperSukaService
     {
         private readonly BattleRoyaleQueueSingletonService battleRoyaleQueueSingletonService;

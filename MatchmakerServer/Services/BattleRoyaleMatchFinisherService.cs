@@ -1,7 +1,7 @@
 ﻿
 namespace AmoebaGameMatcherServer.Services
 {
-    //есть
+     
     /// <summary>
     /// Отвечает за дописывания результатов боя для батл рояль режима.
     /// </summary>

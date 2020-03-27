@@ -29,18 +29,18 @@ namespace AmoebaGameMatcherServer.Services
         }
     }
     
-    //есть
+     
     /// <summary>
     /// Записывает данные матча в БД
     /// </summary>
     public class MatchDataDbWriterService
     {
-        private readonly ApplicationDbContext dbContext;
-
-        public MatchDataDbWriterService(ApplicationDbContext dbContext)
-        {
-            this.dbContext = dbContext;
-        }
+        // private readonly ApplicationDbContext dbContext;
+        //
+        // public MatchDataDbWriterService(ApplicationDbContext dbContext)
+        // {
+        //     this.dbContext = dbContext;
+        // }
         
         /// <summary>
         /// Возвращает id матча после успешной записи в БД
@@ -48,6 +48,7 @@ namespace AmoebaGameMatcherServer.Services
         public async Task<Match> WriteMatchDataToDb(MatchRoutingData matchRoutingData, 
             List<PlayerQueueInfo> playersQueueInfo)
         {
+            ApplicationDbContext dbContext = DbContextFactory.CreateDbContext();
             //Создать объекты для результатов боя игроков
             var playersResult = new List<PlayerMatchResult>();
             foreach (var playerQueueInfo in playersQueueInfo)
