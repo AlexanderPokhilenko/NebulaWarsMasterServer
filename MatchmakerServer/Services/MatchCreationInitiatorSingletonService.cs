@@ -2,6 +2,7 @@
 
 namespace AmoebaGameMatcherServer.Services
 {
+    //есть
     public class MatchCreationInitiatorSingletonService : MatchCreationInitiator
     {
         private readonly PeriodicTaskExecutor periodicTaskExecutor;

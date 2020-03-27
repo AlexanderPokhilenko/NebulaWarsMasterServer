@@ -6,6 +6,7 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services
 {
+    //есть
     /// <summary>
     /// Отвечает за доставание набора игроков для матча.
     /// Есть возможность дополнять игроков ботами.
@@ -26,7 +27,6 @@ namespace AmoebaGameMatcherServer.Services
             if (battleRoyaleQueueService.GetNumberOfPlayersInQueue() < Globals.NumbersOfPlayersInBattleRoyaleMatch
                 && !botsCanBeUsed)
             {
-                Console.WriteLine("Если мало игроков и нельзя дополнять ботами, то матч собрать не получится");
                 return (false, null, null);
             }
 
@@ -40,11 +40,9 @@ namespace AmoebaGameMatcherServer.Services
             //Дополнить ботами, если нужно
             if (gameUnitsForMatch.Players.Count < Globals.NumbersOfPlayersInBattleRoyaleMatch)
             {
-                Console.WriteLine("gameUnitsForMatch.Players.Count < Globals.NumbersOfPlayersInBattleRoyaleMatch");
                 //Дополнить ботами, если можно
                 if (botsCanBeUsed)
                 {
-                    Console.WriteLine("botsCanBeUsed");
                     int countOfBots = maxNumberOfPlayersInBattle - gameUnitsForMatch.Players.Count;
                     gameUnitsForMatch.Bots = CreateBots(countOfBots);
                 }
@@ -59,7 +57,6 @@ namespace AmoebaGameMatcherServer.Services
             //Иначе собрать матч не удалось
             else
             {
-                Console.WriteLine("Иначе собрать матч не удалось");
                 return (false, null, null);
             }
         }

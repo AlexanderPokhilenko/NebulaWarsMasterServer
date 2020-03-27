@@ -5,6 +5,7 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services
 {
+    //есть
     //TODO сделать это говно многопоточным
     /// <summary>
     /// Хранит данные о текущих боях.
@@ -70,7 +71,7 @@ namespace AmoebaGameMatcherServer.Services
         public void AddPlayersToMatch(BattleRoyaleMatchData matchData)
         {
             matchesData.TryAdd(matchData.MatchId, matchData);
-            foreach (var playerInfoForMatch in matchData.Players)
+            foreach (var playerInfoForMatch in matchData.GameUnitsForMatch.Players)
             {
                 playersInMatches.TryAdd(playerInfoForMatch.ServiceId, matchData.MatchId);
             }

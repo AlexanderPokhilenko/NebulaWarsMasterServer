@@ -7,6 +7,7 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services
 {
+    //есть
     /// <summary>
     /// Отвечает за добавление/удаление игроков в очередь батл рояль режима
     /// </summary>

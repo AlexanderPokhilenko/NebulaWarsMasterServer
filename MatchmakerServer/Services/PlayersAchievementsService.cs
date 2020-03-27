@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AmoebaGameMatcherServer.Services
 {
+    //есть
     /// <summary>
     /// Достаёт из БД данные о конкретном бое для аккаунта.
     /// </summary>

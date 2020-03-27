@@ -16,12 +16,15 @@ namespace AmoebaGameMatcherServer.Services
 
     public class GameServerNegotiatorServiceStub : IGameServerNegotiatorService
     {
+#pragma warning disable 1998
         public async Task SendRoomDataToGameServerAsync(BattleRoyaleMatchData data)
+#pragma warning restore 1998
         {
             Console.WriteLine(nameof(SendRoomDataToGameServerAsync));
         }
     }
     
+    //есть
     /// <summary>
     /// Отвечает за отправку http сообщения с данными про матч на гейм сервер для запуска боя.
     /// </summary>

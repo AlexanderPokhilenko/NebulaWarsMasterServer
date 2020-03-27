@@ -8,6 +8,7 @@ namespace AmoebaGameMatcherServer.Services
         public int GameServerPort;
     }
     
+    //есть
     public class MatchmakerDichService
     {
         private readonly GameServersManagerService serversManagerService;
@@ -27,6 +28,7 @@ namespace AmoebaGameMatcherServer.Services
         }
     }
 
+    //есть
     public class GameServersManagerService
     {
         public (string ip, int port) GetGameServerAddress()

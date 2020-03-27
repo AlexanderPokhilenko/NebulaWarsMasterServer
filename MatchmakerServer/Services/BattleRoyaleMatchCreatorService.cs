@@ -4,6 +4,7 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services
 {
+    //есть
     /// <summary>
     /// Полностью управляет созданием боя для батл рояль режима.
     /// </summary>
@@ -62,7 +63,7 @@ namespace AmoebaGameMatcherServer.Services
             unfinishedMatchesService.AddPlayersToMatch(matchData);
             
             //Извлечь игроков из очереди
-            sukaService.RemovePlayersFromQueue(matchData.Players);
+            sukaService.RemovePlayersFromQueue(matchData.GameUnitsForMatch.Players);
             
             //Сообщить на гейм сервер
             await gameServerNegotiatorService.SendRoomDataToGameServerAsync(matchData);

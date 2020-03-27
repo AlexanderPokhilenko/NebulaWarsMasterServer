@@ -19,13 +19,17 @@ namespace AmoebaGameMatcherServer.Services
                 MatchId = match.Id,
                 GameServerIp = match.GameServerIp,
                 GameServerPort = match.GameServerUdpPort,
-                Bots = gameUnitsForMatch.Bots,
-                Players = gameUnitsForMatch.Players
+                GameUnitsForMatch = new GameUnitsForMatch
+                {
+                    Bots = gameUnitsForMatch.Bots,
+                    Players = gameUnitsForMatch.Players
+                }
             };
             return result;
         }
     }
     
+    //есть
     /// <summary>
     /// Записывает данные матча в БД
     /// </summary>

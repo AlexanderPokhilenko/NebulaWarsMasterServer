@@ -7,15 +7,14 @@ namespace AmoebaGameMatcherServer.Controllers
     [ApiController]
     public class GameServerController : ControllerBase
     {
-        
         /// <summary>
         /// Метод вызывается гейм сервером при окончании игровой сессии.
         /// </summary>
         [Route(nameof(DeleteRoom))]
         [HttpDelete]
-        public ActionResult DeleteRoom([FromQuery] int gameRoomId)
+        public ActionResult DeleteRoom([FromQuery] int matchId)
         {
-            if(gameRoomId == 0)
+            if(matchId == 0)
                 return new BadRequestResult();
 
             //TODO сделать запись об окончании боя

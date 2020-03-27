@@ -86,31 +86,34 @@
             <e p="PlayerAchievements.cs" t="Include" />
             <e p="PlayerAchievements.cs.meta" t="Include" />
           </e>
-          <e p="Experimental.meta" t="Include" />
           <e p="Http" t="Include">
             <e p="AccountInfo.cs" t="Include" />
             <e p="AccountInfo.cs.meta" t="Include" />
             <e p="BattleRoyaleMatchData.cs" t="Include" />
+            <e p="BattleRoyaleMatchData.cs.meta" t="Include" />
             <e p="BotInfo.cs" t="Include" />
+            <e p="BotInfo.cs.meta" t="Include" />
             <e p="GameMatcherResponse.cs" t="Include" />
             <e p="GameMatcherResponse.cs.meta" t="Include" />
-            <e p="GameRoomData.cs.meta" t="Include" />
             <e p="GameRoomValidationResult.cs" t="Include" />
             <e p="GameRoomValidationResult.cs.meta" t="Include" />
+            <e p="GameUnit.cs" t="Include" />
+            <e p="GameUnit.cs.meta" t="Include" />
+            <e p="GameUnitsEnum.cs" t="Include" />
+            <e p="GameUnitsForMatch.cs" t="Include" />
+            <e p="GameUnitsForMatch.cs.meta" t="Include" />
             <e p="MatchType.cs" t="Include" />
             <e p="MatchType.cs.meta" t="Include" />
-            <e p="PlayerInfoForGameRoom.cs.meta" t="Include" />
             <e p="PlayerInfoForMatch.cs" t="Include" />
+            <e p="PlayerInfoForMatch.cs.meta" t="Include" />
             <e p="WarshipCopy.cs" t="Include" />
-            <e p="WarshipInfo.cs.meta" t="Include" />
+            <e p="WarshipCopy.cs.meta" t="Include" />
           </e>
-          <e p="Http.meta" t="Include" />
           <e p="Udp" t="Include">
             <e p="Common" t="Include">
               <e p="DeliveryConfirmationMessage.cs" t="Include" />
               <e p="DeliveryConfirmationMessage.cs.meta" t="Include" />
             </e>
-            <e p="Common.meta" t="Include" />
             <e p="PlayerToServer" t="Include">
               <e p="BattleExitMessage.cs" t="Include" />
               <e p="BattleExitMessage.cs.meta" t="Include" />
@@ -160,7 +163,6 @@
             </e>
             <e p="Utils.meta" t="Include" />
           </e>
-          <e p="Udp.meta" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -222,6 +224,7 @@
         <e p="BattleCreatingTests.cs" t="Include" />
         <e p="BattleRoyaleQueueSingletonServiceTests.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
+        <e p="GameUnitsForMatchIndexerTests.cs" t="Include" />
         <e p="MatchmakerTests.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">

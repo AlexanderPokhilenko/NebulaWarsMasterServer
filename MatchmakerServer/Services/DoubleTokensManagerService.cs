@@ -1,5 +1,6 @@
 ﻿namespace AmoebaGameMatcherServer.Services
 {
+    //есть
     /// <summary>
     /// Решает нужно ли давать двойное кол-во токенов по итогам боя
     /// </summary>

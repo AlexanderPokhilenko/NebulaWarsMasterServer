@@ -3,6 +3,7 @@ using AmoebaGameMatcherServer.Utils;
 
 namespace AmoebaGameMatcherServer.Services
 {
+    //есть
     public class PlayerTimeoutManagerService:IPlayerTimeoutManager
     {
         private readonly BattleRoyaleQueueSingletonService battleRoyaleQueueService;

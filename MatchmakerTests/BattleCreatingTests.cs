@@ -6,7 +6,8 @@ using DataLayer.Tables;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-//TODO сервисы слишком большие
+//TODO длинна теста слишком велика
+//TODO нормально назвать тесты
 
 namespace MatchmakerTest
 {
@@ -144,7 +145,7 @@ namespace MatchmakerTest
             MatchCreationInitiator matchCreationInitiator =
                 new MatchCreationInitiator(battleRoyaleMatchCreatorService, playerTimeoutController);
 
-            int countOfAccountsInDb = 1000;
+            int countOfAccountsInDb = 500;
             
             //Создать новые аккаунты
             for (int i = 1; i <= countOfAccountsInDb; i++)

@@ -19,6 +19,10 @@
     <ItemGroup>
       <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="NetworkLibrary\Udp\Common.meta" />
+    </ItemGroup>
    
    
    

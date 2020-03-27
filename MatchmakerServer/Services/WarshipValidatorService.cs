@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AmoebaGameMatcherServer.Services
 {
+    //есть
     public class WarshipValidatorService:IWarshipValidatorService
     {
         private readonly ApplicationDbContext applicationDbContext;

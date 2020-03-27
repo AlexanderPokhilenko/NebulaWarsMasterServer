@@ -37,15 +37,21 @@ namespace AmoebaGameMatcherServer
             services.AddTransient<GameServersManagerService>();
             services.AddTransient<QueueHelperSukaService>();
             
-            services.AddSingleton<BattleRoyaleQueueSingletonService>();
-            services.AddTransient<MatchCreationInitiatorSingletonService>();
             services.AddTransient<BattleRoyaleMatchFinisherService>();
+            services.AddTransient<MatchCreationInitiatorSingletonService>();
+            services.AddTransient<BattleRoyaleMatchCreatorService>();
+            services.AddTransient<BattleRoyaleMatchPackerService>();
+            services.AddTransient<IPlayerTimeoutManager, PlayerTimeoutManagerService>();
+            services.AddTransient<MatchDataDbWriterService>();
+            services.AddTransient<QueueHelperSukaService>();
+            services.AddTransient<WarshipValidatorService>();
+            
+            services.AddSingleton<BattleRoyaleQueueSingletonService>();
             services.AddSingleton<BattleRoyaleUnfinishedMatchesSingletonService>();
 
-            
-            
+
             //Работа с гейм севером
-            services.AddTransient<GameServerNegotiatorService>();
+            services.AddTransient<IGameServerNegotiatorService, GameServerNegotiatorService>();
             
         }
         
