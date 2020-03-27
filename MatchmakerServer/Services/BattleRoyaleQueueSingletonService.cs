@@ -16,9 +16,6 @@ namespace AmoebaGameMatcherServer.Services
         /// <summary>
         /// Добавляет данные в очередь без проверки.
         /// </summary>
-        /// <param name="playerServiceId"></param>
-        /// <param name="warshipCopy"></param>
-        /// <returns></returns>
         public bool TryEnqueuePlayer(string playerServiceId, Warship warship)
         {
             return unsortedPlayers.TryEnqueuePlayer(playerServiceId, warship);

@@ -8,6 +8,12 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services
 {
+    public struct MatchCreationMessage
+    {
+        public bool Success;
+        public MatchCreationFailureReason? FailureReason;
+        public int? MatchId;
+    }
     /// <summary>
     /// Полностью управляет созданием боя для батл рояль режима.
     /// </summary>
@@ -33,7 +39,7 @@ namespace AmoebaGameMatcherServer.Services
             this.sukaService = sukaService;
         }
         
-        public async Task<(bool success, MatchCreationFailureReason? failureReason)> 
+        public async Task<MatchCreationMessage> 
             TryCreateMatch(int maxNumberOfPlayersInBattle, bool botsCanBeUsed)
         {
             //Попробовать достать игроков из очереди
@@ -43,7 +49,12 @@ namespace AmoebaGameMatcherServer.Services
             //Достаточно игроков?
             if (!success)
             {
-                return (false, MatchCreationFailureReason.NotEnoughPlayers);
+                return new MatchCreationMessage
+                {
+                    Success = false,
+                    FailureReason = MatchCreationFailureReason.NotEnoughPlayers,
+                    MatchId = null
+                };
             }
 
             //На каком сервере будет запучаться матч?
@@ -61,19 +72,24 @@ namespace AmoebaGameMatcherServer.Services
             //Сообщить на гейм сервер
             await gameServerNegotiatorService.SendRoomDataToGameServerAsync(matchData);
             
-            return (true, null);
+            return new MatchCreationMessage
+            {
+                Success = true,
+                FailureReason = null,
+                MatchId = matchData.MatchId
+            };
         }
 
         private async Task<BattleRoyaleMatchData> WriteMatchDataToDb(MatchRoutingData matchRoutingData, 
             List<PlayerQueueInfo> playersInfo)
         {
             var playersResult = new List<PlayerMatchResult>();
-            foreach (var player in playersInfo)
+            foreach (var playerQueueInfo in playersInfo)
             {
                 PlayerMatchResult playerMatchResult = new PlayerMatchResult
                 {
-                    AccountId = player.AccountId,
-                    WarshipId = player.Warship.Id
+                    AccountId = playerQueueInfo.AccountId,
+                    WarshipId = playerQueueInfo.Warship.Id
                 };
                 playersResult.Add(playerMatchResult);
             }

@@ -78,16 +78,6 @@ namespace AmoebaGameMatcherServer.Services
         private List<PlayerQueueInfo> CreateBots(int numberOdBots)
         {
             throw new NotImplementedException();
-            List<PlayerQueueInfo> bots = new List<PlayerQueueInfo>();
-            for (int i = 0; i < numberOdBots; i++)
-            {
-                PlayerQueueInfo bot = new PlayerQueueInfo
-                {
-                    PlayerServiceId = "Bot_" + PlayersTemporaryIdGenerator.GetPlayerId(),
-                    
-                };
-            }
-            return bots;
         }
     }
 }

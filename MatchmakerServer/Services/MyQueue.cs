@@ -8,6 +8,7 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services
 {
+    //TODO поменять сигнатуру методов
     public class MyQueue
     {
         //key is playerServiceId
@@ -20,13 +21,19 @@ namespace AmoebaGameMatcherServer.Services
         
         public bool TryEnqueuePlayer(string playerServiceId, Warship warship)
         {
-            var playerInfo = new PlayerQueueInfo
+            if (warship == null)
             {
-                PlayerServiceId = playerServiceId,
-                DictionaryEntryTime = DateTime.UtcNow,
-                Warship = warship
-            };
+                throw new Exception($"{nameof(warship)} was null");
+            }
 
+            if (warship.Account==null)
+            {
+                throw new Exception($"{nameof(warship.Account)} was null");
+            }
+            
+            
+            var playerInfo =
+                new PlayerQueueInfo(warship.Account.ServiceId, warship.AccountId, warship, DateTime.UtcNow);
             return unsortedPlayers.TryAdd(playerServiceId, playerInfo);
         }
 

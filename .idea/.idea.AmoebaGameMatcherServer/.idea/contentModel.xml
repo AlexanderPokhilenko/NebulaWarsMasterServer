@@ -182,6 +182,7 @@
           <e p="DoubleTokensManagerService.cs" t="Include" />
           <e p="GameServerNegotiatorService.cs" t="Include" />
           <e p="GameServersManagerService.cs" t="Include" />
+          <e p="IWarshipValidatorService.cs" t="Include" />
           <e p="MatchCreationInitiatorSingletonService.cs" t="Include" />
           <e p="MyQueue.cs" t="Include" />
           <e p="PlayerLobbyInitializeService.cs" t="Include" />
@@ -200,6 +201,8 @@
             <e p="TokenManagerService.cs" t="Include" />
           </e>
           <e p="QueueExtenderService.cs" t="Include" />
+          <e p="WarshipValidatorService.cs" t="Include" />
+          <e p="WarshipValidatorServiceStub.cs" t="Include" />
         </e>
         <e p="Startup.cs" t="Include" />
         <e p="Utils" t="Include">
@@ -208,15 +211,15 @@
           <e p="PlayersTemporaryIdGenerator.cs" t="Include" />
         </e>
       </e>
-      <e p="MatchmakerTest" t="IncludeRecursive">
+      <e p="MatchmakerTests" t="IncludeRecursive">
         <e p="BattleCreatingTests.cs" t="Include" />
         <e p="BattleRoyaleQueueSingletonServiceTests.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
-        <e p="MatchmakerTest.csproj" t="IncludeRecursive" />
+        <e p="MatchmakerTests.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp2.2" t="Include">
-              <e p="MatchmakerTest.AssemblyInfo.cs" t="Include" />
+              <e p="MatchmakerTests.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
         </e>

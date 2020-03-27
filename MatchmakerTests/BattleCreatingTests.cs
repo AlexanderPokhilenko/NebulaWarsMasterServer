@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using AmoebaGameMatcherServer.Services;
 using DataLayer;
 using DataLayer.Tables;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.TestPlatform.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MatchmakerTest
@@ -35,7 +39,8 @@ namespace MatchmakerTest
                 sukaService
                 );
             
-            int countOfAccountsInDb = 15;
+            int countOfAccountsInDb = 10;
+            //Создать новые аккаунты
             for (int i = 0; i < countOfAccountsInDb; i++)
             {
                 Account account = new Account
@@ -53,7 +58,7 @@ namespace MatchmakerTest
                 dbContext.Accounts.Add(account);
             }
             dbContext.SaveChanges();
-            int numberOfPlayers = 10;
+            int numberOfPlayersInMatch = 10;
 
             //Act
             //Добавить игроков в очередь
@@ -68,12 +73,42 @@ namespace MatchmakerTest
             }
 
             //Запустить сборку матчей
-            var (success2, failureReason) = battleRoyaleMatchCreatorService
-                .TryCreateMatch(numberOfPlayers, false).Result;
+            var result = battleRoyaleMatchCreatorService
+                .TryCreateMatch(numberOfPlayersInMatch, false).Result;
             
             
             //Assert
-            Assert.IsTrue(success2);
+            
+            //Сервис вернул ok
+            Assert.IsTrue(result.Success);
+            
+            //Нет ошибки
+            Assert.IsNull(result.FailureReason);
+            
+            //Вернул matchId
+            Assert.IsNotNull(result.MatchId);
+            
+            //Матч записан в базу
+            var match = dbContext.Matches
+                .Include(match1 => match1.PlayerMatchResults)
+                .SingleOrDefault(match1 => match1.Id == result.MatchId);
+            Assert.IsNotNull(match);
+            
+            //Есть информация про игроков
+            Assert.IsNotNull(match.PlayerMatchResults);
+
+            //Количество игроков в БД правильное
+            List<int> playerInMatchIds = match.PlayerMatchResults.Select(matchResult => matchResult.AccountId).ToList();
+            Assert.AreEqual(numberOfPlayersInMatch, playerInMatchIds.Count);
+
+            //Информация про игроков в бою была записана в БД
+            foreach (var account in dbContext.Accounts)
+            {
+                if (!playerInMatchIds.Contains(account.Id))
+                {
+                    Assert.Fail("В коллекции игроков в матче не найден игрок с id ="+account.Id);
+                }
+            }
          }
     }
 }

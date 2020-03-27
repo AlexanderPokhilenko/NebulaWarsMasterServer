@@ -9,10 +9,18 @@ namespace AmoebaGameMatcherServer.Services
     /// </summary>
     public class PlayerQueueInfo
     {
-        public string PlayerServiceId;
-        public int AccountId { get; set; }
-        public DateTime DictionaryEntryTime;
-        public Warship Warship;
+        public readonly string PlayerServiceId;
+        public readonly int AccountId;
+        public readonly DateTime DictionaryEntryTime;
+        public readonly Warship Warship;
+
+        public PlayerQueueInfo(string playerServiceId, int accountId, Warship warship,  DateTime dictionaryEntryTime)
+        {
+            PlayerServiceId = playerServiceId;
+            AccountId = accountId;
+            Warship = warship;
+            DictionaryEntryTime = dictionaryEntryTime;
+        }
 
         public PlayerInfoForMatch ToMatchInfo()
         {

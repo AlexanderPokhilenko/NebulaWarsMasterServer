@@ -43,12 +43,12 @@ namespace AmoebaGameMatcherServer.Services
             bool tryMore = true;
             while (tryMore)
             {
-                var (success, failureReason) = 
+                var result = 
                     await battleRoyaleMatchCreatorService.TryCreateMatch(numberOfPlayers, false);
-                tryMore = success;
-                if (!success)
+                tryMore = result.Success;
+                if (!result.Success)
                 {
-                    Console.WriteLine("Не удалось созбать матч по причине "+failureReason);
+                    Console.WriteLine("Не удалось созбать матч по причине "+result.FailureReason);
                 }
             }
             
