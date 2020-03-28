@@ -73,6 +73,7 @@ namespace AmoebaGameMatcherServer.Services
             {
                 BotInfo botInfo = new BotInfo()
                 {
+                    IsBot = true,
                     BotName = "Игорь",
                     PrefabName = "Bird",
                     TemporaryId = StubTmpIdGenerator.CreateDich(), //TODO suka
