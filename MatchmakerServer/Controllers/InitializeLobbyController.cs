@@ -24,6 +24,7 @@ namespace AmoebaGameMatcherServer.Controllers
         [HttpPost]
         public async Task<ActionResult<string>> GetAccountInfo([FromForm] string playerId)
         {
+            Console.WriteLine($"{nameof(playerId)} {playerId}");
             if (string.IsNullOrEmpty(playerId))
                 return BadRequest();
 
