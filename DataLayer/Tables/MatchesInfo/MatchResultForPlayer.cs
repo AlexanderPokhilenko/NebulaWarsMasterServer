@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataLayer.Tables
 {
-    [Table("PlayerMatchResults")]
-    public class PlayerMatchResult
+    [Table("MatchResultForPlayers")]
+    public class MatchResultForPlayer
     {
         [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
         

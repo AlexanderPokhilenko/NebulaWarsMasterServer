@@ -35,7 +35,7 @@ namespace AmoebaGameMatcherServer
             services.AddTransient<DoubleTokensManagerService>();
             services.AddTransient<MatchmakerDichService>();
             services.AddTransient<GameServersManagerService>();
-            services.AddTransient<QueueHelperSukaService>();
+            
             
             services.AddTransient<BattleRoyaleMatchFinisherService>();
             services.AddTransient<MatchCreationInitiatorSingletonService>();
@@ -43,7 +43,7 @@ namespace AmoebaGameMatcherServer
             services.AddTransient<BattleRoyaleMatchPackerService>();
             services.AddTransient<IPlayerTimeoutManager, PlayerTimeoutManagerService>();
             services.AddTransient<MatchDataDbWriterService>();
-            services.AddTransient<QueueHelperSukaService>();
+            
             services.AddTransient<IWarshipValidatorService, WarshipValidatorService>();
             
             services.AddSingleton<BattleRoyaleQueueSingletonService>();

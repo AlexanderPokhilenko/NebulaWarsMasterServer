@@ -7,7 +7,6 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services
 {
-     
     /// <summary>
     /// Отвечает за добавление/удаление игроков в очередь батл рояль режима
     /// </summary>
@@ -53,9 +52,17 @@ namespace AmoebaGameMatcherServer.Services
         /// Возвращает игроков без исключения из очереди 
         /// </summary>
         /// <param name="maxNumberOfPlayersInBattle"></param>
-        public List<PlayerQueueInfo> GetPlayersQueueInfo(int maxNumberOfPlayersInBattle)
+        public List<QueueInfoForPlayer> GetPlayersQueueInfo(int maxNumberOfPlayersInBattle)
         {
             return unsortedPlayers.TakeHead(maxNumberOfPlayersInBattle);
+        }
+        
+        public void RemovePlayersFromQueue(List<PlayerInfoForMatch> sukaList)
+        {
+            foreach (var sukaInfo in sukaList)
+            {
+                TryRemovePlayerFromQueue(sukaInfo.ServiceId);
+            }
         }
     }
 }

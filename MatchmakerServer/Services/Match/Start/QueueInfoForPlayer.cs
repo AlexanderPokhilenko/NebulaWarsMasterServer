@@ -7,14 +7,14 @@ namespace AmoebaGameMatcherServer.Services
     /// <summary>
     /// Нужен для хранения запроса в очереди в бой.
     /// </summary>
-    public class PlayerQueueInfo
+    public class QueueInfoForPlayer
     {
         public readonly string PlayerServiceId;
         public readonly int AccountId;
         public readonly DateTime DictionaryEntryTime;
         public readonly Warship Warship;
 
-        public PlayerQueueInfo(string playerServiceId, int accountId, Warship warship,  DateTime dictionaryEntryTime)
+        public QueueInfoForPlayer(string playerServiceId, int accountId, Warship warship,  DateTime dictionaryEntryTime)
         {
             PlayerServiceId = playerServiceId;
             AccountId = accountId;

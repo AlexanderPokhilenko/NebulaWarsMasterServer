@@ -20,7 +20,7 @@ namespace AmoebaGameMatcherServer.Services
             this.battleRoyaleQueueService = battleRoyaleQueueService;
         }
         
-        public (bool success, GameUnitsForMatch, List<PlayerQueueInfo> playersQueueInfo) GetPlayersForMatch(
+        public (bool success, GameUnitsForMatch, List<QueueInfoForPlayer> playersQueueInfo) GetPlayersForMatch(
             int maxNumberOfPlayersInBattle, bool botsCanBeUsed)
         {
             //Если мало игроков и нельзя дополнять ботами, то матч собрать не получится
@@ -33,7 +33,7 @@ namespace AmoebaGameMatcherServer.Services
             GameUnitsForMatch gameUnitsForMatch = new GameUnitsForMatch();
             
             //Достать игроков из очереди без извлечения
-            List<PlayerQueueInfo> playersQueueInfo = 
+            List<QueueInfoForPlayer> playersQueueInfo = 
                 battleRoyaleQueueService.GetPlayersQueueInfo(maxNumberOfPlayersInBattle);
             gameUnitsForMatch.Players = playersQueueInfo.Select(info => info.ToMatchInfo()).ToList();
             

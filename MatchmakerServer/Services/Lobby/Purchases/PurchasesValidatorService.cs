@@ -51,7 +51,7 @@ namespace AmoebaGameMatcherServer.Services
                 int purchaseType = responseObj.purchaseType;
                 int acknowledgementState = responseObj.acknowledgementState;
             
-                using (ApplicationDbContext dbContext = DbContextFactory.CreateDbContext())
+                using (ApplicationDbContext dbContext = new DbContextFactory().Create())
                 {
                     Purchase purchase = new Purchase
                     {

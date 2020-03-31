@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services;
+using AmoebaGameMatcherServer.Utils;
 using DataLayer;
 using DataLayer.Tables;
 using Microsoft.EntityFrameworkCore;
@@ -16,11 +18,11 @@ namespace MatchmakerTest
     {
         /// <summary>
         /// Должно запустить один матч без ботов.
-        /// Создаёт базу с 10-ю аккунтами. Аккаунты добавляются в очередь. Заупчкается сбор матча.
-        /// Аккаунты достюются из очреди. И переходят в состояние "В бою". Информация про бой записывается в БД.
+        /// Создаёт базу с 10-ю аккунтами. Аккаунты добавляются в очередь. Запускается сбор матча.
+        /// Аккаунты достаются из очереди и переходят в состояние "В бою". Информация про бой записывается в БД.
         /// </summary>
         [TestMethod]
-        public void Test2()
+        public async Task Test2()
         {
             //Arrange
             var battleRoyaleQueueSingletonService = new BattleRoyaleQueueSingletonService();
@@ -29,15 +31,17 @@ namespace MatchmakerTest
             var matchmakerDichService = new MatchmakerDichService(gameServersManagerService);
             var battleRoyaleUnfinishedMatchesSingletonService = new BattleRoyaleUnfinishedMatchesSingletonService();
             IGameServerNegotiatorService gameServerNegotiatorServiceStub = new GameServerNegotiatorServiceStub();
-            var dbContext = InMemoryDatabaseFactory.Create();
+            IDbContextFactory dbContextFactory = new InMemoryDatabaseFactory(nameof(BattleCreatingTests)+nameof(Test2));
+            var dbContext = dbContextFactory.Create();
             IWarshipValidatorService warshipValidatorService = new WarshipValidatorService(dbContext);
             QueueExtenderService queueExtenderService = 
                 new QueueExtenderService(battleRoyaleQueueSingletonService, warshipValidatorService);
-            QueueHelperSukaService sukaService = new QueueHelperSukaService(battleRoyaleQueueSingletonService);
-            var matchDataDbWriterService = new MatchDataDbWriterService(dbContext);
+            var matchDataDbWriterService = new MatchDataDbWriterService(dbContextFactory);
+            
             BattleRoyaleMatchCreatorService battleRoyaleMatchCreatorService = new BattleRoyaleMatchCreatorService(
                 battleRoyaleMatchPackerService, gameServerNegotiatorServiceStub, matchmakerDichService,
-                battleRoyaleUnfinishedMatchesSingletonService, sukaService, matchDataDbWriterService);
+                battleRoyaleUnfinishedMatchesSingletonService, battleRoyaleQueueSingletonService, 
+                matchDataDbWriterService);
 
             int countOfAccountsInDb = 10;
             //Создать новые аккаунты
@@ -55,17 +59,16 @@ namespace MatchmakerTest
                         }
                     }
                 };
-                dbContext.Accounts.Add(account);
+                await dbContext.Accounts.AddAsync(account);
             }
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             int numberOfPlayersInMatch = 10;
 
             //Act
             //Добавить игроков в очередь
             foreach (var account in dbContext.Accounts)
             {
-                bool success1 = queueExtenderService.TryEnqueuePlayer(account.ServiceId, account.Warships.First().Id)
-                    .Result;
+                bool success1 = await queueExtenderService.TryEnqueuePlayer(account.ServiceId, account.Warships.First().Id);
                 if (!success1)
                 {
                     Assert.Fail();
@@ -73,9 +76,8 @@ namespace MatchmakerTest
             }
 
             //Запустить сборку матчей
-            var result = battleRoyaleMatchCreatorService
-                .TryCreateMatch(numberOfPlayersInMatch, false).Result;
-
+            var result = await battleRoyaleMatchCreatorService
+                .TryCreateMatch(numberOfPlayersInMatch, false);
 
             //Assert
 
@@ -94,15 +96,15 @@ namespace MatchmakerTest
 
             //Матч записан в базу
             var match = dbContext.Matches
-                .Include(match1 => match1.PlayerMatchResults)
+                .Include(match1 => match1.MatchResultForPlayers)
                 .SingleOrDefault(match1 => match1.Id == result.MatchId);
             Assert.IsNotNull(match);
 
             //Есть информация про игроков
-            Assert.IsNotNull(match.PlayerMatchResults);
+            Assert.IsNotNull(match.MatchResultForPlayers);
 
             //Количество игроков в БД правильное
-            List<int> playerInMatchIds = match.PlayerMatchResults.Select(matchResult => matchResult.AccountId).ToList();
+            List<int> playerInMatchIds = match.MatchResultForPlayers.Select(matchResult => matchResult.AccountId).ToList();
             Assert.AreEqual(numberOfPlayersInMatch, playerInMatchIds.Count);
 
             //Информация про игроков в бою была записана в БД
@@ -121,7 +123,7 @@ namespace MatchmakerTest
         /// Аккаунты достюются из очереди и переходят в состояние "В бою". Информация про бой записывается в БД.
         /// </summary>
         [TestMethod]
-        public void Test3()
+        public async Task Test3()
         {
             //Arrange
             var battleRoyaleQueueSingletonService = new BattleRoyaleQueueSingletonService();
@@ -130,25 +132,24 @@ namespace MatchmakerTest
             var matchmakerDichService = new MatchmakerDichService(gameServersManagerService);
             var battleRoyaleUnfinishedMatchesSingletonService = new BattleRoyaleUnfinishedMatchesSingletonService();
             IGameServerNegotiatorService gameServerNegotiatorServiceStub = new GameServerNegotiatorServiceStub();
-            var dbContext = InMemoryDatabaseFactory.Create();
+            IDbContextFactory dbContextFactory = new InMemoryDatabaseFactory(nameof(BattleCreatingTests)+nameof(Test3));
+            var dbContext = dbContextFactory.Create();
             IWarshipValidatorService warshipValidatorService = new WarshipValidatorService(dbContext);
             QueueExtenderService queueExtenderService = 
                 new QueueExtenderService(battleRoyaleQueueSingletonService, warshipValidatorService);
-
-            QueueHelperSukaService sukaService = new QueueHelperSukaService(battleRoyaleQueueSingletonService);
-            var matchDataDbWriterService = new MatchDataDbWriterService(dbContext);
+            var matchDataDbWriterService = new MatchDataDbWriterService(dbContextFactory);
             BattleRoyaleMatchCreatorService battleRoyaleMatchCreatorService = new BattleRoyaleMatchCreatorService(
                 battleRoyaleMatchPackerService, gameServerNegotiatorServiceStub, matchmakerDichService,
-                battleRoyaleUnfinishedMatchesSingletonService, sukaService, matchDataDbWriterService);
+                battleRoyaleUnfinishedMatchesSingletonService, battleRoyaleQueueSingletonService, matchDataDbWriterService);
 
             var playerTimeoutController= new PlayerTimeoutManagerService(battleRoyaleQueueSingletonService);
             MatchCreationInitiator matchCreationInitiator =
                 new MatchCreationInitiator(battleRoyaleMatchCreatorService, playerTimeoutController);
 
-            int countOfAccountsInDb = 500;
-            
+
+            int countOfAccounts = 250;
             //Создать новые аккаунты
-            for (int i = 1; i <= countOfAccountsInDb; i++)
+            for (int i = 1; i <= countOfAccounts; i++)
             {
                 Account account = new Account
                 {
@@ -162,18 +163,15 @@ namespace MatchmakerTest
                         }
                     }
                 };
-                dbContext.Accounts.Add(account);
+                await dbContext.Accounts.AddAsync(account);
             }
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             
-            int numberOfPlayersInMatch = countOfAccountsInDb/2;
-
             //Act
             //Добавить половину игроков в очередь
-            foreach (var account in dbContext.Accounts.Take(numberOfPlayersInMatch))
+            foreach (var account in dbContext.Accounts.Take(countOfAccounts))
             {
-                bool success1 = queueExtenderService.TryEnqueuePlayer(account.ServiceId, account.Warships.First().Id)
-                    .Result;
+                bool success1 = await queueExtenderService.TryEnqueuePlayer(account.ServiceId, account.Warships.First().Id);
                 if (!success1)
                 {
                     Assert.Fail();
@@ -181,7 +179,7 @@ namespace MatchmakerTest
             }
 
             //Запустить сборку матчей
-            matchCreationInitiator.TryCreateBattleRoyaleMatch().Wait();
+            await matchCreationInitiator.TryCreateBattleRoyaleMatch();
 
             //Assert
             
@@ -189,13 +187,14 @@ namespace MatchmakerTest
             int numberOfPlayersInQueue=battleRoyaleQueueSingletonService.GetNumberOfPlayersInQueue();
             Assert.AreEqual(0, numberOfPlayersInQueue);
 
-            //В базе появилось 500/10 новых матчей
+            //В базе появилось n новых матчей
             int matchesCount = dbContext.Matches.Count();
-            Assert.AreEqual(50, matchesCount);
+            int expectedNumberOfMatches = countOfAccounts / Globals.NumbersOfPlayersInBattleRoyaleMatch;
+            Assert.AreEqual(expectedNumberOfMatches, matchesCount);
 
-            //В базе появилась информация про 500 игроков в бою
+            //В базе появилась информация про m игроков в бою
             int playerBattleInfoCount = dbContext.PlayerMatchResults.Count();
-            Assert.AreEqual(500, playerBattleInfoCount);
+            Assert.AreEqual(countOfAccounts, playerBattleInfoCount);
         }
         
         /// <summary>
@@ -205,7 +204,7 @@ namespace MatchmakerTest
         /// Информация про бой записывается в БД.
         /// </summary>
         [TestMethod]
-        public void Test4()
+        public async Task Test4()
         {
             //Arrange
             var battleRoyaleQueueSingletonService = new BattleRoyaleQueueSingletonService();
@@ -214,16 +213,16 @@ namespace MatchmakerTest
             var matchmakerDichService = new MatchmakerDichService(gameServersManagerService);
             var battleRoyaleUnfinishedMatchesSingletonService = new BattleRoyaleUnfinishedMatchesSingletonService();
             var gameServerNegotiatorServiceStub = new GameServerNegotiatorServiceStub();
-            var dbContext = InMemoryDatabaseFactory.Create();
+            IDbContextFactory dbContextFactory = new InMemoryDatabaseFactory(nameof(BattleCreatingTests)+nameof(Test4));
+            var dbContext = dbContextFactory.Create();
             var warshipValidatorService = new WarshipValidatorService(dbContext);
             var queueExtenderService = 
                 new QueueExtenderService(battleRoyaleQueueSingletonService, warshipValidatorService);
-
-            var sukaService = new QueueHelperSukaService(battleRoyaleQueueSingletonService);
-            var matchDataDbWriterService = new MatchDataDbWriterService(dbContext);
+            
+            var matchDataDbWriterService = new MatchDataDbWriterService(dbContextFactory);
             BattleRoyaleMatchCreatorService battleRoyaleMatchCreatorService = new BattleRoyaleMatchCreatorService(
                 battleRoyaleMatchPackerService, gameServerNegotiatorServiceStub, matchmakerDichService,
-                battleRoyaleUnfinishedMatchesSingletonService, sukaService, matchDataDbWriterService);
+                battleRoyaleUnfinishedMatchesSingletonService, battleRoyaleQueueSingletonService, matchDataDbWriterService);
 
             var playerTimeoutManager = new PlayerTimeoutManagerServiceStub();
             var matchCreationInitiator =
@@ -246,17 +245,16 @@ namespace MatchmakerTest
                         }
                     }
                 };
-                dbContext.Accounts.Add(account);
+                await dbContext.Accounts.AddAsync(account);
             }
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             
             //Act
             int countOfPlayersInQueue = 5;
             //Добавить игроков в очередь
             foreach (var account in dbContext.Accounts.Take(countOfPlayersInQueue))
             {
-                bool success1 = queueExtenderService.TryEnqueuePlayer(account.ServiceId, account.Warships.First().Id)
-                    .Result;
+                bool success1 = await queueExtenderService.TryEnqueuePlayer(account.ServiceId, account.Warships.First().Id);
                 if (!success1)
                 {
                     Assert.Fail();
@@ -264,7 +262,7 @@ namespace MatchmakerTest
             }
 
             //Запустить сборку матчей
-            bool matchWasCreated = matchCreationInitiator.TryCreateBattleRoyaleMatch().Result;
+            bool matchWasCreated = await matchCreationInitiator.TryCreateBattleRoyaleMatch();
 
             //Assert
             //Матч был создан

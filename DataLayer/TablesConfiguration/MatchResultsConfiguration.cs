@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DataLayer.TablesConfiguration
 {
-    public class MatchResultsConfiguration:IEntityTypeConfiguration<PlayerMatchResult>
+    public class MatchResultsConfiguration:IEntityTypeConfiguration<MatchResultForPlayer>
     {
-        public void Configure(EntityTypeBuilder<PlayerMatchResult> builder)
+        public void Configure(EntityTypeBuilder<MatchResultForPlayer> builder)
         {
             builder
                 .HasIndex(r => new { r.AccountId, r.MatchId })

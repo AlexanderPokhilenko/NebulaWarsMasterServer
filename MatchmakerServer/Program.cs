@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-//TODO добавить возможность опроса гейм сервера для сбора актуальных данных о игровых сессиях
-
 namespace AmoebaGameMatcherServer
 {
     public static class Program

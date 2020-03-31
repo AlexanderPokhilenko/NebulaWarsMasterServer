@@ -14,6 +14,6 @@ namespace DataLayer.Tables
         [Required] public string GameServerIp { get; set; }
         [Required] public int GameServerUdpPort { get; set; }
         
-        public List<PlayerMatchResult> PlayerMatchResults { get; set; }
+        public List<MatchResultForPlayer> MatchResultForPlayers { get; set; }
     }
 }

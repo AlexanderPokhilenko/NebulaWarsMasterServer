@@ -12,11 +12,11 @@ namespace AmoebaGameMatcherServer.Services
     public class MyQueue
     {
         //key is playerServiceId
-        private readonly ConcurrentDictionary<string, PlayerQueueInfo> unsortedPlayers;
+        private readonly ConcurrentDictionary<string, QueueInfoForPlayer> unsortedPlayers;
 
         public MyQueue()
         {
-            unsortedPlayers = new ConcurrentDictionary<string, PlayerQueueInfo>();
+            unsortedPlayers = new ConcurrentDictionary<string, QueueInfoForPlayer>();
         }
         
         public bool TryEnqueuePlayer(string playerServiceId, Warship warship)
@@ -33,7 +33,7 @@ namespace AmoebaGameMatcherServer.Services
             
             
             var playerInfo =
-                new PlayerQueueInfo(warship.Account.ServiceId, warship.AccountId, warship, DateTime.UtcNow);
+                new QueueInfoForPlayer(warship.Account.ServiceId, warship.AccountId, warship, DateTime.UtcNow);
             return unsortedPlayers.TryAdd(playerServiceId, playerInfo);
         }
 
@@ -64,7 +64,7 @@ namespace AmoebaGameMatcherServer.Services
             return oldestRequestTime;
         }
 
-        public List<PlayerQueueInfo> TakeHead(int maxNumberOfPlayersInBattle)
+        public List<QueueInfoForPlayer> TakeHead(int maxNumberOfPlayersInBattle)
         {
             var playersInfo = unsortedPlayers.Values
                 .OrderBy(info => info.DictionaryEntryTime)

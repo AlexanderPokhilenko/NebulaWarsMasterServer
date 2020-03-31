@@ -15,12 +15,13 @@ namespace AmoebaGameMatcherServer.Services
         private readonly MatchmakerDichService matchmakerDichService;
         private readonly BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService;
         private readonly MatchDataDbWriterService matchDataDbWriterService;
-        private readonly QueueHelperSukaService sukaService;
+        private readonly BattleRoyaleQueueSingletonService battleRoyaleQueue;
 
         public BattleRoyaleMatchCreatorService(BattleRoyaleMatchPackerService battleRoyaleMatchPackerService, 
             IGameServerNegotiatorService gameServerNegotiatorService,
             MatchmakerDichService matchmakerDichService, 
-            BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService, QueueHelperSukaService sukaService,
+            BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService,
+            BattleRoyaleQueueSingletonService battleRoyaleQueue,
             MatchDataDbWriterService matchDataDbWriterService)
         {
             this.battleRoyaleMatchPackerService = battleRoyaleMatchPackerService;
@@ -28,7 +29,7 @@ namespace AmoebaGameMatcherServer.Services
             this.gameServerNegotiatorService = gameServerNegotiatorService;
             this.matchmakerDichService = matchmakerDichService;
             this.unfinishedMatchesService = unfinishedMatchesService;
-            this.sukaService = sukaService;
+            this.battleRoyaleQueue = battleRoyaleQueue;
             this.matchDataDbWriterService = matchDataDbWriterService;
         }
         
@@ -63,7 +64,7 @@ namespace AmoebaGameMatcherServer.Services
             unfinishedMatchesService.AddPlayersToMatch(matchData);
             
             //Извлечь игроков из очереди
-            sukaService.RemovePlayersFromQueue(matchData.GameUnitsForMatch.Players);
+            battleRoyaleQueue.RemovePlayersFromQueue(matchData.GameUnitsForMatch.Players);
             
             //Сообщить на гейм сервер
             await gameServerNegotiatorService.SendRoomDataToGameServerAsync(matchData);

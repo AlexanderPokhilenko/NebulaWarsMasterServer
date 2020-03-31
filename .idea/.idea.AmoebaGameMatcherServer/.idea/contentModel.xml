@@ -19,12 +19,15 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="DataLayer.csproj" t="IncludeRecursive" />
         <e p="DbConfigIgnore.cs" t="Include" />
-        <e p="DbContextFactory.cs" t="Include" />
+        <e p="DbContext" t="Include">
+          <e p="DbContextFactory.cs" t="Include" />
+          <e p="IDbContextFactory.cs" t="Include" />
+          <e p="InMemoryDatabaseFactory.cs" t="Include" />
+        </e>
         <e p="GoogleApi" t="Include">
           <e p="AccessTokenUpdatingArg.cs" t="Include" />
           <e p="InitializeAccessTokenArg.cs" t="Include" />
         </e>
-        <e p="InMemoryDatabaseFactory.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp2.2" t="Include">
@@ -36,7 +39,7 @@
           <e p="Account.cs" t="Include" />
           <e p="MatchesInfo" t="Include">
             <e p="Match.cs" t="Include" />
-            <e p="PlayerMatchResult.cs" t="Include" />
+            <e p="MatchResultForPlayer.cs" t="Include" />
           </e>
           <e p="Purchase.cs" t="Include" />
           <e p="Warships" t="Include">
@@ -74,6 +77,9 @@
             <e p="PurchasesController.cs" t="Include" />
             <e p="TestController.cs" t="Include" />
           </e>
+        </e>
+        <e p="Data" t="Include">
+          <e p="MatchCreationMessage.cs" t="Include" />
         </e>
         <e p="Experimental" t="Include">
           <e p="GoogleApiGlobals.cs" t="Include" />
@@ -177,54 +183,72 @@
           <e p="launchSettings.json" t="Include" />
         </e>
         <e p="Services" t="Include">
-          <e p="BattleRoyaleMatchCreatorService.cs" t="Include" />
-          <e p="BattleRoyaleMatchFinisherService.cs" t="Include" />
-          <e p="BattleRoyaleMatchPackerService.cs" t="Include" />
-          <e p="BattleRoyaleQueueSingletonService.cs" t="Include" />
-          <e p="BattleRoyaleUnfinishedMatchesSingletonService.cs" t="Include" />
-          <e p="DoubleTokensManagerService.cs" t="Include" />
           <e p="GameServerNegotiatorService.cs" t="Include" />
-          <e p="GameServersManagerService.cs" t="Include" />
-          <e p="IWarshipValidatorService.cs" t="Include" />
-          <e p="MatchCreationInitiator.cs" t="Include" />
-          <e p="MatchCreationInitiatorSingletonService.cs" t="Include" />
-          <e p="MatchCreationMessage.cs" t="Include" />
-          <e p="MatchDataDbWriterService.cs" t="Include" />
-          <e p="MyQueue.cs" t="Include" />
-          <e p="PeriodicTaskExecutor.cs" t="Include" />
-          <e p="PlayerLobbyInitializeService.cs" t="Include" />
-          <e p="PlayerQueueInfo.cs" t="Include" />
-          <e p="PlayersAchievementsService.cs" t="Include" />
-          <e p="PlayerTimeoutControllerService.cs" t="Include" />
-          <e p="Purchases" t="Include">
-            <e p="CustomAccessTokenManager.cs" t="Include" />
-            <e p="CustomGoogleApiInitializer.cs" t="Include" />
-            <e p="GoogleApiFileManager.cs" t="Include" />
-            <e p="GooglePurchasesApiWrapper.cs" t="Include" />
-            <e p="GooglePurchasesWrapperService.cs" t="Include" />
-            <e p="IpAppProductsService.cs" t="Include" />
-            <e p="MyGoogleApiData.cs" t="Include" />
-            <e p="PurchasesValidatorService.cs" t="Include" />
-            <e p="RefreshedData.cs" t="Include" />
-            <e p="TokenManagerService.cs" t="Include" />
+          <e p="Lobby" t="Include">
+            <e p="PlayerLobbyInitializeService.cs" t="Include" />
+            <e p="Purchases" t="Include">
+              <e p="CustomAccessTokenManager.cs" t="Include" />
+              <e p="CustomGoogleApiInitializer.cs" t="Include" />
+              <e p="GoogleApiFileManager.cs" t="Include" />
+              <e p="GooglePurchasesApiWrapper.cs" t="Include" />
+              <e p="GooglePurchasesWrapperService.cs" t="Include" />
+              <e p="IpAppProductsService.cs" t="Include" />
+              <e p="MyGoogleApiData.cs" t="Include" />
+              <e p="PurchasesValidatorService.cs" t="Include" />
+              <e p="RefreshedData.cs" t="Include" />
+              <e p="TokenManagerService.cs" t="Include" />
+            </e>
           </e>
-          <e p="QueueExtenderService.cs" t="Include" />
+          <e p="Match" t="Include">
+            <e p="BattleRoyaleMatchCreatorService.cs" t="Include" />
+            <e p="Finish" t="Include">
+              <e p="BattleRoyaleMatchFinisherService.cs" t="Include" />
+              <e p="DoubleTokensManagerService.cs" t="Include" />
+              <e p="PlayersAchievementsService.cs" t="Include" />
+            </e>
+            <e p="ForControllers" t="Include">
+              <e p="BattleRoyaleQueueSingletonService.cs" t="Include" />
+              <e p="BattleRoyaleUnfinishedMatchesSingletonService.cs" t="Include" />
+              <e p="QueueExtenderService.cs" t="Include" />
+            </e>
+            <e p="Start" t="Include">
+              <e p="BattleRoyaleMatchPackerService.cs" t="Include" />
+              <e p="GameServersManagerService.cs" t="Include" />
+              <e p="IWarshipValidatorService.cs" t="Include" />
+              <e p="MatchCreationInitiator.cs" t="Include" />
+              <e p="MatchCreationInitiatorSingletonService.cs" t="Include" />
+              <e p="MatchDataDbWriterService.cs" t="Include" />
+              <e p="MatchDataFactory.cs" t="Include" />
+              <e p="MyQueue.cs" t="Include" />
+              <e p="PlayerTimeoutControllerService.cs" t="Include" />
+              <e p="QueueInfoForPlayer.cs" t="Include" />
+              <e p="WarshipValidatorService.cs" t="Include" />
+              <e p="WarshipValidatorServiceStub.cs" t="Include" />
+            </e>
+          </e>
           <e p="QueueHelperSukaService.cs" t="Include" />
-          <e p="WarshipValidatorService.cs" t="Include" />
-          <e p="WarshipValidatorServiceStub.cs" t="Include" />
         </e>
         <e p="Startup.cs" t="Include" />
         <e p="Utils" t="Include">
           <e p="GameRoomIdGenerator.cs" t="Include" />
           <e p="Globals.cs" t="Include" />
+          <e p="PeriodicTaskExecutor.cs" t="Include" />
           <e p="PlayersTemporaryIdGenerator.cs" t="Include" />
         </e>
       </e>
       <e p="MatchmakerTests" t="IncludeRecursive">
+        <e p="AccountsDbTests.cs" t="Include" />
         <e p="BattleCreatingTests.cs" t="Include" />
         <e p="BattleRoyaleQueueSingletonServiceTests.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
+        <e p="Factories" t="Include">
+          <e p="AccountFactory.cs" t="Include" />
+          <e p="MatchResultFactory.cs" t="Include" />
+          <e p="PlayersQueueInfoFactory.cs" t="Include" />
+        </e>
         <e p="GameUnitsForMatchIndexerTests.cs" t="Include" />
+        <e p="MatchDataDbWriterServiceTests.cs" t="Include" />
+        <e p="MatchDbWriteTests.cs" t="Include" />
         <e p="MatchmakerTests.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">

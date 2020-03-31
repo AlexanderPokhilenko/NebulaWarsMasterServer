@@ -16,7 +16,7 @@ namespace DataLayer
         public DbSet<Warship> Warships { get; set; }
         public DbSet<WarshipType> WarshipTypes { get; set; }
         public DbSet<Match> Matches { get; set; }
-        public DbSet<PlayerMatchResult> PlayerMatchResults { get; set; }
+        public DbSet<MatchResultForPlayer> PlayerMatchResults { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -41,9 +41,9 @@ namespace DataLayer
             
             
               
-            modelBuilder.Entity<PlayerMatchResult>()
+            modelBuilder.Entity<MatchResultForPlayer>()
                 .HasOne(playerMatchResult => playerMatchResult.Match)
-                .WithMany(match =>  match.PlayerMatchResults)
+                .WithMany(match =>  match.MatchResultForPlayers)
                 .HasForeignKey(playerMatchResult => playerMatchResult.MatchId);
 
         }

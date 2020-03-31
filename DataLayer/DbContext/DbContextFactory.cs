@@ -2,9 +2,12 @@
 
 namespace DataLayer
 {
-    public static class DbContextFactory
+    /// <summary>
+    /// Создаёт подключение к БД по connectionString
+    /// </summary>
+    public class DbContextFactory:IDbContextFactory
     {
-        public static ApplicationDbContext CreateDbContext()
+        public ApplicationDbContext Create()
         {
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
             var connectionString = DbConfigIgnore.GetConnectionString();
