@@ -12,7 +12,7 @@ namespace MatchmakerTest
     public class PlayerInfoManagerServiceTests
     {
         /// <summary>
-        /// Сервис должен создать аккаунт
+        /// Сервис должен создать аккаунт и вернуть нормальную информацию.
         /// </summary>
         /// <returns></returns>
         [TestMethod]
@@ -29,9 +29,12 @@ namespace MatchmakerTest
             string serviceId = UniqueStringFactory.Create();
             
             //Act
-            await playerInfoManagerService.GetOrCreateAccountInfo(serviceId);
+            var accountInfo = await playerInfoManagerService.GetOrCreateAccountInfo(serviceId);
             
             //Assert
+            Assert.IsNotNull(accountInfo);
+            Assert.IsNotNull(accountInfo.Username);
+
             var dbContext = dbFactory.Create();
             Account account = await dbContext.Accounts
                 .Include(account1 => account1.Warships)

@@ -27,7 +27,7 @@ namespace MatchmakerTest
             string serviceId = UniqueStringFactory.Create();
             
             //Act
-            bool success = await accountRegistrationService.RegisterAccount(serviceId);
+            bool success = await accountRegistrationService.TryRegisterAccount(serviceId);
             
             //Assert
             Assert.IsTrue(success);

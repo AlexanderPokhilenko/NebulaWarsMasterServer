@@ -27,7 +27,7 @@ namespace AmoebaGameMatcherServer.Services
             
             if (accountInfo == null)
             {
-                if (await accountRegistrationService.RegisterAccount(serviceId))
+                if (await accountRegistrationService.TryRegisterAccount(serviceId))
                 {
                     accountInfo = await playerInfoPullerService.GetPlayerInfo(serviceId);
                 }

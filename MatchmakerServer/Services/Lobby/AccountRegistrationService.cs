@@ -16,7 +16,7 @@ namespace AmoebaGameMatcherServer.Services
             this.dbContext = dbContext;
         }
 
-        public async Task<bool> RegisterAccount(string serviceId)
+        public async Task<bool> TryRegisterAccount(string serviceId)
         {
             if (!serviceIdValidatorService.Validate(serviceId))
             {

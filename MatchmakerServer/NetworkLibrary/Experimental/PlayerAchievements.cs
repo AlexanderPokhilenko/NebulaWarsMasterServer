@@ -10,7 +10,5 @@ namespace Libraries.NetworkLibrary.Experimental
         [Index(2)] public virtual int BattleRatingDelta { get; set; }
         [Index(3)] public virtual int RankingRewardTokens { get; set; }
         [Index(4)] public virtual bool DoubleTokens { get; set; }
-
-     
     }
 }

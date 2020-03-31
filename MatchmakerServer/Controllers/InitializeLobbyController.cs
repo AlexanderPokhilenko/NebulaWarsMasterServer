@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -29,10 +30,16 @@ namespace AmoebaGameMatcherServer.Controllers
             {
                 return BadRequest();
             }
-
             AccountInfo accountInfo = await playerInfoManagerService.GetOrCreateAccountInfo(playerId);
-
-            return DichSerialize(accountInfo);
+            if (accountInfo == null)
+            {
+                throw new NullReferenceException(nameof(accountInfo));
+            }
+            
+            Console.WriteLine(accountInfo.Username);
+            string answer = DichSerialize(accountInfo);
+            Console.WriteLine($"{nameof(answer.Length)} {answer.Length}");
+            return answer;
         }
 
         private string DichSerialize(AccountInfo accountInfo)
