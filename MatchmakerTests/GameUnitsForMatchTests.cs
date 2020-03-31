@@ -8,7 +8,7 @@ using NetworkLibrary.NetworkLibrary.Http;
 namespace MatchmakerTest
 {
     [TestClass]
-    public class GameUnitsForMatchIndexerTests
+    public class GameUnitsForMatchTests
     {
         /// <summary>
         /// Индексатор работает как я ожидаю

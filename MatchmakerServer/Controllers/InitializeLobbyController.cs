@@ -13,11 +13,11 @@ namespace AmoebaGameMatcherServer.Controllers
     [ApiController]
     public class InitializeLobbyController : ControllerBase
     {
-        private readonly PlayerLobbyInitializeService playerLobbyInitializeService;
+        private readonly PlayerInfoManagerService playerInfoManagerService;
 
-        public InitializeLobbyController(PlayerLobbyInitializeService playerLobbyInitializeService)
+        public InitializeLobbyController(PlayerInfoManagerService playerInfoManagerService)
         {
-            this.playerLobbyInitializeService = playerLobbyInitializeService;
+            this.playerInfoManagerService = playerInfoManagerService;
         }
 
         [Route(nameof(GetAccountInfo))]
@@ -26,12 +26,11 @@ namespace AmoebaGameMatcherServer.Controllers
         {
             Console.WriteLine($"{nameof(playerId)} {playerId}");
             if (string.IsNullOrEmpty(playerId))
+            {
                 return BadRequest();
+            }
 
-            AccountInfo accountInfo = await playerLobbyInitializeService.GetPlayerInfo(playerId);
-
-            if (accountInfo == null)
-                return BadRequest();
+            AccountInfo accountInfo = await playerInfoManagerService.GetOrCreateAccountInfo(playerId);
 
             return DichSerialize(accountInfo);
         }

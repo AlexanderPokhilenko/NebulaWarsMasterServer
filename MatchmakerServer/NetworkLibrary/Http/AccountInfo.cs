@@ -12,7 +12,6 @@ namespace NetworkLibrary.NetworkLibrary.Http
         [Index(3)] public virtual int PremiumCurrency { get; set; }
         [Index(4)] public virtual int PointsForBigChest { get; set; }
         [Index(5)] public virtual int PointsForSmallChest { get; set; }
-        
         [Index(6)] public virtual List<WarshipCopy> Warships { get; set; }
     }
 }

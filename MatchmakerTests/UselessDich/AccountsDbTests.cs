@@ -1,11 +1,10 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DataLayer;
 using MatchmakerTest.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-//TODO in memory базы данных все связаны
+//TODO in memory базы данных связаны
 
 namespace MatchmakerTest
 {

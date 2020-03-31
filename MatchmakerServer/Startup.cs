@@ -27,7 +27,7 @@ namespace AmoebaGameMatcherServer
             services.AddSingleton<IpAppProductsService>();
             
             //Работа с данными игрока в лобби
-            services.AddTransient<PlayerLobbyInitializeService>();
+            services.AddTransient<PlayerInfoPullerService>();
             
             //Создание боёв и данные игрока в бою
             services.AddTransient<QueueExtenderService>();
@@ -43,12 +43,17 @@ namespace AmoebaGameMatcherServer
             services.AddTransient<BattleRoyaleMatchPackerService>();
             services.AddTransient<IPlayerTimeoutManager, PlayerTimeoutManagerService>();
             services.AddTransient<MatchDataDbWriterService>();
+            services.AddTransient<IDbContextFactory, DbContextFactory>();
             
             services.AddTransient<IWarshipValidatorService, WarshipValidatorService>();
             
             services.AddSingleton<BattleRoyaleQueueSingletonService>();
             services.AddSingleton<BattleRoyaleUnfinishedMatchesSingletonService>();
 
+            //Experimental
+            services.AddTransient<IServiceIdValidator, ServiceIdValidatorService>();
+            services.AddTransient<AccountRegistrationService>();
+            services.AddTransient<PlayerInfoManagerService>();
 
             //Работа с гейм севером
             services.AddTransient<IGameServerNegotiatorService, GameServerNegotiatorService>();
