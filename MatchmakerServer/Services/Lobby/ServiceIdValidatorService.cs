@@ -1,4 +1,7 @@
-﻿namespace AmoebaGameMatcherServer.Services
+﻿using System;
+using JetBrains.Annotations;
+
+namespace AmoebaGameMatcherServer.Services
 {
     public interface IServiceIdValidator
     {
@@ -15,9 +18,14 @@
     
     public class ServiceIdValidatorService:IServiceIdValidator
     {
-        public bool Validate(string serviceId)
+        public bool Validate([NotNull] string serviceId)
         {
-            return serviceId?.Length > 10;
+            bool success = serviceId.Length >= 10;
+            if (!success)
+            {
+                Console.WriteLine("Длина serviceId = "+serviceId.Length);
+            }
+            return success;
         }
     }
 }

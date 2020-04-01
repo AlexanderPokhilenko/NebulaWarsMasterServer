@@ -22,7 +22,7 @@ namespace AmoebaGameMatcherServer.Services
         }
         
         [ItemCanBeNull]
-        public async Task<AccountInfo> GetPlayerInfo(string playerId)
+        public async Task<AccountInfo> GetPlayerInfo([NotNull] string playerId)
         {
             Account account = await  dbContext.Accounts
                 .Include(acc => acc.Warships)

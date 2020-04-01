@@ -3,6 +3,9 @@ using ZeroFormatter;
 
 namespace NetworkLibrary.NetworkLibrary.Http
 {
+    /// <summary>
+    /// Содержит в себе все данные аккаунта для лобби.
+    /// </summary>
     [ZeroFormattable]
     public class AccountInfo
     {

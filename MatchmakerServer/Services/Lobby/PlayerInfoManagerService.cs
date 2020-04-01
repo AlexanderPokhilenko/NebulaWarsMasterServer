@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
 
@@ -27,12 +28,15 @@ namespace AmoebaGameMatcherServer.Services
             
             if (accountInfo == null)
             {
+                Console.WriteLine("Попытка создать аккаунт");
                 if (await accountRegistrationService.TryRegisterAccount(serviceId))
                 {
+                    Console.WriteLine("Успешная регистрация");
                     accountInfo = await playerInfoPullerService.GetPlayerInfo(serviceId);
                 }
                 else
                 {
+                    Console.WriteLine("Не удалось выполнить регистрацию аккаунта");
                     return null;
                 }
             }

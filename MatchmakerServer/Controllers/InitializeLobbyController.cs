@@ -33,13 +33,15 @@ namespace AmoebaGameMatcherServer.Controllers
             AccountInfo accountInfo = await playerInfoManagerService.GetOrCreateAccountInfo(playerId);
             if (accountInfo == null)
             {
-                throw new NullReferenceException(nameof(accountInfo));
+                Console.WriteLine($"accountInfo is null");
+                return StatusCode(500);
             }
-            
-            Console.WriteLine(accountInfo.Username);
-            string answer = DichSerialize(accountInfo);
-            Console.WriteLine($"{nameof(answer.Length)} {answer.Length}");
-            return answer;
+            else
+            {
+                string answer = DichSerialize(accountInfo);
+                Console.WriteLine($"{nameof(answer.Length)} {answer.Length}");
+                return answer;
+            }
         }
 
         private string DichSerialize(AccountInfo accountInfo)

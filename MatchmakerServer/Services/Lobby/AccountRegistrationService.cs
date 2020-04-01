@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Channels;
+using System.Threading.Tasks;
 using DataLayer;
 using DataLayer.Tables;
 
@@ -20,6 +22,7 @@ namespace AmoebaGameMatcherServer.Services
         {
             if (!serviceIdValidatorService.Validate(serviceId))
             {
+                Console.WriteLine("serviceId не прошёл валидацию");
                 //TODO добавить логгирование
                 return false;
             }
