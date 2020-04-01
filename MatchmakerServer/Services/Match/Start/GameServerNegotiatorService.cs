@@ -9,22 +9,6 @@ using ZeroFormatter;
 
 namespace AmoebaGameMatcherServer.Services
 {
-    public interface IGameServerNegotiatorService
-    {
-        Task SendRoomDataToGameServerAsync(BattleRoyaleMatchData data);
-    }
-
-    public class GameServerNegotiatorServiceStub : IGameServerNegotiatorService
-    {
-#pragma warning disable 1998
-        public async Task SendRoomDataToGameServerAsync(BattleRoyaleMatchData data)
-#pragma warning restore 1998
-        {
-            Console.WriteLine(nameof(SendRoomDataToGameServerAsync));
-        }
-    }
-    
-     
     /// <summary>
     /// Отвечает за отправку http сообщения с данными про матч на гейм сервер для запуска боя.
     /// </summary>
@@ -34,8 +18,10 @@ namespace AmoebaGameMatcherServer.Services
         
         public async Task SendRoomDataToGameServerAsync(BattleRoyaleMatchData data)
         {
-            if (string.IsNullOrEmpty(data.GameServerIp)) 
+            if (string.IsNullOrEmpty(data.GameServerIp))
+            {
                 throw new Exception("При отправке данных на игровой сервер ip не указан");
+            }
             
             string serverIp = $"http://{data.GameServerIp}:{Globals.DefaultGameServerHttpPort}";
             byte[] roomData = ZeroFormatterSerializer.Serialize(data);

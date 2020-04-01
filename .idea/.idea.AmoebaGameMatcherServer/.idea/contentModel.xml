@@ -185,7 +185,8 @@
           <e p="launchSettings.json" t="Include" />
         </e>
         <e p="Services" t="Include">
-          <e p="GameServerNegotiatorService.cs" t="Include" />
+          <e p="GameServerNegotiatorServiceStub.cs" t="Include" />
+          <e p="IGameServerNegotiatorService.cs" t="Include" />
           <e p="Lobby" t="Include">
             <e p="AccountRegistrationService.cs" t="Include" />
             <e p="PlayerInfoManagerService.cs" t="Include" />
@@ -205,19 +206,20 @@
             <e p="ServiceIdValidatorService.cs" t="Include" />
           </e>
           <e p="Match" t="Include">
-            <e p="BattleRoyaleMatchCreatorService.cs" t="Include" />
+            <e p="BattleRoyaleUnfinishedMatchesSingletonService.cs" t="Include" />
             <e p="Finish" t="Include">
               <e p="BattleRoyaleMatchFinisherService.cs" t="Include" />
               <e p="DoubleTokensManagerService.cs" t="Include" />
               <e p="PlayersAchievementsService.cs" t="Include" />
             </e>
             <e p="ForControllers" t="Include">
-              <e p="BattleRoyaleQueueSingletonService.cs" t="Include" />
-              <e p="BattleRoyaleUnfinishedMatchesSingletonService.cs" t="Include" />
-              <e p="QueueExtenderService.cs" t="Include" />
+              <e p="MatchmakerFacadeService.cs" t="Include" />
             </e>
             <e p="Start" t="Include">
+              <e p="BattleRoyaleMatchCreatorService.cs" t="Include" />
               <e p="BattleRoyaleMatchPackerService.cs" t="Include" />
+              <e p="BattleRoyaleQueueSingletonService.cs" t="Include" />
+              <e p="GameServerNegotiatorService.cs" t="Include" />
               <e p="GameServersManagerService.cs" t="Include" />
               <e p="IWarshipValidatorService.cs" t="Include" />
               <e p="MatchCreationInitiator.cs" t="Include" />
@@ -226,6 +228,7 @@
               <e p="MatchDataFactory.cs" t="Include" />
               <e p="MyQueue.cs" t="Include" />
               <e p="PlayerTimeoutControllerService.cs" t="Include" />
+              <e p="QueueExtenderService.cs" t="Include" />
               <e p="QueueInfoForPlayer.cs" t="Include" />
               <e p="WarshipValidatorService.cs" t="Include" />
               <e p="WarshipValidatorServiceStub.cs" t="Include" />
@@ -252,6 +255,7 @@
           <e p="UniqueStringFactory.cs" t="Include" />
         </e>
         <e p="GameUnitsForMatchTests.cs" t="Include" />
+        <e p="MatchmakerFacadeServiceTest.cs" t="Include" />
         <e p="MatchmakerTests.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -267,8 +271,8 @@
           <e p="AccountsDbTests.cs" t="Include" />
           <e p="MatchDataDbWriterServiceTests.cs" t="Include" />
           <e p="MatchDbWriteTests.cs" t="Include" />
+          <e p="ZeroFormatterDich.cs" t="Include" />
         </e>
-        <e p="ZeroFormatterDich.cs" t="Include" />
       </e>
       <e p="packages" t="ExcludeRecursive" />
     </e>

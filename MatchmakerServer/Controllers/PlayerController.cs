@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services;
+using AmoebaGameMatcherServer.Services.ForControllers;
 using Libraries.NetworkLibrary.Experimental;
 using Microsoft.AspNetCore.Mvc;
 using NetworkLibrary.NetworkLibrary.Http;
@@ -17,20 +18,21 @@ namespace AmoebaGameMatcherServer.Controllers
     [ApiController]
     public class PlayerController : ControllerBase
     {
-        private readonly QueueExtenderService queueExtenderService;
-        private readonly BattleRoyaleQueueSingletonService queueSingletonService;
-        private readonly BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService;
+      
         private readonly PlayersAchievementsService achievementsService;
+        private readonly BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService;
+        private readonly BattleRoyaleQueueSingletonService queueSingletonService;
+        private readonly MatchmakerFacadeService matchmakerFacadeService;
 
         public PlayerController(PlayersAchievementsService achievementsService,
             BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService, 
             BattleRoyaleQueueSingletonService queueSingletonService,
-            QueueExtenderService queueExtenderService)
+            MatchmakerFacadeService matchmakerFacadeService)
         {
             this.achievementsService = achievementsService;
             this.unfinishedMatchesService = unfinishedMatchesService;
             this.queueSingletonService = queueSingletonService;
-            this.queueExtenderService = queueExtenderService;
+            this.matchmakerFacadeService = matchmakerFacadeService;
         }
 
         /// <summary>
@@ -93,42 +95,8 @@ namespace AmoebaGameMatcherServer.Controllers
             {
                 return BadRequest();
             }
-
-            //Данные для окна ожидания боя
-            GameMatcherResponse response = new GameMatcherResponse
-            {
-                NumberOfPlayersInQueue = queueSingletonService.GetNumberOfPlayersInQueue(),
-                NumberOfPlayersInBattles = unfinishedMatchesService.GetNumberOfPlayersInBattles()
-            };
-            
-            //Игрок в очереди?
-            if (queueSingletonService.IsPlayerInQueue(playerId))
-            {
-                Console.WriteLine("IsPlayerInQueue");
-                response.PlayerInQueue = true;
-                return DichSerialize(response);
-            }
-            //Игрок в бою?
-            else if (unfinishedMatchesService.IsPlayerInMatch(playerId))
-            {
-                Console.WriteLine("IsPlayerInMatch");
-                BattleRoyaleMatchData roomData = unfinishedMatchesService.GetMatchData(playerId);
-                response.PlayerInBattle = true;
-                response.BattleRoyaleMatchData = roomData;
-                return DichSerialize(response);
-            }
-            //Добавить в очередь
-            else
-            {
-                Console.WriteLine("TryEnqueuePlayer");
-                bool successfulQueuing = await queueExtenderService.TryEnqueuePlayer(playerId, warshipId); 
-                if (!successfulQueuing)
-                {
-                    throw new Exception("Не удалось зарегистрировать игрока.");
-                }
-                response.PlayerHasJustBeenRegistered = true;
-                return DichSerialize(response);
-            }
+            GameMatcherResponse matcherResponse = await matchmakerFacadeService.GetMatchData(playerId, warshipId);
+            return DichSerialize(matcherResponse);
         }
 
         [Route(nameof(GetMatchResult))]
@@ -158,7 +126,7 @@ namespace AmoebaGameMatcherServer.Controllers
             //Чек на адекватность ответа
             if (matchResult == null)
             {
-                return BadRequest();
+                return StatusCode(500);
             }
             return DichSerialize(matchResult);
         }

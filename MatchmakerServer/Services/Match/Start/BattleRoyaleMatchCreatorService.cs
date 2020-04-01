@@ -4,7 +4,6 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services
 {
-     
     /// <summary>
     /// Полностью управляет созданием боя для батл рояль режима.
     /// </summary>
@@ -36,7 +35,7 @@ namespace AmoebaGameMatcherServer.Services
         public async Task<MatchCreationMessage> 
             TryCreateMatch(int maxNumberOfPlayersInBattle, bool botsCanBeUsed)
         {
-            //Попробовать достать игроков из очереди
+            //Достать игроков из очереди без извлечения
             var (success, gameUnitsForMatch, playersQueueInfo) = battleRoyaleMatchPackerService
                 .GetPlayersForMatch(maxNumberOfPlayersInBattle, botsCanBeUsed);
 
@@ -51,7 +50,7 @@ namespace AmoebaGameMatcherServer.Services
                 };
             }
 
-            //На каком сервере будет запучаться матч?
+            //На каком сервере будет запускаться матч?
             var matchRoutingData = matchmakerDichService.GetMatchRoutingData();
 
             //Сделать запись об матче в БД

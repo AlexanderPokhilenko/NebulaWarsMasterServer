@@ -1,9 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace AmoebaGameMatcherServer.Services
 {
-     
+    //TODO убрать отсюда BattleRoyaleQueueSingletonService
     /// <summary>
     /// Отвечает за проверку данных игрока перед добавлением в очередь (пока один режим)
     /// </summary>

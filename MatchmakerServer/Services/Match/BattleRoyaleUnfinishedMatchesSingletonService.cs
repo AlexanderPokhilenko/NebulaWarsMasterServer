@@ -5,7 +5,6 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services
 {
-     
     //TODO сделать это говно многопоточным
     /// <summary>
     /// Хранит данные о текущих боях.

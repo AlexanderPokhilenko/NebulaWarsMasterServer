@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AmoebaGameMatcherServer.Controllers
 {
+    /// <summary>
+    /// Сообщает клиенту текущую версию игры. Нужно для того, чтобы клиент обновился.
+    /// </summary>
     [Route("[controller]")]
     [ApiController]
     public class GameUpdatesController : ControllerBase

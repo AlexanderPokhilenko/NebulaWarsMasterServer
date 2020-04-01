@@ -1,4 +1,5 @@
 ﻿using AmoebaGameMatcherServer.Services;
+using AmoebaGameMatcherServer.Services.ForControllers;
 using DataLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -54,6 +55,7 @@ namespace AmoebaGameMatcherServer
             services.AddTransient<IServiceIdValidator, ServiceIdValidatorService>();
             services.AddTransient<AccountRegistrationService>();
             services.AddTransient<PlayerInfoManagerService>();
+            services.AddTransient<MatchmakerFacadeService>();
 
             //Работа с гейм севером
             services.AddTransient<IGameServerNegotiatorService, GameServerNegotiatorService>();
