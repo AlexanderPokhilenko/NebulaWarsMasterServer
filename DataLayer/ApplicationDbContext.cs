@@ -16,7 +16,7 @@ namespace DataLayer
         public DbSet<Warship> Warships { get; set; }
         public DbSet<WarshipType> WarshipTypes { get; set; }
         public DbSet<Match> Matches { get; set; }
-        public DbSet<MatchResultForPlayer> PlayerMatchResults { get; set; }
+        public DbSet<MatchResultForPlayer> MatchResultForPlayers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -99,6 +99,12 @@ namespace AmoebaGameMatcherServer.Controllers
             return DichSerialize(matcherResponse);
         }
 
+        /// <summary>
+        /// Получение результат матча для показа статистики после боя.
+        /// </summary>
+        /// <param name="matchId"></param>
+        /// <param name="playerServiceId"></param>
+        /// <returns></returns>
         [Route(nameof(GetMatchResult))]
         [HttpPost]
         public async Task<ActionResult<string>> GetMatchResult([FromForm] int? matchId, [FromForm] string playerServiceId)
@@ -114,18 +120,19 @@ namespace AmoebaGameMatcherServer.Controllers
             //Запрос в сервис
             var matchResult = await achievementsService.GetMatchResult(matchId.Value, playerServiceId);
 
-            matchResult = new PlayerAchievements()
-            {
-                DoubleTokens = true,
-                BattleRatingDelta = 5,
-                OldSpaceshipRating = 8,
-                RankingRewardTokens = 20,
-                SpaceshipPrefabName = "Bird"
-            };
+            // matchResult = new PlayerAchievements()
+            // {
+            //     DoubleTokens = true,
+            //     BattleRatingDelta = 5,
+            //     OldSpaceshipRating = 8,
+            //     RankingRewardTokens = 20,
+            //     SpaceshipPrefabName = "Bird"
+            // };
                 
             //Чек на адекватность ответа
             if (matchResult == null)
             {
+                Console.WriteLine("matchResult is null");
                 return StatusCode(500);
             }
             return DichSerialize(matchResult);

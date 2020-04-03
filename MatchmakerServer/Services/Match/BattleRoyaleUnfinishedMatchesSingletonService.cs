@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using Google.Apis.Upload;
 using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services
 {
+    //TODO возможно не стоит хранить эти данные на сервере
     //TODO сделать это говно многопоточным
     /// <summary>
     /// Хранит данные о текущих боях.
@@ -64,6 +66,32 @@ namespace AmoebaGameMatcherServer.Services
             {
                 return false;
             }
+        }
+        
+        public bool TryRemoveMatch(int matchId)
+        {
+            bool success=true;
+            //получить всех игроков
+            var matchData = matchesData[matchId];
+            
+            //убрать их из коллецкии игроков
+            foreach (var player in matchData.GameUnitsForMatch.Players)
+            {
+                if (!playersInMatches.TryRemove(player.ServiceId, out _))
+                {
+                    Console.WriteLine($"{nameof(TryRemoveMatch)} Не удалось убрать игрока {nameof(player.ServiceId)} {player.ServiceId} из коллекции игроков в бою.");
+                    success = false;
+                }
+            }
+            
+            //убрать комнату
+            if(!matchesData.TryRemove(matchId, out _))
+            {
+                Console.WriteLine($"{nameof(TryRemoveMatch)} Не удалось удалить комнату {nameof(matchId)} {matchId}.");
+                success = false;
+            }
+            
+            return success;
         }
         
         //TODO добавить чеки

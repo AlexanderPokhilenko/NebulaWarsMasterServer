@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using DataLayer;
 using Libraries.NetworkLibrary.Experimental;
 using Microsoft.EntityFrameworkCore;
@@ -23,7 +24,7 @@ namespace AmoebaGameMatcherServer.Services
         public async Task<PlayerAchievements> GetMatchResult(int matchId, string playerServiceId)
         {
             //Запрос в БД
-            var matchResult = await dbContext.PlayerMatchResults
+            var matchResult = await dbContext.MatchResultForPlayers
                 .Include(rec=>rec.Warship)
                     .ThenInclude(warship => warship.WarshipType)
                 .Include(rec=>rec.Account)
@@ -34,10 +35,11 @@ namespace AmoebaGameMatcherServer.Services
             //Такой матч существует?
             if (matchResult == null)
             {
+                Console.WriteLine("matchResult == null");
                 return null;
             }
             
-            //Этот матч окончен?
+            //Результат игрока записан?
             if (matchResult.PlaceInMatch == null
                 || matchResult.PremiumCurrencyDelta == null
                 || matchResult.RegularCurrencyDelta == null
@@ -45,6 +47,7 @@ namespace AmoebaGameMatcherServer.Services
                 || matchResult.PointsForBigChest == null
                 || matchResult.PointsForSmallChest == null)
             {
+                Console.WriteLine("Игрок не закончил этот матч.");
                 return null;
             }
 
@@ -52,8 +55,8 @@ namespace AmoebaGameMatcherServer.Services
             {
                 DoubleTokens = doubleTokensManagerService.IsDoubleTokensEnabled(0,0),
                 BattleRatingDelta = matchResult.WarshipRatingDelta.Value,
-                OldSpaceshipRating = 9,
-                RankingRewardTokens = 20,
+                OldSpaceshipRating = 100,
+                RankingRewardTokens = matchResult.RegularCurrencyDelta.Value,
                 SpaceshipPrefabName = matchResult.Warship.WarshipType.Name
             };
 

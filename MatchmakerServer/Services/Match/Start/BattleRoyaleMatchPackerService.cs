@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AmoebaGameMatcherServer.Utils;
 using NetworkLibrary.NetworkLibrary.Http;
@@ -76,7 +75,7 @@ namespace AmoebaGameMatcherServer.Services
                     IsBot = true,
                     BotName = "Игорь",
                     PrefabName = "Bird",
-                    TemporaryId = StubTmpIdGenerator.CreateDich(), //TODO suka
+                    TemporaryId = BotTemporaryIdFactory.Create(),
                     WarshipCombatPowerLevel = 1
                 };
                 bots.Add(botInfo);
@@ -86,10 +85,10 @@ namespace AmoebaGameMatcherServer.Services
         }
     }
 
-    public static class StubTmpIdGenerator
+    public static class BotTemporaryIdFactory
     {
-        private static int lastId=0;
-        public static int CreateDich()
+        private static int lastId=1_000_000;
+        public static int Create()
         {
             lastId++;
             return lastId;

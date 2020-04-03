@@ -7,7 +7,7 @@
     {
         public bool IsDoubleTokensEnabled(int accountId, int matchId)
         {
-            return true;
+            return false;
         }
     }
 }

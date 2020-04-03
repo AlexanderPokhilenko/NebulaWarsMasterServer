@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Threading.Channels;
+using System.Threading.Tasks;
+using AmoebaGameMatcherServer.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AmoebaGameMatcherServer.Controllers
@@ -7,19 +10,28 @@ namespace AmoebaGameMatcherServer.Controllers
     [ApiController]
     public class GameServerController : ControllerBase
     {
+        private readonly BattleRoyaleMatchFinisherService matchFinisherService;
+
+        public GameServerController(BattleRoyaleMatchFinisherService matchFinisherService)
+        {
+            this.matchFinisherService = matchFinisherService;
+        }
+        
         /// <summary>
         /// Метод вызывается гейм сервером при окончании игровой сессии.
         /// </summary>
         [Route(nameof(DeleteRoom))]
         [HttpDelete]
-        public ActionResult DeleteRoom([FromQuery] int matchId)
+        public async Task<ActionResult> DeleteRoom([FromQuery] int? matchId)
         {
-            if(matchId == 0)
+            Console.WriteLine($"\n{nameof(DeleteRoom)}\n");
+            if (matchId == null)
+            {
+                Console.WriteLine($"{nameof(matchId)} is null");
                 return new BadRequestResult();
-
-            //TODO сделать запись об окончании боя
+            }
+            await matchFinisherService.DeleteRoom(matchId.Value);
             
-            // gameMatcher.DeleteRoom(gameRoomId);
             return Ok();
         }
         
@@ -28,12 +40,29 @@ namespace AmoebaGameMatcherServer.Controllers
         /// </summary>
         [Route(nameof(PlayerDeath))]
         [HttpDelete]
-        public ActionResult PlayerDeath([FromQuery] int playerId, [FromQuery] int placeInBattle)
+        public async Task<ActionResult> PlayerDeath([FromQuery] int? accountId, [FromQuery] int? placeInBattle, [FromQuery] int? matchId)
         {
-            Console.WriteLine($"test {nameof(playerId)} {playerId} {nameof(placeInBattle)} {placeInBattle}");
-            
-            //TODO дописать результат боя игрока в бд
+            if (accountId == null)
+            {
+                Console.WriteLine($"{nameof(PlayerDeath)} {nameof(accountId)} is null");
+                return StatusCode(500);
+            }
 
+            if (placeInBattle == null)
+            {
+                Console.WriteLine($"{nameof(PlayerDeath)} {nameof(placeInBattle)} is null");
+                return StatusCode(500);
+            }
+            
+            if (matchId == null)
+            {
+                Console.WriteLine($"{nameof(PlayerDeath)} {nameof(matchId)} is null");
+                return StatusCode(500);
+            }
+
+            await matchFinisherService.PlayerDeath(accountId.Value, placeInBattle.Value, matchId.Value);
+
+            Console.WriteLine($"{nameof(PlayerDeath)} Успешная запись в БД");
             return Ok();
         }
     }

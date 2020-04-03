@@ -16,10 +16,10 @@ namespace DataLayer
         
         public ApplicationDbContext Create()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+            DbContextOptions<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(guidString+" "+databaseName)
                 .Options;
-            var dbContext = new ApplicationDbContext(options);
+            ApplicationDbContext dbContext = new ApplicationDbContext(options);
             return dbContext;
         }
     }

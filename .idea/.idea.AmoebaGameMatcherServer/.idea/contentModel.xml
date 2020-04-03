@@ -185,8 +185,6 @@
           <e p="launchSettings.json" t="Include" />
         </e>
         <e p="Services" t="Include">
-          <e p="GameServerNegotiatorServiceStub.cs" t="Include" />
-          <e p="IGameServerNegotiatorService.cs" t="Include" />
           <e p="Lobby" t="Include">
             <e p="AccountRegistrationService.cs" t="Include" />
             <e p="PlayerInfoManagerService.cs" t="Include" />
@@ -220,7 +218,9 @@
               <e p="BattleRoyaleMatchPackerService.cs" t="Include" />
               <e p="BattleRoyaleQueueSingletonService.cs" t="Include" />
               <e p="GameServerNegotiatorService.cs" t="Include" />
+              <e p="GameServerNegotiatorServiceStub.cs" t="Include" />
               <e p="GameServersManagerService.cs" t="Include" />
+              <e p="IGameServerNegotiatorService.cs" t="Include" />
               <e p="IWarshipValidatorService.cs" t="Include" />
               <e p="MatchCreationInitiator.cs" t="Include" />
               <e p="MatchCreationInitiatorSingletonService.cs" t="Include" />
@@ -237,10 +237,8 @@
         </e>
         <e p="Startup.cs" t="Include" />
         <e p="Utils" t="Include">
-          <e p="GameRoomIdGenerator.cs" t="Include" />
           <e p="Globals.cs" t="Include" />
           <e p="PeriodicTaskExecutor.cs" t="Include" />
-          <e p="PlayersTemporaryIdGenerator.cs" t="Include" />
         </e>
       </e>
       <e p="MatchmakerTests" t="IncludeRecursive">
