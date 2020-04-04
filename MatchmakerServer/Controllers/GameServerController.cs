@@ -17,9 +17,6 @@ namespace AmoebaGameMatcherServer.Controllers
             this.matchFinisherService = matchFinisherService;
         }
         
-        /// <summary>
-        /// Метод вызывается гейм сервером при окончании игровой сессии.
-        /// </summary>
         [Route(nameof(DeleteRoom))]
         [HttpDelete]
         public async Task<ActionResult> DeleteRoom([FromQuery] int? matchId)
@@ -35,9 +32,6 @@ namespace AmoebaGameMatcherServer.Controllers
             return Ok();
         }
         
-        /// <summary>
-        /// Метод вызывается гейм сервером при смерти игрока.
-        /// </summary>
         [Route(nameof(PlayerDeath))]
         [HttpDelete]
         public async Task<ActionResult> PlayerDeath([FromQuery] int? accountId, [FromQuery] int? placeInBattle, [FromQuery] int? matchId)

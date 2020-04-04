@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
+//TODO разбить сервисы на блоки
+
 namespace AmoebaGameMatcherServer
 {
     public class Startup
@@ -19,7 +21,7 @@ namespace AmoebaGameMatcherServer
             services
                 .AddEntityFrameworkNpgsql()
                 .AddDbContext<ApplicationDbContext>(
-                    opt => opt.UseNpgsql(connectionString))
+                    opt => opt.UseInMemoryDatabase("ss"))
                 .BuildServiceProvider();
 
             //Работа с покупками

@@ -207,6 +207,7 @@
             <e p="BattleRoyaleUnfinishedMatchesSingletonService.cs" t="Include" />
             <e p="Finish" t="Include">
               <e p="BattleRoyaleMatchFinisherService.cs" t="Include" />
+              <e p="BattleRoyaleWarshipRatingCalculator.cs" t="Include" />
               <e p="DoubleTokensManagerService.cs" t="Include" />
               <e p="PlayersAchievementsService.cs" t="Include" />
             </e>
@@ -244,7 +245,9 @@
       <e p="MatchmakerTests" t="IncludeRecursive">
         <e p="AccountRegistrationServiceTests.cs" t="Include" />
         <e p="BattleCreatingTests.cs" t="Include" />
+        <e p="BattleRoyaleMatchRewardServiceTests.cs" t="Include" />
         <e p="BattleRoyaleQueueSingletonServiceTests.cs" t="Include" />
+        <e p="BattleRoyaleWarshipRatingCalculatorTests.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Factories" t="Include">
           <e p="AccountFactory.cs" t="Include" />
