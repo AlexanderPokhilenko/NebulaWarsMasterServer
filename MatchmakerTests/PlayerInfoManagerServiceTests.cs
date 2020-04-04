@@ -20,16 +20,15 @@ namespace MatchmakerTest
         {
             //Arrange
             var dbFactory = new InMemoryDatabaseFactory(nameof(PlayerInfoManagerServiceTests));
-            PlayerInfoPullerService playerInfoPullerService = new PlayerInfoPullerService(dbFactory.Create());
-            IServiceIdValidator serviceIdValidator = new ServiceIdValidatorServiceStub();
+            AccountDbReaderService accountDbReaderService = new AccountDbReaderService(dbFactory.Create());
             AccountRegistrationService accountRegistrationService = 
-                new AccountRegistrationService(serviceIdValidator, dbFactory.Create());
-            PlayerInfoManagerService playerInfoManagerService = 
-                new PlayerInfoManagerService(playerInfoPullerService, accountRegistrationService);
+                new AccountRegistrationService(dbFactory.Create());
+            AccountFacadeService accountFacadeService = 
+                new AccountFacadeService(accountDbReaderService, accountRegistrationService);
             string serviceId = UniqueStringFactory.Create();
             
             //Act
-            var accountInfo = await playerInfoManagerService.GetOrCreateAccountInfo(serviceId);
+            var accountInfo = await accountFacadeService.GetOrCreateAccountInfo(serviceId);
             
             //Assert
             Assert.IsNotNull(accountInfo);

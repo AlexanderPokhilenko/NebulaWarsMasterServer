@@ -2,13 +2,18 @@
 
 namespace AmoebaGameMatcherServer.Services
 {
+    /// <summary>
+    /// По результатам боя в батл рояль режиме присуждает награду игроку.
+    /// </summary>
     public class BattleRoyaleMatchRewardService
     {
         readonly BattleRoyaleWarshipRatingCalculator warshipRatingCalculator;
+        
         public BattleRoyaleMatchRewardService()
         {
             warshipRatingCalculator = new BattleRoyaleWarshipRatingCalculator();
         }
+        
         public MatchReward GetMatchReward(int placeInMatch, int currentWarshipRating)
         {
             //TODO добавить поддержку double tokens

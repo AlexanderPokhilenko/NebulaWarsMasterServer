@@ -87,6 +87,16 @@
           <e p="GoogleApiGlobals.cs" t="Include" />
           <e p="GooglePurchasesValidationController.cs" t="Include" />
         </e>
+        <e p="Features" t="Include">
+          <e p="DatabaseFeature.cs" t="Include" />
+          <e p="GoogleApiFeature.cs" t="Include" />
+          <e p="LobbyInitializeFeature.cs" t="Include" />
+          <e p="MatchCreationFeature.cs" t="Include" />
+          <e p="MatchFinishingFeature.cs" t="Include" />
+          <e p="PlayerQueueingFeature.cs" t="Include" />
+          <e p="ServiceFeature.cs" t="Include" />
+          <e p="ServicesExtension.cs" t="Include" />
+        </e>
         <e p="googleApiData.txt" t="Include" />
         <e p="MatchmakerServer.csproj" t="IncludeRecursive" />
         <e p="NetworkLibrary" t="Include">
@@ -186,9 +196,9 @@
         </e>
         <e p="Services" t="Include">
           <e p="Lobby" t="Include">
+            <e p="AccountDbReaderService.cs" t="Include" />
+            <e p="AccountFacadeService.cs" t="Include" />
             <e p="AccountRegistrationService.cs" t="Include" />
-            <e p="PlayerInfoManagerService.cs" t="Include" />
-            <e p="PlayerInfoPullerService.cs" t="Include" />
             <e p="Purchases" t="Include">
               <e p="CustomAccessTokenManager.cs" t="Include" />
               <e p="CustomGoogleApiInitializer.cs" t="Include" />
@@ -209,8 +219,7 @@
               <e p="BattleRoyaleMatchFinisherService.cs" t="Include" />
               <e p="BattleRoyaleMatchRewardService.cs" t="Include" />
               <e p="BattleRoyaleWarshipRatingCalculator.cs" t="Include" />
-              <e p="DoubleTokensManagerService.cs" t="Include" />
-              <e p="PlayersAchievementsService.cs" t="Include" />
+              <e p="PlayerMatchREsultDbReaderService.cs" t="Include" />
             </e>
             <e p="ForControllers" t="Include">
               <e p="MatchmakerFacadeService.cs" t="Include" />
@@ -223,13 +232,17 @@
               <e p="GameServerNegotiatorServiceStub.cs" t="Include" />
               <e p="GameServersManagerService.cs" t="Include" />
               <e p="IGameServerNegotiatorService.cs" t="Include" />
+              <e p="IPlayerTimeoutManager.cs" t="Include" />
               <e p="IWarshipValidatorService.cs" t="Include" />
               <e p="MatchCreationInitiator.cs" t="Include" />
               <e p="MatchCreationInitiatorSingletonService.cs" t="Include" />
-              <e p="MatchDataDbWriterService.cs" t="Include" />
               <e p="MatchDataFactory.cs" t="Include" />
+              <e p="MatchDbWriterService.cs" t="Include" />
+              <e p="MatchRoutingData.cs" t="Include" />
+              <e p="MatchRoutingDataService.cs" t="Include" />
               <e p="MyQueue.cs" t="Include" />
               <e p="PlayerTimeoutControllerService.cs" t="Include" />
+              <e p="PlayerTimeoutManagerServiceStub.cs" t="Include" />
               <e p="QueueExtenderService.cs" t="Include" />
               <e p="QueueInfoForPlayer.cs" t="Include" />
               <e p="WarshipValidatorService.cs" t="Include" />
@@ -244,6 +257,7 @@
         </e>
       </e>
       <e p="MatchmakerTests" t="IncludeRecursive">
+        <e p="AccountDbReaderServiceTests.cs" t="Include" />
         <e p="AccountRegistrationServiceTests.cs" t="Include" />
         <e p="BattleCreatingTests.cs" t="Include" />
         <e p="BattleRoyaleMatchRewardServiceTests.cs" t="Include" />
@@ -259,7 +273,6 @@
         <e p="GameUnitsForMatchTests.cs" t="Include" />
         <e p="MatchmakerFacadeServiceTest.cs" t="Include" />
         <e p="MatchmakerTests.csproj" t="IncludeRecursive" />
-        <e p="NullableTypesTests.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp2.2" t="Include">
@@ -268,7 +281,6 @@
           </e>
         </e>
         <e p="PlayerInfoManagerServiceTests.cs" t="Include" />
-        <e p="PlayerInfoPullerServiceTests.cs" t="Include" />
         <e p="QueueExtenderServiceTests.cs" t="Include" />
         <e p="UselessDich" t="Include">
           <e p="AccountsDbTests.cs" t="Include" />

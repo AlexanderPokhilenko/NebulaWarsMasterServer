@@ -6,7 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AmoebaGameMatcherServer.Services
 {
-     
+    /// <summary>
+    /// Нужен при добавлении игрока в очередь.
+    /// </summary>
     public class WarshipValidatorService:IWarshipValidatorService
     {
         private readonly ApplicationDbContext applicationDbContext;
@@ -31,7 +33,6 @@ namespace AmoebaGameMatcherServer.Services
                     warship1.Id == warshipId 
                     && warship1.Account.ServiceId==playerServiceId);
             
-            //TODO нужно возвращать не весь аккаунт и корабль, а только необходимые поля
             if (warship == null)
             {
                 return new ValueTuple<bool, Warship>(false, null);

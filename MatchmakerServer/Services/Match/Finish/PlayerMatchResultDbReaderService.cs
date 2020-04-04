@@ -9,16 +9,13 @@ namespace AmoebaGameMatcherServer.Services
     /// <summary>
     /// Достаёт из БД данные о конкретном бое для аккаунта.
     /// </summary>
-    public class PlayersAchievementsService
+    public class PlayerMatchResultDbReaderService
     {
         private readonly ApplicationDbContext dbContext;
-        private readonly DoubleTokensManagerService doubleTokensManagerService;
-
-        public PlayersAchievementsService(ApplicationDbContext dbContext, 
-            DoubleTokensManagerService doubleTokensManagerService)
+        
+        public PlayerMatchResultDbReaderService(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
-            this.doubleTokensManagerService = doubleTokensManagerService;
         }
 
         public async Task<PlayerAchievements> GetMatchResult(int matchId, string playerServiceId)
@@ -53,7 +50,7 @@ namespace AmoebaGameMatcherServer.Services
 
             var playerAchievements = new PlayerAchievements
             {
-                DoubleTokens = doubleTokensManagerService.IsDoubleTokensEnabled(0,0),
+                DoubleTokens = false,
                 BattleRatingDelta = matchResult.WarshipRatingDelta.Value,
                 OldSpaceshipRating = matchResult.Warship.Rating - matchResult.WarshipRatingDelta.Value,
                 RankingRewardTokens = matchResult.RegularCurrencyDelta.Value,

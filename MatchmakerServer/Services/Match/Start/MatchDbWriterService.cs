@@ -9,11 +9,11 @@ namespace AmoebaGameMatcherServer.Services
     /// <summary>
     /// Записывает данные матча в БД
     /// </summary>
-    public class MatchDataDbWriterService
+    public class MatchDbWriterService
     {
         private readonly IDbContextFactory dbContextFactory;
 
-        public MatchDataDbWriterService(IDbContextFactory dbContextFactory)
+        public MatchDbWriterService(IDbContextFactory dbContextFactory)
         {
             this.dbContextFactory = dbContextFactory;
         }

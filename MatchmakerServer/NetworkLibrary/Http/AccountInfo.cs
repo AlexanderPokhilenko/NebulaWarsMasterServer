@@ -3,6 +3,7 @@ using ZeroFormatter;
 
 namespace NetworkLibrary.NetworkLibrary.Http
 {
+    //TODO зачем мне это говно, если есть Account из БД?
     /// <summary>
     /// Содержит в себе все данные аккаунта для лобби.
     /// </summary>

@@ -19,11 +19,10 @@ namespace MatchmakerTest
         public async Task Test1()
         {
             //Arrange
-            IServiceIdValidator serviceIdValidatorService = new ServiceIdValidatorServiceStub();
             ApplicationDbContext dbContext = new InMemoryDatabaseFactory(nameof(AccountRegistrationServiceTests))
                 .Create();
             AccountRegistrationService accountRegistrationService = 
-                new AccountRegistrationService(serviceIdValidatorService, dbContext);
+                new AccountRegistrationService(dbContext);
             string serviceId = UniqueStringFactory.Create();
             
             //Act

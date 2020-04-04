@@ -4,20 +4,6 @@ using AmoebaGameMatcherServer.Utils;
 
 namespace AmoebaGameMatcherServer.Services
 {
-    public interface IPlayerTimeoutManager
-    {
-        bool IsWaitingTimeExceeded();
-    }
-    
-    public class PlayerTimeoutManagerServiceStub:IPlayerTimeoutManager
-    {
-        public bool IsWaitingTimeExceeded()
-        {
-            Console.WriteLine(nameof(IsWaitingTimeExceeded));
-            return true;
-        }
-    }
-
     /// <summary>
     /// Инициирует создание матчей для всех режимов
     /// </summary>

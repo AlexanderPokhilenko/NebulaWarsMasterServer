@@ -20,7 +20,7 @@ namespace MatchmakerTest
             //Arrange
             IDbContextFactory dbContextFactory = new InMemoryDatabaseFactory(nameof(MatchDataDbWriterServiceTests));
             var dbContext = dbContextFactory.Create();
-            MatchDataDbWriterService matchDataDbWriterService = new MatchDataDbWriterService(dbContextFactory);
+            MatchDbWriterService matchDbWriterService = new MatchDbWriterService(dbContextFactory);
             MatchRoutingData matchRoutingData = new MatchRoutingData()
             {
                 GameServerIp = "someIp",
@@ -32,7 +32,7 @@ namespace MatchmakerTest
             var playersBattleInfo = PlayersQueueInfoFactory.CreateSinglePlayer(account);
             
             //Act
-            Match match = await matchDataDbWriterService.WriteMatchDataToDb(matchRoutingData, playersBattleInfo);
+            Match match = await matchDbWriterService.WriteMatchDataToDb(matchRoutingData, playersBattleInfo);
 
             //Assert
             Assert.IsNotNull(match);

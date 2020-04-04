@@ -18,18 +18,17 @@ namespace AmoebaGameMatcherServer.Controllers
     [ApiController]
     public class PlayerController : ControllerBase
     {
-      
-        private readonly PlayersAchievementsService achievementsService;
+        private readonly PlayerMatchResultDbReaderService matchResultDbReaderService;
         private readonly BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService;
         private readonly BattleRoyaleQueueSingletonService queueSingletonService;
         private readonly MatchmakerFacadeService matchmakerFacadeService;
 
-        public PlayerController(PlayersAchievementsService achievementsService,
+        public PlayerController(PlayerMatchResultDbReaderService matchResultDbReaderService,
             BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService, 
             BattleRoyaleQueueSingletonService queueSingletonService,
             MatchmakerFacadeService matchmakerFacadeService)
         {
-            this.achievementsService = achievementsService;
+            this.matchResultDbReaderService = matchResultDbReaderService;
             this.unfinishedMatchesService = unfinishedMatchesService;
             this.queueSingletonService = queueSingletonService;
             this.matchmakerFacadeService = matchmakerFacadeService;
@@ -123,7 +122,8 @@ namespace AmoebaGameMatcherServer.Controllers
                 return BadRequest();
             }
             
-            var matchResult = await achievementsService.GetMatchResult(matchId.Value, playerServiceId);
+            var matchResult = await matchResultDbReaderService
+                .GetMatchResult(matchId.Value, playerServiceId);
             
             //Чек на адекватность ответа
             if (matchResult == null)

@@ -10,25 +10,24 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MatchmakerTest
 {
     [TestClass]
-    public class PlayerInfoPullerServiceTests
+    public class AccountDbReaderServiceTests
     {
         /// <summary>
         /// Сервис нормально достаёт данные про аккаунт из БД
         /// </summary>
-        /// <returns></returns>
         [TestMethod]
         public async Task Test1()
         {
             //Arrange
-            ApplicationDbContext dbContext = new InMemoryDatabaseFactory(nameof(PlayerInfoPullerServiceTests))
+            ApplicationDbContext dbContext = new InMemoryDatabaseFactory(nameof(AccountDbReaderServiceTests))
                 .Create();
-            PlayerInfoPullerService playerInfoPullerService = new PlayerInfoPullerService(dbContext);
+            AccountDbReaderService accountDbReaderService = new AccountDbReaderService(dbContext);
             Account account = AccountFactory.CreateSimpleAccount();
             await dbContext.Accounts.AddAsync(account);
             await dbContext.SaveChangesAsync();
             
             //Act
-            var playerInfo = await playerInfoPullerService.GetPlayerInfo(account.ServiceId);
+            var playerInfo = await accountDbReaderService.GetAccountInfo(account.ServiceId);
             
             //Assert
             Assert.IsNotNull(playerInfo);
@@ -53,13 +52,13 @@ namespace MatchmakerTest
         public async Task Test2()
         {
             //Arrange
-            ApplicationDbContext dbContext = new InMemoryDatabaseFactory(nameof(PlayerInfoPullerServiceTests))
+            ApplicationDbContext dbContext = new InMemoryDatabaseFactory(nameof(AccountDbReaderServiceTests))
                 .Create();
-            PlayerInfoPullerService playerInfoPullerService = new PlayerInfoPullerService(dbContext);
+            AccountDbReaderService accountDbReaderService = new AccountDbReaderService(dbContext);
             string accountServiceId = "someUniqueId_65461814865468";
             
             //Act
-            var playerInfo = await playerInfoPullerService.GetPlayerInfo(accountServiceId);
+            var playerInfo = await accountDbReaderService.GetAccountInfo(accountServiceId);
             
             //Assert
             Assert.IsNull(playerInfo);

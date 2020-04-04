@@ -1,31 +1,28 @@
-﻿using System;
-using System.Threading.Channels;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DataLayer;
 using DataLayer.Tables;
 
 namespace AmoebaGameMatcherServer.Services
 {
+    /// <summary>
+    /// Вызывается во время загрузки данных в лобби, если такого аккаунта нет в БД.
+    /// </summary>
     public class AccountRegistrationService
     {
-        private readonly IServiceIdValidator serviceIdValidatorService;
         private readonly ApplicationDbContext dbContext;
 
-        public AccountRegistrationService(IServiceIdValidator serviceIdValidatorService,
-            ApplicationDbContext dbContext)
+        public AccountRegistrationService(ApplicationDbContext dbContext)
         {
-            this.serviceIdValidatorService = serviceIdValidatorService;
             this.dbContext = dbContext;
         }
 
+        /// <summary>
+        /// Создаёт аккаунт
+        /// </summary>
+        /// <param name="serviceId"></param>
+        /// <returns></returns>
         public async Task<bool> TryRegisterAccount(string serviceId)
         {
-            if (!serviceIdValidatorService.Validate(serviceId))
-            {
-                Console.WriteLine("serviceId не прошёл валидацию");
-                //TODO добавить логгирование
-                return false;
-            }
             Account account = DefaultAccountFactory.CreateDefaultAccount(serviceId);
             await dbContext.Accounts.AddAsync(account);
             await dbContext.SaveChangesAsync();

@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataLayer;
 using DataLayer.Tables;
-using Google.Apis.Auth.OAuth2;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using NetworkLibrary.NetworkLibrary.Http;
@@ -11,19 +10,22 @@ using NetworkLibrary.NetworkLibrary.Http;
 namespace AmoebaGameMatcherServer.Services
 {
     /// <summary>
-    /// Отвечает за получение данных про конкретный аккаунт из БД.
+    /// Во время загрузки данных в лобби достаёт аккаунт из БД, если он есть.
     /// </summary>
-    public class PlayerInfoPullerService
+    public class AccountDbReaderService
     {
         private readonly ApplicationDbContext dbContext;
 
-        public PlayerInfoPullerService(ApplicationDbContext dbContext)
+        public AccountDbReaderService(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
         
+        /// <summary>
+        /// Отвечает за получение данных про аккаунт из БД.
+        /// </summary>
         [ItemCanBeNull]
-        public async Task<AccountInfo> GetPlayerInfo([NotNull] string playerId)
+        public async Task<AccountInfo> GetAccountInfo([NotNull] string playerId)
         {
             Account account = await  dbContext.Accounts
                 .Include(acc => acc.Warships)
@@ -35,6 +37,7 @@ namespace AmoebaGameMatcherServer.Services
                 return null;
             }
 
+            Console.WriteLine($"{nameof(account.Rating)} {account.Rating}");
             return GetAccountInfo(account);
         }
 

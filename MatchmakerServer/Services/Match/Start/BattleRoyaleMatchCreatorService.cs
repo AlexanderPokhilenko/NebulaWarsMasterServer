@@ -11,25 +11,25 @@ namespace AmoebaGameMatcherServer.Services
     {
         private readonly BattleRoyaleMatchPackerService battleRoyaleMatchPackerService;
         private readonly IGameServerNegotiatorService gameServerNegotiatorService;
-        private readonly MatchmakerDichService matchmakerDichService;
+        private readonly MatchRoutingDataService matchRoutingDataService;
         private readonly BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService;
-        private readonly MatchDataDbWriterService matchDataDbWriterService;
+        private readonly MatchDbWriterService matchDbWriterService;
         private readonly BattleRoyaleQueueSingletonService battleRoyaleQueue;
 
         public BattleRoyaleMatchCreatorService(BattleRoyaleMatchPackerService battleRoyaleMatchPackerService, 
             IGameServerNegotiatorService gameServerNegotiatorService,
-            MatchmakerDichService matchmakerDichService, 
+            MatchRoutingDataService matchRoutingDataService, 
             BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService,
             BattleRoyaleQueueSingletonService battleRoyaleQueue,
-            MatchDataDbWriterService matchDataDbWriterService)
+            MatchDbWriterService matchDbWriterService)
         {
             this.battleRoyaleMatchPackerService = battleRoyaleMatchPackerService;
             
             this.gameServerNegotiatorService = gameServerNegotiatorService;
-            this.matchmakerDichService = matchmakerDichService;
+            this.matchRoutingDataService = matchRoutingDataService;
             this.unfinishedMatchesService = unfinishedMatchesService;
             this.battleRoyaleQueue = battleRoyaleQueue;
-            this.matchDataDbWriterService = matchDataDbWriterService;
+            this.matchDbWriterService = matchDbWriterService;
         }
         
         public async Task<MatchCreationMessage> 
@@ -51,10 +51,10 @@ namespace AmoebaGameMatcherServer.Services
             }
 
             //На каком сервере будет запускаться матч?
-            var matchRoutingData = matchmakerDichService.GetMatchRoutingData();
+            var matchRoutingData = matchRoutingDataService.GetMatchRoutingData();
 
             //Сделать запись об матче в БД
-            Match match = await matchDataDbWriterService.WriteMatchDataToDb(matchRoutingData, playersQueueInfo);
+            Match match = await matchDbWriterService.WriteMatchDataToDb(matchRoutingData, playersQueueInfo);
 
             //Создать объект со всей инфой про бой
             BattleRoyaleMatchData matchData = MatchDataFactory.Create(gameUnitsForMatch, match);

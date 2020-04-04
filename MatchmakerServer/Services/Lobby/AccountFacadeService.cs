@@ -6,25 +6,26 @@ using NetworkLibrary.NetworkLibrary.Http;
 namespace AmoebaGameMatcherServer.Services
 {
     /// <summary>
-    /// Нужен для получения данных про аккаунт из БД. Если такого аккаунта нет в БД, то попытается создать его.
+    /// Нужен для получения данных про аккаунт из БД при инициализации лобби.
+    /// Если такого аккаунта нет в БД, то попытается создать его.
     /// Аккаунт не будет создан, если ServiceId не действителен.
     /// </summary>
-    public class PlayerInfoManagerService
+    public class AccountFacadeService
     {
-        private readonly PlayerInfoPullerService playerInfoPullerService;
+        private readonly AccountDbReaderService accountDbReaderService;
         private readonly AccountRegistrationService accountRegistrationService;
 
-        public PlayerInfoManagerService(PlayerInfoPullerService playerInfoPullerService,
+        public AccountFacadeService(AccountDbReaderService accountDbReaderService,
             AccountRegistrationService accountRegistrationService)
         {
-            this.playerInfoPullerService = playerInfoPullerService;
+            this.accountDbReaderService = accountDbReaderService;
             this.accountRegistrationService = accountRegistrationService;
         }
         
         [ItemCanBeNull]
         public async Task<AccountInfo> GetOrCreateAccountInfo([NotNull] string serviceId)
         {
-            AccountInfo accountInfo = await playerInfoPullerService.GetPlayerInfo(serviceId);
+            AccountInfo accountInfo = await accountDbReaderService.GetAccountInfo(serviceId);
             
             if (accountInfo == null)
             {
@@ -32,7 +33,7 @@ namespace AmoebaGameMatcherServer.Services
                 if (await accountRegistrationService.TryRegisterAccount(serviceId))
                 {
                     Console.WriteLine("Успешная регистрация");
-                    accountInfo = await playerInfoPullerService.GetPlayerInfo(serviceId);
+                    accountInfo = await accountDbReaderService.GetAccountInfo(serviceId);
                 }
                 else
                 {

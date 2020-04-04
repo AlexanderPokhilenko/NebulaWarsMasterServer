@@ -28,7 +28,7 @@ namespace MatchmakerTest
             var battleRoyaleQueueSingletonService = new BattleRoyaleQueueSingletonService();
             var battleRoyaleMatchPackerService = new BattleRoyaleMatchPackerService(battleRoyaleQueueSingletonService);
             var gameServersManagerService = new GameServersManagerService();
-            var matchmakerDichService = new MatchmakerDichService(gameServersManagerService);
+            var matchmakerDichService = new MatchRoutingDataService(gameServersManagerService);
             var battleRoyaleUnfinishedMatchesSingletonService = new BattleRoyaleUnfinishedMatchesSingletonService();
             IGameServerNegotiatorService gameServerNegotiatorServiceStub = new GameServerNegotiatorServiceStub();
             IDbContextFactory dbContextFactory = new InMemoryDatabaseFactory(nameof(BattleCreatingTests)+nameof(Test2));
@@ -36,7 +36,7 @@ namespace MatchmakerTest
             IWarshipValidatorService warshipValidatorService = new WarshipValidatorService(dbContext);
             QueueExtenderService queueExtenderService = 
                 new QueueExtenderService(battleRoyaleQueueSingletonService, warshipValidatorService);
-            var matchDataDbWriterService = new MatchDataDbWriterService(dbContextFactory);
+            var matchDataDbWriterService = new MatchDbWriterService(dbContextFactory);
             
             BattleRoyaleMatchCreatorService battleRoyaleMatchCreatorService = new BattleRoyaleMatchCreatorService(
                 battleRoyaleMatchPackerService, gameServerNegotiatorServiceStub, matchmakerDichService,
@@ -129,7 +129,7 @@ namespace MatchmakerTest
             var battleRoyaleQueueSingletonService = new BattleRoyaleQueueSingletonService();
             var battleRoyaleMatchPackerService = new BattleRoyaleMatchPackerService(battleRoyaleQueueSingletonService);
             var gameServersManagerService = new GameServersManagerService();
-            var matchmakerDichService = new MatchmakerDichService(gameServersManagerService);
+            var matchmakerDichService = new MatchRoutingDataService(gameServersManagerService);
             var battleRoyaleUnfinishedMatchesSingletonService = new BattleRoyaleUnfinishedMatchesSingletonService();
             IGameServerNegotiatorService gameServerNegotiatorServiceStub = new GameServerNegotiatorServiceStub();
             IDbContextFactory dbContextFactory = new InMemoryDatabaseFactory(nameof(BattleCreatingTests)+nameof(Test3));
@@ -137,7 +137,7 @@ namespace MatchmakerTest
             IWarshipValidatorService warshipValidatorService = new WarshipValidatorService(dbContext);
             QueueExtenderService queueExtenderService = 
                 new QueueExtenderService(battleRoyaleQueueSingletonService, warshipValidatorService);
-            var matchDataDbWriterService = new MatchDataDbWriterService(dbContextFactory);
+            var matchDataDbWriterService = new MatchDbWriterService(dbContextFactory);
             BattleRoyaleMatchCreatorService battleRoyaleMatchCreatorService = new BattleRoyaleMatchCreatorService(
                 battleRoyaleMatchPackerService, gameServerNegotiatorServiceStub, matchmakerDichService,
                 battleRoyaleUnfinishedMatchesSingletonService, battleRoyaleQueueSingletonService, matchDataDbWriterService);
@@ -210,7 +210,7 @@ namespace MatchmakerTest
             var battleRoyaleQueueSingletonService = new BattleRoyaleQueueSingletonService();
             var battleRoyaleMatchPackerService = new BattleRoyaleMatchPackerService(battleRoyaleQueueSingletonService);
             var gameServersManagerService = new GameServersManagerService();
-            var matchmakerDichService = new MatchmakerDichService(gameServersManagerService);
+            var matchmakerDichService = new MatchRoutingDataService(gameServersManagerService);
             var battleRoyaleUnfinishedMatchesSingletonService = new BattleRoyaleUnfinishedMatchesSingletonService();
             var gameServerNegotiatorServiceStub = new GameServerNegotiatorServiceStub();
             IDbContextFactory dbContextFactory = new InMemoryDatabaseFactory(nameof(BattleCreatingTests)+nameof(Test4));
@@ -219,7 +219,7 @@ namespace MatchmakerTest
             var queueExtenderService = 
                 new QueueExtenderService(battleRoyaleQueueSingletonService, warshipValidatorService);
             
-            var matchDataDbWriterService = new MatchDataDbWriterService(dbContextFactory);
+            var matchDataDbWriterService = new MatchDbWriterService(dbContextFactory);
             BattleRoyaleMatchCreatorService battleRoyaleMatchCreatorService = new BattleRoyaleMatchCreatorService(
                 battleRoyaleMatchPackerService, gameServerNegotiatorServiceStub, matchmakerDichService,
                 battleRoyaleUnfinishedMatchesSingletonService, battleRoyaleQueueSingletonService, matchDataDbWriterService);
