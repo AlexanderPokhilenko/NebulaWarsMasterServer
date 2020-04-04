@@ -11,10 +11,13 @@ namespace AmoebaGameMatcherServer.Services
     public class PurchasesValidatorService
     {
         private readonly CustomGoogleApiAccessTokenService accessTokenService;
+        private readonly IDbContextFactory dbContextFactory;
 
-        public PurchasesValidatorService(CustomGoogleApiAccessTokenService accessTokenService)
+        public PurchasesValidatorService(CustomGoogleApiAccessTokenService accessTokenService, 
+            IDbContextFactory dbContextFactory)
         {
             this.accessTokenService = accessTokenService;
+            this.dbContextFactory = dbContextFactory;
         }
 
         public void Validate(string sku, string token)
@@ -51,7 +54,7 @@ namespace AmoebaGameMatcherServer.Services
                 int purchaseType = responseObj.purchaseType;
                 int acknowledgementState = responseObj.acknowledgementState;
             
-                using (ApplicationDbContext dbContext = new DbContextFactory().Create())
+                using (ApplicationDbContext dbContext = dbContextFactory.Create())
                 {
                     Purchase purchase = new Purchase
                     {

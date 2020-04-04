@@ -21,7 +21,7 @@ namespace AmoebaGameMatcherServer
             services
                 .AddEntityFrameworkNpgsql()
                 .AddDbContext<ApplicationDbContext>(
-                    opt => opt.UseInMemoryDatabase("ss"))
+                    opt => opt.UseNpgsql(connectionString))
                 .BuildServiceProvider();
 
             //Работа с покупками
@@ -40,6 +40,7 @@ namespace AmoebaGameMatcherServer
             services.AddTransient<GameServersManagerService>();
             
             
+            services.AddTransient<BattleRoyaleMatchRewardService>();
             services.AddTransient<BattleRoyaleMatchFinisherService>();
             services.AddTransient<MatchCreationInitiatorSingletonService>();
             services.AddTransient<BattleRoyaleMatchCreatorService>();

@@ -24,6 +24,7 @@ namespace AmoebaGameMatcherServer.Services
             List<QueueInfoForPlayer> playersQueueInfo)
         {
             ApplicationDbContext dbContext = dbContextFactory.Create();
+            
             //Создать объекты для результатов боя игроков
             var playersResult = new List<MatchResultForPlayer>();
             foreach (var playerQueueInfo in playersQueueInfo)
@@ -33,6 +34,9 @@ namespace AmoebaGameMatcherServer.Services
                     AccountId = playerQueueInfo.AccountId,
                     WarshipId = playerQueueInfo.Warship.Id
                 };
+
+                Console.WriteLine($"{nameof(matchResultForPlayer.AccountId)} {matchResultForPlayer.AccountId}");
+                Console.WriteLine($"{nameof(matchResultForPlayer.WarshipId)} {matchResultForPlayer.WarshipId}");
                 playersResult.Add(matchResultForPlayer);
             }
 

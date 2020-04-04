@@ -52,7 +52,7 @@ namespace AmoebaGameMatcherServer.Services
                     if (apiData.ExpiresInSec != null)
                     {
 #pragma warning disable 4014
-                        StartEndlessAccessTokenUpdatingAsync(5).ConfigureAwait(true);
+                        StartEndlessAccessTokenUpdatingAsync(2).ConfigureAwait(true);
                         // StartEndlessAccessTokenUpdatingAsync(apiData.ExpiresInSec.Value).ConfigureAwait(true);
 #pragma warning restore 4014
                     }

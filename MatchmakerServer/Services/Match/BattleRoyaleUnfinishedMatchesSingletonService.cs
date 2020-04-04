@@ -6,7 +6,6 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services
 {
-    //TODO возможно не стоит хранить эти данные на сервере
     //TODO сделать это говно многопоточным
     /// <summary>
     /// Хранит данные о текущих боях.
@@ -51,19 +50,24 @@ namespace AmoebaGameMatcherServer.Services
         
         public bool TryRemovePlayerFromMatch(string playerId)
         {
+            Console.WriteLine($"{nameof(playerId)} {playerId}");
             if (playersInMatches.ContainsKey(playerId))
             {
-                if (playersInMatches.Remove(playerId, out int roomId))
+                Console.WriteLine("Игрок есть в списке игроков в бою");
+                if (playersInMatches.Remove(playerId, out _))
                 {
+                    Console.WriteLine("Успешное удаление игрока из списка игроков в бою.");
                     return true;
                 }
                 else
                 {
+                    Console.WriteLine("Не удалось удалить игрока из списка игроков в бою");
                     return false;
                 }
             }
             else
             {
+                Console.WriteLine("Игрока нет в списке игроков в бою");
                 return false;
             }
         }

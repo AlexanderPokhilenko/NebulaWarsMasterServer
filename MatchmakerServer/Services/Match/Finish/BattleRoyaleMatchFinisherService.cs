@@ -71,6 +71,14 @@ namespace AmoebaGameMatcherServer.Services
         
         public async Task PlayerDeath(int accountId, int placeInMatch, int matchId)
         {
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine($"{nameof(accountId)} {accountId}");
+            Console.WriteLine($"{nameof(placeInMatch)} {placeInMatch}");
+            Console.WriteLine($"{nameof(matchId)} {matchId}");
+            Console.WriteLine();
+            Console.WriteLine();
+            
             MatchResultForPlayer matchResultForPlayer = await dbContext
                 .MatchResultForPlayers
                 .SingleOrDefaultAsync(matchResult => 
@@ -80,7 +88,7 @@ namespace AmoebaGameMatcherServer.Services
             
             if (matchResultForPlayer == null)
             {
-                Console.WriteLine("matchResultForPlayer is null");
+                Console.WriteLine("\nmatchResultForPlayer is null\n");
                 return;
             }
 
@@ -100,13 +108,18 @@ namespace AmoebaGameMatcherServer.Services
             await dbContext.SaveChangesAsync();
             
             //удаление игрока из структуры данных
-            //TODO это пиздец
             var account = await dbContext.Accounts.SingleAsync(account1 => account1.Id == accountId);
 
             bool success = unfinishedMatchesSingletonService.TryRemovePlayerFromMatch(account.ServiceId);
             if (!success)
             {
-                Console.WriteLine("Произошла дичь. ");
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine("Не удалось удалить игрока из матча ");
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
             }
         }
 
