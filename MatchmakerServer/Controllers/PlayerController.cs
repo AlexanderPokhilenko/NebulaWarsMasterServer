@@ -111,28 +111,24 @@ namespace AmoebaGameMatcherServer.Controllers
         {
             Console.WriteLine(
                 $"{nameof(GetMatchResult)} {nameof(matchId)} {matchId} {nameof(playerServiceId)} {playerServiceId}");
-            //Чек на адекватность данных
-            if (matchId == null || playerServiceId == null)
+            if (matchId == null)
             {
+                Console.WriteLine($"{nameof(matchId)} is null");
+                return BadRequest();
+            }
+
+            if (playerServiceId == null)
+            {
+                Console.WriteLine($"{nameof(playerServiceId)} is null");
                 return BadRequest();
             }
             
-            //Запрос в сервис
             var matchResult = await achievementsService.GetMatchResult(matchId.Value, playerServiceId);
-
-            // matchResult = new PlayerAchievements()
-            // {
-            //     DoubleTokens = true,
-            //     BattleRatingDelta = 5,
-            //     OldSpaceshipRating = 8,
-            //     RankingRewardTokens = 20,
-            //     SpaceshipPrefabName = "Bird"
-            // };
-                
+            
             //Чек на адекватность ответа
             if (matchResult == null)
             {
-                Console.WriteLine("matchResult is null");
+                Console.WriteLine("\n\n\n\n\nmatchResult is null");
                 return StatusCode(500);
             }
             return DichSerialize(matchResult);

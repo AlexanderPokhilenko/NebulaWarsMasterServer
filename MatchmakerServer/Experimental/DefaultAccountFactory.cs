@@ -31,14 +31,14 @@ namespace AmoebaGameMatcherServer.Services
                 {
                     new Warship
                     {
-                        Rating = defaultWarshipRating,
+                        // Rating = defaultWarshipRating,
                         WarshipTypeId = warshipTypeHare,
                         CombatPowerLevel = defaultWarshipCombatPowerLevel,
                         CombatPowerValue = defaultWarshipCombatPowerValue
                     },
                     new Warship
                     {
-                        Rating = defaultWarshipRating,
+                        // Rating = defaultWarshipRating,
                         WarshipTypeId = warshipTypeBird,
                         CombatPowerLevel = defaultWarshipCombatPowerLevel,
                         CombatPowerValue = defaultWarshipCombatPowerValue

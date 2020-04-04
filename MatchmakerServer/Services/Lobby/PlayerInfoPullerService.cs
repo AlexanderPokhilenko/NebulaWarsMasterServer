@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
 using DataLayer.Tables;
+using Google.Apis.Auth.OAuth2;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using NetworkLibrary.NetworkLibrary.Http;
@@ -10,7 +11,7 @@ using NetworkLibrary.NetworkLibrary.Http;
 namespace AmoebaGameMatcherServer.Services
 {
     /// <summary>
-    /// Отвечает за получение данных про конкретный аккаунт из БД
+    /// Отвечает за получение данных про конкретный аккаунт из БД.
     /// </summary>
     public class PlayerInfoPullerService
     {
@@ -39,7 +40,6 @@ namespace AmoebaGameMatcherServer.Services
 
         private AccountInfo GetAccountInfo(Account account)
         {
-            int accountRating = account.Warships.Sum(warship => warship.Rating);
             AccountInfo accountInfo = new AccountInfo
             {
                 Username = account.Username,
@@ -47,7 +47,7 @@ namespace AmoebaGameMatcherServer.Services
                 RegularCurrency = account.RegularCurrency,
                 PointsForBigChest = account.PointsForBigChest,
                 PointsForSmallChest = account.PointsForSmallChest,
-                AccountRating = accountRating,
+                AccountRating = account.Rating,
                 Warships = new List<WarshipCopy>()
             };
             

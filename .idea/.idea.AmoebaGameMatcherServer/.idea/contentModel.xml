@@ -207,6 +207,7 @@
             <e p="BattleRoyaleUnfinishedMatchesSingletonService.cs" t="Include" />
             <e p="Finish" t="Include">
               <e p="BattleRoyaleMatchFinisherService.cs" t="Include" />
+              <e p="BattleRoyaleMatchRewardService.cs" t="Include" />
               <e p="BattleRoyaleWarshipRatingCalculator.cs" t="Include" />
               <e p="DoubleTokensManagerService.cs" t="Include" />
               <e p="PlayersAchievementsService.cs" t="Include" />
@@ -258,6 +259,7 @@
         <e p="GameUnitsForMatchTests.cs" t="Include" />
         <e p="MatchmakerFacadeServiceTest.cs" t="Include" />
         <e p="MatchmakerTests.csproj" t="IncludeRecursive" />
+        <e p="NullableTypesTests.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp2.2" t="Include">

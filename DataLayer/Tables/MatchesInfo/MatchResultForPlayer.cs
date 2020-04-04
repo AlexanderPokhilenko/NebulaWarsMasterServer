@@ -12,6 +12,7 @@ namespace DataLayer.Tables
         public int PointsForSmallChest { get; set; }
         public string JsonMatchResultDetails { get; set; }
     }
+    
     [Table("MatchResultForPlayers")]
     public class MatchResultForPlayer
     {

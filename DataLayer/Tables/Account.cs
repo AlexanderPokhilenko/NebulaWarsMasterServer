@@ -17,9 +17,8 @@ namespace DataLayer.Tables
         [Required] public int PointsForBigChest { get; set; }
         [Required] public int PointsForSmallChest { get; set; }
         [Required] public DateTime RegistrationDate { get; set; }
-
+        [Required] public int Rating { get; set; }
+        
         public List<Warship> Warships { get; set; }
     }
-    
-   
 }

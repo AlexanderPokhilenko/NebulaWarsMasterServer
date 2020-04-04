@@ -35,7 +35,7 @@ namespace AmoebaGameMatcherServer.Services
             //Такой матч существует?
             if (matchResult == null)
             {
-                Console.WriteLine("matchResult == null");
+                Console.WriteLine("\n\n\n\n\n\nmatchResult == null");
                 return null;
             }
             
@@ -51,12 +51,11 @@ namespace AmoebaGameMatcherServer.Services
                 return null;
             }
 
-            
             var playerAchievements = new PlayerAchievements
             {
                 DoubleTokens = doubleTokensManagerService.IsDoubleTokensEnabled(0,0),
                 BattleRatingDelta = matchResult.WarshipRatingDelta.Value,
-                OldSpaceshipRating = 100,
+                OldSpaceshipRating = matchResult.Warship.Rating - matchResult.WarshipRatingDelta.Value,
                 RankingRewardTokens = matchResult.RegularCurrencyDelta.Value,
                 SpaceshipPrefabName = matchResult.Warship.WarshipType.Name
             };
