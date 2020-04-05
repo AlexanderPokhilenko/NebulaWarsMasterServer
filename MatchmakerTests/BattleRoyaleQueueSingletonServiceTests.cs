@@ -2,10 +2,12 @@ using System;
 using System.Linq;
 using AmoebaGameMatcherServer.Services;
 using DataLayer.Tables;
+using MatchmakerTest.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MatchmakerTest
 {
+    //TODO говно
     [TestClass]
     public class BattleRoyaleQueueSingletonServiceTests
     {
@@ -17,17 +19,13 @@ namespace MatchmakerTest
         {
             //Arrange
             BattleRoyaleQueueSingletonService battleRoyaleQueue= new BattleRoyaleQueueSingletonService();
-            Warship warship1 = new Warship
-            {
-                Account = new Account
-                {
-                    ServiceId = "a"
-                }
-            };
+            string playerServiceId = UniqueStringFactory.Create();
+            QueueInfoForPlayer queueInfoForPlayer = new QueueInfoForPlayer(playerServiceId, 0,
+                null, 0, 0 , DateTime.Now);
 
             //Act    
-            bool success1 = battleRoyaleQueue.TryEnqueuePlayer(warship1.Account.ServiceId, warship1) ;
-            bool success2 = battleRoyaleQueue.TryEnqueuePlayer(warship1.Account.ServiceId, warship1) ;
+            bool success1 = battleRoyaleQueue.TryEnqueuePlayer(queueInfoForPlayer);
+            bool success2 = battleRoyaleQueue.TryEnqueuePlayer(queueInfoForPlayer);
             int countOfPlayersInQueue = battleRoyaleQueue.GetNumberOfPlayersInQueue();
             
             //Assert
@@ -46,31 +44,21 @@ namespace MatchmakerTest
         {
             //Arrange
             BattleRoyaleQueueSingletonService battleRoyaleQueue= new BattleRoyaleQueueSingletonService();
-            string serviceId = "a";
-            Warship warship1 = new Warship
-            {
-                Account = new Account
-                {
-                    ServiceId = serviceId
-                }
-            };
-
-            Warship warship2 = new Warship
-            {
-                Account = new Account
-                {
-                    ServiceId = string.Copy(serviceId)
-                }
-            };
-
+            string playerServiceId = UniqueStringFactory.Create();
+            QueueInfoForPlayer queueInfoForPlayer1 = new QueueInfoForPlayer(playerServiceId, 0,
+                null, 0, 0 , DateTime.Now);
+            QueueInfoForPlayer queueInfoForPlayer2 = new QueueInfoForPlayer(playerServiceId, 0,
+                null, 0, 1 , DateTime.Now);
 
             //Act    
-            bool success1 = battleRoyaleQueue.TryEnqueuePlayer(warship1.Account.ServiceId, warship1);
-            bool success2 = battleRoyaleQueue.TryEnqueuePlayer(warship2.Account.ServiceId, warship2);
-            
-            int countOfPlayersInQueue = battleRoyaleQueue.GetNumberOfPlayersInQueue();
+            bool success1 = battleRoyaleQueue.TryEnqueuePlayer(queueInfoForPlayer1);
+            bool success2 = battleRoyaleQueue.TryEnqueuePlayer(queueInfoForPlayer2);
+
             
             //Assert
+            Assert.IsTrue(success1);
+            Assert.IsFalse(success2);
+            int countOfPlayersInQueue = battleRoyaleQueue.GetNumberOfPlayersInQueue();
             Assert.AreEqual(1, countOfPlayersInQueue);
         }
         
@@ -83,28 +71,24 @@ namespace MatchmakerTest
         {
             //Arrange
             BattleRoyaleQueueSingletonService battleRoyaleQueue= new BattleRoyaleQueueSingletonService();
-            Warship warship1 = new Warship
-            {
-                Account = new Account
-                {
-                    ServiceId = "a"
-                }
-            };
-            Warship warship2 = new Warship
-            {
-                Account = new Account
-                {
-                    ServiceId = "b"
-                }
-            };
+            string playerServiceId1 = UniqueStringFactory.Create();
+            string playerServiceId2 = UniqueStringFactory.Create();
+            
+            QueueInfoForPlayer queueInfoForPlayer1 = new QueueInfoForPlayer(playerServiceId1, 0,
+                null, 0, 0 , DateTime.Now);
+            QueueInfoForPlayer queueInfoForPlayer2 = new QueueInfoForPlayer(playerServiceId2, 0,
+                null, 0, 1 , DateTime.Now);
 
             //Act    
-            battleRoyaleQueue.TryEnqueuePlayer(warship1.Account.ServiceId, warship1);
-            battleRoyaleQueue.TryEnqueuePlayer(warship2.Account.ServiceId, warship2);
-            int numberOfPlayersInQueue = battleRoyaleQueue.GetNumberOfPlayersInQueue();
+            bool success1 = battleRoyaleQueue.TryEnqueuePlayer(queueInfoForPlayer1);
+            bool success2 = battleRoyaleQueue.TryEnqueuePlayer(queueInfoForPlayer2);
             
             //Assert
+            Assert.IsTrue(success1);
+            Assert.IsTrue(success2);
+            int numberOfPlayersInQueue = battleRoyaleQueue.GetNumberOfPlayersInQueue();
             Assert.AreEqual(2, numberOfPlayersInQueue);
+            
         }
         
         // /// <summary>

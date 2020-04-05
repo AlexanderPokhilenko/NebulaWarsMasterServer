@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DataLayer.Tables;
+using MatchmakerTest.Utils;
 
 namespace AmoebaGameMatcherServer.Services
-{
+{   
+    
     public class WarshipValidatorServiceStub:IWarshipValidatorService
     {
 #pragma warning disable 1998
@@ -15,7 +17,7 @@ namespace AmoebaGameMatcherServer.Services
                 WarshipType = new WarshipType(),
                 Account = new Account
                 {
-                    ServiceId = "someId"
+                    ServiceId = UniqueStringFactory.Create()
                 }
             };
             return new ValueTuple<bool, Warship>(true, warship);

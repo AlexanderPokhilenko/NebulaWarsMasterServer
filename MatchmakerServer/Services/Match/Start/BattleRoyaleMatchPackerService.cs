@@ -34,7 +34,7 @@ namespace AmoebaGameMatcherServer.Services
             //Достать игроков из очереди без извлечения
             List<QueueInfoForPlayer> playersQueueInfo = 
                 battleRoyaleQueueService.GetPlayersQueueInfo(maxNumberOfPlayersInBattle);
-            gameUnitsForMatch.Players = playersQueueInfo.Select(info => info.ToMatchInfo()).ToList();
+            gameUnitsForMatch.Players = playersQueueInfo.Select(info => info.GetPlayer()).ToList();
             
             //Дополнить ботами, если нужно
             if (gameUnitsForMatch.Players.Count < Globals.NumbersOfPlayersInBattleRoyaleMatch)

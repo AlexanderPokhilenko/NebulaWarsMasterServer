@@ -18,8 +18,8 @@ namespace MatchmakerTest
         public async Task Test1()
         {
             //Arrange
-            var account = AccountFactory.CreateSimpleAccount();
-            var dbContext = new InMemoryDatabaseFactory(nameof(AccountsDbTests)).Create();
+            var account = TestsAccountFactory.CreateUniqueAccount();
+            var dbContext = new InMemoryDbContextFactory(nameof(AccountsDbTests)).Create();
             
             //Act
             await dbContext.Accounts.AddAsync(account);

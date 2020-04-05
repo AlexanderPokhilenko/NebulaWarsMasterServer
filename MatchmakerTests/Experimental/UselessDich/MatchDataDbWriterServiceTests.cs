@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services;
 using DataLayer;
 using DataLayer.Tables;
 using MatchmakerTest.Utils;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MatchmakerTest
@@ -18,7 +20,7 @@ namespace MatchmakerTest
         public async Task Test1()
         {
             //Arrange
-            IDbContextFactory dbContextFactory = new InMemoryDatabaseFactory(nameof(MatchDataDbWriterServiceTests));
+            IDbContextFactory dbContextFactory = new InMemoryDbContextFactory(nameof(MatchDataDbWriterServiceTests));
             var dbContext = dbContextFactory.Create();
             MatchDbWriterService matchDbWriterService = new MatchDbWriterService(dbContextFactory);
             MatchRoutingData matchRoutingData = new MatchRoutingData()
@@ -26,10 +28,16 @@ namespace MatchmakerTest
                 GameServerIp = "someIp",
                 GameServerPort = 8918981
             };
-            var account = AccountFactory.CreateSimpleAccount();
+            var account = TestsAccountFactory.CreateUniqueAccount();
             await dbContext.Accounts.AddAsync(account);
             await dbContext.SaveChangesAsync();
-            var playersBattleInfo = PlayersQueueInfoFactory.CreateSinglePlayer(account);
+
+            var accountDb = await dbContext.Accounts
+                .Include(account1 => account1.Warships)
+                    .ThenInclude(warship => warship.WarshipType)
+                .SingleAsync(account1 => account1.Id == account.Id);
+            
+            var playersBattleInfo = PlayersQueueInfoFactory.CreateSinglePlayer(accountDb);
             
             //Act
             Match match = await matchDbWriterService.WriteMatchDataToDb(matchRoutingData, playersBattleInfo);

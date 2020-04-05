@@ -11,6 +11,15 @@ namespace DataLayer.TablesConfiguration
             builder
                 .HasIndex(r => new { r.AccountId, r.MatchId })
                 .IsUnique();
+            
+            builder
+                .HasOne(matchResult => matchResult.Warship)
+                .WithMany(warship => warship.MatchResultForPlayers);
+            
+            builder
+                .HasOne(playerMatchResult => playerMatchResult.Match)
+                .WithMany(match =>  match.MatchResultForPlayers)
+                .HasForeignKey(playerMatchResult => playerMatchResult.MatchId);
         }
     }
 }

@@ -15,9 +15,9 @@ namespace AmoebaGameMatcherServer.Services
         /// <summary>
         /// Добавляет данные в очередь без проверки.
         /// </summary>
-        public bool TryEnqueuePlayer(string playerServiceId, Warship warship)
+        public bool TryEnqueuePlayer(QueueInfoForPlayer playerInfo)
         {
-            return unsortedPlayers.TryEnqueuePlayer(playerServiceId, warship);
+            return unsortedPlayers.TryEnqueuePlayer(playerInfo.GetPlayerServiceId(), playerInfo);
         }
 
         public bool TryRemovePlayerFromQueue(string playerServiceId)
@@ -40,7 +40,7 @@ namespace AmoebaGameMatcherServer.Services
         /// <summary>
         /// Нужно для сервиса запуска боя.
         /// </summary>
-        /// <returns>Возвращает время самого запроса на вход в бой, если запросы есть.</returns>
+        /// <returns>Возвращает время самого старого запроса на вход в бой, если запросы есть.</returns>
         public DateTime? GetOldestRequestTime()
         {
             return unsortedPlayers.GetOldestRequestTime();

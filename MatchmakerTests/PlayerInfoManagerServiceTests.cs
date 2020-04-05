@@ -19,7 +19,7 @@ namespace MatchmakerTest
         public async Task Test1()
         {
             //Arrange
-            var dbFactory = new InMemoryDatabaseFactory(nameof(PlayerInfoManagerServiceTests));
+            var dbFactory = new InMemoryDbContextFactory(nameof(PlayerInfoManagerServiceTests));
             AccountDbReaderService accountDbReaderService = new AccountDbReaderService(dbFactory.Create());
             AccountRegistrationService accountRegistrationService = 
                 new AccountRegistrationService(dbFactory.Create());

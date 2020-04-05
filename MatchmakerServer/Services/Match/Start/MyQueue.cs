@@ -8,7 +8,7 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services
 {
-    //TODO поменять сигнатуру методов
+    //TODO говно
     public class MyQueue
     {
         //key is playerServiceId
@@ -19,21 +19,8 @@ namespace AmoebaGameMatcherServer.Services
             unsortedPlayers = new ConcurrentDictionary<string, QueueInfoForPlayer>();
         }
         
-        public bool TryEnqueuePlayer(string playerServiceId, Warship warship)
+        public bool TryEnqueuePlayer(string playerServiceId, QueueInfoForPlayer playerInfo)
         {
-            if (warship == null)
-            {
-                throw new Exception($"{nameof(warship)} was null");
-            }
-
-            if (warship.Account==null)
-            {
-                throw new Exception($"{nameof(warship.Account)} was null");
-            }
-            
-            
-            var playerInfo =
-                new QueueInfoForPlayer(warship.Account.ServiceId, warship.AccountId, warship, DateTime.UtcNow);
             return unsortedPlayers.TryAdd(playerServiceId, playerInfo);
         }
 

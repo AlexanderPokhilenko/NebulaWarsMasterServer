@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
 using Libraries.NetworkLibrary.Experimental;
@@ -18,16 +19,17 @@ namespace AmoebaGameMatcherServer.Services
             this.dbContext = dbContext;
         }
 
-        public async Task<PlayerAchievements> GetMatchResult(int matchId, string playerServiceId)
+        public async Task<MatchResult> GetMatchResult(int matchId, string playerServiceId)
         {
             //Запрос в БД
             var matchResult = await dbContext.MatchResultForPlayers
-                .Include(rec=>rec.Warship)
-                    .ThenInclude(warship => warship.WarshipType)
-                .Include(rec=>rec.Account)
+                // .Include(rec=>rec.Warship)
+                //     .ThenInclude(warship => warship.WarshipType)
+                // .Include(rec=>rec.Warship)
+                //     .ThenInclude(warship => warship.Account)
                 .SingleOrDefaultAsync(rec => 
                     rec.MatchId == matchId 
-                    && rec.Account.ServiceId == playerServiceId);
+                    && rec.Warship.Account.ServiceId == playerServiceId);
             
             //Такой матч существует?
             if (matchResult == null)
@@ -48,11 +50,17 @@ namespace AmoebaGameMatcherServer.Services
                 return null;
             }
 
-            var playerAchievements = new PlayerAchievements
+
+            int oldSpaceShipRating = matchResult.Warship.MatchResultForPlayers
+                .Where(matchResultForPlayer => matchResultForPlayer.Match.StartTime<matchResult.Match.StartTime)
+                .Sum(value=>value.WarshipRatingDelta) ?? 0;
+            
+            
+            var playerAchievements = new MatchResult
             {
                 DoubleTokens = false,
-                BattleRatingDelta = matchResult.WarshipRatingDelta.Value,
-                OldSpaceshipRating = matchResult.Warship.Rating - matchResult.WarshipRatingDelta.Value,
+                MatchRatingDelta = matchResult.WarshipRatingDelta.Value,
+                CurrentSpaceshipRating = oldSpaceShipRating,
                 RankingRewardTokens = matchResult.RegularCurrencyDelta.Value,
                 SpaceshipPrefabName = matchResult.Warship.WarshipType.Name
             };

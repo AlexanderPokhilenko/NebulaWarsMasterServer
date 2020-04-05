@@ -22,7 +22,7 @@
         <e p="DbContext" t="Include">
           <e p="DbContextFactory.cs" t="Include" />
           <e p="IDbContextFactory.cs" t="Include" />
-          <e p="InMemoryDatabaseFactory.cs" t="Include" />
+          <e p="InMemoryDbContextFactory.cs" t="Include" />
         </e>
         <e p="GoogleApi" t="Include">
           <e p="AccessTokenUpdatingArg.cs" t="Include" />
@@ -35,11 +35,13 @@
             </e>
           </e>
         </e>
+        <e p="readme.txt" t="Include" />
         <e p="Tables" t="Include">
           <e p="Account.cs" t="Include" />
-          <e p="MatchesInfo" t="Include">
+          <e p="Matches" t="Include">
             <e p="Match.cs" t="Include" />
             <e p="MatchResultForPlayer.cs" t="Include" />
+            <e p="MatchReward.cs" t="Include" />
           </e>
           <e p="Purchase.cs" t="Include" />
           <e p="Warships" t="Include">
@@ -48,6 +50,7 @@
           </e>
         </e>
         <e p="TablesConfiguration" t="Include">
+          <e p="AccountsConfiguration.cs" t="Include" />
           <e p="MatchResultsConfiguration.cs" t="Include" />
           <e p="WarshipsConfiguration.cs" t="Include" />
           <e p="WarshipTypeConfiguration.cs" t="Include" />
@@ -101,7 +104,7 @@
         <e p="MatchmakerServer.csproj" t="IncludeRecursive" />
         <e p="NetworkLibrary" t="Include">
           <e p="Experimental" t="Include">
-            <e p="PlayerAchievements.cs" t="Include" />
+            <e p="MatchResult.cs" t="Include" />
             <e p="PlayerAchievements.cs.meta" t="Include" />
           </e>
           <e p="Http" t="Include">
@@ -246,7 +249,6 @@
               <e p="QueueExtenderService.cs" t="Include" />
               <e p="QueueInfoForPlayer.cs" t="Include" />
               <e p="WarshipValidatorService.cs" t="Include" />
-              <e p="WarshipValidatorServiceStub.cs" t="Include" />
             </e>
           </e>
         </e>
@@ -264,11 +266,13 @@
         <e p="BattleRoyaleQueueSingletonServiceTests.cs" t="Include" />
         <e p="BattleRoyaleWarshipRatingCalculatorTests.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
-        <e p="Factories" t="Include">
-          <e p="AccountFactory.cs" t="Include" />
-          <e p="MatchResultFactory.cs" t="Include" />
-          <e p="PlayersQueueInfoFactory.cs" t="Include" />
-          <e p="UniqueStringFactory.cs" t="Include" />
+        <e p="Experimental" t="Include">
+          <e p="LazyLoadingTests.cs" t="Include" />
+          <e p="UselessDich" t="Include">
+            <e p="AccountsDbTests.cs" t="Include" />
+            <e p="MatchDataDbWriterServiceTests.cs" t="Include" />
+            <e p="ZeroFormatterDich.cs" t="Include" />
+          </e>
         </e>
         <e p="GameUnitsForMatchTests.cs" t="Include" />
         <e p="MatchmakerFacadeServiceTest.cs" t="Include" />
@@ -282,12 +286,13 @@
         </e>
         <e p="PlayerInfoManagerServiceTests.cs" t="Include" />
         <e p="QueueExtenderServiceTests.cs" t="Include" />
-        <e p="UselessDich" t="Include">
-          <e p="AccountsDbTests.cs" t="Include" />
-          <e p="MatchDataDbWriterServiceTests.cs" t="Include" />
-          <e p="MatchDbWriteTests.cs" t="Include" />
-          <e p="ZeroFormatterDich.cs" t="Include" />
+        <e p="TestFactories" t="Include">
+          <e p="MatchResultFactory.cs" t="Include" />
+          <e p="PlayersQueueInfoFactory.cs" t="Include" />
+          <e p="TestsAccountFactory.cs" t="Include" />
+          <e p="UniqueStringFactory.cs" t="Include" />
         </e>
+        <e p="WarshipValidatorServiceStub.cs" t="Include" />
       </e>
       <e p="packages" t="ExcludeRecursive" />
     </e>

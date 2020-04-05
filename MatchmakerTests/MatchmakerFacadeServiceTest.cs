@@ -13,7 +13,7 @@
 //         public async Task Test1()
 //         {
 //             //Arrange
-//             var inMemoryDatabaseFactory = new InMemoryDatabaseFactory(nameof(MatchmakerFacadeServiceTest));
+//             var inMemoryDatabaseFactory = new InMemoryDbContextFactory(nameof(MatchmakerFacadeServiceTest));
 //             var battleRoyaleQueueSingletonService = new BattleRoyaleQueueSingletonService();
 //             var dbContext = inMemoryDatabaseFactory.Create();
 //             WarshipValidatorService warshipValidatorService = new WarshipValidatorService(dbContext);

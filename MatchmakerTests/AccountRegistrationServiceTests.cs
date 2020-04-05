@@ -19,7 +19,7 @@ namespace MatchmakerTest
         public async Task Test1()
         {
             //Arrange
-            ApplicationDbContext dbContext = new InMemoryDatabaseFactory(nameof(AccountRegistrationServiceTests))
+            ApplicationDbContext dbContext = new InMemoryDbContextFactory(nameof(AccountRegistrationServiceTests))
                 .Create();
             AccountRegistrationService accountRegistrationService = 
                 new AccountRegistrationService(dbContext);

@@ -1,10 +1,8 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services;
 using DataLayer;
 using DataLayer.Tables;
 using MatchmakerTest.Utils;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MatchmakerTest
@@ -19,10 +17,11 @@ namespace MatchmakerTest
         public async Task Test1()
         {
             //Arrange
-            ApplicationDbContext dbContext = new InMemoryDatabaseFactory(nameof(AccountDbReaderServiceTests))
+            ApplicationDbContext dbContext = new InMemoryDbContextFactory(nameof(AccountDbReaderServiceTests))
                 .Create();
             AccountDbReaderService accountDbReaderService = new AccountDbReaderService(dbContext);
-            Account account = AccountFactory.CreateSimpleAccount();
+            Account account = TestsAccountFactory.CreateUniqueAccount();
+            
             await dbContext.Accounts.AddAsync(account);
             await dbContext.SaveChangesAsync();
             
@@ -31,12 +30,18 @@ namespace MatchmakerTest
             
             //Assert
             Assert.IsNotNull(playerInfo);
-            
-            int accountRating = await dbContext.Warships
-                .Where(warship => warship.AccountId == account.Id)
-                .SumAsync(warship => warship.Rating);
-            
+
+            int accountRating = 0;
+            foreach (var warship in account.Warships)
+            {
+                foreach (var matchResultForPlayer in warship.MatchResultForPlayers)
+                {
+                    accountRating += matchResultForPlayer.WarshipRatingDelta ?? 0;
+                }
+            }
+
             Assert.AreEqual(account.Username, playerInfo.Username);
+            Assert.AreNotEqual(0, accountRating);
             Assert.AreEqual(accountRating, playerInfo.AccountRating);
             Assert.AreEqual(account.PremiumCurrency, playerInfo.PremiumCurrency);
             Assert.AreEqual(account.RegularCurrency, playerInfo.RegularCurrency);
@@ -52,7 +57,7 @@ namespace MatchmakerTest
         public async Task Test2()
         {
             //Arrange
-            ApplicationDbContext dbContext = new InMemoryDatabaseFactory(nameof(AccountDbReaderServiceTests))
+            ApplicationDbContext dbContext = new InMemoryDbContextFactory(nameof(AccountDbReaderServiceTests))
                 .Create();
             AccountDbReaderService accountDbReaderService = new AccountDbReaderService(dbContext);
             string accountServiceId = "someUniqueId_65461814865468";

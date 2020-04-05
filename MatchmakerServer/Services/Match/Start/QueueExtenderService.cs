@@ -1,10 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace AmoebaGameMatcherServer.Services
 {
-    //TODO убрать отсюда BattleRoyaleQueueSingletonService
+    //TODO говно
     /// <summary>
-    /// Отвечает за проверку данных игрока перед добавлением в очередь (пока один режим)
+    /// Отвечает за проверку данных игрока перед добавлением в очередь
     /// </summary>
     public class QueueExtenderService
     {
@@ -26,14 +27,17 @@ namespace AmoebaGameMatcherServer.Services
         /// <returns>Вернёт false если в БД нет таких данных или игрок уже в очереди.</returns>
         public async Task<bool> TryEnqueuePlayer(string playerServiceId, int warshipId)
         {
-            //В БД есть эти данные?
+            //В БД есть эти данные и они полные?
             var (success, warship) = await warshipValidatorService.GetWarshipById(playerServiceId, warshipId);
             if (!success)
             {
                 return false;
             }
             
-            return battleRoyaleQueueSingletonServiceService.TryEnqueuePlayer(playerServiceId, warship);
+            
+            QueueInfoForPlayer playerInfo = new QueueInfoForPlayer(warship.Account.ServiceId, warship.AccountId, 
+                warship.WarshipType.Name, warship.CombatPowerLevel, warshipId, DateTime.UtcNow);
+            return battleRoyaleQueueSingletonServiceService.TryEnqueuePlayer(playerInfo);
         }
     }
 }

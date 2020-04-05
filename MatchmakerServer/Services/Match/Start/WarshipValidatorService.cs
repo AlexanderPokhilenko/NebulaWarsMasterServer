@@ -32,7 +32,7 @@ namespace AmoebaGameMatcherServer.Services
                 .SingleOrDefaultAsync(warship1 => 
                     warship1.Id == warshipId 
                     && warship1.Account.ServiceId==playerServiceId);
-            
+      
             if (warship == null)
             {
                 return new ValueTuple<bool, Warship>(false, null);

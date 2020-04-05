@@ -31,7 +31,7 @@ namespace MatchmakerTest
             var matchmakerDichService = new MatchRoutingDataService(gameServersManagerService);
             var battleRoyaleUnfinishedMatchesSingletonService = new BattleRoyaleUnfinishedMatchesSingletonService();
             IGameServerNegotiatorService gameServerNegotiatorServiceStub = new GameServerNegotiatorServiceStub();
-            IDbContextFactory dbContextFactory = new InMemoryDatabaseFactory(nameof(BattleCreatingTests)+nameof(Test2));
+            IDbContextFactory dbContextFactory = new InMemoryDbContextFactory(nameof(BattleCreatingTests)+nameof(Test2));
             var dbContext = dbContextFactory.Create();
             IWarshipValidatorService warshipValidatorService = new WarshipValidatorService(dbContext);
             QueueExtenderService queueExtenderService = 
@@ -132,7 +132,7 @@ namespace MatchmakerTest
             var matchmakerDichService = new MatchRoutingDataService(gameServersManagerService);
             var battleRoyaleUnfinishedMatchesSingletonService = new BattleRoyaleUnfinishedMatchesSingletonService();
             IGameServerNegotiatorService gameServerNegotiatorServiceStub = new GameServerNegotiatorServiceStub();
-            IDbContextFactory dbContextFactory = new InMemoryDatabaseFactory(nameof(BattleCreatingTests)+nameof(Test3));
+            IDbContextFactory dbContextFactory = new InMemoryDbContextFactory(nameof(BattleCreatingTests)+nameof(Test3));
             var dbContext = dbContextFactory.Create();
             IWarshipValidatorService warshipValidatorService = new WarshipValidatorService(dbContext);
             QueueExtenderService queueExtenderService = 
@@ -213,7 +213,7 @@ namespace MatchmakerTest
             var matchmakerDichService = new MatchRoutingDataService(gameServersManagerService);
             var battleRoyaleUnfinishedMatchesSingletonService = new BattleRoyaleUnfinishedMatchesSingletonService();
             var gameServerNegotiatorServiceStub = new GameServerNegotiatorServiceStub();
-            IDbContextFactory dbContextFactory = new InMemoryDatabaseFactory(nameof(BattleCreatingTests)+nameof(Test4));
+            IDbContextFactory dbContextFactory = new InMemoryDbContextFactory(nameof(BattleCreatingTests)+nameof(Test4));
             var dbContext = dbContextFactory.Create();
             var warshipValidatorService = new WarshipValidatorService(dbContext);
             var queueExtenderService = 

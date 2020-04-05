@@ -1,4 +1,6 @@
-﻿using AmoebaGameMatcherServer.Services;
+﻿using System.Linq;
+using AmoebaGameMatcherServer.Services;
+using DataLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -27,11 +29,12 @@ namespace AmoebaGameMatcherServer
         
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
             MatchCreationInitiatorSingletonService matchCreationInitiator, 
-            CustomGoogleApiAccessTokenService googleApiAccessTokenManagerService)
+            CustomGoogleApiAccessTokenService googleApiAccessTokenManagerService,
+            ApplicationDbContext dbContext)
         {
             matchCreationInitiator.StartThread();
             googleApiAccessTokenManagerService.Initialize().Wait();
-
+            var count = dbContext.Accounts.Count();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

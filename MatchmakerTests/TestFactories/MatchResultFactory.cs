@@ -30,7 +30,6 @@ namespace MatchmakerTest.Utils
             {
                 new MatchResultForPlayer()
                 {
-                    Account = account,
                     Warship = account.Warships.First()
                 }
             };

@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer
 {
-    public class InMemoryDatabaseFactory:IDbContextFactory
+    public class InMemoryDbContextFactory:IDbContextFactory
     {
         private readonly string databaseName;
         private readonly string guidString;
 
-        public InMemoryDatabaseFactory(string databaseName)
+        public InMemoryDbContextFactory(string databaseName)
         {
             this.databaseName = databaseName;
             guidString = Guid.NewGuid().ToString();

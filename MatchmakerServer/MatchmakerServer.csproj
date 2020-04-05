@@ -11,6 +11,8 @@
         <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" />
         <PackageReference Include="Microsoft.AspNetCore.App" />
         <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="2.2.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.2.0" />
         <PackageReference Include="ZeroFormatter" Version="1.6.4" />
         <PackageReference Include="ZeroFormatter.Analyzer" Version="1.1.1" />
         <PackageReference Include="ZeroFormatter.Interfaces" Version="1.6.4" />

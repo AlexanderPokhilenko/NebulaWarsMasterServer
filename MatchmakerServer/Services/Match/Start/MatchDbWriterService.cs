@@ -31,8 +31,8 @@ namespace AmoebaGameMatcherServer.Services
             {
                 MatchResultForPlayer matchResultForPlayer = new MatchResultForPlayer
                 {
-                    AccountId = playerQueueInfo.AccountId,
-                    WarshipId = playerQueueInfo.Warship.Id
+                    AccountId = playerQueueInfo.GetAccountId(),
+                    WarshipId = playerQueueInfo.GetWarshipId()
                 };
 
                 Console.WriteLine($"{nameof(matchResultForPlayer.AccountId)} {matchResultForPlayer.AccountId}");

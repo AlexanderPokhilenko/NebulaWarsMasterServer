@@ -122,13 +122,19 @@ namespace AmoebaGameMatcherServer.Controllers
                 return BadRequest();
             }
             
-            var matchResult = await matchResultDbReaderService
+            MatchResult matchResult = await matchResultDbReaderService
                 .GetMatchResult(matchId.Value, playerServiceId);
             
             //Чек на адекватность ответа
             if (matchResult == null)
             {
                 Console.WriteLine("\n\n\n\n\nmatchResult is null");
+                return StatusCode(500);
+            }
+
+            if (matchResult.CurrentSpaceshipRating < 0)
+            {
+                Console.WriteLine($"\n\n\n\n{nameof(matchResult.CurrentSpaceshipRating)} {matchResult.CurrentSpaceshipRating }");
                 return StatusCode(500);
             }
             return DichSerialize(matchResult);
