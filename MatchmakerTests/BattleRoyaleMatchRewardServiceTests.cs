@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services;
+using AmoebaGameMatcherServer.Services.MatchFinishing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MatchmakerTest

@@ -2,6 +2,7 @@
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services;
+using AmoebaGameMatcherServer.Services.MatchFinishing;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AmoebaGameMatcherServer.Controllers

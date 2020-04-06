@@ -1,5 +1,8 @@
 ﻿using System.Linq;
 using AmoebaGameMatcherServer.Services;
+using AmoebaGameMatcherServer.Services.GoogleApi;
+using AmoebaGameMatcherServer.Services.MatchCreationInitiation;
+using AmoebaGameMatcherServer.Services.Queues;
 using DataLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -18,8 +21,10 @@ namespace AmoebaGameMatcherServer
             services.AddFeature(new DatabaseFeature());
             services.AddFeature(new LobbyInitializeFeature());
             services.AddFeature(new PlayerQueueingFeature());
-            services.AddFeature(new MatchFinishingFeature());
+            services.AddFeature(new MatchCreationInitiationFeature());
             services.AddFeature(new MatchCreationFeature());
+            services.AddFeature(new MatchFinishingFeature());
+            services.AddFeature(new GameServerNegotiationFeature());
 
             //Общие очереди игроков
             services.AddSingleton<BattleRoyaleQueueSingletonService>();

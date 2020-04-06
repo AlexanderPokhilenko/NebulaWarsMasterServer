@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services;
+using AmoebaGameMatcherServer.Services.LobbyInitialization;
 using DataLayer;
 using DataLayer.Tables;
 using MatchmakerTest.Utils;

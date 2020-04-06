@@ -2,6 +2,7 @@
 
 namespace Libraries.NetworkLibrary.Experimental
 {
+    //TODO говно
     [ZeroFormattable]
     public class MatchResult
     {

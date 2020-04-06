@@ -1,4 +1,5 @@
 ﻿using AmoebaGameMatcherServer.Services;
+using AmoebaGameMatcherServer.Services.MatchFinishing;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AmoebaGameMatcherServer

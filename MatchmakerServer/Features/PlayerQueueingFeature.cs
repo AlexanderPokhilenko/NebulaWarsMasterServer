@@ -1,5 +1,5 @@
 ﻿using AmoebaGameMatcherServer.Services;
-using AmoebaGameMatcherServer.Services.ForControllers;
+using AmoebaGameMatcherServer.Services.PlayerQueueing;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AmoebaGameMatcherServer
@@ -11,7 +11,7 @@ namespace AmoebaGameMatcherServer
             serviceCollection.AddTransient<MatchmakerFacadeService>();
             serviceCollection.AddTransient<QueueExtenderService>();
             serviceCollection.AddTransient<MatchRoutingDataService>();
-            serviceCollection.AddTransient<GameServersManagerService>();
+            serviceCollection.AddTransient<GameServersRoutingDataService>();
             serviceCollection.AddTransient<IWarshipValidatorService, WarshipValidatorService>();
         }
     }

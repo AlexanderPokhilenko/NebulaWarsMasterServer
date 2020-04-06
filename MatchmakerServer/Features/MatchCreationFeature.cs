@@ -1,4 +1,5 @@
 ﻿using AmoebaGameMatcherServer.Services;
+using AmoebaGameMatcherServer.Services.MatchCreation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AmoebaGameMatcherServer
@@ -7,12 +8,9 @@ namespace AmoebaGameMatcherServer
     {
         public override void Add(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<MatchCreationInitiatorSingletonService>();
             serviceCollection.AddTransient<BattleRoyaleMatchCreatorService>();
-            serviceCollection.AddTransient<IPlayerTimeoutManager, PlayerTimeoutManagerService>();
             serviceCollection.AddTransient<BattleRoyaleMatchPackerService>();
             serviceCollection.AddTransient<MatchDbWriterService>();
-            serviceCollection.AddTransient<IGameServerNegotiatorService, GameServerNegotiatorService>();
         }
     }
 }

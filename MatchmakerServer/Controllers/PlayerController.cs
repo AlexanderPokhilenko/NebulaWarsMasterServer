@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services;
-using AmoebaGameMatcherServer.Services.ForControllers;
+using AmoebaGameMatcherServer.Services.MatchFinishing;
+using AmoebaGameMatcherServer.Services.PlayerQueueing;
+using AmoebaGameMatcherServer.Services.Queues;
 using Libraries.NetworkLibrary.Experimental;
 using Microsoft.AspNetCore.Mvc;
 using NetworkLibrary.NetworkLibrary.Http;

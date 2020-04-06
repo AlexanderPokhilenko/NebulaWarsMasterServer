@@ -2,6 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services;
+using AmoebaGameMatcherServer.Services.GameServerNegotiation;
+using AmoebaGameMatcherServer.Services.MatchCreation;
+using AmoebaGameMatcherServer.Services.MatchCreationInitiation;
+using AmoebaGameMatcherServer.Services.PlayerQueueing;
+using AmoebaGameMatcherServer.Services.Queues;
 using AmoebaGameMatcherServer.Utils;
 using DataLayer;
 using DataLayer.Tables;
@@ -27,7 +32,7 @@ namespace MatchmakerTest
             //Arrange
             var battleRoyaleQueueSingletonService = new BattleRoyaleQueueSingletonService();
             var battleRoyaleMatchPackerService = new BattleRoyaleMatchPackerService(battleRoyaleQueueSingletonService);
-            var gameServersManagerService = new GameServersManagerService();
+            var gameServersManagerService = new GameServersRoutingDataService();
             var matchmakerDichService = new MatchRoutingDataService(gameServersManagerService);
             var battleRoyaleUnfinishedMatchesSingletonService = new BattleRoyaleUnfinishedMatchesSingletonService();
             IGameServerNegotiatorService gameServerNegotiatorServiceStub = new GameServerNegotiatorServiceStub();
@@ -128,7 +133,7 @@ namespace MatchmakerTest
             //Arrange
             var battleRoyaleQueueSingletonService = new BattleRoyaleQueueSingletonService();
             var battleRoyaleMatchPackerService = new BattleRoyaleMatchPackerService(battleRoyaleQueueSingletonService);
-            var gameServersManagerService = new GameServersManagerService();
+            var gameServersManagerService = new GameServersRoutingDataService();
             var matchmakerDichService = new MatchRoutingDataService(gameServersManagerService);
             var battleRoyaleUnfinishedMatchesSingletonService = new BattleRoyaleUnfinishedMatchesSingletonService();
             IGameServerNegotiatorService gameServerNegotiatorServiceStub = new GameServerNegotiatorServiceStub();
@@ -209,7 +214,7 @@ namespace MatchmakerTest
             //Arrange
             var battleRoyaleQueueSingletonService = new BattleRoyaleQueueSingletonService();
             var battleRoyaleMatchPackerService = new BattleRoyaleMatchPackerService(battleRoyaleQueueSingletonService);
-            var gameServersManagerService = new GameServersManagerService();
+            var gameServersManagerService = new GameServersRoutingDataService();
             var matchmakerDichService = new MatchRoutingDataService(gameServersManagerService);
             var battleRoyaleUnfinishedMatchesSingletonService = new BattleRoyaleUnfinishedMatchesSingletonService();
             var gameServerNegotiatorServiceStub = new GameServerNegotiatorServiceStub();
