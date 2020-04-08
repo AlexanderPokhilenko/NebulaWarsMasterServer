@@ -14,7 +14,7 @@ namespace AmoebaGameMatcherServer.Services
         private static readonly int defaultWarshipCombatPowerValue = 0;
         private static readonly int warshipTypeHare = 1;
         private static readonly int warshipTypeBird = 2;
-        private static int defaultWarshipRating = 0;
+        // private static int defaultWarshipRating = 0;
 
         public static Account CreateDefaultAccount(string playerId)
         {

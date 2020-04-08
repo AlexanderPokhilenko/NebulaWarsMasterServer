@@ -36,31 +36,33 @@ namespace AmoebaGameMatcherServer.Controllers
             this.matchmakerFacadeService = matchmakerFacadeService;
         }
 
-        /// <summary>
-        /// Покидание боя. Нужно если, игрок вышел до окончания боя и хочет перезайти в другой бой.
-        /// </summary>
-        /// <param name="playerId"></param>
-        /// <returns></returns>
-        [Route(nameof(ExitFromBattle))]
-        [HttpPost]
-        public ActionResult ExitFromBattle([FromForm]string playerId)
-        {
-            Console.WriteLine(nameof(ExitFromBattle)+" был вызван");
-            Console.WriteLine(nameof(playerId)+" "+playerId);
-            
-            if (string.IsNullOrEmpty(playerId))
-                return BadRequest();
-            
-            if (unfinishedMatchesService.TryRemovePlayerFromMatch(playerId))
-            {
-                return Ok();
-            }
-            else
-            {
-                Console.WriteLine("Не удалось удалить игрока");
-                return BadRequest();
-            }
-        }
+        // /// <summary>
+        // /// Покидание боя. Нужно если, игрок вышел до окончания боя и хочет перезайти в другой бой.
+        // /// </summary>
+        // /// <param name="playerId"></param>
+        // /// <returns></returns>
+        // [Route(nameof(ExitFromBattle))]
+        // [HttpPost]
+        // public ActionResult ExitFromBattle([FromForm]string playerId)
+        // {
+        //     Console.WriteLine(nameof(ExitFromBattle)+" был вызван");
+        //     Console.WriteLine(nameof(playerId)+" "+playerId);
+        //
+        //     if (string.IsNullOrEmpty(playerId))
+        //     {
+        //         return BadRequest();
+        //     }
+        //     
+        //     if (unfinishedMatchesService.TryRemovePlayerFromMatch(playerId))
+        //     {
+        //         return Ok();
+        //     }
+        //     else
+        //     {
+        //         Console.WriteLine("Не удалось удалить игрока");
+        //         return BadRequest();
+        //     }
+        // }
         
         /// <summary>
         /// Отмена поиска боя. Нужно если игрок не хочет выходить в бой.
@@ -84,13 +86,12 @@ namespace AmoebaGameMatcherServer.Controllers
             }
         }
 
-       
         /// <summary>
         /// Добавление в очередь. 
         /// </summary>
-        [Route(nameof(GetRoomData))]
+        [Route(nameof(GetMatchData))]
         [HttpPost]
-        public async Task<ActionResult<string>> GetRoomData([FromForm]string playerId, [FromForm] int warshipId)
+        public async Task<ActionResult<string>> GetMatchData([FromForm]string playerId, [FromForm] int warshipId)
         {
             if (string.IsNullOrEmpty(playerId))
             {

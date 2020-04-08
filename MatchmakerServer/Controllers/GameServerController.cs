@@ -35,8 +35,17 @@ namespace AmoebaGameMatcherServer.Controllers
         
         [Route(nameof(PlayerDeath))]
         [HttpDelete]
-        public async Task<ActionResult> PlayerDeath([FromQuery] int? accountId, [FromQuery] int? placeInBattle, [FromQuery] int? matchId)
+        public async Task<ActionResult> PlayerDeath([FromQuery] int? accountId, [FromQuery] int? placeInBattle, 
+            [FromQuery] int? matchId)
         {
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine(nameof(PlayerDeath));
+            Console.WriteLine(nameof(PlayerDeath));
+            Console.WriteLine(nameof(PlayerDeath));
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
             if (accountId == null)
             {
                 Console.WriteLine($"{nameof(PlayerDeath)} {nameof(accountId)} is null");
