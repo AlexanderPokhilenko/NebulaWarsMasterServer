@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
@@ -37,11 +36,16 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
             {
                 return null;
             }
-            
+
             foreach (var warship in account.Warships)
             {
-                warship.Rating = warship.MatchResultForPlayers.Sum(result => result.WarshipRatingDelta) ?? 0;
-                Console.WriteLine($"{nameof(warship.Rating)} {warship.Rating}");
+                var warship1 = warship;
+                warship.Rating = await dbContext.MatchResultForPlayers
+                    .Where(result =>
+                     result.WarshipId == warship1.Id && result.WarshipRatingDelta != null)
+                    .SumAsync(result => result.WarshipRatingDelta) ?? 0;
+                    
+                // Console.WriteLine($"{nameof(warship.Rating)} {warship.Rating}");
             }
 
             account.Rating = account.Warships.Sum(warship => warship.Rating);
@@ -51,7 +55,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                 .SumAsync(matchResultForPlayer => matchResultForPlayer.RegularCurrencyDelta) ?? 0;
             
             
-            Console.WriteLine($"{nameof(account.Rating)} {account.Rating}");
+            // Console.WriteLine($"{nameof(account.Rating)} {account.Rating}");
             return GetAccountInfo(account);
         }
 

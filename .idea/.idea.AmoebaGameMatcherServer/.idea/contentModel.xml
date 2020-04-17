@@ -286,6 +286,7 @@
           </e>
         </e>
         <e p="GameUnitsForMatchTests.cs" t="Include" />
+        <e p="LinqSumTests.cs" t="Include" />
         <e p="MatchmakerFacadeServiceTest.cs" t="Include" />
         <e p="MatchmakerTests.csproj" t="IncludeRecursive" />
         <e p="NotShownRewardDbUpdaterServiceTests.cs" t="Include" />
