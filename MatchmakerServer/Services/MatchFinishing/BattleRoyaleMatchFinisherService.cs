@@ -40,7 +40,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                 .MatchResultForPlayers
                 .SingleOrDefaultAsync(matchResult => 
                     matchResult.MatchId == matchId 
-                    && matchResult.AccountId == accountId);
+                    && matchResult.Warship.AccountId == accountId);
 
             
             if (matchResultForPlayer == null)
@@ -125,9 +125,9 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             int index = 0;
             foreach (var matchResultForPlayer in incompleteMatchResults)
             {
-                Console.WriteLine($"\nДозапись результата матча для игрока {matchResultForPlayer.AccountId}\n");
+                Console.WriteLine($"\nДозапись результата матча для игрока {matchResultForPlayer.Warship.AccountId}\n");
                 int placeInMatch = ++index;
-                await PlayerDeath(matchResultForPlayer.AccountId, placeInMatch, matchId);
+                await PlayerDeath(matchResultForPlayer.Warship.AccountId, placeInMatch, matchId);
             }
         }
     }

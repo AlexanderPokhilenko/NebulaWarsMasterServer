@@ -30,11 +30,10 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
             {
                 MatchResultForPlayer matchResultForPlayer = new MatchResultForPlayer
                 {
-                    AccountId = playerQueueInfo.GetAccountId(),
-                    WarshipId = playerQueueInfo.GetWarshipId()
+                    WarshipId = playerQueueInfo.GetWarshipId(),
+                    WasShown = false
                 };
-
-                Console.WriteLine($"{nameof(matchResultForPlayer.AccountId)} {matchResultForPlayer.AccountId}");
+                
                 Console.WriteLine($"{nameof(matchResultForPlayer.WarshipId)} {matchResultForPlayer.WarshipId}");
                 playersResult.Add(matchResultForPlayer);
             }

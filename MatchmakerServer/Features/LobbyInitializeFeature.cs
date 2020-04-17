@@ -1,4 +1,5 @@
-﻿using AmoebaGameMatcherServer.Services;
+﻿using AmoebaGameMatcherServer.Controllers;
+using AmoebaGameMatcherServer.Services;
 using AmoebaGameMatcherServer.Services.LobbyInitialization;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +12,7 @@ namespace AmoebaGameMatcherServer
             serviceCollection.AddTransient<AccountFacadeService>();
             serviceCollection.AddTransient<AccountDbReaderService>();
             serviceCollection.AddTransient<AccountRegistrationService>();
+            serviceCollection.AddTransient<NotShownRewardDbUpdaterService>();
         }
     }
 }

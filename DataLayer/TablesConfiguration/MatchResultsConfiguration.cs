@@ -9,7 +9,7 @@ namespace DataLayer.TablesConfiguration
         public void Configure(EntityTypeBuilder<MatchResultForPlayer> builder)
         {
             builder
-                .HasIndex(r => new { r.AccountId, r.MatchId })
+                .HasIndex(r => new { r.WarshipId, r.MatchId })
                 .IsUnique();
             
             builder

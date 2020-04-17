@@ -73,13 +73,20 @@
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Controllers" t="Include">
-          <e p="GameServerController.cs" t="Include" />
-          <e p="GameUpdatesController.cs" t="Include" />
-          <e p="InitializeLobbyController.cs" t="Include" />
-          <e p="PlayerController.cs" t="Include" />
-          <e p="Purchases" t="Include">
-            <e p="PurchasesController.cs" t="Include" />
-            <e p="TestController.cs" t="Include" />
+          <e p="GameServer" t="Include">
+            <e p="GameServerController.cs" t="Include" />
+          </e>
+          <e p="Player" t="Include">
+            <e p="GameUpdatesController.cs" t="Include" />
+            <e p="Lobby" t="Include">
+              <e p="InitializeLobbyController.cs" t="Include" />
+              <e p="RewardsThatHaveNotBeenShown.cs" t="Include" />
+            </e>
+            <e p="PlayerController.cs" t="Include" />
+            <e p="Purchases" t="Include">
+              <e p="PurchasesController.cs" t="Include" />
+              <e p="TestController.cs" t="Include" />
+            </e>
           </e>
         </e>
         <e p="Experimental" t="Include">
@@ -128,6 +135,7 @@
             <e p="MatchType.cs.meta" t="Include" />
             <e p="PlayerInfoForMatch.cs" t="Include" />
             <e p="PlayerInfoForMatch.cs.meta" t="Include" />
+            <e p="RewardsThatHaveNotBeenShown.cs" t="Include" />
             <e p="WarshipCopy.cs" t="Include" />
             <e p="WarshipCopy.cs.meta" t="Include" />
           </e>
@@ -221,6 +229,7 @@
             <e p="AccountDbReaderService.cs" t="Include" />
             <e p="AccountFacadeService.cs" t="Include" />
             <e p="AccountRegistrationService.cs" t="Include" />
+            <e p="NotShownRewardDbUpdaterService.cs" t="Include" />
           </e>
           <e p="MatchCreation" t="Include">
             <e p="BattleRoyaleMatchCreatorService.cs" t="Include" />
@@ -271,6 +280,7 @@
           <e p="LazyLoadingTests.cs" t="Include" />
           <e p="UselessDich" t="Include">
             <e p="AccountsDbTests.cs" t="Include" />
+            <e p="ForeachTests.cs" t="Include" />
             <e p="MatchDataDbWriterServiceTests.cs" t="Include" />
             <e p="ZeroFormatterDich.cs" t="Include" />
           </e>
@@ -278,6 +288,7 @@
         <e p="GameUnitsForMatchTests.cs" t="Include" />
         <e p="MatchmakerFacadeServiceTest.cs" t="Include" />
         <e p="MatchmakerTests.csproj" t="IncludeRecursive" />
+        <e p="NotShownRewardDbUpdaterServiceTests.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp2.2" t="Include">

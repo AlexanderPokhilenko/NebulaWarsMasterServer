@@ -109,7 +109,7 @@ namespace MatchmakerTest
             Assert.IsNotNull(match.MatchResultForPlayers);
 
             //Количество игроков в БД правильное
-            List<int> playerInMatchIds = match.MatchResultForPlayers.Select(matchResult => matchResult.AccountId).ToList();
+            List<int> playerInMatchIds = match.MatchResultForPlayers.Select(matchResult => matchResult.Warship.AccountId).ToList();
             Assert.AreEqual(numberOfPlayersInMatch, playerInMatchIds.Count);
 
             //Информация про игроков в бою была записана в БД

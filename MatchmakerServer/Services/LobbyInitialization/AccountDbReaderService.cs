@@ -28,7 +28,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
         [ItemCanBeNull]
         public async Task<AccountInfo> GetAccountInfo([NotNull] string serviceId)
         {
-            Account account = await  dbContext.Accounts
+            Account account = await dbContext.Accounts
                 .Include(account1 => account1.Warships)
                     .ThenInclude(warship => warship.WarshipType)
                 .SingleOrDefaultAsync(account1 => account1.ServiceId == serviceId);
@@ -45,6 +45,12 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
             }
 
             account.Rating = account.Warships.Sum(warship => warship.Rating);
+
+            account.RegularCurrency = await dbContext.MatchResultForPlayers
+                .Where(matchResultForPlayer =>matchResultForPlayer.Warship.AccountId == account.Id)
+                .SumAsync(matchResultForPlayer => matchResultForPlayer.RegularCurrencyDelta) ?? 0;
+            
+            
             Console.WriteLine($"{nameof(account.Rating)} {account.Rating}");
             return GetAccountInfo(account);
         }
