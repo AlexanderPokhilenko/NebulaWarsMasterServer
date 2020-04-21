@@ -29,7 +29,7 @@ namespace MatchmakerTest
             //Act
             
             AccountDbReaderService accountDbReaderService = new AccountDbReaderService(dbContext);
-            AccountInfo result = await accountDbReaderService.GetAccountInfo(account.ServiceId);
+            RelevantAccountData result = await accountDbReaderService.GetAccountInfo(account.ServiceId);
             
             //Assert
             Assert.IsNotNull(result);

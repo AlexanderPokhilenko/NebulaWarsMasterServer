@@ -25,7 +25,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
         /// Отвечает за получение данных про аккаунт из БД.
         /// </summary>
         [ItemCanBeNull]
-        public async Task<AccountInfo> GetAccountInfo([NotNull] string serviceId)
+        public async Task<RelevantAccountData> GetAccountInfo([NotNull] string serviceId)
         {
             Account account = await dbContext.Accounts
                 .Include(account1 => account1.Warships)
@@ -53,15 +53,19 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
             account.RegularCurrency = await dbContext.MatchResultForPlayers
                 .Where(matchResultForPlayer =>matchResultForPlayer.Warship.AccountId == account.Id)
                 .SumAsync(matchResultForPlayer => matchResultForPlayer.RegularCurrencyDelta) ?? 0;
+
+            account.PremiumCurrency = await dbContext.MatchResultForPlayers
+                .Where(matchResultForPlayer =>
+                    matchResultForPlayer.Warship.AccountId == account.Id)
+                .SumAsync(matchResultForPlayer =>
+                    matchResultForPlayer.PremiumCurrencyDelta) ?? 0;
             
-            
-            // Console.WriteLine($"{nameof(account.Rating)} {account.Rating}");
             return GetAccountInfo(account);
         }
 
-        private AccountInfo GetAccountInfo(Account account)
+        private RelevantAccountData GetAccountInfo(Account account)
         {
-            AccountInfo accountInfo = new AccountInfo
+            RelevantAccountData accountInfo = new RelevantAccountData
             {
                 Username = account.Username,
                 PremiumCurrency = account.PremiumCurrency,

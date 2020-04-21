@@ -1,21 +1,12 @@
-﻿﻿﻿﻿using System.Collections.Generic;
+﻿using JetBrains.Annotations;
 using ZeroFormatter;
 
 namespace NetworkLibrary.NetworkLibrary.Http
 {
-    //TODO зачем мне это говно, если есть Account из БД?
-    /// <summary>
-    /// Содержит в себе все данные аккаунта для лобби.
-    /// </summary>
     [ZeroFormattable]
-    public class AccountInfo
+    public class LobbyData
     {
-        [Index(0)] public virtual string Username { get; set; }
-        [Index(1)] public virtual int AccountRating { get; set; }
-        [Index(2)] public virtual int RegularCurrency { get; set; }
-        [Index(3)] public virtual int PremiumCurrency { get; set; }
-        [Index(4)] public virtual int PointsForBigChest { get; set; }
-        [Index(5)] public virtual int PointsForSmallChest { get; set; }
-        [Index(6)] public virtual List<WarshipCopy> Warships { get; set; }
+        [Index(0)] [NotNull] public virtual RelevantAccountData RelevantAccountData { get; set; }
+        [Index(1)] [NotNull] public virtual RewardsThatHaveNotBeenShown RewardsThatHaveNotBeenShown { get; set; }
     }
 }

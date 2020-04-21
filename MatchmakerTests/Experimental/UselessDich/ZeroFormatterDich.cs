@@ -33,7 +33,7 @@ namespace MatchmakerTest
                     CombatPowerValue = 43452
                 }
             };
-            AccountInfo accountInfo = new AccountInfo()
+            RelevantAccountData accountInfo = new RelevantAccountData()
             {
                 Username = UniqueStringFactory.Create(),
                 AccountRating = 77,
@@ -48,7 +48,7 @@ namespace MatchmakerTest
             byte[] data = ZeroFormatterSerializer.Serialize(accountInfo);
             
             //Assert
-            AccountInfo accountInfoRestored = ZeroFormatterSerializer.Deserialize<AccountInfo>(data);
+            RelevantAccountData accountInfoRestored = ZeroFormatterSerializer.Deserialize<RelevantAccountData>(data);
             Assert.AreEqual(accountInfo.Username, accountInfoRestored.Username);
             
             foreach (var warship in accountInfoRestored.Warships)

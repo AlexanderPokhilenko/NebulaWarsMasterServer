@@ -51,6 +51,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 result.RegularCurrency += matchResultForPlayer.RegularCurrencyDelta ?? 0;
                 result.PointsForBigChest += matchResultForPlayer.PointsForBigChest ?? 0;
                 result.PointsForSmallChest += matchResultForPlayer.PointsForSmallChest ?? 0;
+                
                 matchResultForPlayer.WasShown = true;
             }
             await dbContext.SaveChangesAsync();

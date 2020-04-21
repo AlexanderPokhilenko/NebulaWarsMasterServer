@@ -79,8 +79,7 @@
           <e p="Player" t="Include">
             <e p="GameUpdatesController.cs" t="Include" />
             <e p="Lobby" t="Include">
-              <e p="InitializeLobbyController.cs" t="Include" />
-              <e p="RewardsThatHaveNotBeenShown.cs" t="Include" />
+              <e p="LobbyDataController.cs" t="Include" />
             </e>
             <e p="PlayerController.cs" t="Include" />
             <e p="Purchases" t="Include">
@@ -135,6 +134,7 @@
             <e p="MatchType.cs.meta" t="Include" />
             <e p="PlayerInfoForMatch.cs" t="Include" />
             <e p="PlayerInfoForMatch.cs.meta" t="Include" />
+            <e p="RelevantAccountData.cs" t="Include" />
             <e p="RewardsThatHaveNotBeenShown.cs" t="Include" />
             <e p="WarshipCopy.cs" t="Include" />
             <e p="WarshipCopy.cs.meta" t="Include" />

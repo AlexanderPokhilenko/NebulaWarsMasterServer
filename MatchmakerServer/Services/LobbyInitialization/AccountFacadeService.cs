@@ -23,9 +23,9 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
         }
         
         [ItemCanBeNull]
-        public async Task<AccountInfo> GetOrCreateAccountInfo([NotNull] string serviceId)
+        public async Task<RelevantAccountData> GetOrCreateAccountData([NotNull] string serviceId)
         {
-            AccountInfo accountInfo = await accountDbReaderService.GetAccountInfo(serviceId);
+            RelevantAccountData accountInfo = await accountDbReaderService.GetAccountInfo(serviceId);
             
             if (accountInfo == null)
             {

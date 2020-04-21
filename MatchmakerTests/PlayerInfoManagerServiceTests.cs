@@ -29,7 +29,7 @@ namespace MatchmakerTest
             string serviceId = UniqueStringFactory.Create();
             
             //Act
-            var accountInfo = await accountFacadeService.GetOrCreateAccountInfo(serviceId);
+            var accountInfo = await accountFacadeService.GetOrCreateAccountData(serviceId);
             
             //Assert
             Assert.IsNotNull(accountInfo);
