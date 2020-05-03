@@ -19,7 +19,12 @@ namespace DataLayer.Tables
         
         [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
         [Required] public string Name { get; set; }
+        [Required] public string Description { get; set; }
+        [Required] public int WarshipCombatRoleId { get; set; }
         
+        [ForeignKey("WarshipCombatRoleId")]
+        public virtual WarshipCombatRole WarshipCombatRole { get; set; }
+
         private List<Warship> warships;
         public virtual List<Warship> Warships 
         {

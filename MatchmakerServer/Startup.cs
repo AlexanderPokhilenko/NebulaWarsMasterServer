@@ -1,12 +1,13 @@
-﻿using System.Linq;
-using AmoebaGameMatcherServer.Services;
+﻿using AmoebaGameMatcherServer.Services;
 using AmoebaGameMatcherServer.Services.GoogleApi;
 using AmoebaGameMatcherServer.Services.MatchCreationInitiation;
 using AmoebaGameMatcherServer.Services.Queues;
 using DataLayer;
+using Google.Apis.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AmoebaGameMatcherServer
@@ -40,16 +41,10 @@ namespace AmoebaGameMatcherServer
         {
             matchCreationInitiator.StartThread();
             googleApiAccessTokenManagerService.Initialize().Wait();
-            //Для того, чтобы проверить подключение к БД
-            var count = dbContext.Accounts.Count();
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseHsts();
-            }
+
+            //Заполнение данными
+            new DataSeeder().TrySeed(dbContext);
+
             app.UseMvc();
         }
     }

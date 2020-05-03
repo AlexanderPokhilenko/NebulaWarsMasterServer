@@ -8,6 +8,7 @@ namespace AmoebaGameMatcherServer.Controllers
         {
             PowerLevelModels = new[]
             {
+                new WarshipPowerLevelModel {PowerPoints = 0,    Cost = 0},
                 new WarshipPowerLevelModel {PowerPoints = 20,    Cost = 20},
                 new WarshipPowerLevelModel {PowerPoints = 30,    Cost = 35},
                 new WarshipPowerLevelModel {PowerPoints = 50,    Cost = 75},

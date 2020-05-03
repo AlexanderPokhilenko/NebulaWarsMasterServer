@@ -9,8 +9,8 @@ namespace AmoebaGameMatcherServer.Services
         private static readonly int defaultPremiumCurrency = 0;
         private static readonly int defaultRegularCurrency = 150;
         private static readonly int defaultPointsForBigChest = 100;
-        private static readonly int DefaultPointsForSmallChest = 100;
-        private static readonly int defaultWarshipCombatPowerLevel = 0;
+        private static readonly int defaultPointsForSmallChest = 100;
+        private static readonly int defaultWarshipCombatPowerLevel = 1;
         private static readonly int defaultWarshipCombatPowerValue = 0;
         private static readonly int warshipTypeHare = 1;
         private static readonly int warshipTypeBird = 2;
@@ -25,7 +25,7 @@ namespace AmoebaGameMatcherServer.Services
                 CreationDate = DateTime.UtcNow,
                 RegularCurrency = defaultRegularCurrency,
                 PointsForBigLootbox = defaultPointsForBigChest,
-                PointsForSmallLootbox = DefaultPointsForSmallChest,
+                PointsForSmallLootbox = defaultPointsForSmallChest,
                 Warships = new List<Warship>
                 {
                     new Warship
@@ -42,6 +42,7 @@ namespace AmoebaGameMatcherServer.Services
                     }
                 }
             };
+            
             return account;
         }
     }

@@ -12,7 +12,7 @@ namespace AmoebaGameMatcherServer.Controllers
         /// </summary>
         private readonly WarshipRatingScaleModel warshipRatingScaleModel = new WarshipRatingScaleModel
         {
-            RankMaxRatingArray = new []{10, 15, 25, 40, 60, 90, 135, 200, 300, 450, 675, 1010, 1515, 2270, 3400, 1_000_000}
+            RankMaxRatingArray = new []{0, 10, 15, 25, 40, 60, 90, 135, 200, 300, 450, 675, 1010, 1515, 2270, 3400, 1_000_000}
         };
         
         public WarshipRatingScaleModel GetWarshipRatingScaleModel()

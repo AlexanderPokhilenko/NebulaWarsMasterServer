@@ -18,6 +18,7 @@ namespace DataLayer
         public DbSet<MatchResultForPlayer> MatchResultForPlayers { get; set; }
         public DbSet<Purchase> Purchases { get; set; }
         public DbSet<LootboxDb> Lootbox { get; set; }
+        public DbSet<WarshipCombatRole> WarshipCombatRole { get; set; }
         public DbSet<LootboxPrizeRegularCurrency> LootboxPrizeRegularCurrencies { get; set; }
         public DbSet<LootboxPrizePointsForSmallLootbox> LootboxPrizePointsForSmallLootboxes { get; set; }
         
@@ -35,7 +36,6 @@ namespace DataLayer
         {
             modelBuilder.ApplyConfiguration(new AccountsConfiguration());
             modelBuilder.ApplyConfiguration(new WarshipsConfiguration());
-            modelBuilder.ApplyConfiguration(new WarshipTypeConfiguration());
             modelBuilder.ApplyConfiguration(new MatchResultsConfiguration());
         }
     }

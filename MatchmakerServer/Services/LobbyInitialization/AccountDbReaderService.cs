@@ -76,18 +76,20 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                 PointsForBigLootbox = account.PointsForBigLootbox,
                 PointsForSmallLootbox = account.PointsForSmallLootbox,
                 AccountRating = account.Rating,
-                Warships = new List<WarshipCopy>()
+                Warships = new List<WarshipModel>()
             };
             
             foreach (var warship in account.Warships)
             {
-                WarshipCopy warshipCopy = new WarshipCopy();
-                warshipCopy.Id = warship.Id;
-                warshipCopy.PrefabName = warship.WarshipType.Name;
-                warshipCopy.Rating = warship.Rating;
-                warshipCopy.CombatPowerLevel = warship.CombatPowerLevel;
-                warshipCopy.CombatPowerValue = warship.CombatPowerValue;
-                accountInfo.Warships.Add(warshipCopy);
+                WarshipModel warshipModel = new WarshipModel();
+                warshipModel.Id = warship.Id;
+                warshipModel.PrefabName = warship.WarshipType.Name;
+                warshipModel.Rating = warship.Rating;
+                warshipModel.PowerLevel = warship.CombatPowerLevel;
+                warshipModel.PowerPoints = warship.CombatPowerValue;
+                warshipModel.Description = warship.WarshipType.Description;
+                warshipModel.CombatRoleName = warship.WarshipType.WarshipCombatRole.Name;
+                accountInfo.Warships.Add(warshipModel);
             }
             
             return accountInfo;

@@ -47,14 +47,15 @@
           </e>
           <e p="Warships" t="Include">
             <e p="Warship.cs" t="Include" />
+            <e p="WarshipCombatRole.cs" t="Include" />
             <e p="WarshipType.cs" t="Include" />
           </e>
         </e>
         <e p="EntitiesConfiguration" t="Include">
           <e p="AccountsConfiguration.cs" t="Include" />
+          <e p="DataSeeder.cs" t="Include" />
           <e p="MatchResultsConfiguration.cs" t="Include" />
           <e p="WarshipsConfiguration.cs" t="Include" />
-          <e p="WarshipTypeConfiguration.cs" t="Include" />
         </e>
         <e p="GoogleApi" t="Include">
           <e p="AccessTokenUpdatingArg.cs" t="Include" />
@@ -80,7 +81,6 @@
           <e p="Player" t="Include">
             <e p="Lobby" t="Include">
               <e p="LobbyDataController.cs" t="Include" />
-              <e p="WarshipRatingScaleService.cs" t="Include" />
             </e>
             <e p="LootboxController.cs" t="Include" />
             <e p="PlayerController.cs" t="Include" />
@@ -142,8 +142,8 @@
             <e p="PlayerInfoForMatch.cs.meta" t="Include" />
             <e p="RewardsThatHaveNotBeenShown.cs" t="Include" />
             <e p="ShopModel.cs" t="Include" />
-            <e p="WarshipCopy.cs" t="Include" />
             <e p="WarshipCopy.cs.meta" t="Include" />
+            <e p="WarshipModel.cs" t="Include" />
             <e p="WarshipPowerLevelModel.cs" t="Include" />
             <e p="WarshipPowerScaleModel.cs" t="Include" />
             <e p="WarshipRatingScaleModel.cs" t="Include" />
@@ -239,7 +239,10 @@
             <e p="AccountDbReaderService.cs" t="Include" />
             <e p="AccountFacadeService.cs" t="Include" />
             <e p="AccountRegistrationService.cs" t="Include" />
+            <e p="LobbyModelFacadeService.cs" t="Include" />
             <e p="NotShownRewardDbUpdaterService.cs" t="Include" />
+            <e p="WarshipPowerScaleService.cs" t="Include" />
+            <e p="WarshipRatingScaleService.cs" t="Include" />
           </e>
           <e p="Lootbox" t="Include">
             <e p="LootboxDbWriterService.cs" t="Include" />

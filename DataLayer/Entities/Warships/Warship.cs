@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace DataLayer.Tables
 {
-    [Table("Warships")]
     public class Warship
     {
         private readonly ILazyLoader lazyLoader;

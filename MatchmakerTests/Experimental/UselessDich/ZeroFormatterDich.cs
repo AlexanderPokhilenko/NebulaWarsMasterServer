@@ -14,23 +14,23 @@ namespace MatchmakerTest
         public void Test1()
         {
             //Arrange
-            List<WarshipCopy> warships = new List<WarshipCopy>()
+            List<WarshipModel> warships = new List<WarshipModel>()
             {
-                new WarshipCopy()
+                new WarshipModel()
                 {
                     Id = 45,
                     Rating = 54,
                     PrefabName = "prefabName1",
-                    CombatPowerLevel = 99,
-                    CombatPowerValue = 42
+                    PowerLevel = 99,
+                    PowerPoints = 42
                 },
-                new WarshipCopy()
+                new WarshipModel()
                 {
                     Id = 312,
                     Rating = 52314,
                     PrefabName = "prefabName2",
-                    CombatPowerLevel = 9459,
-                    CombatPowerValue = 43452
+                    PowerLevel = 9459,
+                    PowerPoints = 43452
                 }
             };
             AccountModel accountInfo = new AccountModel()
@@ -56,8 +56,8 @@ namespace MatchmakerTest
                 Console.WriteLine(warship.PrefabName);
                 Console.WriteLine(warship.Rating);
                 Console.WriteLine(warship.Id);
-                Console.WriteLine(warship.CombatPowerValue);
-                Console.WriteLine(warship.CombatPowerLevel);
+                Console.WriteLine(warship.PowerPoints);
+                Console.WriteLine(warship.PowerLevel);
             }
         }
     }
