@@ -33,14 +33,14 @@ namespace MatchmakerTest
                     CombatPowerValue = 43452
                 }
             };
-            RelevantAccountData accountInfo = new RelevantAccountData()
+            AccountModel accountInfo = new AccountModel()
             {
                 Username = UniqueStringFactory.Create(),
                 AccountRating = 77,
                 PremiumCurrency = 321,
                 RegularCurrency = 88,
-                PointsForBigChest = 219,
-                PointsForSmallChest = 987,
+                PointsForBigLootbox = 219,
+                PointsForSmallLootbox = 987,
                 Warships = warships
             };
 
@@ -48,7 +48,7 @@ namespace MatchmakerTest
             byte[] data = ZeroFormatterSerializer.Serialize(accountInfo);
             
             //Assert
-            RelevantAccountData accountInfoRestored = ZeroFormatterSerializer.Deserialize<RelevantAccountData>(data);
+            AccountModel accountInfoRestored = ZeroFormatterSerializer.Deserialize<AccountModel>(data);
             Assert.AreEqual(accountInfo.Username, accountInfoRestored.Username);
             
             foreach (var warship in accountInfoRestored.Warships)

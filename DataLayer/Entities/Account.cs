@@ -24,9 +24,9 @@ namespace DataLayer.Tables
         [Required] public string Username { get; set; }
         [Required] public int RegularCurrency { get; set; }
         [Required] public int PremiumCurrency { get; set; }
-        [Required] public int PointsForBigChest { get; set; }
-        [Required] public int PointsForSmallChest { get; set; }
-        [Required] public DateTime RegistrationDate { get; set; }
+        [Required] public int PointsForBigLootbox { get; set; }
+        [Required] public int PointsForSmallLootbox { get; set; }
+        [Required] public DateTime CreationDate { get; set; }
         [NotMapped] public int Rating { get; set; }
 
         private List<Warship> warships;
@@ -34,6 +34,13 @@ namespace DataLayer.Tables
         {
             get => lazyLoader.Load(this, ref warships);
             set => warships = value;
+        }
+        
+        private List<LootboxDb> lootboxes;
+        public virtual List<LootboxDb> Lootboxes
+        {
+            get => lazyLoader.Load(this, ref lootboxes);
+            set => lootboxes = value;
         }
     }
 }

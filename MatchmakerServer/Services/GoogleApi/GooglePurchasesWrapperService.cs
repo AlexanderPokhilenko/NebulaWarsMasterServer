@@ -68,7 +68,7 @@
 //                 throw new Exception($"{nameof(token)} was null");
 //             }
 //             
-//             var request = service.Purchases.Products.Get(GoogleApiGlobals.PackageName, productId, token);
+//             var request = service.Purchases.Products.Create(GoogleApiGlobals.PackageName, productId, token);
 //             var result = request.Execute();
 //
 //             Console.WriteLine($"{nameof(result.OrderId)} {result.OrderId}");

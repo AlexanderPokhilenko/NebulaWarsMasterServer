@@ -29,7 +29,7 @@ namespace MatchmakerTest
             //Act
             
             AccountDbReaderService accountDbReaderService = new AccountDbReaderService(dbContext);
-            RelevantAccountData result = await accountDbReaderService.GetAccountInfo(account.ServiceId);
+            AccountModel result = await accountDbReaderService.GetAccountInfo(account.ServiceId);
             
             //Assert
             Assert.IsNotNull(result);
@@ -47,10 +47,10 @@ namespace MatchmakerTest
                 Username = "user",
                 PremiumCurrency = 2,
                 ServiceId = UniqueStringFactory.Create(),
-                RegistrationDate = DateTime.Now,
+                CreationDate = DateTime.Now,
                 RegularCurrency = 24,
-                PointsForBigChest = 54,
-                PointsForSmallChest = 5,
+                PointsForBigLootbox = 54,
+                PointsForSmallLootbox = 5,
                 Warships = new List<Warship>()
                 {
                     new Warship()

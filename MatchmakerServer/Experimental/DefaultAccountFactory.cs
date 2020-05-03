@@ -14,7 +14,6 @@ namespace AmoebaGameMatcherServer.Services
         private static readonly int defaultWarshipCombatPowerValue = 0;
         private static readonly int warshipTypeHare = 1;
         private static readonly int warshipTypeBird = 2;
-        // private static int defaultWarshipRating = 0;
 
         public static Account CreateDefaultAccount(string playerId)
         {
@@ -23,22 +22,20 @@ namespace AmoebaGameMatcherServer.Services
                 ServiceId = playerId,
                 Username = playerId,
                 PremiumCurrency = defaultPremiumCurrency,
-                RegistrationDate = DateTime.UtcNow,
+                CreationDate = DateTime.UtcNow,
                 RegularCurrency = defaultRegularCurrency,
-                PointsForBigChest = defaultPointsForBigChest,
-                PointsForSmallChest = DefaultPointsForSmallChest,
+                PointsForBigLootbox = defaultPointsForBigChest,
+                PointsForSmallLootbox = DefaultPointsForSmallChest,
                 Warships = new List<Warship>
                 {
                     new Warship
                     {
-                        // Rating = defaultWarshipRating,
                         WarshipTypeId = warshipTypeHare,
                         CombatPowerLevel = defaultWarshipCombatPowerLevel,
                         CombatPowerValue = defaultWarshipCombatPowerValue
                     },
                     new Warship
                     {
-                        // Rating = defaultWarshipRating,
                         WarshipTypeId = warshipTypeBird,
                         CombatPowerLevel = defaultWarshipCombatPowerLevel,
                         CombatPowerValue = defaultWarshipCombatPowerValue

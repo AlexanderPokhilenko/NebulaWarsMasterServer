@@ -25,6 +25,7 @@ namespace AmoebaGameMatcherServer
             services.AddFeature(new MatchCreationFeature());
             services.AddFeature(new MatchFinishingFeature());
             services.AddFeature(new GameServerNegotiationFeature());
+            services.AddFeature(new LootboxFeature());
 
             //Общие очереди игроков
             services.AddSingleton<BattleRoyaleQueueSingletonService>();
@@ -39,6 +40,7 @@ namespace AmoebaGameMatcherServer
         {
             matchCreationInitiator.StartThread();
             googleApiAccessTokenManagerService.Initialize().Wait();
+            //Для того, чтобы проверить подключение к БД
             var count = dbContext.Accounts.Count();
             if (env.IsDevelopment())
             {

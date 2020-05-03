@@ -45,7 +45,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             
             if (matchResultForPlayer == null)
             {
-                Console.WriteLine("\nmatchResultForPlayer is null\n");
+                Console.WriteLine("\n matchResultForPlayer is null\n");
                 return;
             }
 
@@ -62,7 +62,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             matchResultForPlayer.RegularCurrencyDelta = matchReward.RegularCurrencyDelta;
             matchResultForPlayer.WarshipRatingDelta = matchReward.WarshipRatingDelta;
             matchResultForPlayer.PointsForBigChest = matchReward.PointsForBigChest;
-            matchResultForPlayer.PointsForSmallChest = matchReward.PointsForSmallChest;
+            matchResultForPlayer.PointsForSmallChest = matchReward.PointsForSmallLootbox;
 
             LogMatchResult(matchResultForPlayer);
             

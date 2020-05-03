@@ -17,6 +17,14 @@ namespace DataLayer
         public DbSet<Match> Matches { get; set; }
         public DbSet<MatchResultForPlayer> MatchResultForPlayers { get; set; }
         public DbSet<Purchase> Purchases { get; set; }
+        public DbSet<LootboxDb> Lootbox { get; set; }
+        public DbSet<LootboxPrizeRegularCurrency> LootboxPrizeRegularCurrencies { get; set; }
+        public DbSet<LootboxPrizePointsForSmallLootbox> LootboxPrizePointsForSmallLootboxes { get; set; }
+        
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Kit> Kits { get; set; }
+        public DbSet<Product> Products { get; set; }
+        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

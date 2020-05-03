@@ -33,15 +33,15 @@ namespace MatchmakerTest
 
             //Act
             var results = await notShownRewardDbUpdaterService
-                .GetNotShownResults(account.ServiceId);
+                .GetNotShownResultsAndMarkAsRead(account.ServiceId);
 
             //Assert
             Assert.IsNotNull(results);
             Assert.AreEqual(9, results.Rating);
             Assert.AreEqual(4, results.PremiumCurrency);
             Assert.AreEqual(34, results.RegularCurrency);
-            Assert.AreEqual(0, results.PointsForBigChest);
-            Assert.AreEqual(5, results.PointsForSmallChest);
+            Assert.AreEqual(0, results.PointsForBigLootbox);
+            Assert.AreEqual(5, results.PointsForSmallLootbox);
 
             List<MatchResultForPlayer> matchResultForPlayers = await dbContext.MatchResultForPlayers
                 .Where(result => result.Warship.AccountId == account.Id)

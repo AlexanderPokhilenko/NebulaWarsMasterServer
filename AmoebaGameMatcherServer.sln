@@ -4,8 +4,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchmakerServer", "Matchma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{72A89A5D-8D64-4BC4-86F6-0FFD7B1F1E50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Experimental", "Experimental\Experimental.csproj", "{55D8AE58-C540-4CF4-BCBB-00F98FF028CF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchmakerTests", "MatchmakerTests\MatchmakerTests.csproj", "{C0E2E203-8C80-4AC8-A6DD-D77C14C267CB}"
 EndProject
 Global
@@ -22,10 +20,6 @@ Global
 		{72A89A5D-8D64-4BC4-86F6-0FFD7B1F1E50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72A89A5D-8D64-4BC4-86F6-0FFD7B1F1E50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72A89A5D-8D64-4BC4-86F6-0FFD7B1F1E50}.Release|Any CPU.Build.0 = Release|Any CPU
-		{55D8AE58-C540-4CF4-BCBB-00F98FF028CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{55D8AE58-C540-4CF4-BCBB-00F98FF028CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{55D8AE58-C540-4CF4-BCBB-00F98FF028CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{55D8AE58-C540-4CF4-BCBB-00F98FF028CF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C0E2E203-8C80-4AC8-A6DD-D77C14C267CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C0E2E203-8C80-4AC8-A6DD-D77C14C267CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0E2E203-8C80-4AC8-A6DD-D77C14C267CB}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using AmoebaGameMatcherServer.Services;
 using AmoebaGameMatcherServer.Services.LobbyInitialization;
 using DataLayer;
 using DataLayer.Tables;
@@ -46,8 +45,8 @@ namespace MatchmakerTest
             Assert.AreEqual(accountRating, playerInfo.AccountRating);
             Assert.AreEqual(account.PremiumCurrency, playerInfo.PremiumCurrency);
             Assert.AreEqual(account.RegularCurrency, playerInfo.RegularCurrency);
-            Assert.AreEqual(account.PointsForBigChest, playerInfo.PointsForBigChest);
-            Assert.AreEqual(account.PointsForSmallChest, playerInfo.PointsForSmallChest);
+            Assert.AreEqual(account.PointsForBigLootbox, playerInfo.PointsForBigLootbox);
+            Assert.AreEqual(account.PointsForSmallLootbox, playerInfo.PointsForSmallLootbox);
         }
         
         /// <summary>

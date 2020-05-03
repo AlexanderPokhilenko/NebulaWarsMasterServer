@@ -7,17 +7,14 @@ namespace AmoebaGameMatcherServer.Controllers
     [ApiController]
     public class TestController : ControllerBase
     {
-        [Route(nameof(Test))]
-        [HttpGet]
-        public ActionResult Test([FromForm]string playerId)
+        [Route(nameof(Resource))]
+        [HttpPost]
+        public byte[] Resource([FromForm] string someField)
         {
-            Console.WriteLine("Был вызван");
-            foreach (var pair in Request.Query)
-            {
-                Console.WriteLine(pair.Key+" "+pair.Value);
-            }
-
-            return Ok();
+            Console.WriteLine($"Вызов {nameof(someField)} = {someField}");
+            byte[] test = {255,255,255,255,211};
+            Response.ContentType = "application/octet-stream";
+            return test;
         }
     }
 }

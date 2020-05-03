@@ -1,5 +1,4 @@
-﻿using AmoebaGameMatcherServer.Services;
-using AmoebaGameMatcherServer.Services.PlayerQueueing;
+﻿using AmoebaGameMatcherServer.Services.PlayerQueueing;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AmoebaGameMatcherServer

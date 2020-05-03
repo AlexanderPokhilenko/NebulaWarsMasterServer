@@ -25,7 +25,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
         /// Отвечает за получение данных про аккаунт из БД.
         /// </summary>
         [ItemCanBeNull]
-        public async Task<RelevantAccountData> GetAccountInfo([NotNull] string serviceId)
+        public async Task<AccountModel> GetAccountInfo([NotNull] string serviceId)
         {
             Account account = await dbContext.Accounts
                 .Include(account1 => account1.Warships)
@@ -44,8 +44,6 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                     .Where(result =>
                      result.WarshipId == warship1.Id && result.WarshipRatingDelta != null)
                     .SumAsync(result => result.WarshipRatingDelta) ?? 0;
-                    
-                // Console.WriteLine($"{nameof(warship.Rating)} {warship.Rating}");
             }
 
             account.Rating = account.Warships.Sum(warship => warship.Rating);
@@ -53,6 +51,10 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
             account.RegularCurrency = await dbContext.MatchResultForPlayers
                 .Where(matchResultForPlayer =>matchResultForPlayer.Warship.AccountId == account.Id)
                 .SumAsync(matchResultForPlayer => matchResultForPlayer.RegularCurrencyDelta) ?? 0;
+
+            account.RegularCurrency += await dbContext.LootboxPrizeRegularCurrencies
+                .Where(prize => prize.LootboxDb.AccountId == account.Id)
+                .SumAsync(prize => prize.Quantity);
 
             account.PremiumCurrency = await dbContext.MatchResultForPlayers
                 .Where(matchResultForPlayer =>
@@ -63,15 +65,16 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
             return GetAccountInfo(account);
         }
 
-        private RelevantAccountData GetAccountInfo(Account account)
+        //TODO тут должн быть адаптер
+        private AccountModel GetAccountInfo(Account account)
         {
-            RelevantAccountData accountInfo = new RelevantAccountData
+            AccountModel accountInfo = new AccountModel
             {
                 Username = account.Username,
                 PremiumCurrency = account.PremiumCurrency,
                 RegularCurrency = account.RegularCurrency,
-                PointsForBigChest = account.PointsForBigChest,
-                PointsForSmallChest = account.PointsForSmallChest,
+                PointsForBigLootbox = account.PointsForBigLootbox,
+                PointsForSmallLootbox = account.PointsForSmallLootbox,
                 AccountRating = account.Rating,
                 Warships = new List<WarshipCopy>()
             };
