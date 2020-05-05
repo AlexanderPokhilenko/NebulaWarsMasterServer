@@ -1,8 +1,9 @@
-﻿using NetworkLibrary.NetworkLibrary.Http;
+﻿using System.Runtime.InteropServices;
+using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Controllers
 {
-    public class WarshipPowerScaleService
+    public class WarshipPowerScaleModelStorage
     {
         private readonly WarshipPowerScaleModel warshipPowerScaleModel = new WarshipPowerScaleModel()
         {
@@ -23,6 +24,16 @@ namespace AmoebaGameMatcherServer.Controllers
         public WarshipPowerScaleModel Create()
         {
             return warshipPowerScaleModel;
+        }
+
+        public int GetWarshipImprovementCost(int powerLevel)
+        {
+            return warshipPowerScaleModel.PowerLevelModels[powerLevel].Cost;
+        }
+
+        public int GetNumberOfPointsNeededToPurchaseImprovements(int powerLevel)
+        {
+            return warshipPowerScaleModel.PowerLevelModels[powerLevel].PowerPoints;
         }
     }
 }

@@ -39,5 +39,12 @@ namespace DataLayer.Tables
             get => lazyLoader.Load(this, ref lootboxPrizePointsForSmallChests);
             set => lootboxPrizePointsForSmallChests = value;
         }
+        
+        private List<LootboxPrizeWarshipPowerPoints> lootboxPrizeWarshipPowerPoints;
+        public virtual List<LootboxPrizeWarshipPowerPoints> LootboxPrizeWarshipPowerPoints
+        {
+            get => lazyLoader.Load(this, ref lootboxPrizeWarshipPowerPoints);
+            set => lootboxPrizeWarshipPowerPoints = value;
+        }
     }
 }

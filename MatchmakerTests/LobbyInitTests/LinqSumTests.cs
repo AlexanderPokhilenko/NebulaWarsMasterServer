@@ -29,7 +29,7 @@ namespace MatchmakerTest
             //Act
             
             AccountDbReaderService accountDbReaderService = new AccountDbReaderService(dbContext);
-            AccountModel result = await accountDbReaderService.GetAccountInfo(account.ServiceId);
+            AccountModel result = await accountDbReaderService.GetAccountModel(account.ServiceId);
             
             //Assert
             Assert.IsNotNull(result);
@@ -56,8 +56,8 @@ namespace MatchmakerTest
                     new Warship()
                     {
                         WarshipTypeId = 1,
-                        CombatPowerLevel = 6,
-                        CombatPowerValue = 654
+                        PowerLevel = 6,
+                        PowerPoints = 654
                     }
                 }
             };

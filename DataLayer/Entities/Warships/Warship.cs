@@ -21,8 +21,8 @@ namespace DataLayer.Tables
         [Required] public int AccountId { get; set; }
         [Required] public int WarshipTypeId { get; set; }
         
-        [Required] public int CombatPowerLevel { get; set; }
-        [Required] public int CombatPowerValue { get; set; }
+        [Required] public int PowerLevel { get; set; }
+        [NotMapped] public int PowerPoints { get; set; }
         [NotMapped] public int Rating { get; set; }
         
         [ForeignKey("AccountId")] public virtual  Account Account { get; set; }
@@ -33,6 +33,13 @@ namespace DataLayer.Tables
         {
             get => lazyLoader.Load(this, ref matchResultForPlayers);
             set => matchResultForPlayers = value;
+        }
+        
+        private List<WarshipImprovementPurchase> warshipImprovementPurchases;
+        public virtual List<WarshipImprovementPurchase> WarshipImprovementPurchases 
+        {
+            get => lazyLoader.Load(this, ref warshipImprovementPurchases);
+            set => warshipImprovementPurchases = value;
         }
     }
 }

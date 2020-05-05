@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
@@ -25,7 +26,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
         /// Отвечает за получение данных про аккаунт из БД.
         /// </summary>
         [ItemCanBeNull]
-        public async Task<AccountModel> GetAccountInfo([NotNull] string serviceId)
+        public async Task<AccountModel> GetAccountModel([NotNull] string serviceId)
         {
             Account account = await dbContext.Accounts
                 .Include(account1 => account1.Warships)
@@ -37,36 +38,41 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                 return null;
             }
 
+            //Заполнить рейтинг и значение очков силы для кораблей
             foreach (var warship in account.Warships)
             {
-                var warship1 = warship;
                 warship.Rating = await dbContext.MatchResultForPlayers
-                    .Where(result =>
-                     result.WarshipId == warship1.Id && result.WarshipRatingDelta != null)
-                    .SumAsync(result => result.WarshipRatingDelta) ?? 0;
+                     .Where(matchResultForPlayer =>
+                         matchResultForPlayer.WarshipId == warship.Id && matchResultForPlayer.WarshipRatingDelta != null)
+                     .SumAsync(result => result.WarshipRatingDelta) ?? 0;
+                warship.PowerPoints = await dbContext.LootboxPrizeWarshipPowerPoints
+                    .Where(powerPoints => powerPoints.WarshipId == warship.Id)
+                    .SumAsync(powerPoints => powerPoints.Quantity);
             }
 
+            //Заполнить рейтинг аккаунта
             account.Rating = account.Warships.Sum(warship => warship.Rating);
 
+            //Заполнить значение валюты из побед в бою
             account.RegularCurrency = await dbContext.MatchResultForPlayers
                 .Where(matchResultForPlayer =>matchResultForPlayer.Warship.AccountId == account.Id)
                 .SumAsync(matchResultForPlayer => matchResultForPlayer.RegularCurrencyDelta) ?? 0;
 
+            //Заполнить значение валюты из лутбоксов
             account.RegularCurrency += await dbContext.LootboxPrizeRegularCurrencies
                 .Where(prize => prize.LootboxDb.AccountId == account.Id)
                 .SumAsync(prize => prize.Quantity);
 
-            account.PremiumCurrency = await dbContext.MatchResultForPlayers
-                .Where(matchResultForPlayer =>
-                    matchResultForPlayer.Warship.AccountId == account.Id)
-                .SumAsync(matchResultForPlayer =>
-                    matchResultForPlayer.PremiumCurrencyDelta) ?? 0;
+            //Отнять значения покупок улучшений
+            account.RegularCurrency -= await dbContext.WarshipImprovementPurchases
+                .Where(purchase => purchase.Warship.AccountId == account.Id)
+                .SumAsync(purchase => purchase.RegularCurrencyCost);
             
-            return GetAccountInfo(account);
+            return GetAccountModel(account);
         }
 
         //TODO тут должн быть адаптер
-        private AccountModel GetAccountInfo(Account account)
+        private AccountModel GetAccountModel(Account account)
         {
             AccountModel accountInfo = new AccountModel
             {
@@ -85,8 +91,8 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                 warshipModel.Id = warship.Id;
                 warshipModel.PrefabName = warship.WarshipType.Name;
                 warshipModel.Rating = warship.Rating;
-                warshipModel.PowerLevel = warship.CombatPowerLevel;
-                warshipModel.PowerPoints = warship.CombatPowerValue;
+                warshipModel.PowerLevel = warship.PowerLevel;
+                warshipModel.PowerPoints = warship.PowerPoints;
                 warshipModel.Description = warship.WarshipType.Description;
                 warshipModel.CombatRoleName = warship.WarshipType.WarshipCombatRole.Name;
                 accountInfo.Warships.Add(warshipModel);

@@ -26,10 +26,10 @@ namespace AmoebaGameMatcherServer.Services.PlayerQueueing
         }
 
         [ItemNotNull]
-        public async Task<GameMatcherResponse> GetMatchData([NotNull] string playerId, int warshipId)
+        public async Task<MatchmakerResponse> GetMatchData([NotNull] string playerId, int warshipId)
         {
             //Данные для окна ожидания боя
-            GameMatcherResponse response = new GameMatcherResponse
+            MatchmakerResponse response = new MatchmakerResponse
             {
                 NumberOfPlayersInQueue = queueSingletonService.GetNumberOfPlayersInQueue(),
                 NumberOfPlayersInBattles = unfinishedMatchesService.GetNumberOfPlayersInBattles()

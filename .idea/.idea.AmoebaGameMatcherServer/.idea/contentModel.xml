@@ -30,12 +30,14 @@
             <e p="LootboxDb.cs" t="Include" />
             <e p="LootboxPrizePointsForSmallLootbox.cs" t="Include" />
             <e p="LootboxPrizeRegularCurrency.cs" t="Include" />
+            <e p="LootboxPrizeWarshipPowerPoints.cs" t="Include" />
             <e p="LootboxType.cs" t="Include" />
           </e>
           <e p="Matches" t="Include">
             <e p="Match.cs" t="Include" />
             <e p="MatchResultForPlayer.cs" t="Include" />
             <e p="MatchReward.cs" t="Include" />
+            <e p="WarshipImprovementPurchase.cs" t="Include" />
           </e>
           <e p="Purchase.cs" t="Include" />
           <e p="Shop" t="Include">
@@ -81,6 +83,7 @@
           <e p="Player" t="Include">
             <e p="Lobby" t="Include">
               <e p="LobbyDataController.cs" t="Include" />
+              <e p="WarshipImprovementPurchasingController.cs" t="Include" />
             </e>
             <e p="LootboxController.cs" t="Include" />
             <e p="PlayerController.cs" t="Include" />
@@ -108,6 +111,7 @@
           <e p="MatchCreationInitiationFeature.cs" t="Include" />
           <e p="MatchFinishingFeature.cs" t="Include" />
           <e p="PlayerQueueingFeature.cs" t="Include" />
+          <e p="PurchasingFeature.cs" t="Include" />
           <e p="ServiceFeature.cs" t="Include" />
           <e p="ServicesExtension.cs" t="Include" />
         </e>
@@ -125,7 +129,6 @@
             <e p="BattleRoyaleMatchData.cs.meta" t="Include" />
             <e p="BotInfo.cs" t="Include" />
             <e p="BotInfo.cs.meta" t="Include" />
-            <e p="GameMatcherResponse.cs" t="Include" />
             <e p="GameMatcherResponse.cs.meta" t="Include" />
             <e p="GameRoomValidationResult.cs" t="Include" />
             <e p="GameRoomValidationResult.cs.meta" t="Include" />
@@ -135,7 +138,8 @@
             <e p="GameUnitsForMatch.cs" t="Include" />
             <e p="GameUnitsForMatch.cs.meta" t="Include" />
             <e p="LobbyModel.cs" t="Include" />
-            <e p="LootboxData.cs" t="Include" />
+            <e p="LootboxModel.cs" t="Include" />
+            <e p="MatchmakerResponse.cs" t="Include" />
             <e p="MatchType.cs" t="Include" />
             <e p="MatchType.cs.meta" t="Include" />
             <e p="PlayerInfoForMatch.cs" t="Include" />
@@ -241,7 +245,7 @@
             <e p="AccountRegistrationService.cs" t="Include" />
             <e p="LobbyModelFacadeService.cs" t="Include" />
             <e p="NotShownRewardDbUpdaterService.cs" t="Include" />
-            <e p="WarshipPowerScaleService.cs" t="Include" />
+            <e p="WarshipPowerScaleModelStorage.cs" t="Include" />
             <e p="WarshipRatingScaleService.cs" t="Include" />
           </e>
           <e p="Lootbox" t="Include">

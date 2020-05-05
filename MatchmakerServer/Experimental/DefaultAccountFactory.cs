@@ -31,14 +31,12 @@ namespace AmoebaGameMatcherServer.Services
                     new Warship
                     {
                         WarshipTypeId = warshipTypeHare,
-                        CombatPowerLevel = defaultWarshipCombatPowerLevel,
-                        CombatPowerValue = defaultWarshipCombatPowerValue
+                        PowerLevel = defaultWarshipCombatPowerLevel
                     },
                     new Warship
                     {
                         WarshipTypeId = warshipTypeBird,
-                        CombatPowerLevel = defaultWarshipCombatPowerLevel,
-                        CombatPowerValue = defaultWarshipCombatPowerValue
+                        PowerLevel = defaultWarshipCombatPowerLevel
                     }
                 }
             };

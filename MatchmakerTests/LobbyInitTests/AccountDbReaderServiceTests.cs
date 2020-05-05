@@ -26,7 +26,7 @@ namespace MatchmakerTest
             await dbContext.SaveChangesAsync();
             
             //Act
-            var playerInfo = await accountDbReaderService.GetAccountInfo(account.ServiceId);
+            var playerInfo = await accountDbReaderService.GetAccountModel(account.ServiceId);
             
             //Assert
             Assert.IsNotNull(playerInfo);
@@ -63,7 +63,7 @@ namespace MatchmakerTest
             string accountServiceId = "someUniqueId_65461814865468";
             
             //Act
-            var playerInfo = await accountDbReaderService.GetAccountInfo(accountServiceId);
+            var playerInfo = await accountDbReaderService.GetAccountModel(accountServiceId);
             
             //Assert
             Assert.IsNull(playerInfo);

@@ -22,8 +22,8 @@ namespace DataLayer.Tables
         
         [Required] public string ServiceId { get; set; }
         [Required] public string Username { get; set; }
-        [Required] public int RegularCurrency { get; set; }
-        [Required] public int PremiumCurrency { get; set; }
+        [NotMapped] public int RegularCurrency { get; set; }
+        [NotMapped] public int PremiumCurrency { get; set; }
         [Required] public int PointsForBigLootbox { get; set; }
         [Required] public int PointsForSmallLootbox { get; set; }
         [Required] public DateTime CreationDate { get; set; }

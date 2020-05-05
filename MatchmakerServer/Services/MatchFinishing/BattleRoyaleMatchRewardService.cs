@@ -24,26 +24,14 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             {
                 WarshipRatingDelta = GetWarshipRatingDelta(placeInMatch, currentWarshipRating),
                 PremiumCurrencyDelta = 0,
-                RegularCurrencyDelta = GetRegularCurrencyDelta(placeInMatch, currentWarshipRating),
+                RegularCurrencyDelta = 0,
                 JsonMatchResultDetails = null,
                 PointsForBigChest = 0,
                 PointsForSmallLootbox = GetPointsForSmallLootbox(placeInMatch, currentWarshipRating)
             };
             return result;
         }
-
-        private int GetRegularCurrencyDelta(int placeInMatch, int currentWarshipRating)
-        {
-            if (placeInMatch < 5)
-            {
-                return 20;
-            }
-            else
-            {
-                return 40;
-            }
-        }
-        
+            
         private int GetPointsForSmallLootbox(int placeInMatch, int currentWarshipRating)
         {
             if (placeInMatch < 5)

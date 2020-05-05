@@ -11,7 +11,7 @@ namespace AmoebaGameMatcherServer
         {
             serviceCollection.AddTransient<LobbyModelFacadeService>();
             serviceCollection.AddTransient<WarshipRatingScaleService>();
-            serviceCollection.AddTransient<WarshipPowerScaleService>();
+            serviceCollection.AddTransient<WarshipPowerScaleModelStorage>();
             serviceCollection.AddTransient<AccountFacadeService>();
             serviceCollection.AddTransient<AccountDbReaderService>();
             serviceCollection.AddTransient<AccountRegistrationService>();

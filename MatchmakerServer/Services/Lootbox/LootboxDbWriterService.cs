@@ -21,7 +21,7 @@ namespace AmoebaGameMatcherServer.Controllers
             this.dbContext = dbContext;
         }
         
-        public async Task Write(string playerServiceId, LootboxData lootboxData)
+        public async Task Write(string playerServiceId, LootboxModel lootboxModel)
         {
             Account account = await dbContext.Accounts
                 .Where(account1 => account1.ServiceId == playerServiceId)
@@ -34,12 +34,13 @@ namespace AmoebaGameMatcherServer.Controllers
                 LootboxType = LootboxType.Small,
                 LootboxPrizePointsForSmallChests = new List<LootboxPrizePointsForSmallLootbox>(),
                 LootboxPrizeRegularCurrencies = new List<LootboxPrizeRegularCurrency>(),
+                LootboxPrizeWarshipPowerPoints = new List<LootboxPrizeWarshipPowerPoints>(),
                 AccountId = account.Id,
                 CreationDate = DateTime.UtcNow,
                 WasShown = false
             };
 
-            foreach (var prize in lootboxData.Prizes)
+            foreach (LootboxPrizeModel prize in lootboxModel.Prizes)
             {
                 switch (prize.LootboxPrizeType)
                 {
@@ -54,6 +55,21 @@ namespace AmoebaGameMatcherServer.Controllers
                         {
                             Quantity = prize.Quantity
                         });
+                        break;
+                    case LootboxPrizeType.WarshipPowerPoints:
+                        if (prize.WarshipId != null)
+                        {
+                            var lootboxPrizeWarshipPowerPoints = new LootboxPrizeWarshipPowerPoints
+                            {
+                                Quantity = prize.Quantity,
+                                WarshipId = prize.WarshipId.Value
+                            };
+                            lootboxDb.LootboxPrizeWarshipPowerPoints.Add(lootboxPrizeWarshipPowerPoints);
+                        }
+                        else
+                        {
+                            throw new Exception($"Не установлен {nameof(prize.WarshipId)}");
+                        }
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

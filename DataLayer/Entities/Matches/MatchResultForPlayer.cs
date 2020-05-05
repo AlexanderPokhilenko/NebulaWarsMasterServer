@@ -9,7 +9,6 @@ namespace DataLayer.Tables
         [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
         
         [Required] public int MatchId { get; set; }
-        // [Required] public int AccountId { get; set; } 
         [Required] public int WarshipId { get; set; }
         
         [Required] public bool WasShown { get; set; }

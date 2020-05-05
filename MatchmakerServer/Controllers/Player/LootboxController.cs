@@ -26,9 +26,9 @@ namespace AmoebaGameMatcherServer.Controllers
                 return BadRequest();
             }
 
-            LootboxData lootboxData = await lootboxFacadeService.TryGetLootboxData(playerServiceId);
+            LootboxModel lootboxModel = await lootboxFacadeService.TryGetLootboxData(playerServiceId);
             
-            return DichSerialize(lootboxData);
+            return DichSerialize(lootboxModel);
         }
         
         private string DichSerialize<T>(T response)

@@ -14,18 +14,18 @@ namespace AmoebaGameMatcherServer.Controllers
         private readonly AccountFacadeService accountFacadeService;
         private readonly NotShownRewardDbUpdaterService notShownRewardDbUpdaterService;
         private readonly WarshipRatingScaleService warshipRatingScaleService;
-        private readonly WarshipPowerScaleService warshipPowerScaleService;
+        private readonly WarshipPowerScaleModelStorage warshipPowerScaleModelStorage;
 
         public LobbyModelFacadeService(AccountFacadeService accountFacadeService, 
             NotShownRewardDbUpdaterService notShownRewardDbUpdaterService, 
             WarshipRatingScaleService warshipRatingScaleService,
-            WarshipPowerScaleService warshipPowerScaleService
+            WarshipPowerScaleModelStorage warshipPowerScaleModelStorage
         )
         {
             this.accountFacadeService = accountFacadeService;
             this.notShownRewardDbUpdaterService = notShownRewardDbUpdaterService;
             this.warshipRatingScaleService = warshipRatingScaleService;
-            this.warshipPowerScaleService = warshipPowerScaleService;
+            this.warshipPowerScaleModelStorage = warshipPowerScaleModelStorage;
         }
 
         public async Task<LobbyModel> Create([NotNull] string playerServiceId)
@@ -49,7 +49,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 throw new Exception($"{nameof(warshipRatingScaleModel)} was null");
             }
 
-            WarshipPowerScaleModel warshipPowerScaleModel = warshipPowerScaleService.Create();
+            WarshipPowerScaleModel warshipPowerScaleModel = warshipPowerScaleModelStorage.Create();
             if (warshipPowerScaleModel == null)
             {
                 throw new Exception($"{nameof(warshipPowerScaleModel)} was null");

@@ -43,7 +43,9 @@ namespace AmoebaGameMatcherServer.Controllers
         public ActionResult<string> DeleteFromQueue([FromForm]string playerId)
         {
             if (string.IsNullOrEmpty(playerId))
+            {
                 return BadRequest();
+            }
 
             if (queueSingletonService.TryRemovePlayerFromQueue(playerId))
             {
@@ -66,7 +68,7 @@ namespace AmoebaGameMatcherServer.Controllers
             {
                 return BadRequest();
             }
-            GameMatcherResponse matcherResponse = await matchmakerFacadeService.GetMatchData(playerId, warshipId);
+            MatchmakerResponse matcherResponse = await matchmakerFacadeService.GetMatchData(playerId, warshipId);
             return DichSerialize(matcherResponse);
         }
 

@@ -37,7 +37,7 @@ namespace AmoebaGameMatcherServer.Services.PlayerQueueing
             
             
             QueueInfoForPlayer playerInfo = new QueueInfoForPlayer(warship.Account.ServiceId, warship.AccountId, 
-                warship.WarshipType.Name, warship.CombatPowerLevel, warshipId, DateTime.UtcNow);
+                warship.WarshipType.Name, warship.PowerLevel, warshipId, DateTime.UtcNow);
             return battleRoyaleQueueSingletonServiceService.TryEnqueuePlayer(playerInfo);
         }
     }

@@ -16,15 +16,15 @@ namespace AmoebaGameMatcherServer.Controllers
             lootboxPrizeFactory = new SmallLootboxPrizeFactory();
         }
         
-        public LootboxData Create()
+        public LootboxModel Create(int[] warshipIds)
         {
-            LootboxData result = new LootboxData()
+            LootboxModel result = new LootboxModel()
             {
-                Prizes = new List<LootboxPrizeData>(NumberOfPrizes)
+                Prizes = new List<LootboxPrizeModel>(NumberOfPrizes)
             };
             for (int i = 0; i < NumberOfPrizes; i++)
             {
-                LootboxPrizeData prize = lootboxPrizeFactory.Create();
+                LootboxPrizeModel prize = lootboxPrizeFactory.Create(warshipIds);
                 result.Prizes.Add(prize);
             }
 

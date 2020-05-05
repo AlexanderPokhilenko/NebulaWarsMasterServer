@@ -38,8 +38,8 @@ namespace AmoebaGameMatcherServer.Controllers
             // UiContainerModel skinsContainer = await shopSkinsService.GetOrCreate(playerServiceId);
             UiContainerModel lootboxContainer = shopLootboxService.Get();
             result.UiContainerModel.Add(lootboxContainer);
-            // UiContainerModel gemsContainer = gemsService.Create();
-            // UiContainerModel regularCurrencyContainer = regularCurrencyService.Create();
+            // UiContainerModel gemsContainer = gemsService.BuyImprovement();
+            // UiContainerModel regularCurrencyContainer = regularCurrencyService.BuyImprovement();
 
             return result;
         }

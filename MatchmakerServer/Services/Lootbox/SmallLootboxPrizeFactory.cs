@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Controllers
@@ -10,27 +11,38 @@ namespace AmoebaGameMatcherServer.Controllers
     {
         private readonly Random random = new Random();
         
-        public LootboxPrizeData Create()
+        public LootboxPrizeModel Create(int[] warshipIds)
         {
-            LootboxPrizeType prizeType = (LootboxPrizeType) random.Next(2);
-            int quantity;
+            int length = Enum.GetNames(typeof(LootboxPrizeType)).Length;
+            LootboxPrizeType prizeType = (LootboxPrizeType) random.Next(length);
             switch (prizeType)
             {
                 case LootboxPrizeType.RegularCurrency:
-                    quantity = random.Next(66);
-                    break;
+                    return new LootboxPrizeModel
+                    {
+                        Quantity = random.Next(66),
+                        LootboxPrizeType = LootboxPrizeType.RegularCurrency
+                    };
+                case LootboxPrizeType.WarshipPowerPoints:
+                {
+                    int warshipIndex = random.Next(warshipIds.Length);
+                    int warshipId = warshipIds[warshipIndex];
+                    return new LootboxPrizeModel
+                    {
+                        Quantity = random.Next(66),
+                        LootboxPrizeType = LootboxPrizeType.WarshipPowerPoints,
+                        WarshipId = warshipId
+                    };
+                }
                 case LootboxPrizeType.PointsForSmallLootbox:
-                    quantity = random.Next(26);
-                    break;
+                    return new LootboxPrizeModel
+                    {
+                        Quantity = random.Next(44),
+                        LootboxPrizeType = LootboxPrizeType.PointsForSmallLootbox
+                    };
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new Exception("Неизвестный тип подарка");
             }
-            
-            return new LootboxPrizeData
-            {
-                LootboxPrizeType = prizeType,
-                Quantity = quantity
-            };
         }
     }
 }
