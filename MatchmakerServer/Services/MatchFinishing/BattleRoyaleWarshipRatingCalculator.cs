@@ -63,7 +63,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             
             //Если значение рейтинга корабля больше максимального в таблице, то пусть рейтинг вычисляется по самому 
             //жёсткому правилу.
-            if (maxRangeRating == default)
+            if (maxRangeRating == 0)
             {
                 maxRangeRating = ratingDeltaTable.Keys.Last();
             }
