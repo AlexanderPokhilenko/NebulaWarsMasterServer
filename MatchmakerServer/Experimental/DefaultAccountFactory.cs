@@ -24,7 +24,6 @@ namespace AmoebaGameMatcherServer.Services
                 PremiumCurrency = defaultPremiumCurrency,
                 CreationDate = DateTime.UtcNow,
                 RegularCurrency = defaultRegularCurrency,
-                PointsForBigLootbox = defaultPointsForBigChest,
                 PointsForSmallLootbox = defaultPointsForSmallChest,
                 Warships = new List<Warship>
                 {

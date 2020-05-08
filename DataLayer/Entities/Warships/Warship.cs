@@ -21,7 +21,7 @@ namespace DataLayer.Tables
         [Required] public int AccountId { get; set; }
         [Required] public int WarshipTypeId { get; set; }
         
-        [Required] public int PowerLevel { get; set; }
+        [NotMapped] public int PowerLevel { get; set; }
         [NotMapped] public int PowerPoints { get; set; }
         [NotMapped] public int Rating { get; set; }
         

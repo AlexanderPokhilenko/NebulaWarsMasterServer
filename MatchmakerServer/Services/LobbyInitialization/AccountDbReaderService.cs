@@ -48,6 +48,13 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                 warship.PowerPoints = await dbContext.LootboxPrizeWarshipPowerPoints
                     .Where(powerPoints => powerPoints.WarshipId == warship.Id)
                     .SumAsync(powerPoints => powerPoints.Quantity);
+                warship.PowerPoints -= await dbContext.WarshipImprovementPurchases
+                    .Where(purchase => purchase.WarshipId == warship.Id)
+                    .SumAsync(purchase => purchase.SpentPowerPoints);
+                warship.PowerLevel = await dbContext.WarshipImprovementPurchases
+                    .Where(purchase => purchase.WarshipId == warship.Id)
+                    .DefaultIfEmpty()
+                    .MaxAsync(purchase => purchase.ObtainedPowerLevel);
             }
 
             //Заполнить рейтинг аккаунта
@@ -67,7 +74,8 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
             account.RegularCurrency -= await dbContext.WarshipImprovementPurchases
                 .Where(purchase => purchase.Warship.AccountId == account.Id)
                 .SumAsync(purchase => purchase.RegularCurrencyCost);
-            
+
+      
             return GetAccountModel(account);
         }
 
@@ -79,7 +87,6 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                 Username = account.Username,
                 PremiumCurrency = account.PremiumCurrency,
                 RegularCurrency = account.RegularCurrency,
-                PointsForBigLootbox = account.PointsForBigLootbox,
                 PointsForSmallLootbox = account.PointsForSmallLootbox,
                 AccountRating = account.Rating,
                 Warships = new List<WarshipModel>()

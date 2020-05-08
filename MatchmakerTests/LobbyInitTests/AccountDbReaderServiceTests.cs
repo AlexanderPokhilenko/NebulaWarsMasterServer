@@ -45,7 +45,6 @@ namespace MatchmakerTest
             Assert.AreEqual(accountRating, playerInfo.AccountRating);
             Assert.AreEqual(account.PremiumCurrency, playerInfo.PremiumCurrency);
             Assert.AreEqual(account.RegularCurrency, playerInfo.RegularCurrency);
-            Assert.AreEqual(account.PointsForBigLootbox, playerInfo.PointsForBigLootbox);
             Assert.AreEqual(account.PointsForSmallLootbox, playerInfo.PointsForSmallLootbox);
         }
         

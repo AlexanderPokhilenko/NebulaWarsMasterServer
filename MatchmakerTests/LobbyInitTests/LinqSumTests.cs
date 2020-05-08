@@ -49,7 +49,6 @@ namespace MatchmakerTest
                 ServiceId = UniqueStringFactory.Create(),
                 CreationDate = DateTime.Now,
                 RegularCurrency = 24,
-                PointsForBigLootbox = 54,
                 PointsForSmallLootbox = 5,
                 Warships = new List<Warship>()
                 {

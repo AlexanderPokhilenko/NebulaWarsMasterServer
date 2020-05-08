@@ -10,6 +10,7 @@ namespace DataLayer.Tables
         
         [Required] public int WarshipId { get; set; }
         [Required] public int RegularCurrencyCost { get; set; }
+        [Required] public int SpentPowerPoints { get; set; }
         [Required] public int ObtainedPowerLevel { get; set; }
         [Required] public DateTime DateTime { get; set; }
         [ForeignKey("WarshipId")] public virtual Warship Warship { get; set; }

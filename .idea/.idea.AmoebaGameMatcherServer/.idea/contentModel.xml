@@ -245,6 +245,7 @@
             <e p="AccountRegistrationService.cs" t="Include" />
             <e p="LobbyModelFacadeService.cs" t="Include" />
             <e p="NotShownRewardDbUpdaterService.cs" t="Include" />
+            <e p="WarshipImprovementFacadeService.cs" t="Include" />
             <e p="WarshipPowerScaleModelStorage.cs" t="Include" />
             <e p="WarshipRatingScaleService.cs" t="Include" />
           </e>
