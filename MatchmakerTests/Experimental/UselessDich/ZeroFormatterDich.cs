@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AmoebaGameMatcherServer.NetworkLibrary;
 using MatchmakerTest.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NetworkLibrary.NetworkLibrary.Http;
@@ -59,6 +60,83 @@ namespace MatchmakerTest
                 Console.WriteLine(warship.PowerPoints);
                 Console.WriteLine(warship.PowerLevel);
             }
+        }
+
+        [TestMethod]
+        public void TestKeyValuePair()
+        {
+            //Arrange
+            TestKeyValuePair test = new TestKeyValuePair(new[]
+            {
+                new KeyValuePair<ushort, SevenBytes>(5,new SevenBytes(1,1,1,1,1,1,1)), 
+            }, new[]
+            {
+                new KeyValuePair<ushort, ushort>(5,9) 
+            });
+            
+            //Act
+            
+            byte[] data = ZeroFormatterSerializer.Serialize(test);
+            TestKeyValuePair restoredPositionMessage = ZeroFormatterSerializer.Deserialize<TestKeyValuePair>(data);
+            
+            //Assert
+            int expected = 4+4  +4  +2+7 ;
+            Assert.AreEqual(expected, data.Length);
+            CollectionAssert.AreEqual(test.__RadiusInfo, restoredPositionMessage.__RadiusInfo);
+            CollectionAssert.AreEqual(test.EntitiesInfo, restoredPositionMessage.EntitiesInfo);
+        }
+
+        /// <summary>
+        /// Тот же объект с Tuple больше на два байта
+        /// </summary>
+        [TestMethod]
+        public void TuplePair()
+        {
+            //Arrange 
+            TestTuple test = new TestTuple(new Tuple<ushort, SevenBytes>[]
+            {
+                new Tuple<ushort, SevenBytes>(4, new SevenBytes(1,1,1,1,1,1,1)) 
+            }, new Tuple<ushort, ushort>[]
+            {
+                new Tuple<ushort, ushort>(1,5), 
+            });
+            
+            //Act
+            byte[] data = ZeroFormatterSerializer.Serialize(test);
+            TestTuple restoredPositionMessage = ZeroFormatterSerializer.Deserialize<TestTuple>(data);
+            
+            //Assert
+            int expected = 4+4  +4  +2+7 ;
+            Assert.AreEqual(expected, data.Length);
+            CollectionAssert.AreEqual(test.__RadiusInfo, restoredPositionMessage.__RadiusInfo);
+            CollectionAssert.AreEqual(test.EntitiesInfo, restoredPositionMessage.EntitiesInfo);
+        } 
+        
+        /// <summary>
+        /// Тот же объект с Tuple больше на два байта
+        /// </summary>
+        [TestMethod]
+        public void TestDictionary()
+        {
+            //Arrange 
+            TestDictionaryStruct test = new TestDictionaryStruct(new Dictionary<ushort, SevenBytes>
+            {
+                {UInt16.MaxValue, new SevenBytes(1,1,1,11,1,1,1)}
+            }, 
+            new  Dictionary<ushort, ushort>
+            {
+                {1,5}
+            });
+            
+            //Act
+            byte[] data = ZeroFormatterSerializer.Serialize(test);
+            TestDictionaryStruct restoredPositionMessage = ZeroFormatterSerializer.Deserialize<TestDictionaryStruct>(data);
+            
+            //Assert
+            int expected = 4+4  +4  +2+7 ;
+            Assert.AreEqual(expected, data.Length);
+            CollectionAssert.AreEqual(test.__RadiusInfo, restoredPositionMessage.__RadiusInfo);
+            CollectionAssert.AreEqual(test.EntitiesInfo, restoredPositionMessage.EntitiesInfo);
         }
     }
 }

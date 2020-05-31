@@ -1,13 +1,10 @@
-﻿using AmoebaGameMatcherServer.Services;
-using AmoebaGameMatcherServer.Services.GoogleApi;
+﻿using AmoebaGameMatcherServer.Services.GoogleApi;
 using AmoebaGameMatcherServer.Services.MatchCreationInitiation;
 using AmoebaGameMatcherServer.Services.Queues;
 using DataLayer;
-using Google.Apis.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AmoebaGameMatcherServer

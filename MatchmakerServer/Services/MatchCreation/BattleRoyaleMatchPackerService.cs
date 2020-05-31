@@ -106,10 +106,13 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
 
     public static class BotTemporaryIdFactory
     {
-        private static int lastId=1_000_000;
-        public static int Create()
+        private static ushort lastId=32_000;
+        public static ushort Create()
         {
-            lastId++;
+            unchecked
+            {
+                lastId++;
+            }
             return lastId;
         }
     }

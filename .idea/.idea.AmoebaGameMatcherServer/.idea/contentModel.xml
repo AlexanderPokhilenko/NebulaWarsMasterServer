@@ -152,6 +152,7 @@
             <e p="WarshipPowerScaleModel.cs" t="Include" />
             <e p="WarshipRatingScaleModel.cs" t="Include" />
           </e>
+          <e p="Test.cs" t="Include" />
           <e p="Udp" t="Include">
             <e p="Common" t="Include">
               <e p="DeliveryConfirmationMessage.cs" t="Include" />

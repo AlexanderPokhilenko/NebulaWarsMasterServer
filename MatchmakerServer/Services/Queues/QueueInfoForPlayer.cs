@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services.Queues
@@ -19,7 +20,11 @@ namespace AmoebaGameMatcherServer.Services.Queues
             playerInfoForMatch = new PlayerInfoForMatch();
             playerInfoForMatch.ServiceId = playerServiceId;
             playerInfoForMatch.AccountId = accountId;
-            playerInfoForMatch.TemporaryId = accountId;
+            unchecked
+            {
+                playerInfoForMatch.TemporaryId = (ushort) accountId;
+            }
+            
             playerInfoForMatch.PrefabName = warshipPrefabName;
             playerInfoForMatch.WarshipCombatPowerLevel = warshipCombatPowerLevel;
             this.warshipId = warshipId;
