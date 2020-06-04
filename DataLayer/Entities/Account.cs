@@ -11,7 +11,7 @@ namespace DataLayer.Tables
     public class Account
     {
         [Column("id")] [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
-        [Column("service_id")] [Required] public string ServiceId { get; set; }
+        [Column("ServiceId")] [Required] public string ServiceId { get; set; }
         [Column("username")] [Required] public string Username { get; set; }
         [Column("regular_currency")] [Required] public int RegularCurrency { get; set; }
         [Column("premium_currency")] [Required] public int PremiumCurrency { get; set; }

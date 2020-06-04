@@ -12,24 +12,25 @@ namespace DeleteMe1
     {
         static void Main()
         {
-            string databaseName = "DapperTests6";    
+            string databaseName = "DapperTests7";    
             string connectionString = DbConfigIgnore.GetConnectionString(databaseName);
             ApplicationDbContext dbContext = new DbContextFactory().Create(databaseName);
 
             DbWork dbWork = new DbWork(dbContext);
-            // dbWork.TryInsert();
+            dbWork.TryInsert();
             string serviceId = dbWork.GetSomeServiceId();
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
                 // var parameters = new { serviceDichId = serviceId};
 
-                string sql1 = @"select   a.*, w.*, wt.*
-	                                from accounts a
-	                                inner join warships w on a.id = w.account_id 
-	                                inner join warship_types wt on w.warship_type_id = wt.id
+                string sql1 = @"select   *
+	                                from accounts 
                 ";
-                
-                Dictionary<int, Account> lookup = new Dictionary<int, Account>();
+                var accounts1 = connection.Query<Account>(sql1);
+                foreach (var account in accounts1)
+                {
+                    Console.WriteLine(account.ToString());
+                }
                 
                 // IQueryable<Account> accounts = connection
                 //     .Query<Account, Warship, Account>(sql1, (a, w) =>
@@ -48,16 +49,22 @@ namespace DeleteMe1
                 //         return account;
                 //     }).AsQueryable();
 
-                int index = 0;
-                var accounts2 = connection
-                    .Query<Account, Warship, WarshipType,  Account>(sql1, (a, w, wt) =>
-                    {
-                        index++;
-                        Console.WriteLine($"index {index} "+a);
-                        Console.WriteLine($"\t\tindex {index} "+w);
-                        Console.WriteLine($"\t\t\t\tindex {index} "+wt);
-                        return null;
-                    }).AsQueryable();
+                // string sql2 = @"select   a.*, w.*, wt.*
+	               //                  from accounts a
+	               //                  inner join warships w on a.id = w.account_id 
+	               //                  inner join warship_types wt on w.warship_type_id = wt.id
+                // ";
+                //
+                // Dictionary<int, Account> lookup = new Dictionary<int, Account>();
+                //
+                // var accounts2 = connection
+                //     .Query<Account, Warship, WarshipType,  Account>(sql1, (a, w, wt) =>
+                //     {
+                //         Console.WriteLine($" "+a);
+                //         Console.WriteLine($"\t\t "+w);
+                //         Console.WriteLine($"\t\t\t\t "+wt);
+                //         return null;
+                //     }).AsQueryable();
             }
         }
     }

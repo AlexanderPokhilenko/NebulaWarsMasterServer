@@ -80,6 +80,7 @@
           </e>
         </e>
         <e p="Program.cs" t="Include" />
+        <e p="test.sql" t="Include" />
       </e>
       <e p="IntegrationTests" t="IncludeRecursive">
         <e p="BaseIntegrationFixture.cs" t="Include" />
