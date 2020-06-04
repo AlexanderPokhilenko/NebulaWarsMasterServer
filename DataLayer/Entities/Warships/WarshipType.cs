@@ -1,35 +1,31 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.Text;
 
 namespace DataLayer.Tables
 {
-    [Table("WarshipTypes")]
+    [Table("warship_types")]
     public class WarshipType
     {
-        private readonly ILazyLoader lazyLoader;
-        public WarshipType()
-        {
-        }
-        public WarshipType(ILazyLoader lazyLoader)
-        {
-            this.lazyLoader = lazyLoader;
-        }
+        [Column("id")] [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
+        [Column("name")] [Required] public string Name { get; set; }
+        [Column("description")] [Required] public string Description { get; set; }
+        [Column("warship_combat_role_id")] [Required] public int WarshipCombatRoleId { get; set; }
         
-        [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
-        [Required] public string Name { get; set; }
-        [Required] public string Description { get; set; }
-        [Required] public int WarshipCombatRoleId { get; set; }
-        
-        [ForeignKey("WarshipCombatRoleId")]
-        public virtual WarshipCombatRole WarshipCombatRole { get; set; }
+        public WarshipCombatRole WarshipCombatRole { get; set; }
 
-        private List<Warship> warships;
-        public virtual List<Warship> Warships 
+        public IEnumerable<Warship> Warships { get; set; }
+
+        public override string ToString()
         {
-            get => lazyLoader.Load(this, ref warships);
-            set => warships = value;
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append($"{GetType().Name} ");
+            stringBuilder.Append($"{nameof(Id)} {Id} ");
+            stringBuilder.Append($"{nameof(Name)} {Name} ");
+            stringBuilder.Append($"{nameof(Description)} {Description} ");
+            stringBuilder.Append($"{nameof(WarshipCombatRoleId)} {WarshipCombatRoleId} ");
+            return stringBuilder.ToString();
         }
     }
 }

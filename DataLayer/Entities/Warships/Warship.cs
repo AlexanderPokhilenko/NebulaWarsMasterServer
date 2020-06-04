@@ -1,45 +1,39 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace DataLayer.Tables
 {
+    [Table("warships")]
     public class Warship
-    {
-        private readonly ILazyLoader lazyLoader;
-        public Warship()
-        {
-        }
-        public Warship(ILazyLoader lazyLoader)
-        {
-            this.lazyLoader = lazyLoader;
-        }
-        
-        [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
-        
-        [Required] public int AccountId { get; set; }
-        [Required] public int WarshipTypeId { get; set; }
+    { 
+        [Column("id")] [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
+        [Column("account_id")] [Required] public int AccountId { get; set; }
+        [Column("warship_type_id")] [Required] public int WarshipTypeId { get; set; }
         
         [NotMapped] public int PowerLevel { get; set; }
         [NotMapped] public int PowerPoints { get; set; }
         [NotMapped] public int Rating { get; set; }
         
-        [ForeignKey("AccountId")] public virtual  Account Account { get; set; }
-        [ForeignKey("WarshipTypeId")] public virtual WarshipType WarshipType { get; set; }
+        public Account Account { get; set; }
+        public WarshipType WarshipType { get; set; }
         
-        private List<MatchResultForPlayer> matchResultForPlayers;
-        public virtual List<MatchResultForPlayer> MatchResultForPlayers 
+        public List<MatchResultForPlayer> MatchResultForPlayers{ get; set; }
+        // public List<WarshipImprovementPurchase> WarshipImprovementPurchases { get; set; }
+
+        public override string ToString()
         {
-            get => lazyLoader.Load(this, ref matchResultForPlayers);
-            set => matchResultForPlayers = value;
-        }
-        
-        private List<WarshipImprovementPurchase> warshipImprovementPurchases;
-        public virtual List<WarshipImprovementPurchase> WarshipImprovementPurchases 
-        {
-            get => lazyLoader.Load(this, ref warshipImprovementPurchases);
-            set => warshipImprovementPurchases = value;
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append($"{GetType().Name} ");
+            stringBuilder.Append($"{nameof(Id)} {Id} ");
+            stringBuilder.Append($"{nameof(WarshipTypeId)} {WarshipTypeId} ");
+            stringBuilder.Append($"{nameof(PowerLevel)} {PowerLevel} ");
+            stringBuilder.Append($"{nameof(PowerPoints)} {PowerPoints} ");
+            stringBuilder.Append($"{nameof(Rating)} {Rating} ");
+            stringBuilder.Append($"{nameof(MatchResultForPlayers)} {MatchResultForPlayers?.Count} ");
+            return stringBuilder.ToString();
         }
     }
 }

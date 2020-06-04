@@ -2,44 +2,40 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace DataLayer.Tables
 {
-    [Table("Accounts")]
+    [Table("accounts")]
     public class Account
     {
-        private readonly ILazyLoader lazyLoader;
-        public Account()
-        {
-        }
-        public Account(ILazyLoader lazyLoader)
-        {
-            this.lazyLoader = lazyLoader;
-        }
-        
-        [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
-        
-        [Required] public string ServiceId { get; set; }
-        [Required] public string Username { get; set; }
-        [NotMapped] public int RegularCurrency { get; set; }
-        [NotMapped] public int PremiumCurrency { get; set; }
-        [Required] public int PointsForSmallLootbox { get; set; }
-        [Required] public DateTime CreationDate { get; set; }
-        [NotMapped] public int Rating { get; set; }
+        [Column("id")] [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
+        [Column("service_id")] [Required] public string ServiceId { get; set; }
+        [Column("username")] [Required] public string Username { get; set; }
+        [Column("regular_currency")] [Required] public int RegularCurrency { get; set; }
+        [Column("premium_currency")] [Required] public int PremiumCurrency { get; set; }
+        [Column("points_for_small_lootbox")] [Required] public int PointsForSmallLootbox { get; set; }
+        [Column("creation_date")] [Required] public DateTime CreationDate { get; set; }
+        [Column("rating")] [Required] public int Rating { get; set; }
 
-        private List<Warship> warships;
-        public virtual List<Warship> Warships
+        public List<Warship> Warships { get; set; }
+        // public List<LootboxDb> Lootboxes{ get; set; }
+
+        public override string ToString()
         {
-            get => lazyLoader.Load(this, ref warships);
-            set => warships = value;
-        }
-        
-        private List<LootboxDb> lootboxes;
-        public virtual List<LootboxDb> Lootboxes
-        {
-            get => lazyLoader.Load(this, ref lootboxes);
-            set => lootboxes = value;
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append($"{GetType().Name} ");
+            stringBuilder.Append($"{nameof(Id)} {Id} ");
+            stringBuilder.Append($"{nameof(ServiceId)} {ServiceId} ");
+            stringBuilder.Append($"{nameof(RegularCurrency)} {RegularCurrency} ");
+            stringBuilder.Append($"{nameof(PremiumCurrency)} {PremiumCurrency} ");
+            stringBuilder.Append($"{nameof(PointsForSmallLootbox)} {PointsForSmallLootbox} ");
+            stringBuilder.Append($"{nameof(CreationDate)} {CreationDate} ");
+            stringBuilder.Append($"{nameof(Rating)} {Rating} ");
+            stringBuilder.Append($"warshipsCount {Warships?.Count} ");
+            // stringBuilder.Append($"lootboxesCount {Lootboxes?.Count} ");
+            return stringBuilder.ToString();
         }
     }
 }

@@ -1,18 +1,20 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace DataLayer.Tables
-{
-    public class WarshipImprovementPurchase
-    {
-        [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
-        
-        [Required] public int WarshipId { get; set; }
-        [Required] public int RegularCurrencyCost { get; set; }
-        [Required] public int SpentPowerPoints { get; set; }
-        [Required] public int ObtainedPowerLevel { get; set; }
-        [Required] public DateTime DateTime { get; set; }
-        [ForeignKey("WarshipId")] public virtual Warship Warship { get; set; }
-    }
-}
+﻿// using System;
+// using System.ComponentModel.DataAnnotations;
+// using System.ComponentModel.DataAnnotations.Schema;
+//
+// namespace DataLayer.Tables
+// {
+//     [Table("warship_improvement_purchases")]
+//     public class WarshipImprovementPurchase
+//     {
+//         [Column("id")] [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
+//         
+//         [Column("warshipId")] [Required] public int WarshipId { get; set; }
+//         [Column("regularCurrencyCost")] [Required] public int RegularCurrencyCost { get; set; }
+//         [Column("spentPowerPoints")] [Required] public int SpentPowerPoints { get; set; }
+//         [Column("obtainedPowerLevel")] [Required] public int ObtainedPowerLevel { get; set; }
+//         [Column("dateTime")] [Required] public DateTime DateTime { get; set; }
+//         
+//         [ForeignKey("WarshipId")] public virtual Warship Warship { get; set; }
+//     }
+// }

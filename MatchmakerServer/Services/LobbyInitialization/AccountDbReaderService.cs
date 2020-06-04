@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,34 +29,51 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
         [ItemCanBeNull]
         public async Task<AccountModel> GetAccountModel([NotNull] string serviceId)
         {
+            // (
+                //        select sum(mr1.""WarshipRatingDelta"")
+                //            from ""MatchResultForPlayers"" mr1
+                //            where mr1.""WarshipId""  = mr.""WarshipId"" 
+                //    )
+    string sql = @"select   a.""Id"", 
+                            a.""ServiceId"",
+                            a.""Username"", 
+                            a.""RegularCurrency"", 
+                            a.""PremiumCurrency"", 
+                            a.""PointsForSmallLootbox"", 
+                            a.""CreationDate"", 
+                            sum(mr.""WarshipRatingDelta"") as Rating
+                            
+
+                 from ""Accounts"" a
+                 inner join ""Warships"" w on a.""Id"" = w.""AccountId""  
+                 inner join ""MatchResultForPlayers"" mr on w.""Id"" = mr.""WarshipId""  
+                 inner join ""WarshipTypes"" wt on w.""WarshipTypeId"" = wt.""Id"" 
+                 where a.""ServiceId"" = {0}
+                 
+                 GROUP BY a.""Id"" 
+                 ";
+
+            
             Account account = await dbContext.Accounts
-                .Include(account1 => account1.Warships)
-                    .ThenInclude(warship => warship.WarshipType)
-                .SingleOrDefaultAsync(account1 => account1.ServiceId == serviceId);
+                .FromSql(new RawSqlString(sql), serviceId)
+                .FirstOrDefaultAsync();
 
             if (account == null)
             {
+                Console.WriteLine($"account == null");
                 return null;
             }
+            
+            Console.WriteLine(account.Id);
+            Console.WriteLine(account.Rating);
+            Console.WriteLine(account.Username);
+            Console.WriteLine(account.CreationDate);
+            Console.WriteLine(account.PremiumCurrency);
+            Console.WriteLine(account.RegularCurrency);
+            Console.WriteLine(account.ServiceId);
+            Console.WriteLine(account.PointsForSmallLootbox);
 
-            //Заполнить рейтинг и значение очков силы для кораблей
-            foreach (var warship in account.Warships)
-            {
-                warship.Rating = await dbContext.MatchResultForPlayers
-                     .Where(matchResultForPlayer =>
-                         matchResultForPlayer.WarshipId == warship.Id && matchResultForPlayer.WarshipRatingDelta != null)
-                     .SumAsync(result => result.WarshipRatingDelta) ?? 0;
-                warship.PowerPoints = await dbContext.LootboxPrizeWarshipPowerPoints
-                    .Where(powerPoints => powerPoints.WarshipId == warship.Id)
-                    .SumAsync(powerPoints => powerPoints.Quantity);
-                warship.PowerPoints -= await dbContext.WarshipImprovementPurchases
-                    .Where(purchase => purchase.WarshipId == warship.Id)
-                    .SumAsync(purchase => purchase.SpentPowerPoints);
-                warship.PowerLevel = await dbContext.WarshipImprovementPurchases
-                    .Where(purchase => purchase.WarshipId == warship.Id)
-                    .DefaultIfEmpty()
-                    .MaxAsync(purchase => purchase.ObtainedPowerLevel);
-            }
+            Console.WriteLine("account.Warships.Count="+account.Warships.Count);
 
             //Заполнить рейтинг аккаунта
             account.Rating = account.Warships.Sum(warship => warship.Rating);

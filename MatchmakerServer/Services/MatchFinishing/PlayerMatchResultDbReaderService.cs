@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
+using DataLayer.Tables;
 using Libraries.NetworkLibrary.Experimental;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,7 +22,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
 
         public async Task<MatchResult> GetMatchResult(int matchId, string playerServiceId)
         {
-            var matchResultDb = await dbContext.MatchResultForPlayers
+            MatchResultForPlayer matchResultDb = await dbContext.MatchResultForPlayers
                 .SingleOrDefaultAsync(rec => 
                     rec.MatchId == matchId 
                     && rec.Warship.Account.ServiceId == playerServiceId);
@@ -50,13 +51,13 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                 .Sum(value=>value.WarshipRatingDelta) ?? 0;
             
             
-            var matchResult = new MatchResult
+            MatchResult matchResult = new MatchResult
             {
-                DoubleTokens = false,
-                MatchRatingDelta = matchResultDb.WarshipRatingDelta.Value,
+                SpaceshipPrefabName = matchResultDb.Warship.WarshipType.Name,
                 CurrentSpaceshipRating = currentWarshipRating,
-                RankingRewardTokens = matchResultDb.RegularCurrencyDelta.Value,
-                SpaceshipPrefabName = matchResultDb.Warship.WarshipType.Name
+                MatchRatingDelta = matchResultDb.WarshipRatingDelta.Value,
+                PointsForSmallChest = matchResultDb.PointsForSmallChest.Value,
+                DoubleTokens = false
             };
 
             return matchResult; 

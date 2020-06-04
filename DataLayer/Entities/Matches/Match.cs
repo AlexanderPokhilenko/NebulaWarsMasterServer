@@ -2,33 +2,20 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.InteropServices;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace DataLayer.Tables
 {
-    [Table("Matches")]
+    [Table("matches")]
     public class Match
     {
-        private readonly ILazyLoader lazyLoader;
-        public Match()
-        {
-        }
-        public Match(ILazyLoader lazyLoader)
-        {
-            this.lazyLoader = lazyLoader;
-        }
-        
-        [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
-        [Required] public DateTime StartTime { get; set; }
-        public DateTime? FinishTime { get; set; }
-        [Required] public string GameServerIp { get; set; }
-        [Required] public int GameServerUdpPort { get; set; }
+        [Column("id")] [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
+        [Column("start_time")] [Required] public DateTime StartTime { get; set; }
+        [Column("finish_time")] public DateTime? FinishTime { get; set; }
+        [Column("game_server_ip")] [Required] public string GameServerIp { get; set; }
+        [Column("game_server_udp_port")] [Required] public int GameServerUdpPort { get; set; }
 
-        private List<MatchResultForPlayer> matchResultForPlayers;
-        public virtual List<MatchResultForPlayer> MatchResultForPlayers
-        {
-            get => lazyLoader.Load(this, ref matchResultForPlayers);
-            set => matchResultForPlayers = value;
-        }
+        public List<MatchResultForPlayer> MatchResultForPlayers { get; set; }
     }
 }

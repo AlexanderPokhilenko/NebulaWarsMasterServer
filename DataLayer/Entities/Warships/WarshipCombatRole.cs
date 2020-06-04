@@ -5,26 +5,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace DataLayer.Tables
 {
-    [Table("WarshipCombatRoles")]
+    [Table("warship_combat_roles")]
     public class WarshipCombatRole
-    {
-        private readonly ILazyLoader lazyLoader;
-        public WarshipCombatRole()
-        {
-        }
-        public WarshipCombatRole(ILazyLoader lazyLoader)
-        {
-            this.lazyLoader = lazyLoader;
-        }
+    {        
+        [Column("id")] [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
+        [Column("name")] [Required] public string Name { get; set; }
         
-        [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
-        [Required] public string Name { get; set; }
-        
-        private List<WarshipType> warshipTypes;
-        public virtual List<WarshipType> WarshipTypes 
-        {
-            get => lazyLoader.Load(this, ref warshipTypes);
-            set => warshipTypes = value;
-        }
+        public List<WarshipType> WarshipTypes { get; set; }
     }
 }

@@ -1,8 +1,8 @@
-﻿namespace DataLayer.Tables
-{
-    public enum LootboxType
-    {
-        Small,
-        Big
-    }
-}
+﻿// namespace DataLayer.Tables
+// {
+//     public enum LootboxType
+//     {
+//         Small,
+//         Big
+//     }
+// }

@@ -4,7 +4,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchmakerServer", "Matchma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{72A89A5D-8D64-4BC4-86F6-0FFD7B1F1E50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchmakerTests", "MatchmakerTests\MatchmakerTests.csproj", "{C0E2E203-8C80-4AC8-A6DD-D77C14C267CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{C0E2E203-8C80-4AC8-A6DD-D77C14C267CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{3205B9C2-43A4-4DA2-A0F2-794375DA311C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeleteMe1", "DeleteMe1\DeleteMe1.csproj", "{C054F515-B21B-4E47-86F3-CECE1E659A36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +28,13 @@ Global
 		{C0E2E203-8C80-4AC8-A6DD-D77C14C267CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0E2E203-8C80-4AC8-A6DD-D77C14C267CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0E2E203-8C80-4AC8-A6DD-D77C14C267CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3205B9C2-43A4-4DA2-A0F2-794375DA311C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3205B9C2-43A4-4DA2-A0F2-794375DA311C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3205B9C2-43A4-4DA2-A0F2-794375DA311C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3205B9C2-43A4-4DA2-A0F2-794375DA311C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C054F515-B21B-4E47-86F3-CECE1E659A36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C054F515-B21B-4E47-86F3-CECE1E659A36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C054F515-B21B-4E47-86F3-CECE1E659A36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C054F515-B21B-4E47-86F3-CECE1E659A36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
