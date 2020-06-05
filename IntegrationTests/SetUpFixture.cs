@@ -19,7 +19,7 @@ namespace IntegrationTests
         [OneTimeSetUp]
         public void Initialize()
         {
-            string databaseName = "IntegrationTests1";
+            string databaseName = "IntegrationTests17";
             DbContext = new DbContextFactory().Create(databaseName);
             var seeder = new DataSeeder();
             seeder.TrySeed(DbContext);
@@ -28,7 +28,6 @@ namespace IntegrationTests
 
             string connectionString = DbConfigIgnore.GetConnectionString(databaseName);
             NpgsqlConnection conn = new NpgsqlConnection(connectionString);
-            //TODO seed here
             Service = new AccountDbReaderService(conn);
         }
 

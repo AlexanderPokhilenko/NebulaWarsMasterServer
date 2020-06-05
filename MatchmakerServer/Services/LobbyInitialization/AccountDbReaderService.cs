@@ -13,8 +13,13 @@ using Npgsql;
 
 namespace AmoebaGameMatcherServer.Services.LobbyInitialization
 {
+    public class Test
+    {
+        public int WarshipRating { get; set; }
+    }
     /// <summary>
-    /// Во время загрузки данных в лобби достаёт аккаунт из БД, если он есть.
+    /// Во время загрузки данных в лобби достаёт аккаунт из БД.
+    /// Если такого аккаунта нет, то вернёт null.
     /// </summary>
     public class AccountDbReaderService
     {
@@ -33,7 +38,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
         {
             var parameters = new {serviceIdPar = serviceId};
             string sql = $@"
-            select a.*, w.""Id"", ""AccountId"", ""WarshipTypeId"", (sum(mr.""WarshipRatingDelta"")) as WarshipRating, wt.*
+            select a.*, w.*, (sum(mr.""WarshipRatingDelta"")) as ""WarshipRating"", wt.*
                 from ""Accounts"" a
                 inner join ""Warships"" w on a.""Id"" = w.""AccountId""
                 inner join ""WarshipTypes"" wt on w.""WarshipTypeId"" = wt.""Id""
@@ -44,12 +49,12 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
 
             Dictionary<int, Account> lookup = new Dictionary<int, Account>();
             IEnumerable<Account> accounts = await connection
-                .QueryAsync<Account, Warship, WarshipType, MatchResultForPlayer, Account>(sql,
-                    (a, w, wt, mr) =>
+                .QueryAsync<Account, Warship,Test, WarshipType, Account>(sql,
+                    (a, w, t,wt) =>
                     {
                         Console.WriteLine(" " + a);
                         Console.WriteLine("\t\t " + w);
-                        Console.WriteLine("\t\t\t " + mr);
+                        Console.WriteLine("\t\t\t " + t.WarshipRating);
                         Console.WriteLine("\t\t\t\t\t " + wt);
 
                         //Если такого аккаунта ещё не было
@@ -68,13 +73,11 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                             warship = w;
                             warship.WarshipType = wt;
                             account.Warships.Add(warship);
+                            account.Rating += warship.WarshipRating;
                         }
 
-                        //Обновить кол-во рейтинга на корабле и аккаунте
-                        //Добавить результат боя к списку корабля
-                        warship.MatchResultForPlayers.Add(mr);
                         return account;
-                    }, parameters);
+                    }, parameters, splitOn:"Id,WarshipRating");
 
             Console.WriteLine("count "+lookup.Count);
             switch (lookup.Count)

@@ -4,11 +4,6 @@ using Npgsql;
 
 namespace DeleteMe1
 {
-    public class AbsoluteDich
-    {
-        public long WarshipRating { get; set; }
-    }
-
     public class RewardsThatHaveNotBeenShown
     {
         public virtual int RegularCurrency {get;set;}
@@ -27,7 +22,7 @@ namespace DeleteMe1
             string serviceId = dbWork.GetSomeServiceId();
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
-                    var parameters = new {serviceIdPar = serviceId};
+                var parameters = new {serviceIdPar = serviceId};
              
                 string sql2 = $@"
                         select 

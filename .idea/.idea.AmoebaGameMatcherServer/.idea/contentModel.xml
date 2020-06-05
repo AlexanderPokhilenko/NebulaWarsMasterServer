@@ -73,24 +73,11 @@
         </e>
         <e p="readme.txt" t="Include" />
       </e>
-      <e p="DeleteMe1" t="IncludeRecursive">
-        <e p="bin" t="ExcludeRecursive" />
-        <e p="DbWork.cs" t="Include" />
-        <e p="DeleteMe1.csproj" t="IncludeRecursive" />
-        <e p="obj" t="ExcludeRecursive">
-          <e p="Debug" t="Include">
-            <e p="netcoreapp2.2" t="Include">
-              <e p="DeleteMe1.AssemblyInfo.cs" t="Include" />
-            </e>
-          </e>
-        </e>
-        <e p="Program.cs" t="Include" />
-        <e p="test.sql" t="Include" />
-      </e>
       <e p="IntegrationTests" t="IncludeRecursive">
         <e p="AccountDbReaderTests.cs" t="Include" />
         <e p="BaseIntegrationFixture.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
+        <e p="EfCoreAccountSavingTests.cs" t="Include" />
         <e p="IntegrationTests.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -294,6 +281,21 @@
         <e p="Startup.cs" t="Include" />
       </e>
       <e p="packages" t="ExcludeRecursive" />
+      <e p="SqlTesting" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="DbWork.cs" t="Include" />
+        <e p="getAccountData.sql" t="Include" />
+        <e p="getNotShownRewards.sql" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.2" t="Include">
+              <e p="SqlTesting.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="SqlTesting.csproj" t="IncludeRecursive" />
+      </e>
       <e p="UnitTests" t="IncludeRecursive">
         <e p="AutoMapperTests" t="Include">
           <e p="Test.cs" t="Include" />

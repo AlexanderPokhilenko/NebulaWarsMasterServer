@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\Unit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{3205B9C2-43A4-4DA2-A0F2-794375DA311C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeleteMe1", "DeleteMe1\DeleteMe1.csproj", "{C054F515-B21B-4E47-86F3-CECE1E659A36}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlTesting", "SqlTesting\SqlTesting.csproj", "{C054F515-B21B-4E47-86F3-CECE1E659A36}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryForTests", "LibraryForTests\LibraryForTests.csproj", "{17BE13FC-60F0-4EDC-808B-D2C506451C7C}"
 EndProject

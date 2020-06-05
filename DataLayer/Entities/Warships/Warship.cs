@@ -14,7 +14,7 @@ namespace DataLayer.Tables
         
         [NotMapped] public int PowerLevel { get; set; }
         [NotMapped] public int PowerPoints { get; set; }
-        [NotMapped] public int Rating { get; set; }
+        [NotMapped] public int WarshipRating { get; set; }
         
         public Account Account { get; set; }
         public WarshipType WarshipType { get; set; }
@@ -30,7 +30,7 @@ namespace DataLayer.Tables
             stringBuilder.Append($"{nameof(WarshipTypeId)} {WarshipTypeId} ");
             stringBuilder.Append($"{nameof(PowerLevel)} {PowerLevel} ");
             stringBuilder.Append($"{nameof(PowerPoints)} {PowerPoints} ");
-            stringBuilder.Append($"{nameof(Rating)} {Rating} ");
+            stringBuilder.Append($"{nameof(WarshipRating)} {WarshipRating} ");
             stringBuilder.Append($"{nameof(MatchResultForPlayers)} {MatchResultForPlayers?.Count} ");
             return stringBuilder.ToString();
         }

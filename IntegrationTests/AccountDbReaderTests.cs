@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using DataLayer.Tables;
 using LibraryForTests;
-using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 
 namespace IntegrationTests
@@ -17,21 +16,20 @@ namespace IntegrationTests
             //Arrange
             Account originalAccount = new TestAccountFactory()
                 .CreateAccount("egor", "egorService", 2, 9, 8);
-            int accountRating = originalAccount.Warships
+            int originalAccountRating = originalAccount.Warships
                 .SelectMany(warship => warship.MatchResultForPlayers)
-                .Sum(matchResult => matchResult.WarshipRatingDelta) ?? 0;
-            
+                .Sum(matchResult => matchResult.WarshipRatingDelta) ?? throw new Exception();
             Context.Accounts.Add(originalAccount);
             Context.SaveChanges();
-            Console.WriteLine(Context.Database.GetDbConnection().Database);
+            
             //Act
-            Console.WriteLine(originalAccount.ServiceId);
-            Account verifiableAccount = await Service.GetAccount(originalAccount.ServiceId);
+            Account account = await Service.GetAccount(originalAccount.ServiceId);
             
             //Assert
-            Assert.IsNotNull(verifiableAccount);
-            Assert.AreEqual(originalAccount.Username, verifiableAccount.Username);
-            Assert.AreEqual(accountRating, verifiableAccount.Rating);
+            Assert.IsNotNull(account);
+            Assert.AreEqual(originalAccount.Username, account.Username);
+            Assert.AreEqual(originalAccount.ServiceId, account.ServiceId);
+            Assert.AreEqual(originalAccountRating, account.Rating);
         }
     }
 }

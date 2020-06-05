@@ -53,7 +53,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             Warship warship = await dbContext.Warships
                 .SingleAsync(warship1 => warship1.Id == matchResultForPlayer.WarshipId);
             
-            int currentWarshipRating = warship.Rating;
+            int currentWarshipRating = warship.WarshipRating;
             MatchReward matchReward = battleRoyaleMatchRewardService.GetMatchReward(placeInMatch, currentWarshipRating);
 
             
@@ -67,7 +67,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             LogMatchResult(matchResultForPlayer);
             
             //изменить денормализованные показатели рейтинга
-            warship.Rating += matchResultForPlayer.WarshipRatingDelta.Value;
+            warship.WarshipRating += matchResultForPlayer.WarshipRatingDelta.Value;
             account.Rating += matchResultForPlayer.WarshipRatingDelta.Value;
             
             await dbContext.SaveChangesAsync();
