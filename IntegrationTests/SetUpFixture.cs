@@ -1,6 +1,8 @@
+using AmoebaGameMatcherServer;
 using AmoebaGameMatcherServer.Services.LobbyInitialization;
 using DataLayer;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using NUnit.Framework;
 
 namespace IntegrationTests
@@ -17,15 +19,22 @@ namespace IntegrationTests
         [OneTimeSetUp]
         public void Initialize()
         {
-            string databaseName = "IntegrationTests";
+            string databaseName = "IntegrationTests1";
             DbContext = new DbContextFactory().Create(databaseName);
+            var seeder = new DataSeeder();
+            seeder.TrySeed(DbContext);
             DbContext.Accounts.FromSql(new RawSqlString("ALTER DATABASE {0} SET postgres WITH ROLLBACK IMMEDIATE"), databaseName);
-            
-            // DbContext.Database.ExecuteSqlCommand(new RawSqlString("ALTER DATABASE {0} SET postgres WITH ROLLBACK IMMEDIATE"), databaseName);
-            DbContext.Database.ExecuteSqlCommand(new RawSqlString("TRUNCATE TABLE \"Accounts\" CASCADE;"));
+            TruncateAccountsTable();
 
+            string connectionString = DbConfigIgnore.GetConnectionString(databaseName);
+            NpgsqlConnection conn = new NpgsqlConnection(connectionString);
             //TODO seed here
-            Service = new AccountDbReaderService(DbContext);
+            Service = new AccountDbReaderService(conn);
+        }
+
+        public static void TruncateAccountsTable()
+        {
+            DbContext.Database.ExecuteSqlCommand(new RawSqlString("TRUNCATE TABLE \"Accounts\" CASCADE;"));
         }
     }
 }

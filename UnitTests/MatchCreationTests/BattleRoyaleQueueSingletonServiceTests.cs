@@ -1,9 +1,5 @@
 using System;
-using System.Linq;
-using AmoebaGameMatcherServer.Services;
 using AmoebaGameMatcherServer.Services.Queues;
-using DataLayer.Tables;
-using MatchmakerTest.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MatchmakerTest

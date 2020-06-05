@@ -12,17 +12,17 @@ namespace AmoebaGameMatcherServer.Controllers
     {
         private readonly SmallLootboxOpenAllowingService allowingService;
         private readonly SmallLootboxDataFactory smallLootboxDataFactory;
-        private readonly LootboxDbWriterService lootboxDbWriterService;
+        // private readonly LootboxDbWriterService lootboxDbWriterService;
         private readonly ApplicationDbContext dbContext;
 
         public LootboxFacadeService(SmallLootboxOpenAllowingService allowingService,
             SmallLootboxDataFactory smallLootboxDataFactory,
-            LootboxDbWriterService lootboxDbWriterService,
+            // LootboxDbWriterService lootboxDbWriterService,
             ApplicationDbContext dbContext)
         {
             this.allowingService = allowingService;
             this.smallLootboxDataFactory = smallLootboxDataFactory;
-            this.lootboxDbWriterService = lootboxDbWriterService;
+            // this.lootboxDbWriterService = lootboxDbWriterService;
             this.dbContext = dbContext;
         }
         
@@ -42,7 +42,7 @@ namespace AmoebaGameMatcherServer.Controllers
             //Создать лутбокс
             LootboxModel lootboxModel = smallLootboxDataFactory.Create(warshipIds);
             //Сохранить лутбокс 
-            await lootboxDbWriterService.Write(playerServiceId, lootboxModel);
+            // await lootboxDbWriterService.Write(playerServiceId, lootboxModel);
             return lootboxModel;
         }
     }

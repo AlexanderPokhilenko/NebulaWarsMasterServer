@@ -1,10 +1,9 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using AmoebaGameMatcherServer.NetworkLibrary;
-using MatchmakerTest.Utils;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NetworkLibrary.NetworkLibrary.Http;
-using ZeroFormatter;
+ using Microsoft.VisualStudio.TestTools.UnitTesting;
+ using NetworkLibrary.NetworkLibrary.Http;
+ using ZeroFormatter;
 
 namespace MatchmakerTest
 {
@@ -15,9 +14,9 @@ namespace MatchmakerTest
         public void Test1()
         {
             //Arrange
-            List<WarshipModel> warships = new List<WarshipModel>()
+            List<WarshipDto> warships = new List<WarshipDto>()
             {
-                new WarshipModel()
+                new WarshipDto()
                 {
                     Id = 45,
                     Rating = 54,
@@ -25,7 +24,7 @@ namespace MatchmakerTest
                     PowerLevel = 99,
                     PowerPoints = 42
                 },
-                new WarshipModel()
+                new WarshipDto()
                 {
                     Id = 312,
                     Rating = 52314,
@@ -34,7 +33,7 @@ namespace MatchmakerTest
                     PowerPoints = 43452
                 }
             };
-            AccountModel accountInfo = new AccountModel()
+            AccountDto accountInfo = new AccountDto()
             {
                 Username = UniqueStringFactory.Create(),
                 AccountRating = 77,
@@ -49,7 +48,7 @@ namespace MatchmakerTest
             byte[] data = ZeroFormatterSerializer.Serialize(accountInfo);
             
             //Assert
-            AccountModel accountInfoRestored = ZeroFormatterSerializer.Deserialize<AccountModel>(data);
+            AccountDto accountInfoRestored = ZeroFormatterSerializer.Deserialize<AccountDto>(data);
             Assert.AreEqual(accountInfo.Username, accountInfoRestored.Username);
             
             foreach (var warship in accountInfoRestored.Warships)
@@ -137,6 +136,14 @@ namespace MatchmakerTest
             Assert.AreEqual(expected, data.Length);
             CollectionAssert.AreEqual(test.__RadiusInfo, restoredPositionMessage.__RadiusInfo);
             CollectionAssert.AreEqual(test.EntitiesInfo, restoredPositionMessage.EntitiesInfo);
+        }
+    }
+
+    public class UniqueStringFactory
+    {
+        public static string Create()
+        {
+            throw new NotImplementedException();
         }
     }
 }

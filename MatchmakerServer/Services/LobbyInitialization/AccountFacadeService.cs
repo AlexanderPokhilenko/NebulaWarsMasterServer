@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DataLayer.Tables;
 using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
 
@@ -23,17 +24,17 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
         }
         
         [ItemCanBeNull]
-        public async Task<AccountModel> GetOrCreateAccountData([NotNull] string serviceId)
+        public async Task<Account> GetOrRegisterAccount([NotNull] string serviceId)
         {
-            AccountModel accountInfo = await accountDbReaderService.GetAccountModel(serviceId);
+            Account account = await accountDbReaderService.GetAccount(serviceId);
             
-            if (accountInfo == null)
+            if (account == null)
             {
                 Console.WriteLine("Попытка создать аккаунт");
                 if (await accountRegistrationService.TryRegisterAccount(serviceId))
                 {
                     Console.WriteLine("Успешная регистрация");
-                    accountInfo = await accountDbReaderService.GetAccountModel(serviceId);
+                    account = await accountDbReaderService.GetAccount(serviceId);
                 }
                 else
                 {
@@ -42,7 +43,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                 }
             }
 
-            return accountInfo;
+            return account;
         }
     }
 }

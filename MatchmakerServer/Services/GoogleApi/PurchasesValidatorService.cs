@@ -42,6 +42,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
 
         private void SaveResponseContentToDb(string responseContent)
         {
+            throw new NotImplementedException();
             dynamic responseObj = JsonConvert.DeserializeObject(responseContent);
             try
             {
@@ -54,23 +55,23 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                 int purchaseType = responseObj.purchaseType;
                 int acknowledgementState = responseObj.acknowledgementState;
             
-                using (ApplicationDbContext dbContext = dbContextFactory.Create())
-                {
-                    Purchase purchase = new Purchase
-                    {
-                        Json = responseContent,
-                        Kind = kind,
-                        PurchaseTimeMillis = purchaseTimeMillis,
-                        PurchaseState = purchaseState,
-                        ConsumptionState = consumptionState,
-                        DeveloperPayload = developerPayload,
-                        OrderId = orderId,
-                        PurchaseType = purchaseType,
-                        AcknowledgementState = acknowledgementState
-                    };
-                    dbContext.Purchases.Add(purchase);
-                    dbContext.SaveChanges();
-                }
+                // using (ApplicationDbContext dbContext = dbContextFactory.Create())
+                // {
+                //     Purchase purchase = new Purchase
+                //     {
+                //         Json = responseContent,
+                //         Kind = kind,
+                //         PurchaseTimeMillis = purchaseTimeMillis,
+                //         PurchaseState = purchaseState,
+                //         ConsumptionState = consumptionState,
+                //         DeveloperPayload = developerPayload,
+                //         OrderId = orderId,
+                //         PurchaseType = purchaseType,
+                //         AcknowledgementState = acknowledgementState
+                //     };
+                //     dbContext.Purchases.Add(purchase);
+                //     dbContext.SaveChanges();
+                // }
             }
             catch (Exception e)
             {

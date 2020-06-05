@@ -69,7 +69,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 return BadRequest();
             }
             MatchmakerResponse matcherResponse = await matchmakerFacadeService.GetMatchData(playerId, warshipId);
-            return DichSerialize(matcherResponse);
+            return matcherResponse.SerializeToBase64String();
         }
 
         /// <summary>
@@ -111,14 +111,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 Console.WriteLine($"\n\n\n\n{nameof(matchResult.CurrentSpaceshipRating)} {matchResult.CurrentSpaceshipRating }");
                 return StatusCode(500);
             }
-            return DichSerialize(matchResult);
-        }
-        
-        private string DichSerialize<T>(T response)
-        {
-            byte[] data = ZeroFormatterSerializer.Serialize(response);
-            string stub = Convert.ToBase64String(data);
-            return stub;  
+            return matchResult.SerializeToBase64String();
         }
     }
 }

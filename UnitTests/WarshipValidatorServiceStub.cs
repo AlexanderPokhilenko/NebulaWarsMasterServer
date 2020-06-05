@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services.PlayerQueueing;
 using DataLayer.Tables;
-using MatchmakerTest.Utils;
+using MatchmakerTest;
 
 namespace AmoebaGameMatcherServer.Services
 {   

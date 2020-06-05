@@ -27,15 +27,7 @@ namespace AmoebaGameMatcherServer.Controllers
             }
 
             LootboxModel lootboxModel = await lootboxFacadeService.TryGetLootboxData(playerServiceId);
-            
-            return DichSerialize(lootboxModel);
-        }
-        
-        private string DichSerialize<T>(T response)
-        {
-            byte[] data = ZeroFormatterSerializer.Serialize(response);
-            string stub = Convert.ToBase64String(data);
-            return stub;  
+            return lootboxModel.SerializeToBase64String();
         }
     }
 }

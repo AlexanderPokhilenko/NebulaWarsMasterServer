@@ -5,13 +5,12 @@ using System.Text;
 
 namespace DataLayer.Tables
 {
-    [Table("warship_types")]
     public class WarshipType
     {
-        [Column("id")] [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
-        [Column("name")] [Required] public string Name { get; set; }
-        [Column("description")] [Required] public string Description { get; set; }
-        [Column("warship_combat_role_id")] [Required] public int WarshipCombatRoleId { get; set; }
+        [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
+        [Required] public string Name { get; set; }
+        [Required] public string Description { get; set; }
+        [Required] public int WarshipCombatRoleId { get; set; }
         
         public WarshipCombatRole WarshipCombatRole { get; set; }
 

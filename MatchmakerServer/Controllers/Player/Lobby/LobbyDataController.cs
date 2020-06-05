@@ -18,8 +18,7 @@ namespace AmoebaGameMatcherServer.Controllers
         {
             this.lobbyModelFacadeService = lobbyModelFacadeService;
         }
-
-        //TODO говно
+        
         [Route(nameof(Create))]
         [HttpPost]
         public async Task<ActionResult<string>> Create([FromForm] string playerServiceId)
@@ -31,16 +30,7 @@ namespace AmoebaGameMatcherServer.Controllers
             }
             
             LobbyModel lobbyModel = await lobbyModelFacadeService.Create(playerServiceId);
-
-            Console.WriteLine($"{nameof(lobbyModel.AccountModel.PointsForSmallLootbox)} "+lobbyModel.AccountModel.PointsForSmallLootbox);
-            return DichSerialize(lobbyModel);
-        }
-
-        private string DichSerialize(LobbyModel lobbyModel)
-        {
-            byte[] data = ZeroFormatter.ZeroFormatterSerializer.Serialize(lobbyModel);
-            string base64Dich = Convert.ToBase64String(data);
-            return base64Dich;
+            return lobbyModel.SerializeToBase64String();
         }
     }
 }

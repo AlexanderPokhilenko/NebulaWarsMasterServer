@@ -6,12 +6,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace DataLayer.Tables
 {
-    [Table("warships")]
     public class Warship
     { 
-        [Column("id")] [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
-        [Column("account_id")] [Required] public int AccountId { get; set; }
-        [Column("warship_type_id")] [Required] public int WarshipTypeId { get; set; }
+        [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
+        [Required] public int AccountId { get; set; }
+        [Required] public int WarshipTypeId { get; set; }
         
         [NotMapped] public int PowerLevel { get; set; }
         [NotMapped] public int PowerPoints { get; set; }
@@ -20,7 +19,7 @@ namespace DataLayer.Tables
         public Account Account { get; set; }
         public WarshipType WarshipType { get; set; }
         
-        public List<MatchResultForPlayer> MatchResultForPlayers{ get; set; }
+        public List<MatchResultForPlayer> MatchResultForPlayers{ get; set; } = new List<MatchResultForPlayer>();
         // public List<WarshipImprovementPurchase> WarshipImprovementPurchases { get; set; }
 
         public override string ToString()

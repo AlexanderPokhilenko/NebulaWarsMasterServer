@@ -23,8 +23,13 @@
         <e p="Configuration" t="Include">
           <e p="AccountsConfiguration.cs" t="Include" />
           <e p="DataSeeder.cs" t="Include" />
+          <e p="LootboxesConfiguration.cs" t="Include" />
+          <e p="LootboxPrizePointsForSmallLootboxConfiguration.cs" t="Include" />
+          <e p="LootboxPrizeRegularCurrencyConfiguration.cs" t="Include" />
+          <e p="LootboxPrizeWarshipPowerPointsConfiguration.cs" t="Include" />
           <e p="MatchResultsConfiguration.cs" t="Include" />
           <e p="WarshipsConfiguration.cs" t="Include" />
+          <e p="WarshipTypesConfiguration.cs" t="Include" />
         </e>
         <e p="DataLayer.csproj" t="IncludeRecursive" />
         <e p="DbConfigIgnore.cs" t="Include" />
@@ -83,10 +88,10 @@
         <e p="test.sql" t="Include" />
       </e>
       <e p="IntegrationTests" t="IncludeRecursive">
+        <e p="AccountDbReaderTests.cs" t="Include" />
         <e p="BaseIntegrationFixture.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="IntegrationTests.csproj" t="IncludeRecursive" />
-        <e p="MyTestFixture.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp2.2" t="Include">
@@ -96,6 +101,18 @@
           </e>
         </e>
         <e p="SetUpFixture.cs" t="Include" />
+      </e>
+      <e p="LibraryforTests" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="LibraryforTests.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.2" t="Include">
+              <e p="LibraryforTests.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="TestAccountFactory.cs" t="Include" />
       </e>
       <e p="MatchmakerServer" t="IncludeRecursive">
         <e p="appsettings.Development.json" t="Include" />
@@ -121,6 +138,7 @@
         </e>
         <e p="Experimental" t="Include">
           <e p="DefaultAccountFactory.cs" t="Include" />
+          <e p="DichExtensions.cs" t="Include" />
           <e p="Globals.cs" t="Include" />
           <e p="GoogleApiGlobals.cs" t="Include" />
           <e p="GooglePurchasesValidationController.cs" t="Include" />
@@ -216,10 +234,10 @@
             <e p="AccountFacadeService.cs" t="Include" />
             <e p="AccountRegistrationService.cs" t="Include" />
             <e p="LobbyModelFacadeService.cs" t="Include" />
-            <e p="NotShownRewardDbUpdaterService.cs" t="Include" />
+            <e p="NotShownRewardService.cs" t="Include" />
             <e p="WarshipImprovementFacadeService.cs" t="Include" />
             <e p="WarshipPowerScaleModelStorage.cs" t="Include" />
-            <e p="WarshipRatingScaleService.cs" t="Include" />
+            <e p="WarshipRatingScale.cs" t="Include" />
           </e>
           <e p="Lootbox" t="Include">
             <e p="LootboxDbWriterService.cs" t="Include" />
@@ -277,6 +295,9 @@
       </e>
       <e p="packages" t="ExcludeRecursive" />
       <e p="UnitTests" t="IncludeRecursive">
+        <e p="AutoMapperTests" t="Include">
+          <e p="Test.cs" t="Include" />
+        </e>
         <e p="bin" t="ExcludeRecursive" />
         <e p="Experimental" t="Include">
           <e p="LazyLoadingTests.cs" t="Include" />

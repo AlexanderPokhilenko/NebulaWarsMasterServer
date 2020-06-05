@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "Integra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeleteMe1", "DeleteMe1\DeleteMe1.csproj", "{C054F515-B21B-4E47-86F3-CECE1E659A36}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryForTests", "LibraryForTests\LibraryForTests.csproj", "{17BE13FC-60F0-4EDC-808B-D2C506451C7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,13 @@ Global
 		{C054F515-B21B-4E47-86F3-CECE1E659A36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C054F515-B21B-4E47-86F3-CECE1E659A36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C054F515-B21B-4E47-86F3-CECE1E659A36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F02F3A9-129B-4169-B6BB-BFF236C5FB37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F02F3A9-129B-4169-B6BB-BFF236C5FB37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F02F3A9-129B-4169-B6BB-BFF236C5FB37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F02F3A9-129B-4169-B6BB-BFF236C5FB37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17BE13FC-60F0-4EDC-808B-D2C506451C7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17BE13FC-60F0-4EDC-808B-D2C506451C7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17BE13FC-60F0-4EDC-808B-D2C506451C7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17BE13FC-60F0-4EDC-808B-D2C506451C7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

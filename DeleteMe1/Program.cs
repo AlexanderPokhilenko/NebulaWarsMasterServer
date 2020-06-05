@@ -1,70 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Dapper;
+﻿using Dapper;
 using DataLayer;
-using DataLayer.Tables;
 using Npgsql;
 
 namespace DeleteMe1
 {
+    public class AbsoluteDich
+    {
+        public long WarshipRating { get; set; }
+    }
+
+    public class RewardsThatHaveNotBeenShown
+    {
+        public virtual int RegularCurrency {get;set;}
+        public virtual int PointsForSmallLootbox {get;set;}
+    }
     public class Program
     {
         static void Main()
         {
-            string databaseName = "DapperTests7";    
+            string databaseName = "DapperTests15";    
             string connectionString = DbConfigIgnore.GetConnectionString(databaseName);
             ApplicationDbContext dbContext = new DbContextFactory().Create(databaseName);
 
             DbWork dbWork = new DbWork(dbContext);
-            dbWork.TryInsert();
+            // dbWork.TryInsert();
             string serviceId = dbWork.GetSomeServiceId();
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
-                // var parameters = new { serviceDichId = serviceId};
+                    var parameters = new {serviceIdPar = serviceId};
+             
+                string sql2 = $@"
+                        select 
+                                (sum(mr.""RegularCurrencyDelta"") + sum(prRc.""Quantity"")) as ""RegularCurrency"",
+                                (sum(mr.""PointsForSmallLootbox"") + sum(prSl.""Quantity"")) as ""PointsForSmallLootbox"",
+                                (sum(prWpp.""Quantity"")) as ""WarshipPowerPoints""
+                               
+                                from ""Accounts"" a
+                                inner join ""Warships"" w on w.""AccountId"" = a.""Id"" 
+                                inner join ""MatchResultForPlayers"" mr on mr.""WarshipId"" = w.""Id""
 
-                string sql1 = @"select   *
-	                                from accounts 
-                ";
-                var accounts1 = connection.Query<Account>(sql1);
-                foreach (var account in accounts1)
-                {
-                    Console.WriteLine(account.ToString());
-                }
+                                inner join ""Lootbox"" lootbox on lootbox.""AccountId"" = a.""Id"" 
+                                inner join ""LootboxPrizePointsForSmallLootboxes"" prSl on prSl.""LootboxId"" = lootbox.""Id""
+                                inner join ""LootboxPrizeRegularCurrencies"" prRc on prRc.""LootboxId""=lootbox.""Id""
+                                inner join ""LootboxPrizeWarshipPowerPoints"" prWpp on prWpp.""LootboxId""=lootbox.""Id""
+
+                                where a.""ServiceId"" = 'serviceId_13:12:05' and  mr.""WasShown""=false and lootbox.""WasShown""=false;
+                          ";
                 
-                // IQueryable<Account> accounts = connection
-                //     .Query<Account, Warship, Account>(sql1, (a, w) =>
-                //     {
-                //         if (!lookup.TryGetValue(a.Id, out Account account)) 
-                //         {
-                //             lookup.Add(a.Id, account = a);
-                //         }
-                //
-                //         if (account.Warships == null)
-                //         {
-                //             account.Warships = new List<Warship>();
-                //         } 
-                //         
-                //         account.Warships.Add(w);
-                //         return account;
-                //     }).AsQueryable();
-
-                // string sql2 = @"select   a.*, w.*, wt.*
-	               //                  from accounts a
-	               //                  inner join warships w on a.id = w.account_id 
-	               //                  inner join warship_types wt on w.warship_type_id = wt.id
-                // ";
-                //
-                // Dictionary<int, Account> lookup = new Dictionary<int, Account>();
-                //
-                // var accounts2 = connection
-                //     .Query<Account, Warship, WarshipType,  Account>(sql1, (a, w, wt) =>
-                //     {
-                //         Console.WriteLine($" "+a);
-                //         Console.WriteLine($"\t\t "+w);
-                //         Console.WriteLine($"\t\t\t\t "+wt);
-                //         return null;
-                //     }).AsQueryable();
+                var result = connection.Query<RewardsThatHaveNotBeenShown>(sql2);
+                foreach (var rewardsThatHaveNotBeenShown in result)
+                {
+                    
+                }
             }
         }
     }

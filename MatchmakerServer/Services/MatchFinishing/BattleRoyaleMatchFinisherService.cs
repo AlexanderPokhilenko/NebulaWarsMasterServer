@@ -61,8 +61,8 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             matchResultForPlayer.PremiumCurrencyDelta = matchReward.PremiumCurrencyDelta;
             matchResultForPlayer.RegularCurrencyDelta = matchReward.RegularCurrencyDelta;
             matchResultForPlayer.WarshipRatingDelta = matchReward.WarshipRatingDelta;
-            matchResultForPlayer.PointsForBigChest = matchReward.PointsForBigChest;
-            matchResultForPlayer.PointsForSmallChest = matchReward.PointsForSmallLootbox;
+            matchResultForPlayer.PointsForBigLootbox = matchReward.PointsForBigChest;
+            matchResultForPlayer.PointsForSmallLootbox = matchReward.PointsForSmallLootbox;
 
             LogMatchResult(matchResultForPlayer);
             
@@ -92,8 +92,8 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             Console.WriteLine($"{nameof(matchResultForPlayer.PremiumCurrencyDelta)} {matchResultForPlayer.PremiumCurrencyDelta}");
             Console.WriteLine($"{nameof(matchResultForPlayer.RegularCurrencyDelta)} {matchResultForPlayer.RegularCurrencyDelta}");
             Console.WriteLine($"{nameof(matchResultForPlayer.WarshipRatingDelta)} {matchResultForPlayer.WarshipRatingDelta}");
-            Console.WriteLine($"{nameof(matchResultForPlayer.PointsForBigChest)} {matchResultForPlayer.PointsForBigChest}");
-            Console.WriteLine($"{nameof(matchResultForPlayer.PointsForSmallChest)} {matchResultForPlayer.PointsForSmallChest}");
+            Console.WriteLine($"{nameof(matchResultForPlayer.PointsForBigLootbox)} {matchResultForPlayer.PointsForBigLootbox}");
+            Console.WriteLine($"{nameof(matchResultForPlayer.PointsForSmallLootbox)} {matchResultForPlayer.PointsForSmallLootbox}");
         }
         
         public async Task DeleteRoom(int matchId)

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapper;
 using DataLayer;
 using DataLayer.Tables;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using NetworkLibrary.NetworkLibrary.Http;
+using Npgsql;
 
 namespace AmoebaGameMatcherServer.Services.LobbyInitialization
 {
@@ -16,114 +18,74 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
     /// </summary>
     public class AccountDbReaderService
     {
-        private readonly ApplicationDbContext dbContext;
+        private readonly NpgsqlConnection connection;
 
-        public AccountDbReaderService(ApplicationDbContext dbContext)
+        public AccountDbReaderService(NpgsqlConnection connection)
         {
-            this.dbContext = dbContext;
+            this.connection = connection;
         }
-        
+
         /// <summary>
         /// Отвечает за получение данных про аккаунт из БД.
         /// </summary>
         [ItemCanBeNull]
-        public async Task<AccountModel> GetAccountModel([NotNull] string serviceId)
+        public async Task<Account> GetAccount([NotNull] string serviceId)
         {
-            // (
-                //        select sum(mr1.""WarshipRatingDelta"")
-                //            from ""MatchResultForPlayers"" mr1
-                //            where mr1.""WarshipId""  = mr.""WarshipId"" 
-                //    )
-    string sql = @"select   a.""Id"", 
-                            a.""ServiceId"",
-                            a.""Username"", 
-                            a.""RegularCurrency"", 
-                            a.""PremiumCurrency"", 
-                            a.""PointsForSmallLootbox"", 
-                            a.""CreationDate"", 
-                            sum(mr.""WarshipRatingDelta"") as Rating
-                            
+            var parameters = new {serviceIdPar = serviceId};
+            string sql = $@"
+            select a.*, w.""Id"", ""AccountId"", ""WarshipTypeId"", (sum(mr.""WarshipRatingDelta"")) as WarshipRating, wt.*
+                from ""Accounts"" a
+                inner join ""Warships"" w on a.""Id"" = w.""AccountId""
+                inner join ""WarshipTypes"" wt on w.""WarshipTypeId"" = wt.""Id""
+                inner join ""MatchResultForPlayers"" mr on w.""Id"" = mr.""WarshipId""
+                where a.""ServiceId"" = @serviceIdPar
+                group by a.""Id"",w.""Id"", wt.""Id""
+            ";
 
-                 from ""Accounts"" a
-                 inner join ""Warships"" w on a.""Id"" = w.""AccountId""  
-                 inner join ""MatchResultForPlayers"" mr on w.""Id"" = mr.""WarshipId""  
-                 inner join ""WarshipTypes"" wt on w.""WarshipTypeId"" = wt.""Id"" 
-                 where a.""ServiceId"" = {0}
-                 
-                 GROUP BY a.""Id"" 
-                 ";
+            Dictionary<int, Account> lookup = new Dictionary<int, Account>();
+            IEnumerable<Account> accounts = await connection
+                .QueryAsync<Account, Warship, WarshipType, MatchResultForPlayer, Account>(sql,
+                    (a, w, wt, mr) =>
+                    {
+                        Console.WriteLine(" " + a);
+                        Console.WriteLine("\t\t " + w);
+                        Console.WriteLine("\t\t\t " + mr);
+                        Console.WriteLine("\t\t\t\t\t " + wt);
 
-            
-            Account account = await dbContext.Accounts
-                .FromSql(new RawSqlString(sql), serviceId)
-                .FirstOrDefaultAsync();
+                        //Если такого аккаунта ещё не было
+                        if (!lookup.TryGetValue(a.Id, out Account account))
+                        {
+                            //Положить аккаунт в словарь
+                            lookup.Add(a.Id, account = a);
+                        }
 
-            if (account == null)
+                        //Попытаться достать корабль c таким id из коллекции
+                        Warship warship = account.Warships.Find(wArg => wArg.Id == w.Id);
+                        //Этот корабль уже есть в коллекции?
+                        if (warship == null)
+                        {
+                            //Заполнить тип корабля и положить в коллекцию
+                            warship = w;
+                            warship.WarshipType = wt;
+                            account.Warships.Add(warship);
+                        }
+
+                        //Обновить кол-во рейтинга на корабле и аккаунте
+                        //Добавить результат боя к списку корабля
+                        warship.MatchResultForPlayers.Add(mr);
+                        return account;
+                    }, parameters);
+
+            Console.WriteLine("count "+lookup.Count);
+            switch (lookup.Count)
             {
-                Console.WriteLine($"account == null");
-                return null;
+                case 0:
+                    return null;
+                case 1:
+                    return lookup.Values.Single();
+                default:
+                    throw new Exception($"По serviceId = {serviceId} найдено {lookup.Count} аккаунтов.");
             }
-            
-            Console.WriteLine(account.Id);
-            Console.WriteLine(account.Rating);
-            Console.WriteLine(account.Username);
-            Console.WriteLine(account.CreationDate);
-            Console.WriteLine(account.PremiumCurrency);
-            Console.WriteLine(account.RegularCurrency);
-            Console.WriteLine(account.ServiceId);
-            Console.WriteLine(account.PointsForSmallLootbox);
-
-            Console.WriteLine("account.Warships.Count="+account.Warships.Count);
-
-            //Заполнить рейтинг аккаунта
-            account.Rating = account.Warships.Sum(warship => warship.Rating);
-
-            //Заполнить значение валюты из побед в бою
-            account.RegularCurrency = await dbContext.MatchResultForPlayers
-                .Where(matchResultForPlayer =>matchResultForPlayer.Warship.AccountId == account.Id)
-                .SumAsync(matchResultForPlayer => matchResultForPlayer.RegularCurrencyDelta) ?? 0;
-
-            //Заполнить значение валюты из лутбоксов
-            account.RegularCurrency += await dbContext.LootboxPrizeRegularCurrencies
-                .Where(prize => prize.LootboxDb.AccountId == account.Id)
-                .SumAsync(prize => prize.Quantity);
-
-            //Отнять значения покупок улучшений
-            account.RegularCurrency -= await dbContext.WarshipImprovementPurchases
-                .Where(purchase => purchase.Warship.AccountId == account.Id)
-                .SumAsync(purchase => purchase.RegularCurrencyCost);
-
-      
-            return GetAccountModel(account);
-        }
-
-        //TODO тут должн быть адаптер
-        private AccountModel GetAccountModel(Account account)
-        {
-            AccountModel accountInfo = new AccountModel
-            {
-                Username = account.Username,
-                PremiumCurrency = account.PremiumCurrency,
-                RegularCurrency = account.RegularCurrency,
-                PointsForSmallLootbox = account.PointsForSmallLootbox,
-                AccountRating = account.Rating,
-                Warships = new List<WarshipModel>()
-            };
-            
-            foreach (var warship in account.Warships)
-            {
-                WarshipModel warshipModel = new WarshipModel();
-                warshipModel.Id = warship.Id;
-                warshipModel.PrefabName = warship.WarshipType.Name;
-                warshipModel.Rating = warship.Rating;
-                warshipModel.PowerLevel = warship.PowerLevel;
-                warshipModel.PowerPoints = warship.PowerPoints;
-                warshipModel.Description = warship.WarshipType.Description;
-                warshipModel.CombatRoleName = warship.WarshipType.WarshipCombatRole.Name;
-                accountInfo.Warships.Add(warshipModel);
-            }
-            
-            return accountInfo;
         }
     }
 }

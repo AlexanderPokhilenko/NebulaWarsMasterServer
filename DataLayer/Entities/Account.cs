@@ -3,25 +3,26 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace DataLayer.Tables
 {
-    [Table("accounts")]
     public class Account
     {
-        [Column("id")] [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
-        [Column("ServiceId")] [Required] public string ServiceId { get; set; }
-        [Column("username")] [Required] public string Username { get; set; }
-        [Column("regular_currency")] [Required] public int RegularCurrency { get; set; }
-        [Column("premium_currency")] [Required] public int PremiumCurrency { get; set; }
-        [Column("points_for_small_lootbox")] [Required] public int PointsForSmallLootbox { get; set; }
-        [Column("creation_date")] [Required] public DateTime CreationDate { get; set; }
-        [Column("rating")] [Required] public int Rating { get; set; }
+        [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
+        [Required] public string ServiceId { get; set; }
+        [Required] public string Username { get; set; }
+        [Required] public DateTime CreationDate { get; set; }
+        
+        
+        [NotMapped] public int RegularCurrency { get; set; }
+        [NotMapped] public int PremiumCurrency { get; set; }
+        [NotMapped] public int PointsForSmallLootbox { get; set; }
+        [NotMapped] public int Rating { get; set; }
 
-        public List<Warship> Warships { get; set; }
-        // public List<LootboxDb> Lootboxes{ get; set; }
-
+        
+        public List<Warship> Warships { get; set; } = new List<Warship>();
+        public List<LootboxDb> Lootboxes { get; set; } = new List<LootboxDb>();
+        
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -34,7 +35,7 @@ namespace DataLayer.Tables
             stringBuilder.Append($"{nameof(CreationDate)} {CreationDate} ");
             stringBuilder.Append($"{nameof(Rating)} {Rating} ");
             stringBuilder.Append($"warshipsCount {Warships?.Count} ");
-            // stringBuilder.Append($"lootboxesCount {Lootboxes?.Count} ");
+            stringBuilder.Append($"lootboxesCount {Lootboxes?.Count} ");
             return stringBuilder.ToString();
         }
     }

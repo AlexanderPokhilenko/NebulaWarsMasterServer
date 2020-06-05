@@ -36,7 +36,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 return StatusCode(500);
             }
             
-            return DichSerialize(shopModel);
+            return shopModel.SerializeToBase64String();
         }
 
         [Route(nameof(BuyProduct))]
@@ -49,13 +49,6 @@ namespace AmoebaGameMatcherServer.Controllers
             }
             
             return Ok();
-        }
-        
-        private string DichSerialize<T>(T response)
-        {
-            byte[] data = ZeroFormatterSerializer.Serialize(response);
-            string stub = Convert.ToBase64String(data);
-            return stub;  
         }
     }
 }

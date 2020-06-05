@@ -7,7 +7,7 @@ namespace AmoebaGameMatcherServer
     {
         public override void Add(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<WarshipImprovementFacadeService>();
+            // serviceCollection.AddTransient<WarshipImprovementFacadeService>();
         }
     }
 }

@@ -3,7 +3,7 @@
 namespace NetworkLibrary.NetworkLibrary.Http
 {
     [ZeroFormattable]
-    public class WarshipModel
+    public class WarshipDto
     {
         //Значение для операций с кораблём
         [Index(0)] public virtual int Id { get; set; }

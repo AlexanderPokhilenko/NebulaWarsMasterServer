@@ -39,8 +39,8 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                 || matchResultDb.PremiumCurrencyDelta == null
                 || matchResultDb.RegularCurrencyDelta == null
                 || matchResultDb.WarshipRatingDelta == null
-                || matchResultDb.PointsForBigChest == null
-                || matchResultDb.PointsForSmallChest == null)
+                || matchResultDb.PointsForBigLootbox == null
+                || matchResultDb.PointsForSmallLootbox == null)
             {
                 Console.WriteLine("Игрок не закончил этот матч.");
                 return null;
@@ -56,7 +56,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                 SpaceshipPrefabName = matchResultDb.Warship.WarshipType.Name,
                 CurrentSpaceshipRating = currentWarshipRating,
                 MatchRatingDelta = matchResultDb.WarshipRatingDelta.Value,
-                PointsForSmallChest = matchResultDb.PointsForSmallChest.Value,
+                PointsForSmallChest = matchResultDb.PointsForSmallLootbox.Value,
                 DoubleTokens = false
             };
 

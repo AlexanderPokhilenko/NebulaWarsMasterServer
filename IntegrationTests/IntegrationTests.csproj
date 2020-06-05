@@ -15,6 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
+      <ProjectReference Include="..\LibraryForTests\LibraryForTests.csproj" />
       <ProjectReference Include="..\MatchmakerServer\MatchmakerServer.csproj" />
     </ItemGroup>
 

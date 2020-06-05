@@ -9,7 +9,7 @@ namespace NetworkLibrary.NetworkLibrary.Http
         [Index(1)] public virtual int PremiumCurrency {get;set;}
         [Index(2)] public virtual int PointsForSmallLootbox {get;set;}
         [Index(3)] public virtual int PointsForBigLootbox {get;set;}
-        [Index(4)] public virtual int Rating {get;set;}
+        [Index(4)] public virtual int AccountRating {get;set;}
         
         public static RewardsThatHaveNotBeenShown operator +(RewardsThatHaveNotBeenShown arg1,
             RewardsThatHaveNotBeenShown arg2)
@@ -20,7 +20,7 @@ namespace NetworkLibrary.NetworkLibrary.Http
                 PremiumCurrency = arg1.PremiumCurrency + arg2.PremiumCurrency,
                 PointsForSmallLootbox = arg1.PointsForSmallLootbox + arg2.PointsForSmallLootbox,
                 PointsForBigLootbox = arg1.PointsForBigLootbox + arg2.PointsForBigLootbox,
-                Rating = arg1.Rating + arg2.Rating
+                AccountRating = arg1.AccountRating + arg2.AccountRating
             };
         }
     }

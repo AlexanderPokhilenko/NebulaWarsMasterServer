@@ -50,4 +50,14 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             return warshipRatingDelta;
         }
     }
+
+    public class MatchReward
+    {
+        public int WarshipRatingDelta { get; set; }
+        public int PremiumCurrencyDelta { get; set; }
+        public int RegularCurrencyDelta { get; set; }
+        public object JsonMatchResultDetails { get; set; }
+        public int PointsForBigChest { get; set; }
+        public int PointsForSmallLootbox { get; set; }
+    }
 }

@@ -2,7 +2,7 @@
 using AmoebaGameMatcherServer.Controllers;
 using DataLayer;
 using DataLayer.Tables;
-using MatchmakerTest.Utils;
+using MatchmakerTest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AmoebaGameMatcherServer.Services.Lootbox

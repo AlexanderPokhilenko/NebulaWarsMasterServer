@@ -10,12 +10,12 @@ namespace AmoebaGameMatcherServer
         public override void Add(IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<LobbyModelFacadeService>();
-            serviceCollection.AddTransient<WarshipRatingScaleService>();
-            serviceCollection.AddTransient<WarshipPowerScaleModelStorage>();
+            serviceCollection.AddTransient<WarshipRatingScale>();
+            // serviceCollection.AddTransient<WarshipPowerScaleModelStorage>();
             serviceCollection.AddTransient<AccountFacadeService>();
             serviceCollection.AddTransient<AccountDbReaderService>();
             serviceCollection.AddTransient<AccountRegistrationService>();
-            serviceCollection.AddTransient<NotShownRewardDbUpdaterService>();
+            serviceCollection.AddTransient<NotShownRewardService>();
         }
     }
 }

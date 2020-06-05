@@ -5,7 +5,7 @@ namespace AmoebaGameMatcherServer.Controllers
     /// <summary>
     /// Отвечает за хранение информации о шкале рейтинга для кораблей.
     /// </summary>
-    public class WarshipRatingScaleService
+    public class WarshipRatingScale
     {
         /// <summary>
         /// Значение в миллион не должно быть использовано. Иначе система наград за бой работает не правильно
