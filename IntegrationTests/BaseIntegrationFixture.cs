@@ -10,7 +10,7 @@ namespace IntegrationTests
     internal class BaseIntegrationFixture
     {
         protected ApplicationDbContext Context => SetUpFixture.DbContext;
-        protected AccountDbReaderService Service => SetUpFixture.Service;
+        protected AccountDbReaderService AccountDbReaderService => SetUpFixture.AccountReaderService;
         
         [TearDown]
         public void ResetChangeTracker()

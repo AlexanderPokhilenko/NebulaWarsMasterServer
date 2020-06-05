@@ -36,7 +36,7 @@
 //                 LootboxPrizeRegularCurrencies = new List<LootboxPrizeRegularCurrency>(),
 //                 LootboxPrizeWarshipPowerPoints = new List<LootboxPrizeWarshipPowerPoints>(),
 //                 AccountId = account.Id,
-//                 CreationDate = DateTime.UtcNow,
+//                 RegistrationDateTime = DateTime.UtcNow,
 //                 WasShown = false
 //             };
 //

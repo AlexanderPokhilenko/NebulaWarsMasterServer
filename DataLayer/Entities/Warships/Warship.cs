@@ -15,12 +15,13 @@ namespace DataLayer.Tables
         [NotMapped] public int PowerLevel { get; set; }
         [NotMapped] public int PowerPoints { get; set; }
         [NotMapped] public int WarshipRating { get; set; }
-        
+
         public Account Account { get; set; }
         public WarshipType WarshipType { get; set; }
         
         public List<MatchResultForPlayer> MatchResultForPlayers{ get; set; } = new List<MatchResultForPlayer>();
-        // public List<WarshipImprovementPurchase> WarshipImprovementPurchases { get; set; }
+
+        public List<LootboxPrizeWarshipPowerPoints> WarshipPowerPoints { get; set; }
 
         public override string ToString()
         {

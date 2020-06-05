@@ -12,6 +12,11 @@ namespace DataLayer.TablesConfiguration
                 .HasOne(w => w.LootboxDb)
                 .WithMany(lootbox => lootbox.LootboxPrizeWarshipPowerPoints )
                 .HasForeignKey(warship => warship.LootboxId);
+            
+            builder
+                .HasOne(w => w.Warship)
+                .WithMany(warship => warship.WarshipPowerPoints)
+                .HasForeignKey(points =>  points.WarshipId);
         }
     }
 }

@@ -26,7 +26,7 @@ namespace DataLayer
         // public DbSet<Order> Orders { get; set; }
         // public DbSet<Kit> Kits { get; set; }
         // public DbSet<Product> Products { get; set; }
-        // public DbSet<WarshipImprovementPurchase> WarshipImprovementPurchases { get; set; }
+        // public DbSet<WarshipImprovementPurchase> WarshipPowerPoints { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

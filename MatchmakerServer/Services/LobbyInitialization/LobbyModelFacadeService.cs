@@ -16,15 +16,15 @@ namespace AmoebaGameMatcherServer.Controllers
         private readonly IMapper mapper;
         private readonly WarshipRatingScale warshipRatingScale;
         private readonly AccountFacadeService accountFacadeService;
-        private readonly NotShownRewardService notShownRewardService;
+        private readonly NotShownRewardsReaderService notShownRewardsReaderService;
         private readonly WarshipPowerScaleModelStorage warshipPowerScaleModelStorage;
 
         public LobbyModelFacadeService(AccountFacadeService accountFacadeService,
-            NotShownRewardService notShownRewardService,
+            NotShownRewardsReaderService notShownRewardsReaderService,
             IMapper mapper)
         {
             this.accountFacadeService = accountFacadeService;
-            this.notShownRewardService = notShownRewardService;
+            this.notShownRewardsReaderService = notShownRewardsReaderService;
             warshipRatingScale = new WarshipRatingScale();
             warshipPowerScaleModelStorage = new WarshipPowerScaleModelStorage();
             this.mapper = mapper;
@@ -38,7 +38,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 throw new Exception($"{nameof(account)} is null");
             }
 
-            RewardsThatHaveNotBeenShown rewardsThatHaveNotBeenShown = await notShownRewardService
+            RewardsThatHaveNotBeenShown rewardsThatHaveNotBeenShown = await notShownRewardsReaderService
                 .GetNotShownRewards(playerServiceId);
           
             WarshipRatingScaleModel warshipRatingScaleModel = warshipRatingScale.GetWarshipRatingScaleModel();

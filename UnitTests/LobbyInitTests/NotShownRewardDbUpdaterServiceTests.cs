@@ -23,7 +23,7 @@
 //             //Arrange
 //             var dbFactory = new InMemoryDbContextFactory(nameof(NotShownRewardDbUpdaterServiceTests));
 //             var dbContext = dbFactory.Create();
-//             NotShownRewardService notShownRewardService = new NotShownRewardService(dbContext);
+//             NotShownRewardsReaderService notShownRewardService = new NotShownRewardsReaderService(dbContext);
 //
 //             Account account = CreateAccount(); 
 //             

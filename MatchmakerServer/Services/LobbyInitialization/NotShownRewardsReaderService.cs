@@ -8,11 +8,11 @@ using Npgsql;
 
 namespace AmoebaGameMatcherServer.Controllers
 {
-    public class NotShownRewardService
+    public class NotShownRewardsReaderService
     {
         private readonly NpgsqlConnection connection;
 
-        public NotShownRewardService(NpgsqlConnection connection)
+        public NotShownRewardsReaderService(NpgsqlConnection connection)
         {
             this.connection = connection;
         }

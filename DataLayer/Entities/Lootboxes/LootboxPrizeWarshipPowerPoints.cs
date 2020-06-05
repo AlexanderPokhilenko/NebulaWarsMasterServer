@@ -11,5 +11,6 @@ namespace DataLayer.Tables
         [Required] public int WarshipId { get; set; }
         
         public LootboxDb LootboxDb { get; set; }
+        public Warship Warship { get; set; }
     }
 }

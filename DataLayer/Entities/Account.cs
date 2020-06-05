@@ -11,7 +11,7 @@ namespace DataLayer.Tables
         [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
         [Required] public string ServiceId { get; set; }
         [Required] public string Username { get; set; }
-        [Required] public DateTime CreationDate { get; set; }
+        [Required] public DateTime RegistrationDateTime { get; set; }
         
         
         [NotMapped] public int RegularCurrency { get; set; }
@@ -32,7 +32,7 @@ namespace DataLayer.Tables
             stringBuilder.Append($"{nameof(RegularCurrency)} {RegularCurrency} ");
             stringBuilder.Append($"{nameof(PremiumCurrency)} {PremiumCurrency} ");
             stringBuilder.Append($"{nameof(PointsForSmallLootbox)} {PointsForSmallLootbox} ");
-            stringBuilder.Append($"{nameof(CreationDate)} {CreationDate} ");
+            stringBuilder.Append($"{nameof(RegistrationDateTime)} {RegistrationDateTime} ");
             stringBuilder.Append($"{nameof(Rating)} {Rating} ");
             stringBuilder.Append($"warshipsCount {Warships?.Count} ");
             stringBuilder.Append($"lootboxesCount {Lootboxes?.Count} ");

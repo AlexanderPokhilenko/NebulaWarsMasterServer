@@ -15,7 +15,7 @@ namespace AmoebaGameMatcherServer
             serviceCollection.AddTransient<AccountFacadeService>();
             serviceCollection.AddTransient<AccountDbReaderService>();
             serviceCollection.AddTransient<AccountRegistrationService>();
-            serviceCollection.AddTransient<NotShownRewardService>();
+            serviceCollection.AddTransient<NotShownRewardsReaderService>();
         }
     }
 }
