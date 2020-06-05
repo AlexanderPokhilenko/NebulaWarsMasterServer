@@ -13,7 +13,7 @@ using Npgsql;
 
 namespace AmoebaGameMatcherServer.Services.LobbyInitialization
 {
-    public class Test
+    public class AccountQueryDapperHelper
     {
         public int WarshipRating { get; set; }
     }
@@ -38,46 +38,47 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
         {
             var parameters = new {serviceIdPar = serviceId};
             string sql = $@"
-            select a.*, w.*, (sum(mr.""WarshipRatingDelta"")) as ""WarshipRating"", wt.*
-                from ""Accounts"" a
-                inner join ""Warships"" w on a.""Id"" = w.""AccountId""
-                inner join ""WarshipTypes"" wt on w.""WarshipTypeId"" = wt.""Id""
-                inner join ""MatchResultForPlayers"" mr on w.""Id"" = mr.""WarshipId""
-                where a.""ServiceId"" = @serviceIdPar
-                group by a.""Id"",w.""Id"", wt.""Id""
-            ";
+                    select a.*, w.*, wt.*, (sum(mr.""WarshipRatingDelta"")) as ""WarshipRating""
+                        from ""Accounts"" a
+                        inner join ""Warships"" w on a.""Id"" = w.""AccountId""
+                        inner join ""WarshipTypes"" wt on w.""WarshipTypeId"" = wt.""Id""
+                        inner join ""MatchResultForPlayers"" mr on w.""Id"" = mr.""WarshipId""
+                        where a.""ServiceId"" = @serviceIdPar
+                        group by a.""Id"",w.""Id"", wt.""Id""
+                    ";
 
             Dictionary<int, Account> lookup = new Dictionary<int, Account>();
             IEnumerable<Account> accounts = await connection
-                .QueryAsync<Account, Warship,Test, WarshipType, Account>(sql,
-                    (a, w, t,wt) =>
+                .QueryAsync<Account, Warship,WarshipType, AccountQueryDapperHelper, Account>(sql,
+                    (accountArg, warshipArg, warshipTypeArg,dapperHelper) =>
                     {
-                        Console.WriteLine(" " + a);
-                        Console.WriteLine("\t\t " + w);
-                        Console.WriteLine("\t\t\t " + t.WarshipRating);
-                        Console.WriteLine("\t\t\t\t\t " + wt);
+                        Console.WriteLine(" " + accountArg);
+                        Console.WriteLine("\t\t " + warshipArg);
+                        Console.WriteLine("\t\t\t " + dapperHelper.WarshipRating);
+                        Console.WriteLine("\t\t\t\t\t " + warshipTypeArg);
 
                         //Если такого аккаунта ещё не было
-                        if (!lookup.TryGetValue(a.Id, out Account account))
+                        if (!lookup.TryGetValue(accountArg.Id, out Account account))
                         {
                             //Положить аккаунт в словарь
-                            lookup.Add(a.Id, account = a);
+                            lookup.Add(accountArg.Id, account = accountArg);
                         }
 
                         //Попытаться достать корабль c таким id из коллекции
-                        Warship warship = account.Warships.Find(wArg => wArg.Id == w.Id);
+                        Warship warship = account.Warships.Find(wArg => wArg.Id == warshipArg.Id);
                         //Этот корабль уже есть в коллекции?
                         if (warship == null)
                         {
                             //Заполнить тип корабля и положить в коллекцию
-                            warship = w;
-                            warship.WarshipType = wt;
+                            warship = warshipArg;
+                            warship.WarshipType = warshipTypeArg;
+                            warship.WarshipRating = dapperHelper.WarshipRating;
                             account.Warships.Add(warship);
                             account.Rating += warship.WarshipRating;
                         }
 
                         return account;
-                    }, parameters, splitOn:"Id,WarshipRating");
+                    }, parameters, splitOn:"Id, WarshipRating");
 
             Console.WriteLine("count "+lookup.Count);
             switch (lookup.Count)

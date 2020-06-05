@@ -1,17 +1,20 @@
-﻿using Dapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Dapper;
 using DataLayer;
+using DataLayer.Tables;
 using Npgsql;
 
 namespace DeleteMe1
 {
-    public class RewardsThatHaveNotBeenShown
+    public class Test
     {
-        public virtual int RegularCurrency {get;set;}
-        public virtual int PointsForSmallLootbox {get;set;}
+        public virtual int WarshipRating { get; set; }
     }
     public class Program
     {
-        static void Main()
+        static async Task Main()
         {
             string databaseName = "DapperTests15";    
             string connectionString = DbConfigIgnore.GetConnectionString(databaseName);
@@ -24,29 +27,48 @@ namespace DeleteMe1
             {
                 var parameters = new {serviceIdPar = serviceId};
              
-                string sql2 = $@"
-                        select 
-                                (sum(mr.""RegularCurrencyDelta"") + sum(prRc.""Quantity"")) as ""RegularCurrency"",
-                                (sum(mr.""PointsForSmallLootbox"") + sum(prSl.""Quantity"")) as ""PointsForSmallLootbox"",
-                                (sum(prWpp.""Quantity"")) as ""WarshipPowerPoints""
-                               
-                                from ""Accounts"" a
-                                inner join ""Warships"" w on w.""AccountId"" = a.""Id"" 
-                                inner join ""MatchResultForPlayers"" mr on mr.""WarshipId"" = w.""Id""
-
-                                inner join ""Lootbox"" lootbox on lootbox.""AccountId"" = a.""Id"" 
-                                inner join ""LootboxPrizePointsForSmallLootboxes"" prSl on prSl.""LootboxId"" = lootbox.""Id""
-                                inner join ""LootboxPrizeRegularCurrencies"" prRc on prRc.""LootboxId""=lootbox.""Id""
-                                inner join ""LootboxPrizeWarshipPowerPoints"" prWpp on prWpp.""LootboxId""=lootbox.""Id""
-
-                                where a.""ServiceId"" = 'serviceId_13:12:05' and  mr.""WasShown""=false and lootbox.""WasShown""=false;
-                          ";
+                string sql = $@"
+                    select a.*, w.*, wt.*, (sum(mr.""WarshipRatingDelta"")) as ""WarshipRating""
+                        from ""Accounts"" a
+                        inner join ""Warships"" w on a.""Id"" = w.""AccountId""
+                        inner join ""WarshipTypes"" wt on w.""WarshipTypeId"" = wt.""Id""
+                        inner join ""MatchResultForPlayers"" mr on w.""Id"" = mr.""WarshipId""
+                        where a.""ServiceId"" = @serviceIdPar
+                        group by a.""Id"",w.""Id"", wt.""Id""
+                    ";
                 
-                var result = connection.Query<RewardsThatHaveNotBeenShown>(sql2);
-                foreach (var rewardsThatHaveNotBeenShown in result)
-                {
-                    
-                }
+                Dictionary<int, Account> lookup = new Dictionary<int, Account>();
+                IEnumerable<Account> accounts = await connection
+                    .QueryAsync<Account, Warship,WarshipType, Test, Account>(sql,
+                        (a, w, warshipType,test) =>
+                        {
+                            Console.WriteLine(" " + a);
+                            Console.WriteLine("\t\t " + w);
+                            Console.WriteLine("\t\t\t " + warshipType);
+                            Console.WriteLine("\t\t\t\t\t " + test.WarshipRating);
+
+                            //Если такого аккаунта ещё не было
+                            if (!lookup.TryGetValue(a.Id, out Account account))
+                            {
+                                //Положить аккаунт в словарь
+                                lookup.Add(a.Id, account = a);
+                            }
+
+                            //Попытаться достать корабль c таким id из коллекции
+                            Warship warship = account.Warships.Find(wArg => wArg.Id == w.Id);
+                            //Этот корабль уже есть в коллекции?
+                            if (warship == null)
+                            {
+                                //Заполнить тип корабля и положить в коллекцию
+                                warship = w;
+                                warship.WarshipType = warshipType;
+                                account.Warships.Add(warship);
+                                account.Rating += warship.WarshipRating;
+                            }
+
+                            return account;
+                        }, parameters, splitOn:"Id, WarshipRating");
+
             }
         }
     }
