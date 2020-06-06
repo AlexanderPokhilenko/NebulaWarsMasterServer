@@ -21,10 +21,10 @@ namespace AmoebaGameMatcherServer.Services
             {
                 ServiceId = playerId,
                 Username = playerId,
-                PremiumCurrency = defaultPremiumCurrency,
+                HardCurrency = defaultPremiumCurrency,
                 RegistrationDateTime = DateTime.UtcNow,
-                RegularCurrency = defaultRegularCurrency,
-                PointsForSmallLootbox = defaultPointsForSmallChest,
+                SoftCurrency = defaultRegularCurrency,
+                SmallLootboxPoints = defaultPointsForSmallChest,
                 Warships = new List<Warship>
                 {
                     new Warship

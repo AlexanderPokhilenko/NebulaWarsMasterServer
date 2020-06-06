@@ -23,7 +23,7 @@ namespace DeleteMe1
                 new DataSeeder().TrySeed(dbContext);
                 AccountBuilder builder = new AccountBuilder();
                 AccountDirector accountDirector = new SmallAccountDirector(builder);
-                accountDirector.Construct();
+                accountDirector.ConstructStart();
                 Account account = accountDirector.GetResult();
                 dbContext.Accounts.Add(account);
                 dbContext.SaveChanges();

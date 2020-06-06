@@ -36,10 +36,10 @@
 //
 //             //Assert
 //             Assert.IsNotNull(results);
-//             Assert.AreEqual(4, results.PremiumCurrency);
-//             Assert.AreEqual(34, results.RegularCurrency);
-//             Assert.AreEqual(0, results.PointsForBigLootbox);
-//             Assert.AreEqual(5, results.PointsForSmallLootbox);
+//             Assert.AreEqual(4, results.HardCurrency);
+//             Assert.AreEqual(34, results.SoftCurrency);
+//             Assert.AreEqual(0, results.BigLootboxPoints);
+//             Assert.AreEqual(5, results.SmallLootboxPoints);
 //
 //             List<MatchResultForPlayer> matchResultForPlayers = await dbContext.MatchResultForPlayers
 //                 .Where(result => result.Warship.AccountId == account.Id)
@@ -47,7 +47,7 @@
 //             
 //             foreach (var matchResultForPlayer in matchResultForPlayers)
 //             {
-//                 if (matchResultForPlayer.RegularCurrencyDelta != null)
+//                 if (matchResultForPlayer.SoftCurrencyDelta != null)
 //                 {
 //                     Assert.IsTrue(matchResultForPlayer.WasShown);
 //                 }
@@ -78,9 +78,9 @@
 //                                 },
 //                                 PlaceInMatch = 2,
 //                                 PremiumCurrencyDelta = 4,
-//                                 RegularCurrencyDelta = 34,
-//                                 PointsForBigLootbox = 0,
-//                                 PointsForSmallLootbox = 5,
+//                                 SoftCurrencyDelta = 34,
+//                                 BigLootboxPoints = 0,
+//                                 SmallLootboxPoints = 5,
 //                                 
 //                                 WarshipRatingDelta = 9,
 //                                 WasShown = false
@@ -96,9 +96,9 @@
 //                                 },
 //                                 PlaceInMatch = 4,
 //                                 PremiumCurrencyDelta = 0,
-//                                 RegularCurrencyDelta = 12,
-//                                 PointsForBigLootbox = 1,
-//                                 PointsForSmallLootbox = 2,
+//                                 SoftCurrencyDelta = 12,
+//                                 BigLootboxPoints = 1,
+//                                 SmallLootboxPoints = 2,
 //                                 WarshipRatingDelta = 3,
 //                                 WasShown = true
 //                             },
@@ -113,9 +113,9 @@
 //                                 },
 //                                 PlaceInMatch = null,
 //                                 PremiumCurrencyDelta = null,
-//                                 RegularCurrencyDelta = null,
-//                                 PointsForBigLootbox = null,
-//                                 PointsForSmallLootbox = null,
+//                                 SoftCurrencyDelta = null,
+//                                 BigLootboxPoints = null,
+//                                 SmallLootboxPoints = null,
 //                                 WarshipRatingDelta = null,
 //                                 WasShown = false
 //                             },

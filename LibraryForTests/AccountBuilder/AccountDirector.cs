@@ -13,7 +13,8 @@ namespace LibraryForTests
             Builder = builder;
         }
         
-        public abstract void Construct();
+        public abstract void ConstructStart();
+        public abstract void ConstructEnd();
         public virtual Account GetResult()
         {
             return Builder.GetResult();
@@ -23,20 +24,18 @@ namespace LibraryForTests
         {
             return Builder.GetResult().Warships
                        .SelectMany(warship => warship.MatchResultForPlayers)
-                       .Sum(matchResult => matchResult.WarshipRatingDelta) 
-                   ?? throw new Exception("Добавьте корабль.");
+                       .Sum(matchResult => matchResult.WarshipRatingDelta);
         }
 
         public virtual int GetAccountRegularCurrency()
         {
             int fromMatches = Builder.GetResult().Warships
                 .SelectMany(warship => warship.MatchResultForPlayers)
-                .Sum(matchResult => matchResult.RegularCurrencyDelta)
-                .GetValueOrDefault();
+                .Sum(matchResult => matchResult.SoftCurrencyDelta);
 
             Console.WriteLine($"{nameof(fromMatches)} {fromMatches}");
             int fromLootboxes = Builder.GetResult().Lootboxes
-                .SelectMany(lootbox => lootbox.LootboxPrizeRegularCurrencies)
+                .SelectMany(lootbox => lootbox.LootboxPrizeSoftCurrency)
                 .Sum(prize => prize.Quantity);
             
             Console.WriteLine($"{nameof(fromLootboxes)} {fromLootboxes}");
@@ -46,14 +45,9 @@ namespace LibraryForTests
         
         public virtual int GetAccountPremiumCurrency()
         {
-            int fromMatches = Builder.GetResult().Warships
-                .SelectMany(warship => warship.MatchResultForPlayers)
-                .Sum(matchResult => matchResult.PremiumCurrencyDelta)
-                .GetValueOrDefault();
-
             //TODO посчитать лутбоксы
             //TODO посчитать покупки за реальную валюту
-            return fromMatches;
+            return 0;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace IntegrationTests
         protected ApplicationDbContext Context => SetUpFixture.DbContext;
         protected AccountDbReaderService AccountDbReaderService => SetUpFixture.AccountReaderService;
         
-        [TearDown]
+        [SetUp]
         public void ResetChangeTracker()
         {
             SetUpFixture.TruncateAccountsTable();

@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DataLayer.TablesConfiguration
 {
-    public class LootboxPrizePointsForSmallLootboxConfiguration:IEntityTypeConfiguration<LootboxPrizeSmallLootboxPoints>
+    public class LootboxPrizeSoftCurrencyConfiguration:IEntityTypeConfiguration<LootboxPrizeSoftCurrency>
     {
-        public void Configure(EntityTypeBuilder<LootboxPrizeSmallLootboxPoints> builder)
+        public void Configure(EntityTypeBuilder<LootboxPrizeSoftCurrency> builder)
         {
             builder
                 .HasOne(w => w.LootboxDb)
-                .WithMany(lootbox => lootbox.LootboxPrizePointsForSmallLootboxes )
+                .WithMany(lootbox => lootbox.LootboxPrizeSoftCurrency )
                 .HasForeignKey(warship => warship.LootboxId);
         }
     }

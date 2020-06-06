@@ -12,13 +12,12 @@ namespace DataLayer.Tables
         [Required] public int WarshipId { get; set; }
         
         [Required] public bool WasShown { get; set; }
-        
-        public int? WarshipRatingDelta { get; set; }
-        public int? RegularCurrencyDelta { get; set; }
-        public int? PremiumCurrencyDelta { get; set; }
-        public int? PointsForBigLootbox { get; set; }
-        public int? PointsForSmallLootbox { get; set; }
-        public int? PlaceInMatch { get; set; }
+        [Required] public bool IsFinished { get; set; }
+        [Required] public int WarshipRatingDelta { get; set; }
+        [Required] public int SoftCurrencyDelta { get; set; }
+        [Required] public int BigLootboxPoints { get; set; }
+        [Required] public int SmallLootboxPoints { get; set; }
+        [Required] public int PlaceInMatch { get; set; }
         
         public Match Match { get; set; }
         public Warship Warship { get; set; }
@@ -32,10 +31,9 @@ namespace DataLayer.Tables
             stringBuilder.Append($"{nameof(WarshipId)} {WarshipId} ");
             stringBuilder.Append($"{nameof(WasShown)} {WasShown} ");
             stringBuilder.Append($"{nameof(WarshipRatingDelta)} {WarshipRatingDelta} ");
-            stringBuilder.Append($"{nameof(RegularCurrencyDelta)} {RegularCurrencyDelta} ");
-            stringBuilder.Append($"{nameof(PremiumCurrencyDelta)} {PremiumCurrencyDelta} ");
-            stringBuilder.Append($"{nameof(PointsForBigLootbox)} {PointsForBigLootbox} ");
-            stringBuilder.Append($"{nameof(PointsForSmallLootbox)} {PointsForSmallLootbox} ");
+            stringBuilder.Append($"{nameof(SoftCurrencyDelta)} {SoftCurrencyDelta} ");
+            stringBuilder.Append($"{nameof(BigLootboxPoints)} {BigLootboxPoints} ");
+            stringBuilder.Append($"{nameof(SmallLootboxPoints)} {SmallLootboxPoints} ");
             stringBuilder.Append($"{nameof(PlaceInMatch)} {PlaceInMatch} ");
             return stringBuilder.ToString();
         }

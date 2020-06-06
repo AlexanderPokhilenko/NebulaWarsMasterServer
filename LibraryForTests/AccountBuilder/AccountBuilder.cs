@@ -33,23 +33,50 @@ namespace LibraryForTests
             for (int j = 0; j < numberOfMatches; j++)
             {
                 DateTime start = new DateTime(2020, 1, 1).AddDays(random.Next(100));
-                MatchResultForPlayer matchResultForPlayer = new MatchResultForPlayer()
-                {    
-                    WasShown = random.Next()%2 == 0,
-                    PlaceInMatch = random.Next(100),
-                    PremiumCurrencyDelta = random.Next(20),
-                    RegularCurrencyDelta = random.Next(20),
-                    PointsForBigLootbox = random.Next(20),
-                    PointsForSmallLootbox = random.Next(20),
-                    WarshipRatingDelta = random.Next(10),
-                    Match = new Match
-                    {
-                        StartTime = start,
-                        FinishTime = start.AddSeconds(random.Next(100)),
-                        GameServerIp = "5",
-                        GameServerUdpPort = 5
-                    }
-                };
+                bool isFinished = random.Next() % 2 == 0;
+
+                MatchResultForPlayer matchResultForPlayer;
+                if (isFinished)
+                {
+                    matchResultForPlayer = new MatchResultForPlayer()
+                    {    
+                        IsFinished = true,
+                        WasShown = random.Next()%2 == 0,
+                        PlaceInMatch = random.Next(100),
+                        SoftCurrencyDelta = random.Next(20),
+                        BigLootboxPoints = random.Next(20),
+                        SmallLootboxPoints = random.Next(20),
+                        WarshipRatingDelta = random.Next(10),
+                        Match = new Match
+                        {
+                            StartTime = start,
+                            FinishTime = start.AddSeconds(random.Next(100)),
+                            GameServerIp = "5",
+                            GameServerUdpPort = 5
+                        }
+                    };
+                }
+                else
+                {
+                    matchResultForPlayer = new MatchResultForPlayer()
+                    {    
+                        IsFinished = false,
+                        WasShown = false,
+                        PlaceInMatch = 0,
+                        SoftCurrencyDelta = 0,
+                        BigLootboxPoints = 0,
+                        SmallLootboxPoints = 0,
+                        WarshipRatingDelta = 0,
+                        Match = new Match
+                        {
+                            StartTime = start,
+                            FinishTime = null,
+                            GameServerIp = "5",
+                            GameServerUdpPort = 5
+                        }
+                    };
+                }
+                
                 warship.MatchResultForPlayers.Add(matchResultForPlayer);
             }
             account.Warships.Add(warship);
@@ -58,7 +85,7 @@ namespace LibraryForTests
         public void AddLootbox(int countOfRegularCurrencyPrizes, int countOfWarshipPowerPointsPrizes, 
             int countOfPointsForSmallLootboxPrizes, bool wasShown, LootboxType lootboxType = LootboxType.Small)
         {
-            LootboxDb lootboxDb = new LootboxDb()
+            LootboxDb lootboxDb = new LootboxDb
             {
                 CreationDate = DateTime.Now,
                 WasShown = wasShown,
@@ -67,26 +94,28 @@ namespace LibraryForTests
 
             for (int i = 0; i < countOfRegularCurrencyPrizes; i++)
             {
-                var prize = new LootboxPrizeRegularCurrency()
+                var prize = new LootboxPrizeSoftCurrency
                 {
                     Quantity = random.Next(30)
                 };
-                lootboxDb.LootboxPrizeRegularCurrencies.Add(prize);
+                lootboxDb.LootboxPrizeSoftCurrency.Add(prize);
             }
             
             for (int i = 0; i < countOfWarshipPowerPointsPrizes; i++)
             {
-                var prize = new LootboxPrizeWarshipPowerPoints()
+                int warshipIndex = random.Next(account.Warships.Count);
+                var prize = new LootboxPrizeWarshipPowerPoints
                 {
                     Quantity = random.Next(30),
-                    WarshipId = account.Warships[random.Next(account.Warships.Count)].Id
+                    WarshipId = account.Warships[warshipIndex].Id
                 };
+                
                 lootboxDb.LootboxPrizeWarshipPowerPoints.Add(prize);
             }
             
             for (int i = 0; i < countOfPointsForSmallLootboxPrizes; i++)
             {
-                var prize = new LootboxPrizePointsForSmallLootbox()
+                var prize = new LootboxPrizeSmallLootboxPoints
                 {
                     Quantity = random.Next(30)
                 };

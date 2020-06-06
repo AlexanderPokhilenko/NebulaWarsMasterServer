@@ -58,17 +58,16 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
 
             
             matchResultForPlayer.PlaceInMatch = placeInMatch;
-            matchResultForPlayer.PremiumCurrencyDelta = matchReward.PremiumCurrencyDelta;
-            matchResultForPlayer.RegularCurrencyDelta = matchReward.RegularCurrencyDelta;
+            matchResultForPlayer.SoftCurrencyDelta = matchReward.RegularCurrencyDelta;
             matchResultForPlayer.WarshipRatingDelta = matchReward.WarshipRatingDelta;
-            matchResultForPlayer.PointsForBigLootbox = matchReward.PointsForBigChest;
-            matchResultForPlayer.PointsForSmallLootbox = matchReward.PointsForSmallLootbox;
+            matchResultForPlayer.BigLootboxPoints = matchReward.PointsForBigChest;
+            matchResultForPlayer.SmallLootboxPoints = matchReward.PointsForSmallLootbox;
 
             LogMatchResult(matchResultForPlayer);
             
-            //изменить денормализованные показатели рейтинга
-            warship.WarshipRating += matchResultForPlayer.WarshipRatingDelta.Value;
-            account.Rating += matchResultForPlayer.WarshipRatingDelta.Value;
+            //изменить показатели рейтинга
+            warship.WarshipRating += matchResultForPlayer.WarshipRatingDelta;
+            account.Rating += matchResultForPlayer.WarshipRatingDelta;
             
             await dbContext.SaveChangesAsync();
             
@@ -88,12 +87,10 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
 
         private void LogMatchResult(MatchResultForPlayer matchResultForPlayer)
         {
-    
-            Console.WriteLine($"{nameof(matchResultForPlayer.PremiumCurrencyDelta)} {matchResultForPlayer.PremiumCurrencyDelta}");
-            Console.WriteLine($"{nameof(matchResultForPlayer.RegularCurrencyDelta)} {matchResultForPlayer.RegularCurrencyDelta}");
+            Console.WriteLine($"{nameof(matchResultForPlayer.SoftCurrencyDelta)} {matchResultForPlayer.SoftCurrencyDelta}");
             Console.WriteLine($"{nameof(matchResultForPlayer.WarshipRatingDelta)} {matchResultForPlayer.WarshipRatingDelta}");
-            Console.WriteLine($"{nameof(matchResultForPlayer.PointsForBigLootbox)} {matchResultForPlayer.PointsForBigLootbox}");
-            Console.WriteLine($"{nameof(matchResultForPlayer.PointsForSmallLootbox)} {matchResultForPlayer.PointsForSmallLootbox}");
+            Console.WriteLine($"{nameof(matchResultForPlayer.BigLootboxPoints)} {matchResultForPlayer.BigLootboxPoints}");
+            Console.WriteLine($"{nameof(matchResultForPlayer.SmallLootboxPoints)} {matchResultForPlayer.SmallLootboxPoints}");
         }
         
         public async Task DeleteRoom(int matchId)
@@ -120,7 +117,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             //Дозаписать результаты для победителей
             //Для них результаты не были записаны, так как они не умирали
             var incompleteMatchResults = match.MatchResultForPlayers
-                .Where(matchResult => matchResult.RegularCurrencyDelta == null);
+                .Where(matchResult => matchResult.SoftCurrencyDelta == null);
 
             int index = 0;
             foreach (var matchResultForPlayer in incompleteMatchResults)

@@ -22,8 +22,8 @@ namespace AmoebaGameMatcherServer.Controllers
             var parameters = new {serviceIdPar = serviceId};
             string sql = $@"
                         select 
-                                (sum(mr.""RegularCurrencyDelta"") + sum(prRc.""Quantity"")) as ""RegularCurrency"",
-                                (sum(mr.""PointsForSmallLootbox"") + sum(prSl.""Quantity"")) as ""PointsForSmallLootbox"",
+                                (sum(mr.""SoftCurrencyDelta"") + sum(prRc.""Quantity"")) as ""SoftCurrency"",
+                                (sum(mr.""SmallLootboxPoints"") + sum(prSl.""Quantity"")) as ""SmallLootboxPoints"",
                                 (sum(prWpp.""Quantity"")) as ""WarshipPowerPoints""
                                
                                 from ""Accounts"" a
@@ -31,8 +31,8 @@ namespace AmoebaGameMatcherServer.Controllers
                                 inner join ""MatchResultForPlayers"" mr on mr.""WarshipId"" = w.""Id""
 
                                 inner join ""Lootbox"" lootbox on lootbox.""AccountId"" = a.""Id"" 
-                                inner join ""LootboxPrizePointsForSmallLootboxes"" prSl on prSl.""LootboxId"" = lootbox.""Id""
-                                inner join ""LootboxPrizeRegularCurrencies"" prRc on prRc.""LootboxId""=lootbox.""Id""
+                                inner join ""LootboxPrizeSmallLootboxPoints"" prSl on prSl.""LootboxId"" = lootbox.""Id""
+                                inner join ""LootboxPrizeSoftCurrency"" prRc on prRc.""LootboxId""=lootbox.""Id""
                                 inner join ""LootboxPrizeWarshipPowerPoints"" prWpp on prWpp.""LootboxId""=lootbox.""Id""
 
                                 where a.""ServiceId"" = @serviceIdPar and  mr.""WasShown""=false and lootbox.""WasShown""=false;

@@ -14,9 +14,9 @@ namespace DataLayer.Tables
         [Required] public DateTime RegistrationDateTime { get; set; }
         
         
-        [NotMapped] public int RegularCurrency { get; set; }
-        [NotMapped] public int PremiumCurrency { get; set; }
-        [NotMapped] public int PointsForSmallLootbox { get; set; }
+        [NotMapped] public int SoftCurrency { get; set; }
+        [NotMapped] public int HardCurrency { get; set; }
+        [NotMapped] public int SmallLootboxPoints { get; set; }
         [NotMapped] public int Rating { get; set; }
 
         
@@ -29,9 +29,9 @@ namespace DataLayer.Tables
             stringBuilder.Append($"{GetType().Name} ");
             stringBuilder.Append($"{nameof(Id)} {Id} ");
             stringBuilder.Append($"{nameof(ServiceId)} {ServiceId} ");
-            stringBuilder.Append($"{nameof(RegularCurrency)} {RegularCurrency} ");
-            stringBuilder.Append($"{nameof(PremiumCurrency)} {PremiumCurrency} ");
-            stringBuilder.Append($"{nameof(PointsForSmallLootbox)} {PointsForSmallLootbox} ");
+            stringBuilder.Append($"{nameof(SoftCurrency)} {SoftCurrency} ");
+            stringBuilder.Append($"{nameof(HardCurrency)} {HardCurrency} ");
+            stringBuilder.Append($"{nameof(SmallLootboxPoints)} {SmallLootboxPoints} ");
             stringBuilder.Append($"{nameof(RegistrationDateTime)} {RegistrationDateTime} ");
             stringBuilder.Append($"{nameof(Rating)} {Rating} ");
             stringBuilder.Append($"warshipsCount {Warships?.Count} ");

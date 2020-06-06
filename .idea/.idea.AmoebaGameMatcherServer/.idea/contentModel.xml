@@ -24,8 +24,9 @@
           <e p="AccountsConfiguration.cs" t="Include" />
           <e p="DataSeeder.cs" t="Include" />
           <e p="LootboxesConfiguration.cs" t="Include" />
+          <e p="LootboxPrizeHardCurrencyConfiguration.cs" t="Include" />
           <e p="LootboxPrizePointsForSmallLootboxConfiguration.cs" t="Include" />
-          <e p="LootboxPrizeRegularCurrencyConfiguration.cs" t="Include" />
+          <e p="LootboxPrizeSoftCurrencyConfiguration.cs" t="Include" />
           <e p="LootboxPrizeWarshipPowerPointsConfiguration.cs" t="Include" />
           <e p="MatchResultsConfiguration.cs" t="Include" />
           <e p="WarshipsConfiguration.cs" t="Include" />
@@ -42,15 +43,15 @@
           <e p="Account.cs" t="Include" />
           <e p="Lootboxes" t="Include">
             <e p="LootboxDb.cs" t="Include" />
-            <e p="LootboxPrizePointsForSmallLootbox.cs" t="Include" />
-            <e p="LootboxPrizeRegularCurrency.cs" t="Include" />
+            <e p="LootboxPrizeHardCurrency.cs" t="Include" />
+            <e p="LootboxPrizeSmallLootboxPoints.cs" t="Include" />
+            <e p="LootboxPrizeSoftCurrency.cs" t="Include" />
             <e p="LootboxPrizeWarshipPowerPoints.cs" t="Include" />
             <e p="LootboxType.cs" t="Include" />
           </e>
           <e p="Matches" t="Include">
             <e p="Match.cs" t="Include" />
             <e p="MatchResultForPlayer.cs" t="Include" />
-            <e p="MatchReward.cs" t="Include" />
             <e p="WarshipImprovementPurchase.cs" t="Include" />
           </e>
           <e p="Purchase.cs" t="Include" />
@@ -224,6 +225,9 @@
             <e p="AccountFacadeService.cs" t="Include" />
             <e p="AccountQueryDapperHelper1.cs" t="Include" />
             <e p="AccountRegistrationService.cs" t="Include" />
+            <e p="AccountResourcesDbReader.cs" t="Include" />
+            <e p="DapperHelperAccountResources.cs" t="Include" />
+            <e p="DbAccountWarshipsReader.cs" t="Include" />
             <e p="LobbyModelFacadeService.cs" t="Include" />
             <e p="NotShownRewardsReaderService.cs" t="Include" />
             <e p="WarshipImprovementFacadeService.cs" t="Include" />

@@ -27,13 +27,13 @@
 //                 .Where(account1 => account1.ServiceId == playerServiceId)
 //                 .SingleOrDefaultAsync();
 //
-//             account.PointsForSmallLootbox -= 100;
+//             account.SmallLootboxPoints -= 100;
 //
 //             LootboxDb lootboxDb = new LootboxDb
 //             {
 //                 LootboxType = LootboxType.Small,
-//                 LootboxPrizePointsForSmallLootboxes = new List<LootboxPrizePointsForSmallLootbox>(),
-//                 LootboxPrizeRegularCurrencies = new List<LootboxPrizeRegularCurrency>(),
+//                 LootboxPrizeSmallLootboxPoints = new List<LootboxPrizeSmallLootboxPoints>(),
+//                 LootboxPrizeSoftCurrency = new List<LootboxPrizeSoftCurrency>(),
 //                 LootboxPrizeWarshipPowerPoints = new List<LootboxPrizeWarshipPowerPoints>(),
 //                 AccountId = account.Id,
 //                 RegistrationDateTime = DateTime.UtcNow,
@@ -44,14 +44,14 @@
 //             {
 //                 switch (prize.LootboxPrizeType)
 //                 {
-//                     case LootboxPrizeType.RegularCurrency:
-//                         lootboxDb.LootboxPrizeRegularCurrencies.Add(new LootboxPrizeRegularCurrency
+//                     case LootboxPrizeType.SoftCurrency:
+//                         lootboxDb.LootboxPrizeSoftCurrency.Add(new LootboxPrizeSoftCurrency
 //                         {
 //                             Quantity = prize.Quantity
 //                         });
 //                         break;
-//                     case LootboxPrizeType.PointsForSmallLootbox:
-//                         lootboxDb.LootboxPrizePointsForSmallLootboxes.Add(new LootboxPrizePointsForSmallLootbox()
+//                     case LootboxPrizeType.SmallLootboxPoints:
+//                         lootboxDb.LootboxPrizeSmallLootboxPoints.Add(new LootboxPrizeSmallLootboxPoints()
 //                         {
 //                             Quantity = prize.Quantity
 //                         });

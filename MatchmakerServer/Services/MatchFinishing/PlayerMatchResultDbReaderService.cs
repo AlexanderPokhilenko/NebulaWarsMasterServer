@@ -35,12 +35,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             }
             
             //Результат игрока записан?
-            if (matchResultDb.PlaceInMatch == null
-                || matchResultDb.PremiumCurrencyDelta == null
-                || matchResultDb.RegularCurrencyDelta == null
-                || matchResultDb.WarshipRatingDelta == null
-                || matchResultDb.PointsForBigLootbox == null
-                || matchResultDb.PointsForSmallLootbox == null)
+            if (!matchResultDb.IsFinished)
             {
                 Console.WriteLine("Игрок не закончил этот матч.");
                 return null;
@@ -48,15 +43,15 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
 
 
             int currentWarshipRating = matchResultDb.Warship.MatchResultForPlayers
-                .Sum(value=>value.WarshipRatingDelta) ?? 0;
+                .Sum(value=>value.WarshipRatingDelta) ;
             
             
             MatchResult matchResult = new MatchResult
             {
                 SpaceshipPrefabName = matchResultDb.Warship.WarshipType.Name,
                 CurrentSpaceshipRating = currentWarshipRating,
-                MatchRatingDelta = matchResultDb.WarshipRatingDelta.Value,
-                PointsForSmallChest = matchResultDb.PointsForSmallLootbox.Value,
+                MatchRatingDelta = matchResultDb.WarshipRatingDelta,
+                PointsForSmallChest = matchResultDb.SmallLootboxPoints,
                 DoubleTokens = false
             };
 

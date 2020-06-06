@@ -18,9 +18,10 @@ namespace DataLayer
         public DbSet<MatchResultForPlayer> MatchResultForPlayers { get; set; }
         public DbSet<WarshipCombatRole> WarshipCombatRole { get; set; }
         public DbSet<LootboxDb> Lootbox { get; set; }
-        public DbSet<LootboxPrizeRegularCurrency> LootboxPrizeRegularCurrencies { get; set; }
+        public DbSet<LootboxPrizeSoftCurrency> LootboxPrizeSoftCurrency { get; set; }
+        public DbSet<LootboxPrizeHardCurrency> LootboxPrizeHardCurrency { get; set; }
         public DbSet<LootboxPrizeWarshipPowerPoints> LootboxPrizeWarshipPowerPoints { get; set; }
-        public DbSet<LootboxPrizePointsForSmallLootbox> LootboxPrizePointsForSmallLootboxes { get; set; }
+        public DbSet<LootboxPrizeSmallLootboxPoints> LootboxPrizeSmallLootboxPoints { get; set; }
         
         // public DbSet<Purchase> Purchases { get; set; }
         // public DbSet<Order> Orders { get; set; }
@@ -35,9 +36,10 @@ namespace DataLayer
             modelBuilder.ApplyConfiguration(new MatchResultsConfiguration());
             modelBuilder.ApplyConfiguration(new WarshipTypesConfiguration());
             modelBuilder.ApplyConfiguration(new LootboxesConfiguration());
-            modelBuilder.ApplyConfiguration(new LootboxPrizeRegularCurrencyConfiguration());
+            modelBuilder.ApplyConfiguration(new LootboxPrizeSoftCurrencyConfiguration());
             modelBuilder.ApplyConfiguration(new LootboxPrizeWarshipPowerPointsConfiguration());
             modelBuilder.ApplyConfiguration(new LootboxPrizePointsForSmallLootboxConfiguration());
+            modelBuilder.ApplyConfiguration(new LootboxPrizeHardCurrencyConfiguration());
         }
     }
 }

@@ -21,7 +21,7 @@ namespace DataLayer.Tables
         
         public List<MatchResultForPlayer> MatchResultForPlayers{ get; set; } = new List<MatchResultForPlayer>();
 
-        public List<LootboxPrizeWarshipPowerPoints> WarshipPowerPoints { get; set; }
+        public List<LootboxPrizeWarshipPowerPoints> WarshipPowerPoints { get; set; } = new List<LootboxPrizeWarshipPowerPoints>();
 
         public override string ToString()
         {

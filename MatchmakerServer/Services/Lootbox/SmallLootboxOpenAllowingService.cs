@@ -29,7 +29,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 return false;
             }
 
-            if (account.PointsForSmallLootbox < 100)
+            if (account.SmallLootboxPoints < 100)
             {
                 return false;
             }

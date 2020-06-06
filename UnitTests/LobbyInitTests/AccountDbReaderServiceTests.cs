@@ -42,9 +42,9 @@
 //             Assert.AreEqual(account.Username, playerInfo.Username);
 //             Assert.AreNotEqual(0, accountRating);
 //             Assert.AreEqual(accountRating, playerInfo.AccountRating);
-//             Assert.AreEqual(account.PremiumCurrency, playerInfo.PremiumCurrency);
-//             Assert.AreEqual(account.RegularCurrency, playerInfo.RegularCurrency);
-//             Assert.AreEqual(account.PointsForSmallLootbox, playerInfo.PointsForSmallLootbox);
+//             Assert.AreEqual(account.HardCurrency, playerInfo.HardCurrency);
+//             Assert.AreEqual(account.SoftCurrency, playerInfo.SoftCurrency);
+//             Assert.AreEqual(account.SmallLootboxPoints, playerInfo.SmallLootboxPoints);
 //         }
 //         
 //         /// <summary>

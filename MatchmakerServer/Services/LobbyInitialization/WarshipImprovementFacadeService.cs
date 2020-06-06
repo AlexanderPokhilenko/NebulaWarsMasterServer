@@ -56,7 +56,7 @@
 //             
 //             //Достаточно денег для покупки улучшения?
 //             int improvementCost = warshipPowerScaleModelStorage.GetWarshipImprovementCost(warship.PowerLevel);
-//             if (account.RegularCurrency < improvementCost)
+//             if (account.SoftCurrency < improvementCost)
 //             {
 //                 Console.WriteLine($"Недостаточно денег у аккаунта {nameof(playerServiceId)} {playerServiceId} для " +
 //                                   $"покупки улучшений {nameof(warshipId)} {warshipId}");
@@ -73,7 +73,7 @@
 //             }
 //      
 //             //Записать транзакцию
-//             await dbContext.WarshipImprovementPurchases.AddAsync(new WarshipImprovementPurchase
+//             await dbContext.WarshipPowerPoints.AddAsync(new WarshipImprovementPurchase
 //             {
 //                 DateTime = DateTime.UtcNow,
 //                 WarshipId = warshipId,

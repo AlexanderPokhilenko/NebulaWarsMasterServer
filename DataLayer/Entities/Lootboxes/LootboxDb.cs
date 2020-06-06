@@ -16,8 +16,9 @@ namespace DataLayer.Tables
         public Account Account { get; set; }
         
         
-        public List<LootboxPrizeRegularCurrency> LootboxPrizeRegularCurrencies { get ; set ; } = new List<LootboxPrizeRegularCurrency>();
-        public List<LootboxPrizePointsForSmallLootbox> LootboxPrizePointsForSmallLootboxes { get; set;} = new List<LootboxPrizePointsForSmallLootbox>();
+        public List<LootboxPrizeSoftCurrency> LootboxPrizeSoftCurrency { get ; set ; } = new List<LootboxPrizeSoftCurrency>();
+        public List<LootboxPrizeHardCurrency> LootboxPrizeHardCurrency { get ; set ; } = new List<LootboxPrizeHardCurrency>();
+        public List<LootboxPrizeSmallLootboxPoints> LootboxPrizePointsForSmallLootboxes { get; set;} = new List<LootboxPrizeSmallLootboxPoints>();
         public List<LootboxPrizeWarshipPowerPoints> LootboxPrizeWarshipPowerPoints{get;set;} = new List<LootboxPrizeWarshipPowerPoints>();
     }
 }
