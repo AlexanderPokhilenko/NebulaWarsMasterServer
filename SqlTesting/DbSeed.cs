@@ -22,8 +22,8 @@ namespace DeleteMe1
             {
                 new DataSeeder().TrySeed(dbContext);
                 AccountBuilder builder = new AccountBuilder();
-                AccountDirector accountDirector = new SmallAccountDirector(builder);
-                accountDirector.ConstructStart();
+                AccountDirector accountDirector = new SmallAccountDirector(builder, dbContext);
+                accountDirector.WriteToDatabase();
                 Account account = accountDirector.GetResult();
                 dbContext.Accounts.Add(account);
                 dbContext.SaveChanges();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using DataLayer;
 using DataLayer.Tables;
 
 namespace LibraryForTests
@@ -7,34 +8,50 @@ namespace LibraryForTests
     public abstract class AccountDirector
     {
         protected readonly AccountBuilder Builder;
+        private readonly ApplicationDbContext dbContext;
 
-        protected AccountDirector(AccountBuilder builder)
+        protected AccountDirector(AccountBuilder builder, ApplicationDbContext dbContext)
         {
             Builder = builder;
+            this.dbContext = dbContext;
+        }
+
+        public void WriteToDatabase()
+        {
+            string username = "username_" + DateTime.Now.ToLongTimeString();
+            string serviceId = "serviceId_" + DateTime.Now.ToLongTimeString();
+            Builder.SetBaseInfo(username, serviceId, DateTime.Now);
+            ConstructWarships();
+            Account account = Builder.GetAccount();
+            dbContext.Accounts.Add(account);
+            dbContext.SaveChanges();
+            ConstructLootboxes();
+            dbContext.SaveChanges();
         }
         
-        public abstract void ConstructStart();
-        public abstract void ConstructEnd();
-        public virtual Account GetResult()
+        protected abstract void ConstructWarships();
+        protected abstract void ConstructLootboxes();
+
+        public Account GetResult()
         {
-            return Builder.GetResult();
+            return Builder.GetAccount();
         }
         
-        public virtual int GetAccountRating()
+        public int GetAccountRating()
         {
-            return Builder.GetResult().Warships
+            return Builder.GetAccount().Warships
                        .SelectMany(warship => warship.MatchResultForPlayers)
                        .Sum(matchResult => matchResult.WarshipRatingDelta);
         }
 
-        public virtual int GetAccountRegularCurrency()
+        public int GetAccountRegularCurrency()
         {
-            int fromMatches = Builder.GetResult().Warships
+            int fromMatches = Builder.GetAccount().Warships
                 .SelectMany(warship => warship.MatchResultForPlayers)
                 .Sum(matchResult => matchResult.SoftCurrencyDelta);
 
             Console.WriteLine($"{nameof(fromMatches)} {fromMatches}");
-            int fromLootboxes = Builder.GetResult().Lootboxes
+            int fromLootboxes = Builder.GetAccount().Lootboxes
                 .SelectMany(lootbox => lootbox.LootboxPrizeSoftCurrency)
                 .Sum(prize => prize.Quantity);
             
@@ -43,7 +60,7 @@ namespace LibraryForTests
             return fromMatches + fromLootboxes;
         }
         
-        public virtual int GetAccountPremiumCurrency()
+        public int GetAccountPremiumCurrency()
         {
             //TODO посчитать лутбоксы
             //TODO посчитать покупки за реальную валюту

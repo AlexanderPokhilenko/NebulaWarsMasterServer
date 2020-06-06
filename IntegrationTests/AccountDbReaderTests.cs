@@ -13,14 +13,12 @@ namespace IntegrationTests
         {
             //Arrange
             AccountBuilder accountBuilder = new AccountBuilder();
-            AccountDirector bigAccountDirector = new SmallAccountDirector(accountBuilder);
-            bigAccountDirector.ConstructStart();
+            AccountDirector bigAccountDirector = new SmallAccountDirector(accountBuilder, Context);
+            bigAccountDirector.WriteToDatabase();
             Account originalAccount = bigAccountDirector.GetResult();
             int originalAccountRating = bigAccountDirector.GetAccountRating();
             int originalAccountRegularCurrency = bigAccountDirector.GetAccountRegularCurrency();
             int originalAccountPremiumCurrency = bigAccountDirector.GetAccountPremiumCurrency();
-            Context.Accounts.Add(originalAccount);
-            Context.SaveChanges();
             
             //Act
             Account account = await AccountDbReaderService.GetAccount(originalAccount.ServiceId);
@@ -46,18 +44,14 @@ namespace IntegrationTests
         {
             //Arrange
             AccountBuilder accountBuilder = new AccountBuilder(seedForRandom);
-            AccountDirector bigAccountDirector = new MediumAccountDirector(accountBuilder);
-            bigAccountDirector.ConstructStart();
-            Account originalAccount = bigAccountDirector.GetResult();
-            Context.Accounts.Add(originalAccount);
-            Context.SaveChanges();
-            bigAccountDirector.ConstructEnd();
-            Context.SaveChanges();
-            int originalAccountRating = bigAccountDirector.GetAccountRating();
-            int originalAccountRegularCurrency = bigAccountDirector.GetAccountRegularCurrency();
-            int originalAccountPremiumCurrency = bigAccountDirector.GetAccountPremiumCurrency();
+            AccountDirector accountDirector = new MediumAccountDirector(accountBuilder, Context);
+            accountDirector.WriteToDatabase();
+            Account originalAccount = accountDirector.GetResult();
             
-            
+            int originalAccountRating = accountDirector.GetAccountRating();
+            int originalAccountRegularCurrency = accountDirector.GetAccountRegularCurrency();
+            int originalAccountPremiumCurrency = accountDirector.GetAccountPremiumCurrency();
+
             //Act
             Account account = await AccountDbReaderService.GetAccount(originalAccount.ServiceId);
             
@@ -82,17 +76,12 @@ namespace IntegrationTests
         {
             //Arrange
             AccountBuilder accountBuilder = new AccountBuilder(seedForRandom);
-            AccountDirector bigAccountDirector = new BigAccountDirector(accountBuilder);
-            bigAccountDirector.ConstructStart();
-            Account originalAccount = bigAccountDirector.GetResult();
-            Context.Accounts.Add(originalAccount);
-            Context.SaveChanges();
-            bigAccountDirector.ConstructEnd();
-            Context.SaveChanges();
-            int originalAccountRating = bigAccountDirector.GetAccountRating();
-            int originalAccountRegularCurrency = bigAccountDirector.GetAccountRegularCurrency();
-            int originalAccountPremiumCurrency = bigAccountDirector.GetAccountPremiumCurrency();
-            
+            AccountDirector accountDirector = new BigAccountDirector(accountBuilder, Context);
+            accountDirector.WriteToDatabase();
+            Account originalAccount = accountDirector.GetResult();
+            int originalAccountRating = accountDirector.GetAccountRating();
+            int originalAccountRegularCurrency = accountDirector.GetAccountRegularCurrency();
+            int originalAccountPremiumCurrency = accountDirector.GetAccountPremiumCurrency();
             
             //Act
             Account account = await AccountDbReaderService.GetAccount(originalAccount.ServiceId);

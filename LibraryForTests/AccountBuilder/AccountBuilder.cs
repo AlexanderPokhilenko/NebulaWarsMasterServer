@@ -3,12 +3,15 @@ using DataLayer.Tables;
 
 namespace LibraryForTests
 {
+    /// <summary>
+    /// Содержит методы для поэтапного создания аккаунта
+    /// </summary>
     public class AccountBuilder
     {
         private readonly Account account = new Account();
         private readonly Random random;
 
-        public AccountBuilder(int seed=1)
+        public AccountBuilder(int seed = 1)
         {
             random = new Random(seed);
         }
@@ -22,7 +25,13 @@ namespace LibraryForTests
         
         public void AddWarship(int numberOfMatches)
         {
-            Warship warship = new Warship()
+            if (account.Username == null || account.ServiceId == null)
+            {
+                throw new Exception("Нужно устновить базовую информацию про аккаунт");
+            }
+            
+            //Создать корабль
+            Warship warship = new Warship
             {
                 PowerLevel = random.Next(100),
                 PowerPoints = random.Next(100),
@@ -32,10 +41,9 @@ namespace LibraryForTests
             //Добавить мачти для корабля
             for (int j = 0; j < numberOfMatches; j++)
             {
+                MatchResultForPlayer matchResultForPlayer;
                 DateTime start = new DateTime(2020, 1, 1).AddDays(random.Next(100));
                 bool isFinished = random.Next() % 2 == 0;
-
-                MatchResultForPlayer matchResultForPlayer;
                 if (isFinished)
                 {
                     matchResultForPlayer = new MatchResultForPlayer()
@@ -79,9 +87,14 @@ namespace LibraryForTests
                 
                 warship.MatchResultForPlayers.Add(matchResultForPlayer);
             }
+            
             account.Warships.Add(warship);
         }
 
+        /// <summary>
+        /// Нельзя вызывать, если в БД не были сохранены корабли. В таком случает бросит исключение
+        /// из-за проблем с внешним ключём на сущность Warship
+        /// </summary>
         public void AddLootbox(int countOfRegularCurrencyPrizes, int countOfWarshipPowerPointsPrizes, 
             int countOfPointsForSmallLootboxPrizes, bool wasShown, LootboxType lootboxType = LootboxType.Small)
         {
@@ -125,7 +138,7 @@ namespace LibraryForTests
             account.Lootboxes.Add(lootboxDb);
         }
 
-        public Account GetResult()
+        public Account GetAccount()
         {
             return account;
         }
