@@ -94,6 +94,8 @@
           <e p="AccountBuilder.cs" t="Include" />
           <e p="AccountDirector.cs" t="Include" />
           <e p="BigAccountDirector.cs" t="Include" />
+          <e p="MediumAccountDirector.cs" t="Include" />
+          <e p="SmallAccountDirector.cs" t="Include" />
         </e>
         <e p="bin" t="ExcludeRecursive" />
         <e p="LibraryforTests.csproj" t="IncludeRecursive" />

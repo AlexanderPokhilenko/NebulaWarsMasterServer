@@ -27,14 +27,16 @@ namespace LibraryForTests
         {
             if (account.Username == null || account.ServiceId == null)
             {
-                throw new Exception("Нужно устновить базовую информацию про аккаунт");
+                throw new Exception("Нужно установить базовую информацию про аккаунт");
             }
             
             //Создать корабль
             Warship warship = new Warship
             {
-                PowerLevel = random.Next(100),
-                PowerPoints = random.Next(100),
+                //TODO эти значения not mapped. они определяются через другие сущности
+                PowerLevel = 0,
+                PowerPoints = 0,
+                WarshipRating = 0,
                 WarshipTypeId = account.Warships.Count+1
             };
                 
@@ -120,6 +122,7 @@ namespace LibraryForTests
                 var prize = new LootboxPrizeWarshipPowerPoints
                 {
                     Quantity = random.Next(30),
+                    //TODO это опасно
                     WarshipId = account.Warships[warshipIndex].Id
                 };
                 

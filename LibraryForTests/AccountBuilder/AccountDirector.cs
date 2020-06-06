@@ -32,7 +32,7 @@ namespace LibraryForTests
         protected abstract void ConstructWarships();
         protected abstract void ConstructLootboxes();
 
-        public Account GetResult()
+        public Account GetAccount()
         {
             return Builder.GetAccount();
         }

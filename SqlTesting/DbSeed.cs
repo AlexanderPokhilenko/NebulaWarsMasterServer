@@ -24,7 +24,7 @@ namespace DeleteMe1
                 AccountBuilder builder = new AccountBuilder();
                 AccountDirector accountDirector = new SmallAccountDirector(builder, dbContext);
                 accountDirector.WriteToDatabase();
-                Account account = accountDirector.GetResult();
+                Account account = accountDirector.GetAccount();
                 dbContext.Accounts.Add(account);
                 dbContext.SaveChanges();
             }
