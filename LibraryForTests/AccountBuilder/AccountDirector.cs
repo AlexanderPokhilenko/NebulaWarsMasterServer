@@ -44,7 +44,7 @@ namespace LibraryForTests
                        .Sum(matchResult => matchResult.WarshipRatingDelta);
         }
 
-        public int GetAccountRegularCurrency()
+        public int GetAccountSoftCurrency()
         {
             int fromMatches = Builder.GetAccount().Warships
                 .SelectMany(warship => warship.MatchResultForPlayers)
@@ -60,7 +60,7 @@ namespace LibraryForTests
             return fromMatches + fromLootboxes;
         }
         
-        public int GetAccountPremiumCurrency()
+        public int GetAccountHardCurrency()
         {
             //TODO посчитать лутбоксы
             //TODO посчитать покупки за реальную валюту

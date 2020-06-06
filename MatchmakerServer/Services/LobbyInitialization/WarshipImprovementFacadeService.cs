@@ -30,7 +30,7 @@
 //         public async Task<bool> TryBuyImprovement(string playerServiceId, int warshipId)
 //         {
 //             //Аккаунт существует?
-//             Account account = await accountDbReaderService.GetAccount(playerServiceId);
+//             Account account = await accountDbReaderService.ReadAccount(playerServiceId);
 //             
 //             if (account == null)
 //             {

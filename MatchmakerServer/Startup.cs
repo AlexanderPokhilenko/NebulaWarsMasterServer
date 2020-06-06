@@ -5,25 +5,14 @@ using AmoebaGameMatcherServer.Services.Queues;
 using AutoMapper;
 using Dapper;
 using DataLayer;
-using DataLayer.Tables;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using NetworkLibrary.NetworkLibrary.Http;
 using Npgsql;
 
 namespace AmoebaGameMatcherServer
 {
-    public class MappingProfile : Profile 
-    {
-        public MappingProfile() {
-            // Add as many of these lines as you need to map your objects
-            CreateMap<Account, AccountDto>();
-            CreateMap<AccountDto, Account>();
-        }
-    }
-    
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)

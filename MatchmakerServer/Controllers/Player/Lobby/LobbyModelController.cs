@@ -10,11 +10,11 @@ namespace AmoebaGameMatcherServer.Controllers
     /// </summary>
     [Route("[controller]")]
     [ApiController]
-    public class LobbyDataController : ControllerBase
+    public class LobbyModelController : ControllerBase
     {
         private readonly LobbyModelFacadeService lobbyModelFacadeService;
         
-        public LobbyDataController(LobbyModelFacadeService lobbyModelFacadeService)
+        public LobbyModelController(LobbyModelFacadeService lobbyModelFacadeService)
         {
             this.lobbyModelFacadeService = lobbyModelFacadeService;
         }

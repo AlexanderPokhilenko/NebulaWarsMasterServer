@@ -18,11 +18,11 @@ namespace IntegrationTests
             accountDirector.WriteToDatabase();
             Account originalAccount = accountDirector.GetAccount();
             int originalAccountRating = accountDirector.GetAccountRating();
-            int originalAccountRegularCurrency = accountDirector.GetAccountRegularCurrency();
-            int originalAccountPremiumCurrency = accountDirector.GetAccountPremiumCurrency();
+            int originalAccountRegularCurrency = accountDirector.GetAccountSoftCurrency();
+            int originalAccountPremiumCurrency = accountDirector.GetAccountHardCurrency();
             
             //Act
-            Account account = await AccountDbReaderService.GetAccount(originalAccount.ServiceId);
+            Account account = await AccountDbReaderService.ReadAccount(originalAccount.ServiceId);
             
             //Assert
             Assert.IsNotNull(account);
@@ -61,11 +61,11 @@ namespace IntegrationTests
             Account originalAccount = accountDirector.GetAccount();
             
             int originalAccountRating = accountDirector.GetAccountRating();
-            int originalAccountRegularCurrency = accountDirector.GetAccountRegularCurrency();
-            int originalAccountPremiumCurrency = accountDirector.GetAccountPremiumCurrency();
+            int originalAccountRegularCurrency = accountDirector.GetAccountSoftCurrency();
+            int originalAccountPremiumCurrency = accountDirector.GetAccountHardCurrency();
 
             //Act
-            Account account = await AccountDbReaderService.GetAccount(originalAccount.ServiceId);
+            Account account = await AccountDbReaderService.ReadAccount(originalAccount.ServiceId);
             
             //Assert
             Assert.IsNotNull(account);
@@ -102,11 +102,11 @@ namespace IntegrationTests
             accountDirector.WriteToDatabase();
             Account originalAccount = accountDirector.GetAccount();
             int originalAccountRating = accountDirector.GetAccountRating();
-            int originalAccountRegularCurrency = accountDirector.GetAccountRegularCurrency();
-            int originalAccountPremiumCurrency = accountDirector.GetAccountPremiumCurrency();
+            int originalAccountRegularCurrency = accountDirector.GetAccountSoftCurrency();
+            int originalAccountPremiumCurrency = accountDirector.GetAccountHardCurrency();
             
             //Act
-            Account account = await AccountDbReaderService.GetAccount(originalAccount.ServiceId);
+            Account account = await AccountDbReaderService.ReadAccount(originalAccount.ServiceId);
             
             //Assert
             Assert.IsNotNull(account);

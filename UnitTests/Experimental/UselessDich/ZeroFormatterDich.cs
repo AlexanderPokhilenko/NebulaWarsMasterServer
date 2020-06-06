@@ -37,10 +37,10 @@ namespace MatchmakerTest
             {
                 Username = UniqueStringFactory.Create(),
                 AccountRating = 77,
-                PremiumCurrency = 321,
-                RegularCurrency = 88,
-                PointsForBigLootbox = 219,
-                PointsForSmallLootbox = 987,
+                HardCurrency = 321,
+                SoftCurrency = 88,
+                BigLootboxPoints = 219,
+                SmallLootboxPoints = 987,
                 Warships = warships
             };
 

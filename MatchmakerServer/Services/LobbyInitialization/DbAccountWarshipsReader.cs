@@ -67,6 +67,8 @@ select a.*, w.*, wt.*, wcr.*,
                             warship.WarshipType = warshipTypeArg;
                             warship.WarshipRating = dapperHelper.WarshipRating;
                             warship.PowerPoints = dapperHelper.WarshipPowerPoints;
+                            warship.WarshipType.WarshipCombatRole = warshipCombatRole;
+                            
                             account.Warships.Add(warship);
                             account.Rating += warship.WarshipRating;
                         }

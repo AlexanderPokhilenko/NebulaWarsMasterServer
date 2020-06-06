@@ -25,7 +25,7 @@
 //             await dbContext.SaveChangesAsync();
 //             
 //             //Act
-//             var playerInfo = await accountDbReaderService.GetAccount(account.ServiceId);
+//             var playerInfo = await accountDbReaderService.ReadAccount(account.ServiceId);
 //             
 //             //Assert
 //             Assert.IsNotNull(playerInfo);
@@ -61,7 +61,7 @@
 //             string accountServiceId = "someUniqueId_65461814865468";
 //             
 //             //Act
-//             var playerInfo = await accountDbReaderService.GetAccount(accountServiceId);
+//             var playerInfo = await accountDbReaderService.ReadAccount(accountServiceId);
 //             
 //             //Assert
 //             Assert.IsNull(playerInfo);

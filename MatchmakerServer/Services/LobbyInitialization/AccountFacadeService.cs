@@ -26,7 +26,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
         [NotNull]
         public async Task<Account> ReadOrCreateAccount([NotNull] string serviceId)
         {
-            Account account = await accountDbReaderService.GetAccount(serviceId);
+            Account account = await accountDbReaderService.ReadAccount(serviceId);
             
             if (account == null)
             {
@@ -34,7 +34,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                 if (await accountRegistrationService.TryRegisterAccount(serviceId))
                 {
                     Console.WriteLine("Успешная регистрация");
-                    account = await accountDbReaderService.GetAccount(serviceId);
+                    account = await accountDbReaderService.ReadAccount(serviceId);
                 }
                 else
                 {

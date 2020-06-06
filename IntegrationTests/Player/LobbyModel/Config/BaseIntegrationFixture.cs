@@ -18,6 +18,8 @@ namespace IntegrationTests
         protected AccountDbReaderService AccountDbReaderService => SetUpFixture.AccountReaderService;
         protected NotShownRewardsReaderService NotShownRewardsReaderService => SetUpFixture.NotShownRewardsReaderService;
         protected AccountFacadeService AccountFacadeService => SetUpFixture.AccountFacadeService;
+        protected LobbyModelFacadeService LobbyModelFacadeService => SetUpFixture.LobbyModelFacadeService;
+        protected LobbyModelController LobbyModelController => SetUpFixture.LobbyModelController;
         
         [SetUp]
         public void ResetChangeTracker()

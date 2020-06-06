@@ -18,8 +18,9 @@ namespace IntegrationTests
         internal static ApplicationDbContext DbContext;
         internal static AccountDbReaderService AccountReaderService;
         internal static NotShownRewardsReaderService NotShownRewardsReaderService;
-        // internal static LobbyModelFacadeService LobbyModelFacadeService;
+        internal static LobbyModelFacadeService LobbyModelFacadeService;
         internal static AccountFacadeService AccountFacadeService;
+        internal static LobbyModelController LobbyModelController;
 
         [OneTimeSetUp]
         public void Initialize()
@@ -41,6 +42,9 @@ namespace IntegrationTests
             NotShownRewardsReaderService = new NotShownRewardsReaderService(DbContext);
             var accountRegistrationService = new AccountRegistrationService(DbContext);
             AccountFacadeService = new AccountFacadeService(AccountReaderService, accountRegistrationService);
+            LobbyModelFacadeService = new LobbyModelFacadeService(AccountFacadeService, NotShownRewardsReaderService);
+
+            LobbyModelController = new LobbyModelController(LobbyModelFacadeService);
         }
 
         public static void TruncateAccountsTable()

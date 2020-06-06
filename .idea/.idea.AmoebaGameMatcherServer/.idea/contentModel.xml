@@ -75,12 +75,8 @@
         <e p="readme.txt" t="Include" />
       </e>
       <e p="IntegrationTests" t="IncludeRecursive">
-        <e p="AccountDbReaderTests.cs" t="Include" />
-        <e p="AccountFacadeServiceTests.cs" t="Include" />
-        <e p="BaseIntegrationFixture.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="IntegrationTests.csproj" t="IncludeRecursive" />
-        <e p="NotShownRewardsTests.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp2.2" t="Include">
@@ -89,7 +85,20 @@
             </e>
           </e>
         </e>
-        <e p="SetUpFixture.cs" t="Include" />
+        <e p="Player" t="Include">
+          <e p="LobbyModel" t="Include">
+            <e p="config" t="Include">
+              <e p="BaseIntegrationFixture.cs" t="Include" />
+              <e p="SetUpFixture.cs" t="Include" />
+            </e>
+            <e p="Tests" t="Include">
+              <e p="AccountDbReaderTests.cs" t="Include" />
+              <e p="AccountFacadeServiceTests.cs" t="Include" />
+              <e p="LobbyModelFacadeServiceTests.cs" t="Include" />
+              <e p="NotShownRewardsTests.cs" t="Include" />
+            </e>
+          </e>
+        </e>
       </e>
       <e p="LibraryforTests" t="IncludeRecursive">
         <e p="AccountBuilder" t="Include">
@@ -119,7 +128,7 @@
           </e>
           <e p="Player" t="Include">
             <e p="Lobby" t="Include">
-              <e p="LobbyDataController.cs" t="Include" />
+              <e p="LobbyModelController.cs" t="Include" />
               <e p="WarshipImprovementPurchasingController.cs" t="Include" />
             </e>
             <e p="LootboxController.cs" t="Include" />
@@ -154,6 +163,7 @@
           <e p="ServicesExtension.cs" t="Include" />
         </e>
         <e p="googleApiData.txt" t="Include" />
+        <e p="MappingProfile.cs" t="Include" />
         <e p="MatchmakerServer.csproj" t="IncludeRecursive" />
         <e p="NetworkLibrary" t="Include">
           <e p="Experimental" t="Include">
@@ -227,6 +237,7 @@
           <e p="LobbyInitialization" t="Include">
             <e p="AccountDbReaderService.cs" t="Include" />
             <e p="AccountFacadeService.cs" t="Include" />
+            <e p="AccountMapper.cs" t="Include" />
             <e p="AccountQueryDapperHelper1.cs" t="Include" />
             <e p="AccountRegistrationService.cs" t="Include" />
             <e p="AccountResourcesDbReader.cs" t="Include" />
