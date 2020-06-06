@@ -1,6 +1,7 @@
 using AmoebaGameMatcherServer;
 using AmoebaGameMatcherServer.Controllers;
 using AmoebaGameMatcherServer.Services.LobbyInitialization;
+using AutoMapper;
 using DataLayer;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
@@ -17,11 +18,13 @@ namespace IntegrationTests
         internal static ApplicationDbContext DbContext;
         internal static AccountDbReaderService AccountReaderService;
         internal static NotShownRewardsReaderService NotShownRewardsReaderService;
+        // internal static LobbyModelFacadeService LobbyModelFacadeService;
+        internal static AccountFacadeService AccountFacadeService;
 
         [OneTimeSetUp]
         public void Initialize()
         {
-            string databaseName = "IntegrationTests26";
+            string databaseName = "IntegrationTests27";
             //Создать БД
             DbContext = new DbContextFactory().Create(databaseName);
             //Ввести базовые данные
@@ -35,7 +38,9 @@ namespace IntegrationTests
             //Создать сервисы
             NpgsqlConnection conn = new NpgsqlConnection(connectionString);
             AccountReaderService = new AccountDbReaderService(conn);
-            NotShownRewardsReaderService = new NotShownRewardsReaderService(conn);
+            NotShownRewardsReaderService = new NotShownRewardsReaderService(DbContext);
+            var accountRegistrationService = new AccountRegistrationService(DbContext);
+            AccountFacadeService = new AccountFacadeService(AccountReaderService, accountRegistrationService);
         }
 
         public static void TruncateAccountsTable()

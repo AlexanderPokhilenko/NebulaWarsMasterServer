@@ -27,7 +27,7 @@
 //             string serviceId = UniqueStringFactory.Create();
 //             
 //             //Act
-//             var accountInfo = await accountFacadeService.GetOrRegisterAccount(serviceId);
+//             var accountInfo = await accountFacadeService.ReadOrCreateAccount(serviceId);
 //             
 //             //Assert
 //             Assert.IsNotNull(accountInfo);

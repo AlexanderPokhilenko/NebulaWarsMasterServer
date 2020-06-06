@@ -23,8 +23,8 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
             this.accountRegistrationService = accountRegistrationService;
         }
         
-        [ItemCanBeNull]
-        public async Task<Account> GetOrRegisterAccount([NotNull] string serviceId)
+        [NotNull]
+        public async Task<Account> ReadOrCreateAccount([NotNull] string serviceId)
         {
             Account account = await accountDbReaderService.GetAccount(serviceId);
             
@@ -38,8 +38,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                 }
                 else
                 {
-                    Console.WriteLine("Не удалось выполнить регистрацию аккаунта");
-                    return null;
+                    throw new Exception("Не удалось выполнить регистрацию аккаунта");
                 }
             }
 

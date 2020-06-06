@@ -20,15 +20,16 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
             accountResourcesDbReader = new AccountResourcesDbReader(connection);
         }
 
-        /// <summary>
-        /// Отвечает за получение данных про аккаунт из БД.
-        /// </summary>
         [ItemCanBeNull]
         public async Task<Account> GetAccount([NotNull] string serviceId)
         {
             Account account = await dbAccountWarshipsReader.GetAccountWithWarships(serviceId);
-            var accountResources = await accountResourcesDbReader.GetAccountResources(serviceId);
+            if (account == null)
+            {
+                return null;
+            }
             
+            var accountResources = await accountResourcesDbReader.GetAccountResources(serviceId);
             account.HardCurrency = accountResources.HardCurrency;
             account.SoftCurrency = accountResources.SoftCurrency;
             account.SmallLootboxPoints = accountResources.SmallLootboxPoints;

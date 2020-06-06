@@ -1,18 +1,39 @@
 ﻿select
-    (sum(mr."SoftCurrencyDelta") + sum(prRc."Quantity")) as "RegularCurrencyDelta",
-    (sum(mr."SmallLootboxPoints") + sum(prSl."Quantity")) as "PointsForSmallLootboxes",
-    (sum(prWpp."Quantity")) as "WarshipPowerPoints"
+    (
+        coalesce(
+                sum(MR."SoftCurrencyDelta")    
+            ,0)
+         +
+        coalesce(
+                sum(LPSC."Quantity")
+            ,0)
+    ) as "SoftCurrencyDelta",
+       
+    (
+     coalesce(
+            sum(MR."SmallLootboxPoints")
+         ,0)
+         +
+     coalesce(
+         sum(LPSLP."Quantity")
+         ,0)
+    ) as "SmallLootboxPoints",
+    (
+            coalesce(
+                    sum(MR."WarshipRatingDelta")
+                ,0)
+            
+        ) as "AccountRatingDelta"
 
 from "Accounts" a
 
-         inner join "Warships" w on w."AccountId" = a."Id"
-         inner join "MatchResultForPlayers" mr on mr."WarshipId" = w."Id"
+         inner join "Warships" W on W."AccountId" = a."Id"
+         inner join "MatchResultForPlayers" MR on MR."WarshipId" = W."Id"
 
-         inner join "Lootbox" lootbox on lootbox."AccountId" = a."Id"
-         inner join "LootboxPrizeSmallLootboxPoints" prSl on prSl."LootboxId" = lootbox."Id"
-         inner join "LootboxPrizeSoftCurrency" prRc on prRc."LootboxId"=lootbox."Id"
-         inner join "LootboxPrizeWarshipPowerPoints" prWpp on prWpp."LootboxId"=lootbox."Id"
+         inner join "Lootbox" L on L."AccountId" = a."Id"
+         inner join "LootboxPrizeSmallLootboxPoints" LPSLP on LPSLP."LootboxId" = L."Id"
+         inner join "LootboxPrizeSoftCurrency" LPSC on LPSC."LootboxId"= L."Id"
 
-where a."ServiceId" = 'serviceId_13:12:05' 
-  and  mr."WasShown"=false 
-  and lootbox."WasShown"=false;
+where a."ServiceId" = 'serviceId_17:03:38' 
+  and  MR."WasShown"=false 
+  and L."WasShown"=false;

@@ -2,46 +2,95 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using DataLayer;
+using DataLayer.Tables;
 using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore;
 using NetworkLibrary.NetworkLibrary.Http;
 using Npgsql;
 
 namespace AmoebaGameMatcherServer.Controllers
 {
+    /// <summary>
+    /// Читает из БД список наград, начисление которых не было показано и сразу помечает их как показанные.
+    /// </summary>
     public class NotShownRewardsReaderService
     {
-        private readonly NpgsqlConnection connection;
+        private readonly ApplicationDbContext dbContext;
 
-        public NotShownRewardsReaderService(NpgsqlConnection connection)
+        public NotShownRewardsReaderService(ApplicationDbContext dbContext)
         {
-            this.connection = connection;
+            this.dbContext = dbContext;
         }
         
-        public async Task<RewardsThatHaveNotBeenShown> GetNotShownRewards([NotNull] string serviceId)
+        [ItemCanBeNull]
+        public async Task<RewardsThatHaveNotBeenShown> GetNotShownResultsAndMarkAsRead([NotNull] string playerServiceId)
         {
-            var parameters = new {serviceIdPar = serviceId};
-            string sql = $@"
-                        select 
-                                (sum(mr.""SoftCurrencyDelta"") + sum(prRc.""Quantity"")) as ""SoftCurrency"",
-                                (sum(mr.""SmallLootboxPoints"") + sum(prSl.""Quantity"")) as ""SmallLootboxPoints"",
-                                (sum(prWpp.""Quantity"")) as ""WarshipPowerPoints""
-                               
-                                from ""Accounts"" a
-                                inner join ""Warships"" w on w.""AccountId"" = a.""Id"" 
-                                inner join ""MatchResultForPlayers"" mr on mr.""WarshipId"" = w.""Id""
+            Account account = await dbContext.Accounts
+                .SingleOrDefaultAsync(account1 => account1.ServiceId == playerServiceId);
 
-                                inner join ""Lootbox"" lootbox on lootbox.""AccountId"" = a.""Id"" 
-                                inner join ""LootboxPrizeSmallLootboxPoints"" prSl on prSl.""LootboxId"" = lootbox.""Id""
-                                inner join ""LootboxPrizeSoftCurrency"" prRc on prRc.""LootboxId""=lootbox.""Id""
-                                inner join ""LootboxPrizeWarshipPowerPoints"" prWpp on prWpp.""LootboxId""=lootbox.""Id""
+            if (account == null)
+            {
+                return null;
+            }
 
-                                where a.""ServiceId"" = @serviceIdPar and  mr.""WasShown""=false and lootbox.""WasShown""=false;
-                          ";
+            RewardsThatHaveNotBeenShown result = new RewardsThatHaveNotBeenShown();
+            result += await GetUnshownMatchReward(account.Id);
+            result += await GetUnshownLootboxAward(account.Id);
+            
+            await dbContext.SaveChangesAsync();
+            return result;
+        }
 
-            IEnumerable<RewardsThatHaveNotBeenShown> rewardsThatHaveNotBeenShown = await connection
-                .QueryAsync<RewardsThatHaveNotBeenShown>(sql, parameters);
+        private async Task<RewardsThatHaveNotBeenShown> GetUnshownMatchReward(int accountId)
+        {
+            var result = new RewardsThatHaveNotBeenShown(); 
+            
+            //Список законченных боёв, результат которых не был показан
+            List<MatchResultForPlayer> matchResults =  await dbContext
+                .MatchResultForPlayers
+                .Where(matchResultForPlayer => matchResultForPlayer.Warship.AccountId == accountId 
+                                 && !matchResultForPlayer.WasShown 
+                                 && matchResultForPlayer.IsFinished)
+                .ToListAsync();
+            
+            for (var index = 0; index < matchResults.Count; index++)
+            {
+                MatchResultForPlayer matchResultForPlayer = matchResults[index];
+                result.AccountRating += matchResultForPlayer.WarshipRatingDelta;
+                result.SoftCurrency += matchResultForPlayer.SoftCurrencyDelta;
+                result.SmallLootboxPoints += matchResultForPlayer.SmallLootboxPoints;
+                //Пометить как прочитанное
+                matchResultForPlayer.WasShown = true;
+            }
 
-            RewardsThatHaveNotBeenShown result = rewardsThatHaveNotBeenShown.First();
+            return result;
+        }
+
+        private async Task<RewardsThatHaveNotBeenShown> GetUnshownLootboxAward(int accountId)
+        {
+            RewardsThatHaveNotBeenShown result = new RewardsThatHaveNotBeenShown();
+            List<LootboxDb> lootboxes = await dbContext.Lootbox
+                .Include(lootbox => lootbox.LootboxPrizeSoftCurrency)
+                .Include(lootbox => lootbox.LootboxPrizePointsForSmallLootboxes)
+                .Where(lootbox => lootbox.Account.Id == accountId && !lootbox.WasShown)
+                .ToListAsync();
+            
+            for (int index = 0; index < lootboxes.Count; index++)
+            {
+                var lootboxDb = lootboxes[index];
+                foreach (var softCurrencyPrize in lootboxDb.LootboxPrizeSoftCurrency)
+                {
+                    result.SoftCurrency += softCurrencyPrize.Quantity;
+                }
+                foreach (var smallLootboxPointsPrize in lootboxDb.LootboxPrizePointsForSmallLootboxes)
+                {
+                    result.SmallLootboxPoints += smallLootboxPointsPrize.Quantity;
+                }
+                //Пометить как прочитанное
+                lootboxDb.WasShown = true;
+            }
+
             return result;
         }
     }

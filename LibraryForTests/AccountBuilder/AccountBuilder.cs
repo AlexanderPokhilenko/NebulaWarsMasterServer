@@ -52,11 +52,11 @@ namespace LibraryForTests
                     {    
                         IsFinished = true,
                         WasShown = random.Next()%2 == 0,
-                        PlaceInMatch = random.Next(100),
-                        SoftCurrencyDelta = random.Next(20),
-                        BigLootboxPoints = random.Next(20),
-                        SmallLootboxPoints = random.Next(20),
-                        WarshipRatingDelta = random.Next(10),
+                        PlaceInMatch = random.Next(30),
+                        SoftCurrencyDelta = random.Next(5,20),
+                        BigLootboxPoints = random.Next(1,6),
+                        SmallLootboxPoints = random.Next(5,20),
+                        WarshipRatingDelta = random.Next(1,10),
                         Match = new Match
                         {
                             StartTime = start,

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AmoebaGameMatcherServer.Controllers;
 using AmoebaGameMatcherServer.Services.LobbyInitialization;
 using DataLayer;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,8 @@ namespace IntegrationTests
     {
         protected ApplicationDbContext Context => SetUpFixture.DbContext;
         protected AccountDbReaderService AccountDbReaderService => SetUpFixture.AccountReaderService;
+        protected NotShownRewardsReaderService NotShownRewardsReaderService => SetUpFixture.NotShownRewardsReaderService;
+        protected AccountFacadeService AccountFacadeService => SetUpFixture.AccountFacadeService;
         
         [SetUp]
         public void ResetChangeTracker()

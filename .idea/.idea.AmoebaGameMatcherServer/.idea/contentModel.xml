@@ -76,9 +76,11 @@
       </e>
       <e p="IntegrationTests" t="IncludeRecursive">
         <e p="AccountDbReaderTests.cs" t="Include" />
+        <e p="AccountFacadeServiceTests.cs" t="Include" />
         <e p="BaseIntegrationFixture.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="IntegrationTests.csproj" t="IncludeRecursive" />
+        <e p="NotShownRewardsTests.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp2.2" t="Include">

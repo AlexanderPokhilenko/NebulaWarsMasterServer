@@ -38,7 +38,7 @@ namespace DeleteMe1
                 where mr.""WarshipId"" = w.""Id""
                 )									 		as ""WarshipRating"",
             (
-                sum(matchResult.""SoftCurrencyDelta"") 
+                sum(matchResult.""SoftCurrency"") 
             + sum(COALESCE(prizeRegularCurrency.""Quantity"",0))
                 )											as ""SoftCurrency"",
             (

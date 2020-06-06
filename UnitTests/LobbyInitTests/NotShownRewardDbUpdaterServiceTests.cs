@@ -47,7 +47,7 @@
 //             
 //             foreach (var matchResultForPlayer in matchResultForPlayers)
 //             {
-//                 if (matchResultForPlayer.SoftCurrencyDelta != null)
+//                 if (matchResultForPlayer.SoftCurrency != null)
 //                 {
 //                     Assert.IsTrue(matchResultForPlayer.WasShown);
 //                 }
@@ -78,7 +78,7 @@
 //                                 },
 //                                 PlaceInMatch = 2,
 //                                 PremiumCurrencyDelta = 4,
-//                                 SoftCurrencyDelta = 34,
+//                                 SoftCurrency = 34,
 //                                 BigLootboxPoints = 0,
 //                                 SmallLootboxPoints = 5,
 //                                 
@@ -96,7 +96,7 @@
 //                                 },
 //                                 PlaceInMatch = 4,
 //                                 PremiumCurrencyDelta = 0,
-//                                 SoftCurrencyDelta = 12,
+//                                 SoftCurrency = 12,
 //                                 BigLootboxPoints = 1,
 //                                 SmallLootboxPoints = 2,
 //                                 WarshipRatingDelta = 3,
@@ -113,7 +113,7 @@
 //                                 },
 //                                 PlaceInMatch = null,
 //                                 PremiumCurrencyDelta = null,
-//                                 SoftCurrencyDelta = null,
+//                                 SoftCurrency = null,
 //                                 BigLootboxPoints = null,
 //                                 SmallLootboxPoints = null,
 //                                 WarshipRatingDelta = null,

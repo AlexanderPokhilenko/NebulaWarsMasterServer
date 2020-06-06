@@ -32,14 +32,14 @@ namespace AmoebaGameMatcherServer.Controllers
 
         public async Task<LobbyModel> Create([NotNull] string playerServiceId)
         {
-            Account account = await accountFacadeService.GetOrRegisterAccount(playerServiceId);
+            Account account = await accountFacadeService.ReadOrCreateAccount(playerServiceId);
             if (account == null)
             {
                 throw new Exception($"{nameof(account)} is null");
             }
 
             RewardsThatHaveNotBeenShown rewardsThatHaveNotBeenShown = await notShownRewardsReaderService
-                .GetNotShownRewards(playerServiceId);
+                .GetNotShownResultsAndMarkAsRead(playerServiceId);
           
             WarshipRatingScaleModel warshipRatingScaleModel = warshipRatingScale.GetWarshipRatingScaleModel();
             if (warshipRatingScaleModel == null)

@@ -13,13 +13,13 @@ namespace IntegrationTests
         public async Task SmallAccount()
         {
             //Arrange
-            AccountBuilder accountBuilder = new AccountBuilder();
-            AccountDirector bigAccountDirector = new SmallAccountDirector(accountBuilder, Context);
-            bigAccountDirector.WriteToDatabase();
-            Account originalAccount = bigAccountDirector.GetAccount();
-            int originalAccountRating = bigAccountDirector.GetAccountRating();
-            int originalAccountRegularCurrency = bigAccountDirector.GetAccountRegularCurrency();
-            int originalAccountPremiumCurrency = bigAccountDirector.GetAccountPremiumCurrency();
+            AccountBuilder accountBuilder = new AccountBuilder(2);
+            AccountDirector accountDirector = new SmallAccountDirector(accountBuilder, Context);
+            accountDirector.WriteToDatabase();
+            Account originalAccount = accountDirector.GetAccount();
+            int originalAccountRating = accountDirector.GetAccountRating();
+            int originalAccountRegularCurrency = accountDirector.GetAccountRegularCurrency();
+            int originalAccountPremiumCurrency = accountDirector.GetAccountPremiumCurrency();
             
             //Act
             Account account = await AccountDbReaderService.GetAccount(originalAccount.ServiceId);
