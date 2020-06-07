@@ -31,6 +31,15 @@ namespace AmoebaGameMatcherServer
                         {
                             Name = "DAMAGE DEALER"
                         }
+                    },
+                    new WarshipType
+                    {
+                        Name = "smiley",
+                        Description = "The smiley attacks the enemies with eight cannons. This ship has more HP, than hare and bird, but slower.",
+                        WarshipCombatRole = new WarshipCombatRole
+                        {
+                            Name = "TANK"
+                        }
                     }
                 };
                 dbContext.WarshipTypes.AddRange(warshipTypes);

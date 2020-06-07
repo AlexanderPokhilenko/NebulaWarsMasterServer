@@ -14,6 +14,7 @@ namespace AmoebaGameMatcherServer.Services
         private static readonly int defaultWarshipCombatPowerValue = 0;
         private static readonly int warshipTypeHare = 1;
         private static readonly int warshipTypeBird = 2;
+        private static readonly int warshipTypeSmiley = 3;
 
         public static Account CreateDefaultAccount(string playerId)
         {
@@ -35,6 +36,11 @@ namespace AmoebaGameMatcherServer.Services
                     new Warship
                     {
                         WarshipTypeId = warshipTypeBird,
+                        PowerLevel = defaultWarshipCombatPowerLevel
+                    },
+                    new Warship
+                    {
+                        WarshipTypeId = warshipTypeSmiley,
                         PowerLevel = defaultWarshipCombatPowerLevel
                     }
                 }
