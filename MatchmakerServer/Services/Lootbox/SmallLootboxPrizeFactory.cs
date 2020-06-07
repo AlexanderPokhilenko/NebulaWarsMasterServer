@@ -10,18 +10,23 @@ namespace AmoebaGameMatcherServer.Controllers
     public class SmallLootboxPrizeFactory
     {
         private readonly Random random = new Random();
+        private readonly int numberOfPrizeTypes;
+
+        public SmallLootboxPrizeFactory()
+        {
+            numberOfPrizeTypes = Enum.GetNames(typeof(LootboxPrizeType)).Length;
+        }
         
         public LootboxPrizeModel Create(int[] warshipIds)
         {
-            int length = Enum.GetNames(typeof(LootboxPrizeType)).Length;
-            LootboxPrizeType prizeType = (LootboxPrizeType) random.Next(length);
+            LootboxPrizeType prizeType = (LootboxPrizeType) random.Next(numberOfPrizeTypes);
             switch (prizeType)
             {
-                case LootboxPrizeType.RegularCurrency:
+                case LootboxPrizeType.SoftCurrency:
                     return new LootboxPrizeModel
                     {
                         Quantity = random.Next(66),
-                        LootboxPrizeType = LootboxPrizeType.RegularCurrency
+                        LootboxPrizeType = LootboxPrizeType.SoftCurrency
                     };
                 case LootboxPrizeType.WarshipPowerPoints:
                 {
@@ -34,11 +39,11 @@ namespace AmoebaGameMatcherServer.Controllers
                         WarshipId = warshipId
                     };
                 }
-                case LootboxPrizeType.PointsForSmallLootbox:
+                case LootboxPrizeType.SmallLootboxPoints:
                     return new LootboxPrizeModel
                     {
                         Quantity = random.Next(44),
-                        LootboxPrizeType = LootboxPrizeType.PointsForSmallLootbox
+                        LootboxPrizeType = LootboxPrizeType.SmallLootboxPoints
                     };
                 default:
                     throw new Exception("Неизвестный тип подарка");

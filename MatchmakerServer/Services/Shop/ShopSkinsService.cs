@@ -13,7 +13,7 @@ namespace AmoebaGameMatcherServer.Controllers
     /// </summary>
     public class ShopSkinsService
     {
-        public async Task<UiContainerModel> GetOrCreate([NotNull] string playerServiceId)
+        public async Task<ShopSectionModel> GetOrCreate([NotNull] string playerServiceId)
         {
             throw new NotImplementedException();
         }

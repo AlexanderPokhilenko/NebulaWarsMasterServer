@@ -1,8 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NetworkLibrary.NetworkLibrary.Http;
-using ZeroFormatter;
 
 namespace AmoebaGameMatcherServer.Controllers
 {
@@ -19,14 +17,14 @@ namespace AmoebaGameMatcherServer.Controllers
         
         [Route(nameof(CreateSmallLootbox))]
         [HttpPost]
-        public async Task<ActionResult<string>> CreateSmallLootbox([FromForm]string playerServiceId)
+        public async Task<ActionResult<string>> CreateSmallLootbox([FromForm] string playerServiceId)
         {
             if (string.IsNullOrEmpty(playerServiceId))
             {
                 return BadRequest();
             }
 
-            LootboxModel lootboxModel = await lootboxFacadeService.TryGetLootboxData(playerServiceId);
+            LootboxModel lootboxModel = await lootboxFacadeService.CreateLootboxModel(playerServiceId);
             return lootboxModel.SerializeToBase64String();
         }
     }

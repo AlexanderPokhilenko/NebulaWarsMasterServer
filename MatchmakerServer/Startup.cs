@@ -2,7 +2,6 @@
 using AmoebaGameMatcherServer.Services.GoogleApi;
 using AmoebaGameMatcherServer.Services.MatchCreationInitiation;
 using AmoebaGameMatcherServer.Services.Queues;
-using AutoMapper;
 using Dapper;
 using DataLayer;
 using Microsoft.AspNetCore.Builder;
@@ -35,14 +34,6 @@ namespace AmoebaGameMatcherServer
             services.AddFeature(new GameServerNegotiationFeature());
             services.AddFeature(new LootboxFeature());
             services.AddFeature(new PurchasingFeature());
-
-            MapperConfiguration mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new MappingProfile());
-            });
-
-            IMapper mapper = mappingConfig.CreateMapper();
-            services.AddSingleton(mapper);
             
             //Общие очереди игроков
             services.AddSingleton<BattleRoyaleQueueSingletonService>();

@@ -10,9 +10,9 @@ namespace AmoebaGameMatcherServer.Controllers
     /// </summary>
     public class ShopRegularCurrencyService
     {
-        public UiContainerModel Get()
+        public ShopSectionModel Get()
         {
-            UiContainerModel model = new UiContainerModel();
+            ShopSectionModel model = new ShopSectionModel();
             //TODO добавить обычную валюту
             throw new NotImplementedException();
         }

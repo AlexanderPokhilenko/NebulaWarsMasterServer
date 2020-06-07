@@ -21,7 +21,7 @@ namespace AmoebaGameMatcherServer.Controllers
             this.warshipPowerImprovementService = warshipPowerImprovementService;
         }
         
-        public async Task<UiContainerModel> GetOrCreate([NotNull] string playerServiceId)
+        public async Task<ShopSectionModel> GetOrCreate([NotNull] string playerServiceId)
         {
             var freeGift = await shopFreeGiftManagerService.GetOrCreate(playerServiceId);
             var warshipsImprovements = await warshipPowerImprovementService

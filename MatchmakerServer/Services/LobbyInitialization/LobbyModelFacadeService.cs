@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services.LobbyInitialization;
-using AutoMapper;
 using DataLayer.Tables;
 using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;

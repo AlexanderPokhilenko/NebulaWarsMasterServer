@@ -18,7 +18,7 @@ namespace AmoebaGameMatcherServer.Controllers
         
         public LootboxModel Create(int[] warshipIds)
         {
-            LootboxModel result = new LootboxModel()
+            LootboxModel result = new LootboxModel
             {
                 Prizes = new List<LootboxPrizeModel>(NumberOfPrizes)
             };

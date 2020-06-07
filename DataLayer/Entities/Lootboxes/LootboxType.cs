@@ -2,7 +2,7 @@
 {
     public enum LootboxType
     {
-        Small,
-        Big
+        Small=1,
+        Big=2
     }
 }

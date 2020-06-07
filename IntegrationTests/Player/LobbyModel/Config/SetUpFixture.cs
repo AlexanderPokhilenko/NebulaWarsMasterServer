@@ -1,7 +1,6 @@
 using AmoebaGameMatcherServer;
 using AmoebaGameMatcherServer.Controllers;
 using AmoebaGameMatcherServer.Services.LobbyInitialization;
-using AutoMapper;
 using DataLayer;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;

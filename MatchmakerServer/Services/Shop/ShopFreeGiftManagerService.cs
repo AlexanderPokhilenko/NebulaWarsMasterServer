@@ -18,7 +18,7 @@ namespace AmoebaGameMatcherServer.Controllers
             this.dbContext = dbContext;
         }
         
-        public async Task<UiItemModel> GetOrCreate([NotNull] string playerServiceId)
+        public async Task<ShopItemModel> GetOrCreate([NotNull] string playerServiceId)
         {
             throw new NotImplementedException();
         }

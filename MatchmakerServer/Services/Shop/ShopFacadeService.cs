@@ -31,12 +31,12 @@ namespace AmoebaGameMatcherServer.Controllers
         {
             ShopModel result = new ShopModel
             {
-                UiContainerModel = new List<UiContainerModel>()
+                UiContainerModel = new List<ShopSectionModel>()
             };
             
             // UiContainerModel dailyDealsContainer = await dailyDealsUiContainerService.GetOrCreate(playerServiceId);
             // UiContainerModel skinsContainer = await shopSkinsService.GetOrCreate(playerServiceId);
-            UiContainerModel lootboxContainer = shopLootboxService.Get();
+            ShopSectionModel lootboxContainer = shopLootboxService.Get();
             result.UiContainerModel.Add(lootboxContainer);
             // UiContainerModel gemsContainer = gemsService.BuyImprovement();
             // UiContainerModel regularCurrencyContainer = regularCurrencyService.BuyImprovement();

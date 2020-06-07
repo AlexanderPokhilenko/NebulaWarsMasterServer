@@ -19,8 +19,8 @@ namespace NetworkLibrary.NetworkLibrary.Http
 
     public enum LootboxPrizeType
     {
-        RegularCurrency,
-        PointsForSmallLootbox,
+        SoftCurrency,
+        SmallLootboxPoints,
         WarshipPowerPoints
     }
 }

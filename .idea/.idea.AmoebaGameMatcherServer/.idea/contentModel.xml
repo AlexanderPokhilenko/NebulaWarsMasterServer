@@ -129,15 +129,15 @@
           <e p="Player" t="Include">
             <e p="Lobby" t="Include">
               <e p="LobbyModelController.cs" t="Include" />
+              <e p="LootboxController.cs" t="Include" />
+              <e p="ShopController.cs" t="Include" />
               <e p="WarshipImprovementPurchasingController.cs" t="Include" />
             </e>
-            <e p="LootboxController.cs" t="Include" />
             <e p="PlayerController.cs" t="Include" />
             <e p="Purchases" t="Include">
               <e p="PurchasesController.cs" t="Include" />
               <e p="TestController.cs" t="Include" />
             </e>
-            <e p="ShopController.cs" t="Include" />
           </e>
         </e>
         <e p="Experimental" t="Include">
@@ -163,7 +163,6 @@
           <e p="ServicesExtension.cs" t="Include" />
         </e>
         <e p="googleApiData.txt" t="Include" />
-        <e p="MappingProfile.cs" t="Include" />
         <e p="MatchmakerServer.csproj" t="IncludeRecursive" />
         <e p="NetworkLibrary" t="Include">
           <e p="Experimental" t="Include">
@@ -200,7 +199,6 @@
             <e p="WarshipPowerScaleModel.cs" t="Include" />
             <e p="WarshipRatingScaleModel.cs" t="Include" />
           </e>
-          <e p="Test.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -320,16 +318,13 @@
         <e p="SqlTesting.csproj" t="IncludeRecursive" />
       </e>
       <e p="UnitTests" t="IncludeRecursive">
-        <e p="AutoMapperTests" t="Include">
-          <e p="Test.cs" t="Include" />
-        </e>
         <e p="bin" t="ExcludeRecursive" />
         <e p="Experimental" t="Include">
           <e p="LazyLoadingTests.cs" t="Include" />
           <e p="UselessDich" t="Include">
             <e p="AccountsDbTests.cs" t="Include" />
             <e p="MatchDataDbWriterServiceTests.cs" t="Include" />
-            <e p="ZeroFormatterDich.cs" t="Include" />
+            <e p="UniqueStringFactory.cs" t="Include" />
           </e>
         </e>
         <e p="LobbyInitTests" t="Include">

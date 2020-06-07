@@ -22,7 +22,7 @@ namespace AmoebaGameMatcherServer.Controllers
             this.dbContext = dbContext;
         }
         
-        public async Task<List<UiItemModel>> GetOrCreate([NotNull] string playerServiceId, int preferredCount)
+        public async Task<List<ShopItemModel>> GetOrCreate([NotNull] string playerServiceId, int preferredCount)
         {
             Account account = await dbContext.Accounts
                 .Where(account1 => account1.ServiceId == playerServiceId)
@@ -36,11 +36,11 @@ namespace AmoebaGameMatcherServer.Controllers
             var warships = account.Warships;
             int count = Math.Min(preferredCount, warships.Count);
             
-            List<UiItemModel> result = new List<UiItemModel>(count);
+            List<ShopItemModel> result = new List<ShopItemModel>(count);
             for (int index = 0; index < count; index++)
             {
                 //TODO добавить улучшение для конкретного корабля
-                UiItemModel uiItemModel = new UiItemModel()
+                ShopItemModel uiItemModel = new ShopItemModel()
                 {
 
                 };

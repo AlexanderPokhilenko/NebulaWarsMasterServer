@@ -30,6 +30,9 @@ select
         where A.""ServiceId"" = @serviceIdPar
         )
         , 0)) as ""SoftCurrency"",
+
+
+
         --Премиум валюта
         --Добавить таблицы с покупками
         (
@@ -41,6 +44,9 @@ select
         where A.""ServiceId"" = @serviceIdPar
         )
         , 0)) as ""HardCurrency"",
+
+
+
         --Баллы для маленького сундука
             (coalesce(
         (select sum(MRFP.""SmallLootboxPoints"")
