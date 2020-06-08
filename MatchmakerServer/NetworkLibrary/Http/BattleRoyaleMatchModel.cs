@@ -6,7 +6,7 @@ namespace NetworkLibrary.NetworkLibrary.Http
     /// Нужен для передачи данных о бое между матчером и гейм сервером.
     /// </summary>
     [ZeroFormattable]
-    public class BattleRoyaleMatchData
+    public class BattleRoyaleMatchModel
     {
         [Index(0)] public virtual string GameServerIp{ get; set; }
         [Index(1)] public virtual int GameServerPort{ get; set; }

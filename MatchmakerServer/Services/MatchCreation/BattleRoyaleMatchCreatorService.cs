@@ -35,8 +35,7 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
             this.matchDbWriterService = matchDbWriterService;
         }
         
-        public async Task<MatchCreationMessage> 
-            TryCreateMatch(int maxNumberOfPlayersInBattle, bool botsCanBeUsed)
+        public async Task<MatchCreationMessage> TryCreateMatch(int maxNumberOfPlayersInBattle, bool botsCanBeUsed)
         {
             //Достать игроков из очереди без извлечения
             var (success, gameUnitsForMatch, playersQueueInfo) = battleRoyaleMatchPackerService
@@ -59,30 +58,25 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
             //Сделать запись об матче в БД
             Match match = await matchDbWriterService.WriteMatchDataToDb(matchRoutingData, playersQueueInfo);
 
-            //Создать объект со всей инфой про бой
-            BattleRoyaleMatchData matchData = BattleRoyaleMatchDataFactory.Create(gameUnitsForMatch, match);
+            //Создать объект с информацией про бой
+            BattleRoyaleMatchModel matchModel = BattleRoyaleMatchDataFactory.Create(gameUnitsForMatch, match);
             
             //Добавить игроков в таблицу тех кто в бою
-            unfinishedMatchesService.AddPlayersToMatch(matchData);
+            unfinishedMatchesService.AddPlayersToMatch(matchModel);
             
             //Извлечь игроков из очереди
-            battleRoyaleQueue.RemovePlayersFromQueue(matchData.GameUnitsForMatch.Players);
+            battleRoyaleQueue.RemovePlayersFromQueue(matchModel.GameUnitsForMatch.Players);
             
             //Сообщить на гейм сервер
-            await gameServerNegotiatorService.SendRoomDataToGameServerAsync(matchData);
+            await gameServerNegotiatorService.SendRoomDataToGameServerAsync(matchModel);
             
             return new MatchCreationMessage
             {
                 Success = true,
                 FailureReason = null,
-                MatchId = matchData.MatchId
+                MatchId = matchModel.MatchId
             };
         }
-    }
-
-    public enum MatchCreationFailureReason
-    {
-        NotEnoughPlayers
     }
 }
 

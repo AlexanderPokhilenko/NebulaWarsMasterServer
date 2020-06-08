@@ -11,6 +11,6 @@ namespace NetworkLibrary.NetworkLibrary.Http
         /// <summary>
         /// Показатель силы корабля
         /// </summary>
-        [Index(3)] public virtual int WarshipCombatPowerLevel { get; set; }
+        [Index(3)] public virtual int WarshipPowerPoints { get; set; }
     }
 }

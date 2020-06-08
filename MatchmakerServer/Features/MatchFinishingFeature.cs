@@ -9,8 +9,9 @@ namespace AmoebaGameMatcherServer
         public override void Add(IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<BattleRoyaleMatchFinisherService>();
-            serviceCollection.AddTransient<BattleRoyaleMatchRewardService>();
+            serviceCollection.AddTransient<BattleRoyaleMatchRewardCalculatorService>();
             serviceCollection.AddTransient<PlayerMatchResultDbReaderService>();
+            serviceCollection.AddTransient<WarshipReaderService>();
         }
     }
 }

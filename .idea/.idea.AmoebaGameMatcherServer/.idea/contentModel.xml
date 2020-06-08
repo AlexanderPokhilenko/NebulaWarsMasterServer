@@ -172,8 +172,8 @@
           <e p="Http" t="Include">
             <e p="AccountInfo.cs.meta" t="Include" />
             <e p="AccountModel.cs" t="Include" />
-            <e p="BattleRoyaleMatchData.cs" t="Include" />
             <e p="BattleRoyaleMatchData.cs.meta" t="Include" />
+            <e p="BattleRoyaleMatchModel.cs" t="Include" />
             <e p="BotInfo.cs" t="Include" />
             <e p="BotInfo.cs.meta" t="Include" />
             <e p="GameMatcherResponse.cs.meta" t="Include" />
@@ -258,6 +258,8 @@
             <e p="BattleRoyaleMatchCreatorService.cs" t="Include" />
             <e p="BattleRoyaleMatchDataFactory.cs" t="Include" />
             <e p="BattleRoyaleMatchPackerService.cs" t="Include" />
+            <e p="BotTemporaryIdFactory.cs" t="Include" />
+            <e p="MatchCreationFailureReason.cs" t="Include" />
             <e p="MatchDbWriterService.cs" t="Include" />
           </e>
           <e p="MatchCreationInitiation" t="Include">
@@ -268,10 +270,13 @@
             <e p="PlayerTimeoutManagerServiceStub.cs" t="Include" />
           </e>
           <e p="MatchFinishing" t="Include">
+            <e p="BattleRoyaleMatchFinisherFacadeService.cs" t="Include" />
             <e p="BattleRoyaleMatchFinisherService.cs" t="Include" />
-            <e p="BattleRoyaleMatchRewardService.cs" t="Include" />
+            <e p="BattleRoyaleMatchRewardCalculatorService.cs" t="Include" />
             <e p="BattleRoyaleWarshipRatingCalculator.cs" t="Include" />
+            <e p="MatchReward.cs" t="Include" />
             <e p="PlayerMatchREsultDbReaderService.cs" t="Include" />
+            <e p="WarshipReaderService.cs" t="Include" />
           </e>
           <e p="PlayerQueueing" t="Include">
             <e p="GameServersRoutingDataService.cs" t="Include" />
@@ -280,7 +285,6 @@
             <e p="MatchRoutingData.cs" t="Include" />
             <e p="MatchRoutingDataService.cs" t="Include" />
             <e p="QueueExtenderService.cs" t="Include" />
-            <e p="WarshipValidatorService.cs" t="Include" />
           </e>
           <e p="Queues" t="Include">
             <e p="BattleRoyaleQueueSingletonService.cs" t="Include" />

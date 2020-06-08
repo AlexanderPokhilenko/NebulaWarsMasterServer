@@ -4,7 +4,8 @@ using DataLayer.Tables;
 namespace LibraryForTests
 {
     /// <summary>
-    /// Содержит методы для поэтапного создания аккаунта
+    /// Содержит методы для поэтапного создания аккаунта.
+    /// Нужно для тестов
     /// </summary>
     public class AccountBuilder
     {
@@ -33,10 +34,6 @@ namespace LibraryForTests
             //Создать корабль
             Warship warship = new Warship
             {
-                //TODO эти значения not mapped. они определяются через другие сущности
-                PowerLevel = 0,
-                PowerPoints = 0,
-                WarshipRating = 0,
                 WarshipTypeId = account.Warships.Count+1
             };
                 

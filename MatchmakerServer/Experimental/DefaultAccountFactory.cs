@@ -17,25 +17,21 @@ namespace AmoebaGameMatcherServer.Services
 
         public static Account CreateDefaultAccount(string playerId)
         {
+            //TODO добавить немного денег аккаунту
             Account account = new Account
             {
                 ServiceId = playerId,
                 Username = playerId,
-                HardCurrency = defaultPremiumCurrency,
                 RegistrationDateTime = DateTime.UtcNow,
-                SoftCurrency = defaultRegularCurrency,
-                SmallLootboxPoints = defaultPointsForSmallChest,
                 Warships = new List<Warship>
                 {
                     new Warship
                     {
-                        WarshipTypeId = warshipTypeHare,
-                        PowerLevel = defaultWarshipCombatPowerLevel
+                        WarshipTypeId = warshipTypeHare
                     },
                     new Warship
                     {
-                        WarshipTypeId = warshipTypeBird,
-                        PowerLevel = defaultWarshipCombatPowerLevel
+                        WarshipTypeId = warshipTypeBird
                     }
                 }
             };

@@ -20,7 +20,7 @@ namespace IntegrationTests
             //Arrange
             string serviceId = "someServiceId";
             //Act
-            Account account = await AccountFacadeService.ReadOrCreateAccount(serviceId);
+            var account = await AccountFacadeService.ReadOrCreateAccount(serviceId);
             var account1 = await Context.Accounts
                 .Where(acc => acc.ServiceId == serviceId)
                 .SingleAsync();
@@ -44,7 +44,7 @@ namespace IntegrationTests
             Account originalAccount = accountBuilder.GetAccount(); 
             
             //Act
-            Account account = await AccountFacadeService.ReadOrCreateAccount(originalAccount.ServiceId);
+            var account = await AccountFacadeService.ReadOrCreateAccount(originalAccount.ServiceId);
            
             //Assert
             Assert.IsNotNull(account);

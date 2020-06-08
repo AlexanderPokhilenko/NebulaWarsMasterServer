@@ -32,7 +32,7 @@ namespace MatchmakerTest
                     PrefabName = "dich",
                     ServiceId = i.ToString(),
                     TemporaryId = 25,
-                    WarshipCombatPowerLevel = 5
+                    WarshipPowerPoints = 5
                 };
                 playerInfoForMatches.Add(playerInfoForMatch);
             }
@@ -44,7 +44,7 @@ namespace MatchmakerTest
                     IsBot = true,
                     PrefabName = "dich",
                     TemporaryId = 25,
-                    WarshipCombatPowerLevel = 5
+                    WarshipPowerPoints = 5
                 };
                 botInfos.Add(botInfo);
             }
@@ -88,7 +88,7 @@ namespace MatchmakerTest
                         IsBot = true,
                         PrefabName = "dich",
                         TemporaryId = 25,
-                        WarshipCombatPowerLevel = 5
+                        WarshipPowerPoints = 5
                     }
                 },
                 Players = new List<PlayerInfoForMatch>
@@ -100,7 +100,7 @@ namespace MatchmakerTest
                         PrefabName = "dich",
                         ServiceId = 1.ToString(),
                         TemporaryId = 25,
-                        WarshipCombatPowerLevel = 5
+                        WarshipPowerPoints = 5
                     }
                 }
             };
@@ -130,7 +130,7 @@ namespace MatchmakerTest
                         IsBot = true,
                         PrefabName = "dich",
                         TemporaryId = 25,
-                        WarshipCombatPowerLevel = 5
+                        WarshipPowerPoints = 5
                     }
                 },
                 Players = new List<PlayerInfoForMatch>
@@ -142,7 +142,7 @@ namespace MatchmakerTest
                         PrefabName = "dich",
                         ServiceId = 1.ToString(),
                         TemporaryId = 25,
-                        WarshipCombatPowerLevel = 5
+                        WarshipPowerPoints = 5
                     }
                 }
             };
@@ -169,7 +169,7 @@ namespace MatchmakerTest
                         PrefabName = "dich",
                         ServiceId = 1.ToString(),
                         TemporaryId = 25,
-                        WarshipCombatPowerLevel = 5
+                        WarshipPowerPoints = 5
                     }
                 }
             };
@@ -197,7 +197,7 @@ namespace MatchmakerTest
                         IsBot = true,
                         PrefabName = "dich",
                         TemporaryId = 25,
-                        WarshipCombatPowerLevel = 5
+                        WarshipPowerPoints = 5
                     }
                 }
             };
@@ -224,14 +224,14 @@ namespace MatchmakerTest
                         IsBot = true,
                         PrefabName = "dich",
                         TemporaryId = 25,
-                        WarshipCombatPowerLevel = 5
+                        WarshipPowerPoints = 5
                     },
                     new BotInfo()
                     {
                         IsBot = true,
                         PrefabName = "dich",
                         TemporaryId = 25,
-                        WarshipCombatPowerLevel = 5
+                        WarshipPowerPoints = 5
                     }
                 }
             };
@@ -258,14 +258,14 @@ namespace MatchmakerTest
                         IsBot = true,
                         PrefabName = "dich",
                         TemporaryId = 25,
-                        WarshipCombatPowerLevel = 5
+                        WarshipPowerPoints = 5
                     },
                     new BotInfo()
                     {
                         IsBot = true,
                         PrefabName = "dich",
                         TemporaryId = 25,
-                        WarshipCombatPowerLevel = 5
+                        WarshipPowerPoints = 5
                     }
                 }
             };

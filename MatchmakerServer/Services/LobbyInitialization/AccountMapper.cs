@@ -5,11 +5,11 @@ using NetworkLibrary.NetworkLibrary.Http;
 namespace AmoebaGameMatcherServer.Controllers
 {
     /// <summary>
-    /// Превращает Account, который зависит от EntityFramework, в сериализуемый AccountDto
+    /// Превращает AccountDbDto, в сериализуемый AccountDto
     /// </summary>
     public class AccountMapper
     {
-        public AccountDto Map(Account account)
+        public AccountDto Map(AccountDbDto account)
         {
             AccountDto result = new AccountDto
             {

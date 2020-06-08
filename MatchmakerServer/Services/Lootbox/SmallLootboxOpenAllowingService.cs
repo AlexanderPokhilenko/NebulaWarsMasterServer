@@ -20,6 +20,7 @@ namespace AmoebaGameMatcherServer.Controllers
 
         public async Task<bool> CanPlayerOpenLootbox(string playerServiceId)
         {
+            //TODO добавить нормальное чтения аккаунта
             Account account = await dbContext.Accounts
                 .Where(account1 => account1.ServiceId == playerServiceId)
                 .SingleOrDefaultAsync();
@@ -29,10 +30,11 @@ namespace AmoebaGameMatcherServer.Controllers
                 return false;
             }
 
-            if (account.SmallLootboxPoints < 100)
-            {
-                return false;
-            }
+            // //TODO добавить нормальное чтения аккаунта
+            // if (account.SmallLootboxPoints < 100)
+            // {
+            //     return false;
+            // }
 
             return true;
         }

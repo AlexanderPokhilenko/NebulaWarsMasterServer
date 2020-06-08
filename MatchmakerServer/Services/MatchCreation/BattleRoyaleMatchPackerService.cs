@@ -7,7 +7,6 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services.MatchCreation
 {
-     
     /// <summary>
     /// Отвечает за доставание набора игроков для матча.
     /// Есть возможность дополнять игроков ботами.
@@ -34,8 +33,8 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
             GameUnitsForMatch gameUnitsForMatch = new GameUnitsForMatch();
             
             //Достать игроков из очереди без извлечения
-            List<QueueInfoForPlayer> playersQueueInfo = 
-                battleRoyaleQueueService.GetPlayersQueueInfo(maxNumberOfPlayersInBattle);
+            List<QueueInfoForPlayer> playersQueueInfo = battleRoyaleQueueService
+                .GetPlayersQueueInfo(maxNumberOfPlayersInBattle);
             gameUnitsForMatch.Players = playersQueueInfo.Select(info => info.GetPlayer()).ToList();
             
             //Дополнить ботами, если нужно
@@ -48,8 +47,7 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
                     gameUnitsForMatch.Bots = CreateBots(countOfBots);
                 }
             }
-        
-            
+
             //Если игроков достаточно, то матч может быть запущен
             if (gameUnitsForMatch.Count() == Globals.NumbersOfPlayersInBattleRoyaleMatch)
             {
@@ -78,7 +76,7 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
                     BotName = "Игорь",
                     PrefabName = GetBotPrefabName(),
                     TemporaryId = BotTemporaryIdFactory.Create(),
-                    WarshipCombatPowerLevel = 1
+                    WarshipPowerPoints = 1
                 };
                 bots.Add(botInfo);
             }
@@ -86,12 +84,12 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
             return bots;
         }
 
-        private static readonly Random Random = new Random();
+        private static readonly Random random = new Random();
         private static string GetBotPrefabName()
         {
-            lock (Random)
+            lock (random)
             {
-                bool hare = Random.Next() % 2 == 0;
+                bool hare = random.Next() % 2 == 0;
                 if (hare)
                 {
                     return "Hare";
@@ -101,19 +99,6 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
                     return "Bird";
                 }
             }
-        }
-    }
-
-    public static class BotTemporaryIdFactory
-    {
-        private static ushort lastId=32_000;
-        public static ushort Create()
-        {
-            unchecked
-            {
-                lastId++;
-            }
-            return lastId;
         }
     }
 }

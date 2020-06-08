@@ -25,12 +25,12 @@ namespace AmoebaGameMatcherServer.Services.MatchCreationInitiation
         {
             bool matchWasCreated = false;
             
-            //Собирай бои только из игроков, пока можешь
+            //Собирай бои только из игроков, пока хватает игроков
             bool tryMore = true;
             while (tryMore)
             {
-                var result = 
-                    await battleRoyaleMatchCreatorService.TryCreateMatch(numberOfPlayers, false);
+                var result = await battleRoyaleMatchCreatorService
+                        .TryCreateMatch(numberOfPlayers, false);
                 tryMore = result.Success;
                 if (!result.Success)
                 {
@@ -45,8 +45,8 @@ namespace AmoebaGameMatcherServer.Services.MatchCreationInitiation
             //Собери бой с ботами, если кто-то долго ждёт
             if (playerTimeoutManager.IsWaitingTimeExceeded())
             {
-                var result = 
-                    await battleRoyaleMatchCreatorService.TryCreateMatch(numberOfPlayers, true);
+                var result = await battleRoyaleMatchCreatorService
+                    .TryCreateMatch(numberOfPlayers, true);
                 if (!result.Success)
                 {
                     Console.WriteLine("Не удалось собрать матч по причине "+result.FailureReason);

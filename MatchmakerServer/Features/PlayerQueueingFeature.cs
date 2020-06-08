@@ -11,7 +11,6 @@ namespace AmoebaGameMatcherServer
             serviceCollection.AddTransient<QueueExtenderService>();
             serviceCollection.AddTransient<MatchRoutingDataService>();
             serviceCollection.AddTransient<GameServersRoutingDataService>();
-            serviceCollection.AddTransient<IWarshipValidatorService, WarshipValidatorService>();
         }
     }
 }

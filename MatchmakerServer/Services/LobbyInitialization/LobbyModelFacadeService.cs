@@ -30,7 +30,7 @@ namespace AmoebaGameMatcherServer.Controllers
 
         public async Task<LobbyModel> Create([NotNull] string playerServiceId)
         {
-            Account account = await accountFacadeService.ReadOrCreateAccount(playerServiceId);
+            var account = await accountFacadeService.ReadOrCreateAccount(playerServiceId);
             if (account == null)
             {
                 throw new Exception($"{nameof(account)} is null");

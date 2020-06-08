@@ -38,9 +38,9 @@ namespace MatchmakerTest
             IGameServerNegotiatorService gameServerNegotiatorServiceStub = new GameServerNegotiatorServiceStub();
             IDbContextFactory dbContextFactory = new InMemoryDbContextFactory(nameof(BattleCreatingTests)+nameof(Test2));
             var dbContext = dbContextFactory.Create();
-            IWarshipValidatorService warshipValidatorService = new WarshipValidatorService(dbContext);
+            
             QueueExtenderService queueExtenderService = 
-                new QueueExtenderService(battleRoyaleQueueSingletonService, warshipValidatorService);
+                new QueueExtenderService(battleRoyaleQueueSingletonService, dbContext);
             var matchDataDbWriterService = new MatchDbWriterService(dbContextFactory);
             
             BattleRoyaleMatchCreatorService battleRoyaleMatchCreatorService = new BattleRoyaleMatchCreatorService(
@@ -139,9 +139,9 @@ namespace MatchmakerTest
             IGameServerNegotiatorService gameServerNegotiatorServiceStub = new GameServerNegotiatorServiceStub();
             IDbContextFactory dbContextFactory = new InMemoryDbContextFactory(nameof(BattleCreatingTests)+nameof(Test3));
             var dbContext = dbContextFactory.Create();
-            IWarshipValidatorService warshipValidatorService = new WarshipValidatorService(dbContext);
+            
             QueueExtenderService queueExtenderService = 
-                new QueueExtenderService(battleRoyaleQueueSingletonService, warshipValidatorService);
+                new QueueExtenderService(battleRoyaleQueueSingletonService, dbContext);
             var matchDataDbWriterService = new MatchDbWriterService(dbContextFactory);
             BattleRoyaleMatchCreatorService battleRoyaleMatchCreatorService = new BattleRoyaleMatchCreatorService(
                 battleRoyaleMatchPackerService, gameServerNegotiatorServiceStub, matchmakerDichService,
@@ -220,9 +220,9 @@ namespace MatchmakerTest
             var gameServerNegotiatorServiceStub = new GameServerNegotiatorServiceStub();
             IDbContextFactory dbContextFactory = new InMemoryDbContextFactory(nameof(BattleCreatingTests)+nameof(Test4));
             var dbContext = dbContextFactory.Create();
-            var warshipValidatorService = new WarshipValidatorService(dbContext);
+            
             var queueExtenderService = 
-                new QueueExtenderService(battleRoyaleQueueSingletonService, warshipValidatorService);
+                new QueueExtenderService(battleRoyaleQueueSingletonService, dbContext);
             
             var matchDataDbWriterService = new MatchDbWriterService(dbContextFactory);
             BattleRoyaleMatchCreatorService battleRoyaleMatchCreatorService = new BattleRoyaleMatchCreatorService(

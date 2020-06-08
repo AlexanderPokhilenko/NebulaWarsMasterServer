@@ -82,8 +82,6 @@ namespace AmoebaGameMatcherServer.Controllers
         [HttpPost]
         public async Task<ActionResult<string>> GetMatchResult([FromForm] int? matchId, [FromForm] string playerServiceId)
         {
-            Console.WriteLine(
-                $"{nameof(GetMatchResult)} {nameof(matchId)} {matchId} {nameof(playerServiceId)} {playerServiceId}");
             if (matchId == null)
             {
                 Console.WriteLine($"{nameof(matchId)} is null");
@@ -97,7 +95,7 @@ namespace AmoebaGameMatcherServer.Controllers
             }
             
             MatchResult matchResult = await matchResultDbReaderService
-                .GetMatchResult(matchId.Value, playerServiceId);
+                .ReadMatchResult(matchId.Value, playerServiceId);
             
             //Чек на адекватность ответа
             if (matchResult == null)

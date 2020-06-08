@@ -21,9 +21,9 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
         }
 
         [ItemCanBeNull]
-        public async Task<Account> ReadAccount([NotNull] string serviceId)
+        public async Task<AccountDbDto> ReadAccount([NotNull] string serviceId)
         {
-            Account account = await dbAccountWarshipsReader.GetAccountWithWarships(serviceId);
+            AccountDbDto account = await dbAccountWarshipsReader.GetAccountWithWarships(serviceId);
             if (account == null)
             {
                 return null;

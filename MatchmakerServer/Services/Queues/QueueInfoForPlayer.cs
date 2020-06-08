@@ -15,18 +15,20 @@ namespace AmoebaGameMatcherServer.Services.Queues
         private readonly int warshipId;
 
         public QueueInfoForPlayer(string playerServiceId, int accountId, string warshipPrefabName,
-            int warshipCombatPowerLevel, int warshipId,  DateTime dictionaryEntryTime)
+            int warshipPowerPoints, int warshipId,  DateTime dictionaryEntryTime)
         {
-            playerInfoForMatch = new PlayerInfoForMatch();
-            playerInfoForMatch.ServiceId = playerServiceId;
-            playerInfoForMatch.AccountId = accountId;
+            playerInfoForMatch = new PlayerInfoForMatch
+            {
+                ServiceId = playerServiceId,
+                AccountId = accountId,
+                PrefabName = warshipPrefabName,
+                WarshipPowerPoints = warshipPowerPoints
+            };
             unchecked
             {
                 playerInfoForMatch.TemporaryId = (ushort) accountId;
             }
-            
-            playerInfoForMatch.PrefabName = warshipPrefabName;
-            playerInfoForMatch.WarshipCombatPowerLevel = warshipCombatPowerLevel;
+
             this.warshipId = warshipId;
             DictionaryEntryTime = dictionaryEntryTime;
         }

@@ -27,7 +27,8 @@ namespace AmoebaGameMatcherServer.Controllers
                 .Where(account1 => account1.ServiceId == playerServiceId)
                 .SingleOrDefaultAsync();
 
-            account.SmallLootboxPoints -= 100;
+            //TODO создать сущность покупки лутбокса
+            // account.SmallLootboxPoints -= 100;
 
             LootboxDb lootboxDb = new LootboxDb
             {

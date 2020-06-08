@@ -1,20 +1,18 @@
-﻿using DataLayer.Tables;
-
-namespace AmoebaGameMatcherServer.Services.MatchFinishing
+﻿namespace AmoebaGameMatcherServer.Services.MatchFinishing
 {
     /// <summary>
     /// По результатам боя в батл рояль режиме присуждает награду игроку.
     /// </summary>
-    public class BattleRoyaleMatchRewardService
+    public class BattleRoyaleMatchRewardCalculatorService
     {
         readonly BattleRoyaleWarshipRatingCalculator warshipRatingCalculator;
         
-        public BattleRoyaleMatchRewardService()
+        public BattleRoyaleMatchRewardCalculatorService()
         {
             warshipRatingCalculator = new BattleRoyaleWarshipRatingCalculator();
         }
         
-        public MatchReward GetMatchReward(int placeInMatch, int currentWarshipRating)
+        public MatchReward Calculate(int placeInMatch, int currentWarshipRating)
         {
             //TODO добавить поддержку double tokens
             //TODO добавить поддержку сундуков
@@ -24,10 +22,10 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             {
                 WarshipRatingDelta = GetWarshipRatingDelta(placeInMatch, currentWarshipRating),
                 PremiumCurrencyDelta = 0,
-                RegularCurrencyDelta = 0,
+                SoftCurrencyDelta = 0,
                 JsonMatchResultDetails = null,
-                PointsForBigChest = 0,
-                PointsForSmallLootbox = GetPointsForSmallLootbox(placeInMatch, currentWarshipRating)
+                BigLootboxPoints = 0,
+                SmallLootboxPoints = GetPointsForSmallLootbox(placeInMatch, currentWarshipRating)
             };
             return result;
         }
@@ -49,15 +47,5 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             int warshipRatingDelta = warshipRatingCalculator.GetWarshipRatingDelta(currentWarshipRating, placeInMatch);
             return warshipRatingDelta;
         }
-    }
-
-    public class MatchReward
-    {
-        public int WarshipRatingDelta { get; set; }
-        public int PremiumCurrencyDelta { get; set; }
-        public int RegularCurrencyDelta { get; set; }
-        public object JsonMatchResultDetails { get; set; }
-        public int PointsForBigChest { get; set; }
-        public int PointsForSmallLootbox { get; set; }
     }
 }

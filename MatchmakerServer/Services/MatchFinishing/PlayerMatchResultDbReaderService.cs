@@ -14,15 +14,20 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
     public class PlayerMatchResultDbReaderService
     {
         private readonly ApplicationDbContext dbContext;
-        
-        public PlayerMatchResultDbReaderService(ApplicationDbContext dbContext)
+        private readonly WarshipReaderService warshipReaderService;
+
+        public PlayerMatchResultDbReaderService(ApplicationDbContext dbContext, 
+            WarshipReaderService warshipReaderService)
         {
             this.dbContext = dbContext;
+            this.warshipReaderService = warshipReaderService;
         }
 
-        public async Task<MatchResult> GetMatchResult(int matchId, string playerServiceId)
+        public async Task<MatchResult> ReadMatchResult(int matchId, string playerServiceId)
         {
             MatchResultForPlayer matchResultDb = await dbContext.MatchResultForPlayers
+                .Include(matchResult1=>matchResult1.Warship)
+                    .ThenInclude(warship => warship.WarshipType)
                 .SingleOrDefaultAsync(rec => 
                     rec.MatchId == matchId 
                     && rec.Warship.Account.ServiceId == playerServiceId);
@@ -42,18 +47,15 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             }
 
 
-            int currentWarshipRating = matchResultDb.Warship.MatchResultForPlayers
-                .Sum(value=>value.WarshipRatingDelta) ;
+            int currentWarshipRating = await warshipReaderService.ReadWarshipRating(matchResultDb.WarshipId);
             
             
-            MatchResult matchResult = new MatchResult
-            {
-                SpaceshipPrefabName = matchResultDb.Warship.WarshipType.Name,
-                CurrentSpaceshipRating = currentWarshipRating,
-                MatchRatingDelta = matchResultDb.WarshipRatingDelta,
-                PointsForSmallChest = matchResultDb.SmallLootboxPoints,
-                DoubleTokens = false
-            };
+            MatchResult matchResult = new MatchResult();
+            matchResult.CurrentSpaceshipRating = currentWarshipRating;
+            matchResult.MatchRatingDelta = matchResultDb.WarshipRatingDelta;
+            matchResult.PointsForSmallChest = matchResultDb.SmallLootboxPoints;
+            matchResult.DoubleTokens = false;
+            matchResult.SpaceshipPrefabName = matchResultDb.Warship.WarshipType.Name;
 
             return matchResult; 
         }

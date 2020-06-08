@@ -42,23 +42,23 @@ select a.*, w.*, wt.*, wcr.*,
             this.connection = connection;
         }
         
-        public async Task<Account> GetAccountWithWarships([NotNull] string serviceId)
+        public async Task<AccountDbDto> GetAccountWithWarships([NotNull] string serviceId)
         {
             var parameters = new {serviceIdPar = serviceId};
-            Dictionary<int, Account> lookup = new Dictionary<int, Account>();
-            IEnumerable<Account> accounts = await connection
-                .QueryAsync<Account, Warship,WarshipType, WarshipCombatRole, AccountQueryDapperHelper1, Account>(sqlSelectAccountWarshipsInfo,
+            Dictionary<int, AccountDbDto> lookup = new Dictionary<int, AccountDbDto>();
+            IEnumerable<AccountDbDto> accounts = await connection
+                .QueryAsync<AccountDbDto, WarshipDbDto,WarshipType, WarshipCombatRole, AccountQueryDapperHelper1, AccountDbDto>(sqlSelectAccountWarshipsInfo,
                     (accountArg, warshipArg, warshipTypeArg, warshipCombatRole, dapperHelper) =>
                     {
                         //Если такого аккаунта ещё не было
-                        if (!lookup.TryGetValue(accountArg.Id, out Account account))
+                        if (!lookup.TryGetValue(accountArg.Id, out AccountDbDto account))
                         {
                             //Положить аккаунт в словарь
                             lookup.Add(accountArg.Id, account = accountArg);
                         }
 
                         //Попытаться достать корабль c таким id из коллекции
-                        Warship warship = account.Warships.Find(wArg => wArg.Id == warshipArg.Id);
+                        var warship = account.Warships.Find(wArg => wArg.Id == warshipArg.Id);
                         //Этот корабль уже есть в коллекции?
                         if (warship == null)
                         {

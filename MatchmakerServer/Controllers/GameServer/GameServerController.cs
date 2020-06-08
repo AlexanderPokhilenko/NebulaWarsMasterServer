@@ -3,6 +3,7 @@ using System.Threading.Channels;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services;
 using AmoebaGameMatcherServer.Services.MatchFinishing;
+using AmoebaGameMatcherServer.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AmoebaGameMatcherServer.Controllers
@@ -11,62 +12,62 @@ namespace AmoebaGameMatcherServer.Controllers
     [ApiController]
     public class GameServerController : ControllerBase
     {
-        private readonly BattleRoyaleMatchFinisherService matchFinisherService;
+        private readonly BattleRoyaleMatchFinisherService battleRoyaleMatchFinisher;
 
-        public GameServerController(BattleRoyaleMatchFinisherService matchFinisherService)
+        public GameServerController(BattleRoyaleMatchFinisherService battleRoyaleMatchFinisher)
         {
-            this.matchFinisherService = matchFinisherService;
-        }
-        
-        [Route(nameof(DeleteRoom))]
-        [HttpDelete]
-        public async Task<ActionResult> DeleteRoom([FromQuery] int? matchId)
-        {
-            Console.WriteLine($"\n{nameof(DeleteRoom)}\n");
-            if (matchId == null)
-            {
-                Console.WriteLine($"{nameof(matchId)} is null");
-                return new BadRequestResult();
-            }
-            await matchFinisherService.DeleteRoom(matchId.Value);
-            
-            return Ok();
+            this.battleRoyaleMatchFinisher = battleRoyaleMatchFinisher;
         }
         
         [Route(nameof(PlayerDeath))]
         [HttpDelete]
         public async Task<ActionResult> PlayerDeath([FromQuery] int? accountId, [FromQuery] int? placeInBattle, 
-            [FromQuery] int? matchId)
+            [FromQuery] int? matchId, string secret)
         {
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine(nameof(PlayerDeath));
-            Console.WriteLine(nameof(PlayerDeath));
-            Console.WriteLine(nameof(PlayerDeath));
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
             if (accountId == null)
             {
                 Console.WriteLine($"{nameof(PlayerDeath)} {nameof(accountId)} is null");
-                return StatusCode(500);
+                return BadRequest();
             }
 
             if (placeInBattle == null)
             {
                 Console.WriteLine($"{nameof(PlayerDeath)} {nameof(placeInBattle)} is null");
-                return StatusCode(500);
+                return BadRequest();
             }
             
             if (matchId == null)
             {
                 Console.WriteLine($"{nameof(PlayerDeath)} {nameof(matchId)} is null");
-                return StatusCode(500);
+                return BadRequest();
+            }
+            
+            if (secret != Globals.GameServerSecret)
+            {
+                return BadRequest();
             }
 
-            await matchFinisherService.PlayerDeath(accountId.Value, placeInBattle.Value, matchId.Value);
+            bool succes = await battleRoyaleMatchFinisher
+                .UpdatePlayerMatchResultInDb(accountId.Value, placeInBattle.Value, matchId.Value);
+            
+            return Ok();
+        }
+        
+        [Route(nameof(DeleteMatch))]
+        [HttpDelete]
+        public async Task<ActionResult> DeleteMatch([FromQuery] int? matchId, string secret)
+        {
+            if (matchId == null)
+            {
+                return BadRequest();
+            }
 
-            Console.WriteLine($"{nameof(PlayerDeath)} Успешная запись в БД");
+            if (secret != Globals.GameServerSecret)
+            {
+                return BadRequest();
+            }
+            
+            await battleRoyaleMatchFinisher.FinishMatchAndWriteToDb(matchId.Value);
             return Ok();
         }
     }

@@ -17,6 +17,7 @@ namespace AmoebaGameMatcherServer.Services
             this.callback = callback;
             this.delay = delay;
         }
+        
         public void StartThread()
         {
             Thread thread = new Thread(PeriodicMethodCall);

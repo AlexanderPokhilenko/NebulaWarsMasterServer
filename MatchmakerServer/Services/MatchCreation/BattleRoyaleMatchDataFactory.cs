@@ -8,9 +8,9 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
     /// </summary>
     public static class BattleRoyaleMatchDataFactory
     {
-        public static BattleRoyaleMatchData Create(GameUnitsForMatch gameUnitsForMatch, Match match)
+        public static BattleRoyaleMatchModel Create(GameUnitsForMatch gameUnitsForMatch, Match match)
         {
-            var result = new BattleRoyaleMatchData
+            var result = new BattleRoyaleMatchModel
             {
                 MatchId = match.Id,
                 GameServerIp = match.GameServerIp,
