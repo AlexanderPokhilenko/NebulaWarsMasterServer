@@ -51,6 +51,12 @@ namespace AmoebaGameMatcherServer
 
             Console.WriteLine(npgsqlConnection.Query($@"select * from ""Accounts"" "));
             
+            app.Use(async (context, next) =>
+                    {
+                        Console.WriteLine("Лог "+context.Request.Path);
+                        
+                        await next.Invoke();
+                    });
             //Заполнение данными
             new DataSeeder().TrySeed(dbContext);
 
