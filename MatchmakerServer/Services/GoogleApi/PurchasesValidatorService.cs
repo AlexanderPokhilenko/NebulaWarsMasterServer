@@ -28,19 +28,21 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
 
         public async Task Validate([NotNull] string sku, [NotNull] string token)
         {
-            string responseContentJson = await googleApiPurchasesWrapperService.Validate(sku, token);
-            bool responseIsOk = responseContentJson != null; 
+            string googleResponseJson = await googleApiPurchasesWrapperService.Validate(sku, token);
+            bool responseIsOk = googleResponseJson != null; 
             if (responseIsOk)
             {
-                Console.WriteLine($"{nameof(responseContentJson)} {responseContentJson}");
+                Console.WriteLine($"{nameof(googleResponseJson)} {googleResponseJson}");
                 //TODO внести данные про покупку в БД
-                purchaseRegistrationService.EnterPurchaseIntoDb(responseContentJson);
+                purchaseRegistrationService.EnterPurchaseIntoDb(googleResponseJson);
                 
                 //уведомить google о регистрации покупки
-                dynamic jsonDich1 = JsonConvert.DeserializeObject(responseContentJson);
+                dynamic jsonDich1 = JsonConvert.DeserializeObject(googleResponseJson);
                 string developerPayload1 = jsonDich1["developerPayload"];
+                Console.WriteLine($"{nameof(developerPayload1)} {developerPayload1}");
                 dynamic jsonDich2 = JsonConvert.DeserializeObject(developerPayload1);
                 string developerPayload2 = jsonDich2["developerPayload"];
+                Console.WriteLine($"{nameof(developerPayload2)} {developerPayload2}");
              
                 try
                 {
