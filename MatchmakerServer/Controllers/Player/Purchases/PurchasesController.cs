@@ -20,7 +20,7 @@ public class PurchasesController : ControllerBase
 
     [Route(nameof(Validate))]
     [HttpPost]
-    public ActionResult Validate([FromForm]string productId, [FromForm]string token)
+    public async Task<ActionResult> Validate([FromForm]string productId, [FromForm]string token)
     {
         Console.WriteLine($"{nameof(Validate)} вызван");
         Console.WriteLine("данные начало");
@@ -40,7 +40,7 @@ public class PurchasesController : ControllerBase
             return BadRequest();
         }
         
-        purchasesValidatorService.Validate(productId, token);
+        await purchasesValidatorService.Validate(productId, token);
         return Ok();
     }
 

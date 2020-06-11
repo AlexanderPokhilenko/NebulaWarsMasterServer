@@ -8,7 +8,7 @@ namespace AmoebaGameMatcherServer
     {
         public override void Add(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddSingleton<PurchasesValidatorService>();
+            serviceCollection.AddTransient<PurchasesValidatorService>();
             serviceCollection.AddSingleton<CustomGoogleApiAccessTokenService>();
             serviceCollection.AddSingleton<IpAppProductsService>();
         }
