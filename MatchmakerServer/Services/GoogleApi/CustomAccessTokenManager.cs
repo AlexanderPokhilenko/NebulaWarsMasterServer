@@ -9,19 +9,19 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
     /// </summary>
     public class CustomGoogleApiAccessTokenService
     {
-        private MyGoogleApiData apiData;
+        private GoogleApiAuthData apiAuthData;
         private readonly object lockObj = new object();
         
         public async Task Initialize()
         {
-            if (apiData != null)
+            if (apiAuthData != null)
             {
-                throw new Exception($"{nameof(apiData)} not null. Произошёл повторный вызов инициализации?");
+                throw new Exception($"{nameof(apiAuthData)} not null. Инициализация уже была проведена.");
             }
             
             try
             {
-                GoogleApiGlobals.Check();
+                GoogleApiGlobals.CheckNull();
                 
                 string currentDirectory = GoogleApiFileManager.GetCurrentDirectory();
                 Console.WriteLine($"{nameof(currentDirectory)} {currentDirectory}");
@@ -31,28 +31,28 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                     GoogleApiFileManager.RemoveFile();
                 }
                 
-                MyGoogleApiData apiDataFromFile = await GoogleApiFileManager.GetApiDataFromFile();
-                if (MyGoogleApiData.IsCorrect(apiDataFromFile, out string error1))
+                GoogleApiAuthData apiAuthDataFromFile = await GoogleApiFileManager.ReadApiDataFromFile();
+                if (apiAuthDataFromFile.Check(out string error1))
                 {
                     Console.WriteLine("Установлены данные из файла");
-                    apiData = apiDataFromFile;
+                    apiAuthData = apiAuthDataFromFile;
                 }
                 else
                 {
                     Console.WriteLine(error1);
                     Console.WriteLine("Создание нового refresh токена");
                     var initializeAccessTokenArg = GoogleApiGlobals.GetGoogleApiInitArg();
-                    apiData = await TokenManagerService.InitializeAccessTokenAsync(initializeAccessTokenArg);
-                    await GoogleApiFileManager.WriteGoogleApiDataToFile(apiData);
+                    apiAuthData = await TokenManagerService.InitializeAccessTokenAsync(initializeAccessTokenArg);
+                    await GoogleApiFileManager.WriteGoogleApiDataToFile(apiAuthData);
                 }
 
-                if (MyGoogleApiData.IsCorrect(apiData, out string error2))
+                if (apiAuthData.Check(out string error2))
                 {
-                    if (apiData.ExpiresInSec != null)
+                    if (apiAuthData.ExpiresInSec != null)
                     {
 #pragma warning disable 4014
                         StartEndlessAccessTokenUpdatingAsync(2).ConfigureAwait(true);
-                        // StartEndlessAccessTokenUpdatingAsync(apiData.ExpiresInSec.Value).ConfigureAwait(true);
+                        // StartEndlessAccessTokenUpdatingAsync(apiAuthData.ExpiresInSec.Value).ConfigureAwait(true);
 #pragma warning restore 4014
                     }
                 }
@@ -73,24 +73,24 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
             while (true)
             {
                 await Task.Delay(1000 * delaySec);
-                if (apiData != null)
+                if (apiAuthData != null)
                 {
                     AccessTokenUpdatingArg tokenUpdatingArg = new AccessTokenUpdatingArg
                     {
                         ClientId = GoogleApiGlobals.ClientId,
                         ClientSecret = GoogleApiGlobals.ClientSecret,
-                        RefreshToken = apiData.RefreshToken
+                        RefreshToken = apiAuthData.RefreshToken
                     };
                     var result = TokenManagerService.UpdateAccessToken(tokenUpdatingArg).Result;
                     lock (lockObj)
                     {
-                        apiData.AccessToken = result.AccessToken;
+                        apiAuthData.AccessToken = result.AccessToken;
                     }
                     delaySec = result.ExpiresInSec;
                 }
                 else
                 {
-                    throw new Exception($"{nameof(apiData)} was null");
+                    throw new Exception($"{nameof(apiAuthData)} was null");
                 }
             }
             // ReSharper disable once FunctionNeverReturns
@@ -100,20 +100,20 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
         {
             lock (lockObj)
             {
-                if (apiData != null)
+                if (apiAuthData != null)
                 {
-                    if (apiData.AccessToken != null)
+                    if (apiAuthData.AccessToken != null)
                     {
-                        return string.Copy(apiData.AccessToken);
+                        return string.Copy(apiAuthData.AccessToken);
                     }
                     else
                     {
-                        throw new Exception($"{nameof(apiData.AccessToken)} was null");
+                        throw new Exception($"{nameof(apiAuthData.AccessToken)} was null");
                     }
                 }
                 else
                 {
-                    throw new Exception($"{nameof(apiData)} was null");
+                    throw new Exception($"{nameof(apiAuthData)} was null");
                 }
             }
         }

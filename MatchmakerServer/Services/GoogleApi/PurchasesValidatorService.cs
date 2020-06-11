@@ -45,15 +45,38 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
         private void SaveResponseContentToDb(string responseContentJson)
         {
             dynamic jsonObj = JsonConvert.DeserializeObject(responseContentJson);
-            string millis = jsonObj["purchaseTimeMillis"];
-            long.TryParse(millis, out long unixTime);
-            DateTimeOffset dateTimeOffset = DateTimeOffset.FromUnixTimeMilliseconds(unixTime);
-            dbContext.Purchases.Add(new TestPurchase
+            try
             {
-                Data = responseContentJson,
-                DateTime = dateTimeOffset.DateTime
-            });
-            dbContext.SaveChanges();
+                int acknowledgementState = (int) jsonObj["acknowledgementState"];
+                int consumptionState = (int) jsonObj["consumptionState"];
+                string developerPayload = jsonObj["developerPayload"];
+                string kind = jsonObj["kind"];
+                string orderId = jsonObj["orderId"];
+                int purchaseState = (int) jsonObj["purchaseState"];
+                long purchaseTimeMillis = (long) jsonObj["purchaseTimeMillis"];
+                int purchaseType = (int) jsonObj["purchaseType"];
+                
+                
+                DateTimeOffset dateTimeOffset = DateTimeOffset.FromUnixTimeMilliseconds(purchaseTimeMillis);
+                dbContext.Purchases.Add(new TestPurchase
+                {
+                    Data = responseContentJson,
+                    DateTime = dateTimeOffset.DateTime,
+                    AcknowledgementState = acknowledgementState,
+                    ConsumptionState = consumptionState,
+                    DeveloperPayload = developerPayload,
+                    Kind = kind,
+                    OrderId = orderId,
+                    PurchaseState = purchaseState,
+                    PurchaseTimeMillis = purchaseTimeMillis,
+                    PurchaseType = purchaseType
+                });
+                dbContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message+" "+e.StackTrace);
+            }
         }
     }
 }

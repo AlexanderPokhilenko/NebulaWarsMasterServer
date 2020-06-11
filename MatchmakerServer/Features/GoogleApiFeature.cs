@@ -1,5 +1,4 @@
-﻿using AmoebaGameMatcherServer.Services;
-using AmoebaGameMatcherServer.Services.GoogleApi;
+﻿using AmoebaGameMatcherServer.Services.GoogleApi;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AmoebaGameMatcherServer

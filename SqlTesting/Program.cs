@@ -21,7 +21,7 @@ namespace DeleteMe1
         static async Task Main()
         {
             string databaseName = "DapperTests30";    
-            string connectionString = DbConfigIgnore.GetConnectionString(databaseName);
+            string connectionString = DbConfig.GetConnectionString(databaseName);
             ApplicationDbContext dbContext = new DbContextFactory().Create(databaseName);
 
             DbSeed dbSeed = new DbSeed(dbContext);

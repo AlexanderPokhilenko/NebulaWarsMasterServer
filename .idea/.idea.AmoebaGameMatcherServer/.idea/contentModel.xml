@@ -33,7 +33,7 @@
           <e p="WarshipTypesConfiguration.cs" t="Include" />
         </e>
         <e p="DataLayer.csproj" t="IncludeRecursive" />
-        <e p="DbConfigIgnore.cs" t="Include" />
+        <e p="DbConfig.cs" t="Include" />
         <e p="DbContextFactories" t="Include">
           <e p="DbContextFactory.cs" t="Include" />
           <e p="IDbContextFactory.cs" t="Include" />
@@ -65,6 +65,7 @@
           <e p="AccessTokenUpdatingArg.cs" t="Include" />
           <e p="InitializeAccessTokenArg.cs" t="Include" />
         </e>
+        <e p="Ignore.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp2.2" t="Include">
@@ -223,11 +224,11 @@
           <e p="GoogleApi" t="Include">
             <e p="CustomAccessTokenManager.cs" t="Include" />
             <e p="CustomGoogleApiInitializer.cs" t="Include" />
+            <e p="GoogleApiAuthData.cs" t="Include" />
             <e p="GoogleApiFileManager.cs" t="Include" />
             <e p="GooglePurchasesApiWrapper.cs" t="Include" />
             <e p="GooglePurchasesWrapperService.cs" t="Include" />
             <e p="IpAppProductsService.cs" t="Include" />
-            <e p="MyGoogleApiData.cs" t="Include" />
             <e p="PurchasesValidatorService.cs" t="Include" />
             <e p="RefreshedData.cs" t="Include" />
             <e p="TokenManagerService.cs" t="Include" />

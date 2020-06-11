@@ -6,7 +6,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
 {
     public static class TokenManagerService
     {
-        public static async Task<MyGoogleApiData> InitializeAccessTokenAsync(InitializeAccessTokenArg initAccessToken)
+        public static async Task<GoogleApiAuthData> InitializeAccessTokenAsync(InitializeAccessTokenArg initAccessToken)
         {
             string responseContent = await CustomGoogleApiInitializer.GetAuthData(initAccessToken);
             
@@ -17,7 +17,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
             string accessToken = responseObj.access_token;
             string refreshToken = responseObj.refresh_token;
 
-            MyGoogleApiData result = new MyGoogleApiData
+            GoogleApiAuthData result = new GoogleApiAuthData
             {
                 AccessToken = accessToken,
                 RefreshToken = refreshToken,

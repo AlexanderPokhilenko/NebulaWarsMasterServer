@@ -8,7 +8,7 @@ namespace AmoebaGameMatcherServer
     {
         public override void Add(IServiceCollection serviceCollection)
         {
-            string connectionString = DbConfigIgnore.GetConnectionString();
+            string connectionString = DbConfig.GetConnectionString();
             serviceCollection
                 .AddEntityFrameworkNpgsql()
                 .AddDbContext<ApplicationDbContext>(

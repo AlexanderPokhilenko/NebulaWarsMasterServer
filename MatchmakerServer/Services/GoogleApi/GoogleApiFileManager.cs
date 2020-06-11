@@ -9,16 +9,16 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
 {
     public static class GoogleApiFileManager
     {
-        public static async Task WriteGoogleApiDataToFile(MyGoogleApiData data)
+        public static async Task WriteGoogleApiDataToFile(GoogleApiAuthData authData)
         {
-            string text = JsonConvert.SerializeObject(data);
+            string text = JsonConvert.SerializeObject(authData);
             using (StreamWriter sw = new StreamWriter(GoogleApiGlobals.FileName, false, Encoding.UTF8))
             {
                 await sw.WriteLineAsync(text);
             }
         }
         
-        public static async Task<MyGoogleApiData> GetApiDataFromFile()
+        public static async Task<GoogleApiAuthData> ReadApiDataFromFile()
         {
             try
             {
@@ -32,7 +32,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
 
                     try
                     {
-                        var result = JsonConvert.DeserializeObject<MyGoogleApiData>(fileContent);
+                        var result = JsonConvert.DeserializeObject<GoogleApiAuthData>(fileContent);
                      
                         return result;
                     }

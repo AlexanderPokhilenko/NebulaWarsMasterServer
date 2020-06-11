@@ -34,7 +34,7 @@ namespace IntegrationTests
             DbContext.Accounts.FromSql(new RawSqlString("ALTER DATABASE {0} SET postgres WITH ROLLBACK IMMEDIATE"), databaseName);
             //Очиста аккаунта
             TruncateAccountsTable();
-            string connectionString = DbConfigIgnore.GetConnectionString(databaseName);
+            string connectionString = DbConfig.GetConnectionString(databaseName);
             //Создать сервисы
             NpgsqlConnection conn = new NpgsqlConnection(connectionString);
             AccountReaderService = new AccountDbReaderService(conn);

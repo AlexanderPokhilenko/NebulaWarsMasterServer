@@ -17,8 +17,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
             string content = await result.Content.ReadAsStringAsync();
             
             Console.WriteLine(result.StatusCode);
-            Console.WriteLine(content);
-
+            
             if (result.IsSuccessStatusCode)
             {
                 return content;
