@@ -4,6 +4,7 @@ using DataLayer;
 using DataLayer.Tables;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace AmoebaGameMatcherServer.Services.GoogleApi
 {
@@ -66,7 +67,10 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                 
                 try
                 {
-                    await googleApiPurchaseAcknowledgeService.Acknowledge(sku, token, developerPayload2);
+                    JObject jObj = new JObject();
+                    jObj.Add("developerPayload", developerPayload2);
+                    string developerPayload3 = jObj.ToString();
+                    await googleApiPurchaseAcknowledgeService.Acknowledge(sku, token, developerPayload3);
                     Console.WriteLine("Удалось\n");
                 }
                 catch (Exception e)
