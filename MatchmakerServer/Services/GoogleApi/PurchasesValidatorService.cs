@@ -34,10 +34,34 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                 Console.WriteLine($"{nameof(responseContentJson)} {responseContentJson}");
                 //TODO внести данные про покупку в БД
                 purchaseRegistrationService.EnterPurchaseIntoDb(responseContentJson);
-                dynamic jsonObj = JsonConvert.DeserializeObject(responseContentJson);
-                string developerPayload = jsonObj["developerPayload"];
+                dynamic jsonDich1 = JsonConvert.DeserializeObject(responseContentJson);
+                string developerPayload1 = jsonDich1["developerPayload"];
+                dynamic jsonDich2 = JsonConvert.DeserializeObject(developerPayload1);
+                string developerPayload2 = jsonDich2["developerPayload"];
+                Console.WriteLine();
+                Console.WriteLine($"{nameof(developerPayload1)} {developerPayload1}");
+                Console.WriteLine($"{nameof(developerPayload2)} {developerPayload2}");
+                Console.WriteLine();
                 //уведомить google о регистрации покупки
-                await googleApiPurchaseAcknowledgeService.Acknowledge(sku, token, developerPayload);
+                try
+                {
+                    await googleApiPurchaseAcknowledgeService.Acknowledge(sku, token, developerPayload1);
+                    Console.WriteLine("Удалось");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message+" "+e.StackTrace);
+                }
+                
+                try
+                {
+                    await googleApiPurchaseAcknowledgeService.Acknowledge(sku, token, developerPayload2);
+                    Console.WriteLine("Удалось");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message+" "+e.StackTrace);
+                }
             }
         }
     }
