@@ -323,6 +323,9 @@
       </e>
       <e p="UnitTests" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
+        <e p="DeleteMe" t="Include">
+          <e p="Test.cs" t="Include" />
+        </e>
         <e p="Experimental" t="Include">
           <e p="LazyLoadingTests.cs" t="Include" />
           <e p="UselessDich" t="Include">

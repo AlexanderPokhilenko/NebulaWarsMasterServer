@@ -28,24 +28,30 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
             string accessToken = accessTokenService.GetAccessToken();
             Console.WriteLine($"{nameof(accessToken)} {accessToken}");
 
-            string responseContent = await GooglePurchasesApiWrapper.Get(sku, token, accessToken);
+            string responseContentJson = await GooglePurchasesApiWrapper.Get(sku, token, accessToken);
 
-            if (responseContent != null)
+            
+            if (responseContentJson != null)
             {
-                Console.WriteLine($"{nameof(responseContent)} {responseContent}");
-                SaveResponseContentToDb(responseContent);
+                Console.WriteLine($"{nameof(responseContentJson)} {responseContentJson}");
+                SaveResponseContentToDb(responseContentJson);
             }
             else
             {
-                Console.WriteLine($"{nameof(responseContent)} was null");   
+                Console.WriteLine($"{nameof(responseContentJson)} was null");   
             }
         }
 
-        private void SaveResponseContentToDb(string responseContent)
+        private void SaveResponseContentToDb(string responseContentJson)
         {
+            dynamic jsonObj = JsonConvert.DeserializeObject(responseContentJson);
+            string millis = jsonObj["purchaseTimeMillis"];
+            long.TryParse(millis, out long unixTime);
+            DateTimeOffset dateTimeOffset = DateTimeOffset.FromUnixTimeMilliseconds(unixTime);
             dbContext.Purchases.Add(new TestPurchase
             {
-                Data = responseContent
+                Data = responseContentJson,
+                DateTime = dateTimeOffset.DateTime
             });
             dbContext.SaveChanges();
         }
