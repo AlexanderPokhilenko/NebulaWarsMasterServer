@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace AmoebaGameMatcherServer.Services.GoogleApi
@@ -19,13 +20,16 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
             factory = new PurchaseAcknowledgeUrlFactory();
         }
         
-        public async Task Acknowledge(string productId, string token, string developerPayload)
+        public async Task Acknowledge(string productId, string token, string googleResponseJson)
         {
             string accessToken = accessTokenService.GetAccessToken();
             string url = factory.Create(productId, token, accessToken);
+            
             HttpClient httpClient = new HttpClient();
-
-            Console.WriteLine(url);
+            
+            dynamic jsonObj1 = JsonConvert.DeserializeObject(googleResponseJson);
+            dynamic jsonObj2 = JsonConvert.DeserializeObject(jsonObj1["developerPayload"]);
+            string developerPayload = jsonObj2["developerPayload"];
             HttpContent httpContent = new StringContent(developerPayload);
             var result = await httpClient.PostAsync(url, httpContent);
             
