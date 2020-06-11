@@ -25,7 +25,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
             string url = factory.Create(productId, token, accessToken);
             HttpClient httpClient = new HttpClient();
 
-            
+            Console.WriteLine(url);
             HttpContent httpContent = new StringContent(developerPayload);
             var result = await httpClient.PostAsync(url, httpContent);
             
