@@ -1,5 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using DataLayer;
+using DataLayer.Tables;
 using JetBrains.Annotations;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace AmoebaGameMatcherServer.Services.GoogleApi
 {
@@ -23,14 +28,29 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
 
         public async Task Validate([NotNull] string sku, [NotNull] string token)
         {
-            string googleResponseJson = await googleApiPurchasesWrapperService.Validate(sku, token);
-            bool responseIsOk = googleResponseJson != null; 
+            string responseContentJson = await googleApiPurchasesWrapperService.Validate(sku, token);
+            bool responseIsOk = responseContentJson != null; 
             if (responseIsOk)
             {
+                Console.WriteLine($"{nameof(responseContentJson)} {responseContentJson}");
                 //TODO внести данные про покупку в БД
-                purchaseRegistrationService.EnterPurchaseIntoDb(googleResponseJson);
+                purchaseRegistrationService.EnterPurchaseIntoDb(responseContentJson);
+                
                 //уведомить google о регистрации покупки
-                await googleApiPurchaseAcknowledgeService.Acknowledge(sku, token, googleResponseJson);
+                dynamic jsonDich1 = JsonConvert.DeserializeObject(responseContentJson);
+                string developerPayload1 = jsonDich1["developerPayload"];
+                dynamic jsonDich2 = JsonConvert.DeserializeObject(developerPayload1);
+                string developerPayload2 = jsonDich2["developerPayload"];
+             
+                try
+                {
+                    await googleApiPurchaseAcknowledgeService.Acknowledge(sku, token, developerPayload2);
+                    Console.WriteLine("Удалось\n");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message+" "+e.StackTrace);
+                }
             }
         }
     }
