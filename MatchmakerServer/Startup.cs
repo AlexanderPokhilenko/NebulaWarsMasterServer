@@ -18,7 +18,7 @@ namespace AmoebaGameMatcherServer
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddTransient<NpgsqlConnection>(provider =>
+            services.AddTransient(provider =>
             {
                 string connectionString = DbConfigIgnore.GetConnectionString();
                 return new NpgsqlConnection(connectionString);
@@ -48,15 +48,7 @@ namespace AmoebaGameMatcherServer
         {
             matchCreationInitiator.StartThread();
             googleApiAccessTokenManagerService.Initialize().Wait();
-
-            Console.WriteLine(npgsqlConnection.Query($@"select * from ""Accounts"" "));
             
-            app.Use(async (context, next) =>
-                    {
-                        Console.WriteLine("Лог "+context.Request.Path);
-                        
-                        await next.Invoke();
-                    });
             //Заполнение данными
             new DataSeeder().TrySeed(dbContext);
 

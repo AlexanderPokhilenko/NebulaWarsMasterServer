@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using DataLayer;
 using DataLayer.Tables;
 using Newtonsoft.Json;
@@ -11,23 +12,23 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
     public class PurchasesValidatorService
     {
         private readonly CustomGoogleApiAccessTokenService accessTokenService;
-        private readonly IDbContextFactory dbContextFactory;
-
+        private readonly ApplicationDbContext dbContext;
+        
         public PurchasesValidatorService(CustomGoogleApiAccessTokenService accessTokenService, 
-            IDbContextFactory dbContextFactory)
+            ApplicationDbContext dbContext)
         {
             this.accessTokenService = accessTokenService;
-            this.dbContextFactory = dbContextFactory;
+            this.dbContext = dbContext;
         }
 
-        public void Validate(string sku, string token)
+        public async Task Validate(string sku, string token)
         {
             Console.WriteLine($"{nameof(sku)} {sku} {nameof(token)} {token}");
             
             string accessToken = accessTokenService.GetAccessToken();
             Console.WriteLine($"{nameof(accessToken)} {accessToken}");
 
-            string responseContent = GooglePurchasesApiWrapper.Get(sku, token, accessToken).Result;
+            string responseContent = await GooglePurchasesApiWrapper.Get(sku, token, accessToken);
 
             if (responseContent != null)
             {
@@ -42,41 +43,11 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
 
         private void SaveResponseContentToDb(string responseContent)
         {
-            throw new NotImplementedException();
-            dynamic responseObj = JsonConvert.DeserializeObject(responseContent);
-            try
+            dbContext.Purchases.Add(new TestPurchase
             {
-                string kind = responseObj.kind;
-                long purchaseTimeMillis = responseObj.purchaseTimeMillis;
-                int purchaseState = responseObj.purchaseState;
-                int consumptionState = responseObj.consumptionState;
-                string developerPayload = responseObj.developerPayload;
-                string orderId = responseObj.orderId;
-                int purchaseType = responseObj.purchaseType;
-                int acknowledgementState = responseObj.acknowledgementState;
-            
-                // using (ApplicationDbContext dbContext = dbContextFactory.Create())
-                // {
-                //     Purchase purchase = new Purchase
-                //     {
-                //         Json = responseContent,
-                //         Kind = kind,
-                //         PurchaseTimeMillis = purchaseTimeMillis,
-                //         PurchaseState = purchaseState,
-                //         ConsumptionState = consumptionState,
-                //         DeveloperPayload = developerPayload,
-                //         OrderId = orderId,
-                //         PurchaseType = purchaseType,
-                //         AcknowledgementState = acknowledgementState
-                //     };
-                //     dbContext.Purchases.Add(purchase);
-                //     dbContext.SaveChanges();
-                // }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+                Data = responseContent
+            });
+            dbContext.SaveChanges();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace DataLayer
         public DbSet<LootboxPrizeWarshipPowerPoints> LootboxPrizeWarshipPowerPoints { get; set; }
         public DbSet<LootboxPrizeSmallLootboxPoints> LootboxPrizeSmallLootboxPoints { get; set; }
         
-        // public DbSet<Purchase> Purchases { get; set; }
+        public DbSet<TestPurchase> Purchases { get; set; }
         // public DbSet<Order> Orders { get; set; }
         // public DbSet<Kit> Kits { get; set; }
         // public DbSet<Product> Products { get; set; }
