@@ -7,7 +7,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
         public string Create(string productId, string token, string accessToken)
         {
             return
-                $"https://www.googleapis.com/androidpublisher/v3/applications/{GoogleApiGlobals.PackageName}/purchases/products/{productId}/tokens/{token}?access_token={accessToken}";
+                $"https://www.googleapis.com/androidpublisher/v3/applications/{GoogleApiGlobals.PackageName}/purchases/products/{productId}/tokens/{token}:acknowledge?access_token={accessToken}";
         }
     }
 }
