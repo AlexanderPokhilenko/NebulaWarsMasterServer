@@ -13,7 +13,7 @@ namespace DataLayer
         [Required] public string OrderId { get; set; }
         [Required] public int PurchaseState { get; set; }
         [Required] public long PurchaseTimeMillis { get; set; }
-        [Required] public int PurchaseType { get; set; }
+        public int? PurchaseType { get; set; }
         
         [Required] public DateTime DateTime { get; set; }
         [Required] public string Data { get; set; }

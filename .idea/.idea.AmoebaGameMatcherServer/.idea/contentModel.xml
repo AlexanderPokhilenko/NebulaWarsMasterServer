@@ -41,6 +41,7 @@
         </e>
         <e p="Entities" t="Include">
           <e p="Account.cs" t="Include" />
+          <e p="AccountDbDto.cs" t="Include" />
           <e p="Lootboxes" t="Include">
             <e p="LootboxDb.cs" t="Include" />
             <e p="LootboxPrizeHardCurrency.cs" t="Include" />
@@ -54,7 +55,6 @@
             <e p="MatchResultForPlayer.cs" t="Include" />
             <e p="WarshipImprovementPurchase.cs" t="Include" />
           </e>
-          <e p="Purchase.cs" t="Include" />
           <e p="Warships" t="Include">
             <e p="Warship.cs" t="Include" />
             <e p="WarshipCombatRole.cs" t="Include" />
@@ -226,12 +226,19 @@
             <e p="CustomGoogleApiInitializer.cs" t="Include" />
             <e p="GoogleApiAuthData.cs" t="Include" />
             <e p="GoogleApiFileManager.cs" t="Include" />
-            <e p="GooglePurchasesApiWrapper.cs" t="Include" />
+            <e p="GoogleApiPurchasesWrapperService.cs" t="Include" />
             <e p="GooglePurchasesWrapperService.cs" t="Include" />
+            <e p="InAppProductsService.cs" t="Include" />
             <e p="IpAppProductsService.cs" t="Include" />
+            <e p="PurchaseAcknowledgeUrlFactory.cs" t="Include" />
+            <e p="PurchaseRegistrationService.cs" t="Include" />
             <e p="PurchasesValidatorService.cs" t="Include" />
             <e p="RefreshedData.cs" t="Include" />
             <e p="TokenManagerService.cs" t="Include" />
+            <e p="UrlFactories" t="Include">
+              <e p="AllProductsUrlFactory.cs" t="Include" />
+              <e p="ProductValidateUrlFactory.cs" t="Include" />
+            </e>
           </e>
           <e p="LobbyInitialization" t="Include">
             <e p="AccountDbReaderService.cs" t="Include" />
