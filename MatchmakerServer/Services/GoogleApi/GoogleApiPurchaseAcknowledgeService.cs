@@ -26,10 +26,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
             HttpClient httpClient = new HttpClient();
 
             
-            JObject jObject = new JObject();
-            jObject.Add("developerPayload", developerPayload);
-            string developerPayloadJson = jObject.ToString();
-            HttpContent httpContent = new StringContent(developerPayloadJson);
+            HttpContent httpContent = new StringContent(developerPayload);
             var result = await httpClient.PostAsync(url, httpContent);
             
             if (result.IsSuccessStatusCode)

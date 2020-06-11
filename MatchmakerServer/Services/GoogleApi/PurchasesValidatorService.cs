@@ -38,6 +38,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                 string developerPayload1 = jsonDich1["developerPayload"];
                 dynamic jsonDich2 = JsonConvert.DeserializeObject(developerPayload1);
                 string developerPayload2 = jsonDich2["developerPayload"];
+                
                 Console.WriteLine();
                 Console.WriteLine($"{nameof(developerPayload1)} {developerPayload1}");
                 Console.WriteLine($"{nameof(developerPayload2)} {developerPayload2}");
@@ -46,7 +47,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                 try
                 {
                     await googleApiPurchaseAcknowledgeService.Acknowledge(sku, token, developerPayload1);
-                    Console.WriteLine("Удалось");
+                    Console.WriteLine("Удалось\n");
                 }
                 catch (Exception e)
                 {
@@ -56,7 +57,17 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                 try
                 {
                     await googleApiPurchaseAcknowledgeService.Acknowledge(sku, token, developerPayload2);
-                    Console.WriteLine("Удалось");
+                    Console.WriteLine("Удалось\n");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message+" "+e.StackTrace);
+                }
+                
+                try
+                {
+                    await googleApiPurchaseAcknowledgeService.Acknowledge(sku, token, developerPayload2);
+                    Console.WriteLine("Удалось\n");
                 }
                 catch (Exception e)
                 {
