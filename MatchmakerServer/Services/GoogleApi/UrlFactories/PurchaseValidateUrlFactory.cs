@@ -2,7 +2,7 @@
 
 namespace AmoebaGameMatcherServer.Services.GoogleApi
 {
-    public class ProductValidateUrlFactory
+    public class PurchaseValidateUrlFactory
     {
         public string Create(string sku, string token, string accessToken)
         {
