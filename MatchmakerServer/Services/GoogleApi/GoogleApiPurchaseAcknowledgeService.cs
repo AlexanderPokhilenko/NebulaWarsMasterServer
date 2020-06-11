@@ -18,14 +18,14 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
             factory = new PurchaseAcknowledgeUrlFactory();
         }
         
-        public async Task Acknowledge(string productId, string token)
+        public async Task Acknowledge(string productId, string token, string developerPayload)
         {
             string accessToken = accessTokenService.GetAccessToken();
             string url = factory.Create(productId, token, accessToken);
             HttpClient httpClient = new HttpClient();
             
-            //TODO возможно нужно добавить developer payload
-            var result = await httpClient.GetAsync(url);
+            HttpContent httpContent = new StringContent(developerPayload);
+            var result = await httpClient.PostAsync(url, httpContent);
             
             if (result.IsSuccessStatusCode)
             {
@@ -34,6 +34,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
             }
             else
             {
+                Console.WriteLine(result.StatusCode);
                 throw new Exception("Не удалось уведомить о регистрации покупки.");
             }
         }

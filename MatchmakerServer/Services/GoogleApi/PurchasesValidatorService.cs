@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DataLayer;
 using DataLayer.Tables;
 using JetBrains.Annotations;
+using Newtonsoft.Json;
 
 namespace AmoebaGameMatcherServer.Services.GoogleApi
 {
@@ -33,8 +34,10 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                 Console.WriteLine($"{nameof(responseContentJson)} {responseContentJson}");
                 //TODO внести данные про покупку в БД
                 purchaseRegistrationService.EnterPurchaseIntoDb(responseContentJson);
+                dynamic jsonObj = JsonConvert.DeserializeObject(responseContentJson);
+                string developerPayload = jsonObj["developerPayload"];
                 //уведомить google о регистрации покупки
-                await googleApiPurchaseAcknowledgeService.Acknowledge(sku, token);
+                await googleApiPurchaseAcknowledgeService.Acknowledge(sku, token, developerPayload);
             }
         }
     }
