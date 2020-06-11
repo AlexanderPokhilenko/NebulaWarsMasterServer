@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace AmoebaGameMatcherServer.Services.GoogleApi
 {
@@ -23,8 +24,12 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
             string accessToken = accessTokenService.GetAccessToken();
             string url = factory.Create(productId, token, accessToken);
             HttpClient httpClient = new HttpClient();
+
             
-            HttpContent httpContent = new StringContent(developerPayload);
+            JObject jObject = new JObject();
+            jObject.Add("developerPayload", developerPayload);
+            string developerPayloadJson = jObject.ToString();
+            HttpContent httpContent = new StringContent(developerPayloadJson);
             var result = await httpClient.PostAsync(url, httpContent);
             
             if (result.IsSuccessStatusCode)
