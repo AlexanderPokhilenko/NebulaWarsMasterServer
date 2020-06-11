@@ -46,6 +46,16 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
              
                 try
                 {
+                    await googleApiPurchaseAcknowledgeService.Acknowledge(sku, token, developerPayload1);
+                    Console.WriteLine("Удалось\n");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message+" "+e.StackTrace);
+                }
+                
+                try
+                {
                     await googleApiPurchaseAcknowledgeService.Acknowledge(sku, token, developerPayload2);
                     Console.WriteLine("Удалось\n");
                 }
