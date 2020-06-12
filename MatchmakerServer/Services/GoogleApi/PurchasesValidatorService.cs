@@ -54,7 +54,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                 }
 
                 //TODO внести данные про покупку в БД
-                purchaseRegistrationService.EnterPurchaseIntoDb(googleResponseJson, sku, token, account.Id);
+                purchaseRegistrationService.TryEnterPurchaseIntoDb(googleResponseJson, sku, token, account.Id);
 
                 //TODO  прочитать из БД и вернуть список названий подтверждённых продуктов
                 var result = dbContext.Purchases

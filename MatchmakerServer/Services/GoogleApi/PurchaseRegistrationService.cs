@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using DataLayer;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace AmoebaGameMatcherServer.Services.GoogleApi
@@ -16,7 +19,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
             this.dbContext = dbContext;
         }
 
-        public void EnterPurchaseIntoDb(string googleResponseJson, string sku, string token, int accountId)
+        public async Task TryEnterPurchaseIntoDb(string googleResponseJson, string sku, string token, int accountId)
         {
             dynamic jsonObj = JsonConvert.DeserializeObject(googleResponseJson);
             try
@@ -29,33 +32,39 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                 int purchaseState = (int) jsonObj["purchaseState"];
                 long purchaseTimeMillis = (long) jsonObj["purchaseTimeMillis"];
                 int? purchaseType = (int?) jsonObj["purchaseType"];
-                
                 DateTimeOffset dateTimeOffset = DateTimeOffset.FromUnixTimeMilliseconds(purchaseTimeMillis);
-                dbContext.Purchases.Add(new TestPurchase
+                
+                //TODO проверить, что такой засиси нет в БД
+                TestPurchase purchase = await dbContext.Purchases
+                    .Where(purchase1 => purchase1.OrderId == orderId)
+                    .SingleOrDefaultAsync();
+
+                if (purchase != null)
                 {
-                    Data = googleResponseJson,
-                    DateTime = dateTimeOffset.DateTime,
-                    AcknowledgementState = acknowledgementState,
-                    ConsumptionState = consumptionState,
-                    DeveloperPayload = developerPayload,
-                    Kind = kind,
-                    OrderId = orderId,
-                    PurchaseState = purchaseState,
-                    PurchaseTimeMillis = purchaseTimeMillis,
-                    PurchaseType = purchaseType,
-                    Sku = sku,
-                    Token = token,
-                    IsPurchaseConfirmed = false,
-                    AccountId = accountId
-                });
-                dbContext.SaveChanges();
+                    dbContext.Purchases.Add(new TestPurchase
+                    {
+                        Data = googleResponseJson,
+                        DateTime = dateTimeOffset.DateTime,
+                        AcknowledgementState = acknowledgementState,
+                        ConsumptionState = consumptionState,
+                        DeveloperPayload = developerPayload,
+                        Kind = kind,
+                        OrderId = orderId,
+                        PurchaseState = purchaseState,
+                        PurchaseTimeMillis = purchaseTimeMillis,
+                        PurchaseType = purchaseType,
+                        Sku = sku,
+                        Token = token,
+                        IsPurchaseConfirmed = false,
+                        AccountId = accountId
+                    });
+                    dbContext.SaveChanges();
+                }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message+" "+e.StackTrace);
             }
         }
-
-        
     }
 }
