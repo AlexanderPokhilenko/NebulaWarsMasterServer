@@ -40,31 +40,17 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                 Console.WriteLine($"{nameof(googleResponseJson)} {googleResponseJson}");
                 
                 //TODO проверить что, полезная нагрузка содержит id игрока
-                dynamic jsonObj = JsonConvert.DeserializeObject(googleResponseJson);
-                string developerPayloadWrapper = jsonObj["developerPayload"];
-                dynamic jsonObj2 = JsonConvert.DeserializeObject(developerPayloadWrapper);
-                string serviceId1 = jsonObj2["developerPayload"];
-                string serviceId2 = null;
-                try
-                {
-                    serviceId2 = Encoding.UTF8.GetString(Convert.FromBase64String(serviceId1));
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message+" "+e.StackTrace);   
-                }
+                string developerPayload = GetDeveloperPayload(googleResponseJson);
                 
-                Console.WriteLine($"{nameof(serviceId1)} "+serviceId1);
-                Console.WriteLine($"{nameof(serviceId2)} "+serviceId2);
-                
+                Console.WriteLine($"{nameof(developerPayload)} "+developerPayload);
                 Account account = await dbContext.Accounts
-                    .Where(account1 => account1.ServiceId == serviceId2)
+                    .Where(account1 => account1.ServiceId == developerPayload)
                     .SingleOrDefaultAsync();
 
                 if (account == null)
                 {
                     throw new Exception("Не удалось найти аккаунт который был указан в полезной нагрузке." +
-                                        $"{nameof(serviceId2)} {serviceId2}");
+                                        $"{nameof(developerPayload)} {developerPayload}");
                 }
 
                 //TODO внести данные про покупку в БД
@@ -88,6 +74,16 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
             {
                 return null;
             }
+        }
+
+        private string GetDeveloperPayload(string googleResponseJson)
+        {
+            dynamic googleResponseObj = JsonConvert.DeserializeObject(googleResponseJson);
+            string developerPayloadWrapper = googleResponseObj["developerPayload"];
+            dynamic jsonObj2 = JsonConvert.DeserializeObject(developerPayloadWrapper);
+            string serviceId1 = jsonObj2["developerPayload"];
+            string developerPayload = Encoding.UTF8.GetString(Convert.FromBase64String(serviceId1));
+            return developerPayload;
         }
     }
 }
