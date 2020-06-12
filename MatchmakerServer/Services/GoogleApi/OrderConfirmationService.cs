@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
 using JetBrains.Annotations;
@@ -24,6 +25,7 @@ public class OrderConfirmationService
         {
             purchase.IsConfirmed = true;
             await dbContext.SaveChangesAsync();
+            Console.WriteLine($"Успешная пометка продукта {purchase.Sku}");
             return true;
         }
 

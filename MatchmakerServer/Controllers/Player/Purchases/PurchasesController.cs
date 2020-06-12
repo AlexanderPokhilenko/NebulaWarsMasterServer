@@ -50,6 +50,7 @@ public class PurchasesController : ControllerBase
     [HttpPost]
     public async Task<ActionResult> MarkOrderAsCompleted([FromForm] string serviceId, [FromForm] string sku)
     {
+        Console.WriteLine(nameof(MarkOrderAsCompleted));
         if (serviceId == null)
         {
             throw new Exception($"{nameof(serviceId)} is null");
@@ -61,6 +62,7 @@ public class PurchasesController : ControllerBase
         }
 
         bool success = await orderConfirmationService.TryConfirmOrder(serviceId, sku);
+        Console.WriteLine($"{nameof(success)} {success}");
         if (success)
         {
             return Ok();
