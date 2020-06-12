@@ -2,7 +2,7 @@
 // using System.ComponentModel.DataAnnotations;
 // using System.ComponentModel.DataAnnotations.Schema;
 //
-// namespace DataLayer.Tables
+// namespace DAL.Tables
 // {
 //     [Table("warship_improvement_purchases")]
 //     public class WarshipImprovementPurchase

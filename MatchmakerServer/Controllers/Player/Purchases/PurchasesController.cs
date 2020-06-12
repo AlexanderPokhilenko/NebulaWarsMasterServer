@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Controllers;
 using AmoebaGameMatcherServer.Services;
 using AmoebaGameMatcherServer.Services.GoogleApi;
-using DataLayer;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("[controller]")]
@@ -11,10 +10,13 @@ using Microsoft.AspNetCore.Mvc;
 public class PurchasesController : ControllerBase
 {
     private readonly PurchasesValidatorService purchasesValidatorService;
-    
-    public PurchasesController(PurchasesValidatorService purchasesValidatorService)
+    private readonly OrderConfirmationService orderConfirmationService;
+
+    public PurchasesController(PurchasesValidatorService purchasesValidatorService,
+        OrderConfirmationService orderConfirmationService)
     {
         this.purchasesValidatorService = purchasesValidatorService;
+        this.orderConfirmationService = orderConfirmationService;
     }
 
     [Route(nameof(Validate))]
@@ -42,5 +44,30 @@ public class PurchasesController : ControllerBase
             return Ok();
         }
         return Ok(productIdsToConfirm.SerializeToBase64String());
+    }
+
+    [Route(nameof(MarkOrderAsCompleted))]
+    [HttpPost]
+    public async Task<ActionResult> MarkOrderAsCompleted([FromForm] string serviceId, [FromForm] string sku)
+    {
+        if (serviceId == null)
+        {
+            throw new Exception($"{nameof(serviceId)} is null");
+        }
+        
+        if (sku == null)
+        {
+            throw new Exception($"{nameof(sku)} is null");
+        }
+
+        bool success = await orderConfirmationService.TryConfirmOrder(serviceId, sku);
+        if (success)
+        {
+            return Ok();
+        }
+        else
+        {
+            return BadRequest();
+        }
     }
 }

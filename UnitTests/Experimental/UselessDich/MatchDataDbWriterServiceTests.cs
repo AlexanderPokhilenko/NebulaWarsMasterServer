@@ -3,8 +3,8 @@
 //  using AmoebaGameMatcherServer.Services.MatchCreation;
 // using AmoebaGameMatcherServer.Services.PlayerQueueing;
 // using AmoebaGameMatcherServer.Services.Queues;
-// using DataLayer;
-// using DataLayer.Tables;
+// using DAL;
+// using DAL.Tables;
 //  using Microsoft.EntityFrameworkCore;
 // using Microsoft.VisualStudio.TestTools.UnitTesting;
 //

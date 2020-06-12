@@ -359,3 +359,4 @@ DataLayer/DbConfig.cs
 
 /MatchmakerServer/googleApiData.txt
 /DataLayer/Ignore.cs
+/DAL/Ignore.cs

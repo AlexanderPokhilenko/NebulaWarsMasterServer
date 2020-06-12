@@ -20,11 +20,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
+      <None Remove="NetworkLibrary\Udp\Common.meta" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="NetworkLibrary\Udp\Common.meta" />
+      <ProjectReference Include="..\DAL\DAL.csproj" />
     </ItemGroup>
    
    

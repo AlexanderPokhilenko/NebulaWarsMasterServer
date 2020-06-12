@@ -1,5 +1,4 @@
-﻿using AmoebaGameMatcherServer.Controllers;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace AmoebaGameMatcherServer
 {
@@ -7,7 +6,7 @@ namespace AmoebaGameMatcherServer
     {
         public override void Add(IServiceCollection serviceCollection)
         {
-            // serviceCollection.AddTransient<WarshipImprovementFacadeService>();
+            serviceCollection.AddTransient<OrderConfirmationService>();
         }
     }
 }

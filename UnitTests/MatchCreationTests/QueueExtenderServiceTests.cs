@@ -4,8 +4,8 @@
 // using AmoebaGameMatcherServer.Services.PlayerQueueing;
 // using AmoebaGameMatcherServer.Services.Queues;
 // using AmoebaGameMatcherServer.Utils;
-// using DataLayer;
-// using DataLayer.Tables;
+// using DAL;
+// using DAL.Tables;
 // using Microsoft.VisualStudio.TestTools.UnitTesting;
 //
 // namespace MatchmakerTest

@@ -138,6 +138,7 @@
             </e>
             <e p="PlayerController.cs" t="Include" />
             <e p="Purchases" t="Include">
+              <e p="OrderConfirmationService.cs" t="Include" />
               <e p="PurchasesController.cs" t="Include" />
             </e>
           </e>

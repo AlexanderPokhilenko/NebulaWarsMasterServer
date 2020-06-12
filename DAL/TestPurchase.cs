@@ -18,7 +18,7 @@ namespace DataLayer
         [Required] public string Sku { get; set; }
         [Required] public string Token { get; set; }
         [Required] public int AccountId { get; set; }
-        [Required] public bool IsPurchaseConfirmed { get; set; } 
+        [Required] public bool IsConfirmed { get; set; } 
         [Required] public DateTime DateTime { get; set; }
         [Required] public string Data { get; set; }
         

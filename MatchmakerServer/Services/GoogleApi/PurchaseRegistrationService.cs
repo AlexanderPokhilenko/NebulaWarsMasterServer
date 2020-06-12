@@ -55,7 +55,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                         PurchaseType = purchaseType,
                         Sku = sku,
                         Token = token,
-                        IsPurchaseConfirmed = false,
+                        IsConfirmed = false,
                         AccountId = accountId
                     });
                     dbContext.SaveChanges();

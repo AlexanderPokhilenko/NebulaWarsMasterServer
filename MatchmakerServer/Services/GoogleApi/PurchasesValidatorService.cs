@@ -58,7 +58,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
 
                 //TODO  прочитать из БД и вернуть список названий подтверждённых продуктов
                 var result = dbContext.Purchases
-                    .Where(purchase => purchase.AccountId == account.Id && !purchase.IsPurchaseConfirmed)
+                    .Where(purchase => purchase.AccountId == account.Id && !purchase.IsConfirmed)
                     .Select(purchase => purchase.Sku)
                     .ToArray();
 

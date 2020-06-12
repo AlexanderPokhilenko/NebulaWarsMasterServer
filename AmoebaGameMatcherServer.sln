@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchmakerServer", "MatchmakerServer\MatchmakerServer.csproj", "{C49ED3D0-B1D6-41C5-8AE5-6611411CD808}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{72A89A5D-8D64-4BC4-86F6-0FFD7B1F1E50}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{72A89A5D-8D64-4BC4-86F6-0FFD7B1F1E50}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{C0E2E203-8C80-4AC8-A6DD-D77C14C267CB}"
 EndProject

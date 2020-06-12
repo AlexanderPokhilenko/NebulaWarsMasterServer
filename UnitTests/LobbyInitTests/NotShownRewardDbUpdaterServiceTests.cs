@@ -3,8 +3,8 @@
 // using System.Linq;
 // using System.Threading.Tasks;
 // using AmoebaGameMatcherServer.Controllers;
-// using DataLayer;
-// using DataLayer.Tables;
+// using DAL;
+// using DAL.Tables;
 // using Microsoft.EntityFrameworkCore;
 // using Microsoft.VisualStudio.TestTools.UnitTesting;
 //
