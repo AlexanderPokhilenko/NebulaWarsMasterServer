@@ -16,7 +16,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
             this.dbContext = dbContext;
         }
 
-        public void EnterPurchaseIntoDb(string googleResponseJson)
+        public void EnterPurchaseIntoDb(string googleResponseJson, string sku, string token, int accountId)
         {
             dynamic jsonObj = JsonConvert.DeserializeObject(googleResponseJson);
             try
@@ -42,7 +42,11 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                     OrderId = orderId,
                     PurchaseState = purchaseState,
                     PurchaseTimeMillis = purchaseTimeMillis,
-                    PurchaseType = purchaseType
+                    PurchaseType = purchaseType,
+                    Sku = sku,
+                    Token = token,
+                    IsPurchaseConfirmed = false,
+                    AccountId = accountId
                 });
                 dbContext.SaveChanges();
             }
@@ -51,5 +55,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                 Console.WriteLine(e.Message+" "+e.StackTrace);
             }
         }
+
+        
     }
 }

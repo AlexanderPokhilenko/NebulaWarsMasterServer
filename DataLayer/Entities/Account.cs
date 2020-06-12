@@ -15,6 +15,7 @@ namespace DataLayer.Tables
     
         public List<Warship> Warships { get; set; } = new List<Warship>();
         public List<LootboxDb> Lootboxes { get; set; } = new List<LootboxDb>();
+        public List<TestPurchase> Purchases { get; set; } = new List<TestPurchase>();
         
         public override string ToString()
         {

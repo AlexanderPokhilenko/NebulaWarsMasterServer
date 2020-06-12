@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using DataLayer;
 using DataLayer.Tables;
 using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace AmoebaGameMatcherServer.Services.GoogleApi
 {
@@ -16,40 +18,61 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
         private readonly GoogleApiPurchasesWrapperService googleApiPurchasesWrapperService;
         private readonly GoogleApiPurchaseAcknowledgeService googleApiPurchaseAcknowledgeService;
         private readonly PurchaseRegistrationService purchaseRegistrationService;
+        private readonly ApplicationDbContext dbContext;
 
         public PurchasesValidatorService(GoogleApiPurchasesWrapperService googleApiPurchasesWrapperService, 
             GoogleApiPurchaseAcknowledgeService googleApiPurchaseAcknowledgeService,
-             PurchaseRegistrationService purchaseRegistrationService)
+             PurchaseRegistrationService purchaseRegistrationService, ApplicationDbContext dbContext)
         {
             this.googleApiPurchasesWrapperService = googleApiPurchasesWrapperService;
             this.googleApiPurchaseAcknowledgeService = googleApiPurchaseAcknowledgeService;
             this.purchaseRegistrationService = purchaseRegistrationService;
+            this.dbContext = dbContext;
         }
 
-        public async Task Validate([NotNull] string sku, [NotNull] string token)
+        [ItemCanBeNull]
+        public async Task<string[]> Validate([NotNull] string sku, [NotNull] string token)
         {
             string googleResponseJson = await googleApiPurchasesWrapperService.Validate(sku, token);
-            bool responseIsOk = googleResponseJson != null; 
+            bool responseIsOk = googleResponseJson != null;
             if (responseIsOk)
             {
                 Console.WriteLine($"{nameof(googleResponseJson)} {googleResponseJson}");
+                
+                //TODO проверить что, полезная нагрузка содержит id игрока
+                dynamic jsonObj = JsonConvert.DeserializeObject(googleResponseJson);
+                string developerPayload = jsonObj["developerPayload"];
+                string serviceId = Encoding.UTF8.GetString(Convert.FromBase64String(developerPayload));
+                Account account = await dbContext.Accounts
+                    .Where(account1 => account1.ServiceId == serviceId)
+                    .SingleOrDefaultAsync();
+
+                if (account == null)
+                {
+                    throw new Exception("Не удалось найти аккаунт который был указан в полезной нагрузке." +
+                                        $"{nameof(serviceId)} {serviceId}");
+                }
+
                 //TODO внести данные про покупку в БД
-                purchaseRegistrationService.EnterPurchaseIntoDb(googleResponseJson);
-                
-                //уведомить google о регистрации покупки
-                dynamic jsonDich1 = JsonConvert.DeserializeObject(googleResponseJson);
-                string developerPayload1 = jsonDich1["developerPayload"];
-                Console.WriteLine($"{nameof(developerPayload1)} {developerPayload1}");
-                
-                try
+                purchaseRegistrationService.EnterPurchaseIntoDb(googleResponseJson, sku, token, account.Id);
+
+                //TODO  прочитать из БД и вернуть список названий подтверждённых продуктов
+                var result = dbContext.Purchases
+                    .Where(purchase => purchase.AccountId == account.Id && !purchase.IsPurchaseConfirmed)
+                    .Select(purchase => purchase.Sku)
+                    .ToArray();
+
+                Console.WriteLine("result start");
+                foreach (var s in result)
                 {
-                    await googleApiPurchaseAcknowledgeService.Acknowledge(sku, token, developerPayload1);
-                    Console.WriteLine("Удалось\n");
+                    Console.WriteLine(s);
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message+" "+e.StackTrace);
-                }
+                Console.WriteLine("result end");
+                return result;
+            }
+            else
+            {
+                return null;
             }
         }
     }

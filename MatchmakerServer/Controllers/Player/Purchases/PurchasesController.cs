@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AmoebaGameMatcherServer.Controllers;
 using AmoebaGameMatcherServer.Services;
 using AmoebaGameMatcherServer.Services.GoogleApi;
 using DataLayer;
@@ -18,7 +19,7 @@ public class PurchasesController : ControllerBase
 
     [Route(nameof(Validate))]
     [HttpPost]
-    public async Task<ActionResult> Validate([FromForm]string productId, [FromForm]string token)
+    public async Task<ActionResult<string>> Validate([FromForm]string productId, [FromForm]string token)
     {
         Console.WriteLine($"{nameof(productId)} {productId}");
         Console.WriteLine($"{nameof(token)} {token}");
@@ -35,7 +36,11 @@ public class PurchasesController : ControllerBase
             return BadRequest();
         }
         
-        await purchasesValidatorService.Validate(productId, token);
-        return Ok();
+        string[] productIdsToConfirm = await purchasesValidatorService.Validate(productId, token);
+        if (productIdsToConfirm == null)
+        {
+            return Ok();
+        }
+        return Ok(productIdsToConfirm.SerializeToBase64String());
     }
 }

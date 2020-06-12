@@ -40,6 +40,7 @@ namespace DataLayer
             modelBuilder.ApplyConfiguration(new LootboxPrizeWarshipPowerPointsConfiguration());
             modelBuilder.ApplyConfiguration(new LootboxPrizePointsForSmallLootboxConfiguration());
             modelBuilder.ApplyConfiguration(new LootboxPrizeHardCurrencyConfiguration());
+            modelBuilder.ApplyConfiguration(new TestPurchaseConfiguration());
         }
     }
 }

@@ -29,6 +29,7 @@
           <e p="LootboxPrizeSoftCurrencyConfiguration.cs" t="Include" />
           <e p="LootboxPrizeWarshipPowerPointsConfiguration.cs" t="Include" />
           <e p="MatchResultsConfiguration.cs" t="Include" />
+          <e p="TestPurchaseConfiguration.cs" t="Include" />
           <e p="WarshipsConfiguration.cs" t="Include" />
           <e p="WarshipTypesConfiguration.cs" t="Include" />
         </e>

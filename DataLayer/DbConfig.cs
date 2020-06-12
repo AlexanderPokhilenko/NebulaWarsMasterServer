@@ -9,6 +9,7 @@ namespace DataLayer
         
         static DbConfig()
         {
+            string num = "002";
             conStrBuilder = new DbConnectionStringBuilder
             {
                 {"User ID", "postgres"},
@@ -20,12 +21,12 @@ namespace DataLayer
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                conStrBuilder.Add("Database", "ProductionDb001");
+                conStrBuilder.Add("Database", "ProductionDb"+num);
                 conStrBuilder.Add("Server", "127.0.0.1");
             }
             else
             {
-                conStrBuilder.Add("Database", "DevelopmentDb001");
+                conStrBuilder.Add("Database", "DevelopmentDb"+num);
                 conStrBuilder.Add("Server", "65.52.151.136");
             }
         }
