@@ -41,7 +41,9 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                 
                 //TODO проверить что, полезная нагрузка содержит id игрока
                 dynamic jsonObj = JsonConvert.DeserializeObject(googleResponseJson);
-                string serviceId = jsonObj["developerPayload"]["developerPayload"];
+                string developerPayloadWrapper = jsonObj["developerPayload"];
+                dynamic jsonObj2 = JsonConvert.DeserializeObject(developerPayloadWrapper);
+                string serviceId = jsonObj2["developerPayload"];
                 
                 Console.WriteLine($"{nameof(serviceId)} "+serviceId);
                 
