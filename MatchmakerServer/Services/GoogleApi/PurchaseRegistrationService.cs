@@ -21,6 +21,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
 
         public async Task TryEnterPurchaseIntoDb(string googleResponseJson, string sku, string token, int accountId)
         {
+            Console.WriteLine(nameof(TryEnterPurchaseIntoDb)+" "+sku+" "+token+" "+accountId);
             dynamic jsonObj = JsonConvert.DeserializeObject(googleResponseJson);
             try
             {
@@ -59,6 +60,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                         AccountId = accountId
                     });
                     dbContext.SaveChanges();
+                    Console.WriteLine("Успешное сохраниение в БД");
                 }
             }
             catch (Exception e)

@@ -16,16 +16,13 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
     public class PurchasesValidatorService
     {
         private readonly GoogleApiPurchasesWrapperService googleApiPurchasesWrapperService;
-        private readonly GoogleApiPurchaseAcknowledgeService googleApiPurchaseAcknowledgeService;
         private readonly PurchaseRegistrationService purchaseRegistrationService;
         private readonly ApplicationDbContext dbContext;
 
-        public PurchasesValidatorService(GoogleApiPurchasesWrapperService googleApiPurchasesWrapperService, 
-            GoogleApiPurchaseAcknowledgeService googleApiPurchaseAcknowledgeService,
-             PurchaseRegistrationService purchaseRegistrationService, ApplicationDbContext dbContext)
+        public PurchasesValidatorService(GoogleApiPurchasesWrapperService googleApiPurchasesWrapperService,
+            PurchaseRegistrationService purchaseRegistrationService, ApplicationDbContext dbContext)
         {
             this.googleApiPurchasesWrapperService = googleApiPurchasesWrapperService;
-            this.googleApiPurchaseAcknowledgeService = googleApiPurchaseAcknowledgeService;
             this.purchaseRegistrationService = purchaseRegistrationService;
             this.dbContext = dbContext;
         }
@@ -52,11 +49,15 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                     throw new Exception("Не удалось найти аккаунт который был указан в полезной нагрузке." +
                                         $"{nameof(developerPayload)} {developerPayload}");
                 }
+                else
+                {
+                    Console.WriteLine("аккаунт найден");
+                }
 
-                //TODO внести данные про покупку в БД
+                //внести данные про покупку в БД
                 await purchaseRegistrationService.TryEnterPurchaseIntoDb(googleResponseJson, sku, token, account.Id);
 
-                //TODO  прочитать из БД и вернуть список названий подтверждённых продуктов
+                //прочитать из БД и вернуть список названий подтверждённых продуктов
                 var result = dbContext.Purchases
                     .Where(purchase => purchase.AccountId == account.Id && !purchase.IsConfirmed)
                     .Select(purchase => purchase.Sku)
