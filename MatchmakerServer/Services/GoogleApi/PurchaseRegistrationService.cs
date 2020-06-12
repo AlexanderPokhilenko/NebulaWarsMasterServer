@@ -62,6 +62,10 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                     dbContext.SaveChanges();
                     Console.WriteLine("Успешное сохраниение в БД");
                 }
+                else
+                {
+                    Console.WriteLine("В БД уже есть товар с таким orderId "+orderId);
+                }
             }
             catch (Exception e)
             {
