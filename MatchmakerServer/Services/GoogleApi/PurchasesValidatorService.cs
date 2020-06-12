@@ -43,18 +43,28 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                 dynamic jsonObj = JsonConvert.DeserializeObject(googleResponseJson);
                 string developerPayloadWrapper = jsonObj["developerPayload"];
                 dynamic jsonObj2 = JsonConvert.DeserializeObject(developerPayloadWrapper);
-                string serviceId = jsonObj2["developerPayload"];
+                string serviceId1 = jsonObj2["developerPayload"];
+                string serviceId2 = null;
+                try
+                {
+                    serviceId2 = Encoding.UTF8.GetString(Convert.FromBase64String(serviceId1));
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message+" "+e.StackTrace);   
+                }
                 
-                Console.WriteLine($"{nameof(serviceId)} "+serviceId);
+                Console.WriteLine($"{nameof(serviceId1)} "+serviceId1);
+                Console.WriteLine($"{nameof(serviceId2)} "+serviceId2);
                 
                 Account account = await dbContext.Accounts
-                    .Where(account1 => account1.ServiceId == serviceId)
+                    .Where(account1 => account1.ServiceId == serviceId2)
                     .SingleOrDefaultAsync();
 
                 if (account == null)
                 {
                     throw new Exception("Не удалось найти аккаунт который был указан в полезной нагрузке." +
-                                        $"{nameof(serviceId)} {serviceId}");
+                                        $"{nameof(serviceId2)} {serviceId2}");
                 }
 
                 //TODO внести данные про покупку в БД
