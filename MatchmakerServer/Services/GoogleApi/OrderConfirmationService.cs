@@ -18,7 +18,7 @@ public class OrderConfirmationService
     {
         var purchase = await dbContext.Purchases
             .Include(purchase1 => purchase1.Account)
-            .Where(purchase1 => purchase1.Account.ServiceId==serviceId&& purchase1.Sku==sku)
+            .Where(purchase1 => purchase1.Account.ServiceId==serviceId&& purchase1.Sku==sku && !purchase1.IsConfirmed)
             .SingleOrDefaultAsync();
 
         if (purchase != null)
