@@ -40,7 +40,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                     .Where(purchase1 => purchase1.OrderId == orderId)
                     .SingleOrDefaultAsync();
 
-                if (purchase != null)
+                if (purchase == null)
                 {
                     dbContext.Purchases.Add(new TestPurchase
                     {
@@ -64,7 +64,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                 }
                 else
                 {
-                    Console.WriteLine("В БД уже есть товар с таким orderId "+orderId);
+                    Console.WriteLine(purchase.Id);
                 }
             }
             catch (Exception e)
