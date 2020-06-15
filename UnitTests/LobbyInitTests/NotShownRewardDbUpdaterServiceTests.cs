@@ -22,7 +22,7 @@
 //         {
 //             //Arrange
 //             var dbFactory = new InMemoryDbContextFactory(nameof(NotShownRewardDbUpdaterServiceTests));
-//             var dbContext = dbFactory.Create();
+//             var dbContext = dbFactory.CreateAsync();
 //             NotShownRewardsReaderService notShownRewardService = new NotShownRewardsReaderService(dbContext);
 //
 //             Account account = CreateAccount(); 
@@ -58,7 +58,7 @@
 //         {
 //             return new Account
 //             {
-//                 ServiceId = UniqueStringFactory.Create(),
+//                 ServiceId = UniqueStringFactory.CreateAsync(),
 //                 Username = "Игорь",
 //                 Warships = new List<Warship>
 //                 {

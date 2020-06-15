@@ -73,7 +73,7 @@ namespace MatchmakerTest
             //Добавить игроков в очередь
             foreach (var account in dbContext.Accounts)
             {
-                bool success1 = await queueExtenderService.TryEnqueuePlayer(account.ServiceId, account.Warships.First().Id);
+                bool success1 = await queueExtenderService.TryEnqueuePlayerAsync(account.ServiceId, account.Warships.First().Id);
                 if (!success1)
                 {
                     Assert.Fail();
@@ -176,7 +176,7 @@ namespace MatchmakerTest
             //Добавить половину игроков в очередь
             foreach (var account in dbContext.Accounts.Take(countOfAccounts))
             {
-                bool success1 = await queueExtenderService.TryEnqueuePlayer(account.ServiceId, account.Warships.First().Id);
+                bool success1 = await queueExtenderService.TryEnqueuePlayerAsync(account.ServiceId, account.Warships.First().Id);
                 if (!success1)
                 {
                     Assert.Fail();
@@ -259,7 +259,7 @@ namespace MatchmakerTest
             //Добавить игроков в очередь
             foreach (var account in dbContext.Accounts.Take(countOfPlayersInQueue))
             {
-                bool success1 = await queueExtenderService.TryEnqueuePlayer(account.ServiceId, account.Warships.First().Id);
+                bool success1 = await queueExtenderService.TryEnqueuePlayerAsync(account.ServiceId, account.Warships.First().Id);
                 if (!success1)
                 {
                     Assert.Fail();

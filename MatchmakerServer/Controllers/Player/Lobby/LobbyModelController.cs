@@ -29,7 +29,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 return BadRequest();
             }
             
-            LobbyModel lobbyModel = await lobbyModelFacadeService.Create(playerServiceId);
+            LobbyModel lobbyModel = await lobbyModelFacadeService.CreateAsync(playerServiceId);
             return lobbyModel.SerializeToBase64String();
         }
     }

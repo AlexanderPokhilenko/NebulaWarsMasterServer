@@ -22,7 +22,7 @@ namespace IntegrationTests
             int originalAccountPremiumCurrency = accountDirector.GetAccountHardCurrency();
             
             //Act
-            var account = await AccountDbReaderService.ReadAccount(originalAccount.ServiceId);
+            var account = await AccountDbReaderService.ReadAccountAsync(originalAccount.ServiceId);
             
             //Assert
             Assert.IsNotNull(account);
@@ -65,7 +65,7 @@ namespace IntegrationTests
             int originalAccountPremiumCurrency = accountDirector.GetAccountHardCurrency();
 
             //Act
-            var account = await AccountDbReaderService.ReadAccount(originalAccount.ServiceId);
+            var account = await AccountDbReaderService.ReadAccountAsync(originalAccount.ServiceId);
             
             //Assert
             Assert.IsNotNull(account);
@@ -106,7 +106,7 @@ namespace IntegrationTests
             int originalAccountPremiumCurrency = accountDirector.GetAccountHardCurrency();
             
             //Act
-            var account = await AccountDbReaderService.ReadAccount(originalAccount.ServiceId);
+            var account = await AccountDbReaderService.ReadAccountAsync(originalAccount.ServiceId);
             
             //Assert
             Assert.IsNotNull(account);

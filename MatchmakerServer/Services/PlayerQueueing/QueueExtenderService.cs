@@ -29,7 +29,7 @@ namespace AmoebaGameMatcherServer.Services.PlayerQueueing
         /// <param name="playerServiceId"></param>
         /// <param name="warshipId"></param>
         /// <returns>Вернёт false если в БД нет таких данных или игрок уже в очереди.</returns>
-        public async Task<bool> TryEnqueuePlayer(string playerServiceId, int warshipId)
+        public async Task<bool> TryEnqueuePlayerAsync(string playerServiceId, int warshipId)
         {
             //Достать информацию про корабль из БД. Нужно для балансировки по силе
             //+ проверка того, что корабль принадлежит этому игроку

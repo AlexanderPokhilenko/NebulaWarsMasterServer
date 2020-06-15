@@ -13,7 +13,7 @@
 //         public async Task Test1()
 //         {
 //             //Arrange
-//             ApplicationDbContext dbContext = new InMemoryDbContextFactory("sich").Create();
+//             ApplicationDbContext dbContext = new InMemoryDbContextFactory("sich").CreateAsync();
 //             Account account = TestsAccountFactory.CreateUniqueAccount();
 //             await dbContext.Accounts.AddAsync(account);
 //             await dbContext.SaveChangesAsync();

@@ -13,7 +13,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
         {
             this.dbContext = dbContext;
         }
-        public async Task<int> ReadWarshipRating(int warshipId)
+        public async Task<int> ReadWarshipRatingAsync(int warshipId)
         {
             int currentWarshipRating = await dbContext.Warships
                 .Include(warship => warship.MatchResultForPlayers)

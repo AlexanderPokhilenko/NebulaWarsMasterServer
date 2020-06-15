@@ -18,7 +18,7 @@ namespace AmoebaGameMatcherServer.Controllers
             this.dbContext = dbContext;
         }
 
-        public async Task<bool> CanPlayerOpenLootbox(string playerServiceId)
+        public async Task<bool> CanPlayerOpenLootboxAsync(string playerServiceId)
         {
             //TODO добавить нормальное чтения аккаунта
             Account account = await dbContext.Accounts

@@ -21,7 +21,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
         /// </summary>
         /// <param name="serviceId"></param>
         /// <returns></returns>
-        public async Task<bool> TryRegisterAccount(string serviceId)
+        public async Task<bool> TryRegisterAccountAsync(string serviceId)
         {
             Account account = DefaultAccountFactory.CreateDefaultAccount(serviceId);
             await dbContext.Accounts.AddAsync(account);

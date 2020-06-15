@@ -68,7 +68,7 @@ namespace AmoebaGameMatcherServer.Controllers
             {
                 return BadRequest();
             }
-            MatchmakerResponse matcherResponse = await matchmakerFacadeService.GetMatchData(playerId, warshipId);
+            MatchmakerResponse matcherResponse = await matchmakerFacadeService.GetMatchDataAsync(playerId, warshipId);
             return matcherResponse.SerializeToBase64String();
         }
 
@@ -95,7 +95,7 @@ namespace AmoebaGameMatcherServer.Controllers
             }
             
             MatchResult matchResult = await matchResultDbReaderService
-                .ReadMatchResult(matchId.Value, playerServiceId);
+                .ReadMatchResultAsync(matchId.Value, playerServiceId);
             
             //Чек на адекватность ответа
             if (matchResult == null)

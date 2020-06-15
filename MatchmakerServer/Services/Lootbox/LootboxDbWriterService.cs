@@ -21,7 +21,7 @@ namespace AmoebaGameMatcherServer.Controllers
             this.dbContext = dbContext;
         }
         
-        public async Task Write(string playerServiceId, LootboxModel lootboxModel)
+        public async Task WriteAsync(string playerServiceId, LootboxModel lootboxModel)
         {
             Account account = await dbContext.Accounts
                 .Where(account1 => account1.ServiceId == playerServiceId)

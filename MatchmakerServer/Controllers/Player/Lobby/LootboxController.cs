@@ -24,7 +24,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 return BadRequest();
             }
 
-            LootboxModel lootboxModel = await lootboxFacadeService.CreateLootboxModel(playerServiceId);
+            LootboxModel lootboxModel = await lootboxFacadeService.CreateLootboxModelAsync(playerServiceId);
             return lootboxModel.SerializeToBase64String();
         }
     }

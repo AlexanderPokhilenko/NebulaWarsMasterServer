@@ -21,15 +21,15 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
         }
 
         [ItemCanBeNull]
-        public async Task<AccountDbDto> ReadAccount([NotNull] string serviceId)
+        public async Task<AccountDbDto> ReadAccountAsync([NotNull] string serviceId)
         {
-            AccountDbDto account = await dbAccountWarshipsReader.GetAccountWithWarships(serviceId);
+            AccountDbDto account = await dbAccountWarshipsReader.GetAccountWithWarshipsAsync(serviceId);
             if (account == null)
             {
                 return null;
             }
             
-            var accountResources = await accountResourcesDbReader.GetAccountResources(serviceId);
+            var accountResources = await accountResourcesDbReader.GetAccountResourcesAsync(serviceId);
             account.HardCurrency = accountResources.HardCurrency;
             account.SoftCurrency = accountResources.SoftCurrency;
             account.SmallLootboxPoints = accountResources.SmallLootboxPoints;

@@ -19,7 +19,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
             purchaseValidateUrlFactory = new PurchaseValidateUrlFactory();
         }
         
-        public async Task<string> Validate([NotNull] string sku, [NotNull] string token)
+        public async Task<string> ValidateAsync([NotNull] string sku, [NotNull] string token)
         {
             string accessToken = accessTokenService.GetAccessToken();
             string url = purchaseValidateUrlFactory.Create(sku, token, accessToken);

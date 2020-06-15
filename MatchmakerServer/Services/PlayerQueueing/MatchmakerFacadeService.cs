@@ -26,7 +26,7 @@ namespace AmoebaGameMatcherServer.Services.PlayerQueueing
         }
 
         [ItemNotNull]
-        public async Task<MatchmakerResponse> GetMatchData([NotNull] string playerId, int warshipId)
+        public async Task<MatchmakerResponse> GetMatchDataAsync([NotNull] string playerId, int warshipId)
         {
             //Данные для окна ожидания боя
             MatchmakerResponse response = new MatchmakerResponse
@@ -54,8 +54,8 @@ namespace AmoebaGameMatcherServer.Services.PlayerQueueing
             //Добавить в очередь
             else
             {
-                Console.WriteLine("TryEnqueuePlayer");
-                bool successfulQueuing = await queueExtenderService.TryEnqueuePlayer(playerId, warshipId); 
+                Console.WriteLine("TryEnqueuePlayerAsync");
+                bool successfulQueuing = await queueExtenderService.TryEnqueuePlayerAsync(playerId, warshipId); 
                 if (!successfulQueuing)
                 {
                     throw new Exception("Не удалось зарегистрировать игрока.");

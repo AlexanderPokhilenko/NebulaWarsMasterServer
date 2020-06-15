@@ -61,7 +61,7 @@ namespace IntegrationTests
             int accountSoftCurrency = accountDirector.GetAccountSoftCurrency();
             int accountHardCurrency = accountDirector.GetAccountHardCurrency();
             //Act
-            LobbyModel lobbyModel = await LobbyModelFacadeService.Create(originalAccount.ServiceId);
+            LobbyModel lobbyModel = await LobbyModelFacadeService.CreateAsync(originalAccount.ServiceId);
             
             //Assert
             Assert.AreEqual(originalAccountRating, lobbyModel.AccountDto.AccountRating);
@@ -98,7 +98,7 @@ namespace IntegrationTests
             //Arrange
             string serviceId = "someServiceId";
             //Act
-            LobbyModel lobbyModel = await LobbyModelFacadeService.Create(serviceId);
+            LobbyModel lobbyModel = await LobbyModelFacadeService.CreateAsync(serviceId);
             
             //Assert
             Assert.IsNotNull(lobbyModel);
@@ -133,7 +133,7 @@ namespace IntegrationTests
             int accountSoftCurrency = accountDirector.GetAccountSoftCurrency();
             int accountHardCurrency = accountDirector.GetAccountHardCurrency();
             //Act
-            LobbyModel lobbyModel = await LobbyModelFacadeService.Create(originalAccount.ServiceId);
+            LobbyModel lobbyModel = await LobbyModelFacadeService.CreateAsync(originalAccount.ServiceId);
             
             //Assert
             Assert.AreEqual(originalAccountRating, lobbyModel.AccountDto.AccountRating);

@@ -30,7 +30,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 return BadRequest();
             }
 
-            var shopModel = await shopFacadeService.GetShopModel(playerId);
+            var shopModel = await shopFacadeService.GetShopModelAsync(playerId);
             if (shopModel == null)
             {
                 return StatusCode(500);

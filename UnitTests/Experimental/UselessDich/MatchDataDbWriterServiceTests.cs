@@ -22,7 +22,7 @@
 //         {
 //             //Arrange
 //             IDbContextFactory dbContextFactory = new InMemoryDbContextFactory(nameof(MatchDataDbWriterServiceTests));
-//             var dbContext = dbContextFactory.Create();
+//             var dbContext = dbContextFactory.CreateAsync();
 //             MatchDbWriterService matchDbWriterService = new MatchDbWriterService(dbContextFactory);
 //             MatchRoutingData matchRoutingData = new MatchRoutingData()
 //             {

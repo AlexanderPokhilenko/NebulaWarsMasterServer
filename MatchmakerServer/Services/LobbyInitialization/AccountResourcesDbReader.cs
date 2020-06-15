@@ -73,7 +73,7 @@ select
             this.connection = connection;
         }
         
-        public async Task<DapperHelperAccountResources> GetAccountResources([NotNull] string serviceId)
+        public async Task<DapperHelperAccountResources> GetAccountResourcesAsync([NotNull] string serviceId)
         {
             var parameters = new {serviceIdPar = serviceId};
             DapperHelperAccountResources accountResources = await connection

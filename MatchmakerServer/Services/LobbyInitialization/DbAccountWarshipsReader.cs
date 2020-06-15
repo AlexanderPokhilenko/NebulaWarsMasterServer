@@ -42,7 +42,7 @@ select a.*, w.*, wt.*, wcr.*,
             this.connection = connection;
         }
         
-        public async Task<AccountDbDto> GetAccountWithWarships([NotNull] string serviceId)
+        public async Task<AccountDbDto> GetAccountWithWarshipsAsync([NotNull] string serviceId)
         {
             var parameters = new {serviceIdPar = serviceId};
             Dictionary<int, AccountDbDto> lookup = new Dictionary<int, AccountDbDto>();

@@ -105,7 +105,7 @@ namespace MatchmakerTest
         //     };
         //
         //     //Act    
-        //     battleRoyaleQueue.TryEnqueuePlayer(warship1.Account.ServiceId, warship1);
+        //     battleRoyaleQueue.TryEnqueuePlayerAsync(warship1.Account.ServiceId, warship1);
         //     bool success = battleRoyaleQueue.TryRemovePlayerFromQueue(str1);
         //     
         //     //Assert
@@ -121,7 +121,7 @@ namespace MatchmakerTest
         //     string str2 = "b";
         //
         //     //Act    
-        //     battleRoyaleQueue.TryEnqueuePlayer(str1, new Warship());
+        //     battleRoyaleQueue.TryEnqueuePlayerAsync(str1, new Warship());
         //     bool success = battleRoyaleQueue.TryRemovePlayerFromQueue(str2);
         //     
         //     //Assert
@@ -136,7 +136,7 @@ namespace MatchmakerTest
         //     string str1 = "a";
         //
         //     //Act    
-        //     battleRoyaleQueue.TryEnqueuePlayer(str1, new Warship());
+        //     battleRoyaleQueue.TryEnqueuePlayerAsync(str1, new Warship());
         //     bool success = battleRoyaleQueue.IsPlayerInQueue(str1);
         //     
         //     //Assert
@@ -152,7 +152,7 @@ namespace MatchmakerTest
         //     string str2 = "b";
         //     
         //     //Act    
-        //     battleRoyaleQueue.TryEnqueuePlayer(str1, new Warship());
+        //     battleRoyaleQueue.TryEnqueuePlayerAsync(str1, new Warship());
         //     bool success = battleRoyaleQueue.IsPlayerInQueue(str2);
         //     
         //     //Assert
@@ -167,7 +167,7 @@ namespace MatchmakerTest
         //     string str1 = "a";
         //
         //     //Act    
-        //     battleRoyaleQueue.TryEnqueuePlayer(str1, new Warship());
+        //     battleRoyaleQueue.TryEnqueuePlayerAsync(str1, new Warship());
         //     var playersInfo= battleRoyaleQueue.GetPlayersQueueInfo(5);
         //     
         //     //Assert
@@ -186,11 +186,11 @@ namespace MatchmakerTest
         //     string str5 = "e";
         //
         //     //Act    
-        //     battleRoyaleQueue.TryEnqueuePlayer(str1, new Warship());
-        //     battleRoyaleQueue.TryEnqueuePlayer(str2, new Warship());
-        //     battleRoyaleQueue.TryEnqueuePlayer(str3, new Warship());
-        //     battleRoyaleQueue.TryEnqueuePlayer(str4, new Warship());
-        //     battleRoyaleQueue.TryEnqueuePlayer(str5, new Warship());
+        //     battleRoyaleQueue.TryEnqueuePlayerAsync(str1, new Warship());
+        //     battleRoyaleQueue.TryEnqueuePlayerAsync(str2, new Warship());
+        //     battleRoyaleQueue.TryEnqueuePlayerAsync(str3, new Warship());
+        //     battleRoyaleQueue.TryEnqueuePlayerAsync(str4, new Warship());
+        //     battleRoyaleQueue.TryEnqueuePlayerAsync(str5, new Warship());
         //     var playersInfo= battleRoyaleQueue.GetPlayersQueueInfo(3);
         //     
         //     //Assert
@@ -209,8 +209,8 @@ namespace MatchmakerTest
         //     string str2 = "b";
         //
         //     //Act    
-        //     battleRoyaleQueue.TryEnqueuePlayer(str1, new Warship());
-        //     battleRoyaleQueue.TryEnqueuePlayer(str2, new Warship());
+        //     battleRoyaleQueue.TryEnqueuePlayerAsync(str1, new Warship());
+        //     battleRoyaleQueue.TryEnqueuePlayerAsync(str2, new Warship());
         //     battleRoyaleQueue.TryRemovePlayerFromQueue(str1);
         //     int number = battleRoyaleQueue.GetNumberOfPlayersInQueue();
         //     
@@ -227,8 +227,8 @@ namespace MatchmakerTest
         //     string str2 = "b";
         //
         //     //Act    
-        //     battleRoyaleQueue.TryEnqueuePlayer(str1, new Warship());
-        //     battleRoyaleQueue.TryEnqueuePlayer(str2, new Warship());
+        //     battleRoyaleQueue.TryEnqueuePlayerAsync(str1, new Warship());
+        //     battleRoyaleQueue.TryEnqueuePlayerAsync(str2, new Warship());
         //     DateTime? dateTime = battleRoyaleQueue.GetOldestRequestTime();
         //     var playerInfo = battleRoyaleQueue.GetPlayersQueueInfo(1);
         //

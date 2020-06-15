@@ -24,7 +24,7 @@ namespace AmoebaGameMatcherServer.Controllers
         }
         
         [ItemCanBeNull]
-        public async Task<RewardsThatHaveNotBeenShown> GetNotShownResultsAndMarkAsRead([NotNull] string playerServiceId)
+        public async Task<RewardsThatHaveNotBeenShown> GetNotShownResultsAndMarkAsReadAsync([NotNull] string playerServiceId)
         {
             Account account = await dbContext.Accounts
                 .SingleOrDefaultAsync(account1 => account1.ServiceId == playerServiceId);

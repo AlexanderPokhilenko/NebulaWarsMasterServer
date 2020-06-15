@@ -29,7 +29,7 @@ namespace IntegrationTests
             
             //Act
             RewardsThatHaveNotBeenShown result = await NotShownRewardsReaderService
-                .GetNotShownResultsAndMarkAsRead(originalAccount.ServiceId);
+                .GetNotShownResultsAndMarkAsReadAsync(originalAccount.ServiceId);
             
             //Assert
             Assert.IsNotNull(result);
@@ -55,10 +55,10 @@ namespace IntegrationTests
                         
             //Act
             await NotShownRewardsReaderService
-                .GetNotShownResultsAndMarkAsRead(originalAccount.ServiceId);
+                .GetNotShownResultsAndMarkAsReadAsync(originalAccount.ServiceId);
             
             RewardsThatHaveNotBeenShown result = await NotShownRewardsReaderService
-                .GetNotShownResultsAndMarkAsRead(originalAccount.ServiceId);
+                .GetNotShownResultsAndMarkAsReadAsync(originalAccount.ServiceId);
 
             
             //Assert

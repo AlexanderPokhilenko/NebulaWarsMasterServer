@@ -14,7 +14,7 @@ public class OrderConfirmationService
         this.dbContext = dbContext;
     }
 
-    public async Task<bool> TryConfirmOrder([NotNull] string serviceId, [NotNull] string sku)
+    public async Task<bool> TryConfirmOrderAsync([NotNull] string serviceId, [NotNull] string sku)
     {
         try
         {

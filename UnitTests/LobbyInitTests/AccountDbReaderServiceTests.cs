@@ -17,7 +17,7 @@
 //         {
 //             //Arrange
 //             ApplicationDbContext dbContext = new InMemoryDbContextFactory(nameof(AccountDbReaderServiceTests))
-//                 .Create();
+//                 .CreateAsync();
 //             AccountDbReaderService accountDbReaderService = new AccountDbReaderService(dbContext);
 //             Account account = TestsAccountFactory.CreateUniqueAccount();
 //             
@@ -25,7 +25,7 @@
 //             await dbContext.SaveChangesAsync();
 //             
 //             //Act
-//             var playerInfo = await accountDbReaderService.ReadAccount(account.ServiceId);
+//             var playerInfo = await accountDbReaderService.ReadAccountAsync(account.ServiceId);
 //             
 //             //Assert
 //             Assert.IsNotNull(playerInfo);
@@ -56,12 +56,12 @@
 //         {
 //             //Arrange
 //             ApplicationDbContext dbContext = new InMemoryDbContextFactory(nameof(AccountDbReaderServiceTests))
-//                 .Create();
+//                 .CreateAsync();
 //             AccountDbReaderService accountDbReaderService = new AccountDbReaderService(dbContext);
 //             string accountServiceId = "someUniqueId_65461814865468";
 //             
 //             //Act
-//             var playerInfo = await accountDbReaderService.ReadAccount(accountServiceId);
+//             var playerInfo = await accountDbReaderService.ReadAccountAsync(accountServiceId);
 //             
 //             //Assert
 //             Assert.IsNull(playerInfo);

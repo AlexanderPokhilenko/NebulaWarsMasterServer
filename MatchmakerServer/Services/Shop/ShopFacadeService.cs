@@ -27,7 +27,7 @@ namespace AmoebaGameMatcherServer.Controllers
             this.regularCurrencyService = regularCurrencyService;
         }
         
-        public async Task<ShopModel> GetShopModel([NotNull] string playerServiceId)
+        public async Task<ShopModel> GetShopModelAsync([NotNull] string playerServiceId)
         {
             ShopModel result = new ShopModel
             {

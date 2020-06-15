@@ -23,7 +23,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             this.warshipReaderService = warshipReaderService;
         }
 
-        public async Task<MatchResult> ReadMatchResult(int matchId, string playerServiceId)
+        public async Task<MatchResult> ReadMatchResultAsync(int matchId, string playerServiceId)
         {
             MatchResultForPlayer matchResultDb = await dbContext.MatchResultForPlayers
                 .Include(matchResult1=>matchResult1.Warship)
@@ -47,7 +47,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             }
 
 
-            int currentWarshipRating = await warshipReaderService.ReadWarshipRating(matchResultDb.WarshipId);
+            int currentWarshipRating = await warshipReaderService.ReadWarshipRatingAsync(matchResultDb.WarshipId);
             
             
             MatchResult matchResult = new MatchResult();

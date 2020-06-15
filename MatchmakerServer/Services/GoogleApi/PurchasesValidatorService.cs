@@ -28,9 +28,9 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
         }
 
         [ItemCanBeNull]
-        public async Task<string[]> Validate([NotNull] string sku, [NotNull] string token)
+        public async Task<string[]> ValidateAsync([NotNull] string sku, [NotNull] string token)
         {
-            string googleResponseJson = await googleApiPurchasesWrapperService.Validate(sku, token);
+            string googleResponseJson = await googleApiPurchasesWrapperService.ValidateAsync(sku, token);
             bool responseIsOk = googleResponseJson != null;
             if (responseIsOk)
             {
@@ -55,7 +55,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                 }
 
                 //внести данные про покупку в БД
-                await purchaseRegistrationService.TryEnterPurchaseIntoDb(googleResponseJson, sku, token, account.Id);
+                await purchaseRegistrationService.TryEnterPurchaseIntoDbAsync(googleResponseJson, sku, token, account.Id);
 
                 //прочитать из БД и вернуть список названий подтверждённых продуктов
                 var result = dbContext.Purchases

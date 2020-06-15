@@ -30,14 +30,14 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
         }
         
         
-        public async Task<bool> UpdatePlayerMatchResultInDb(int accountId, int placeInMatch, int matchId)
+        public async Task<bool> UpdatePlayerMatchResultInDbAsync(int accountId, int placeInMatch, int matchId)
         {
             //В памяти есть этот игрок?
             Account account = await dbContext.Accounts.FindAsync(accountId);
             bool isPlayerInMatch = unfinishedMatchesSingletonService.IsPlayerInMatch(account.ServiceId, matchId);
             if (!isPlayerInMatch)
             {
-                Console.WriteLine("Этот игрок не в бою UpdatePlayerMatchResultInDb");
+                Console.WriteLine("Этот игрок не в бою UpdatePlayerMatchResultInDbAsync");
                 return false;
             }
             
@@ -47,7 +47,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                 .SingleAsync();
 
             //Прочитать текущий рейтинг корабля. Он нужен для вычисления награды за бой.
-            int currentWarshipRating = await warshipReaderService.ReadWarshipRating(matchResultForPlayer.WarshipId);
+            int currentWarshipRating = await warshipReaderService.ReadWarshipRatingAsync(matchResultForPlayer.WarshipId);
             
             //Вычислить награду за бой
             MatchReward matchReward = battleRoyaleMatchRewardCalculatorService
@@ -75,7 +75,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             return true;
         }
 
-        public async Task FinishMatchAndWriteToDb(int matchId)
+        public async Task FinishMatchAndWriteToDbAsync(int matchId)
         {
             //Поставить дату окончания матча
             Match match = await dbContext.Matches
@@ -96,7 +96,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             {
                 MatchResultForPlayer matchResultForPlayer = incompleteMatchResults[i];
                 int placeInMatch = ++i;
-                await UpdatePlayerMatchResultInDb(matchResultForPlayer.Warship.AccountId, placeInMatch, matchId);
+                await UpdatePlayerMatchResultInDbAsync(matchResultForPlayer.Warship.AccountId, placeInMatch, matchId);
             }
             
             //Удалить матч из памяти

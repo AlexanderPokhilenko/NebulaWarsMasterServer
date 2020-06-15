@@ -19,21 +19,21 @@
 //         {
 //             //Arrange
 //             var dbFactory = new InMemoryDbContextFactory(nameof(PlayerInfoManagerServiceTests));
-//             AccountDbReaderService accountDbReaderService = new AccountDbReaderService(dbFactory.Create());
+//             AccountDbReaderService accountDbReaderService = new AccountDbReaderService(dbFactory.CreateAsync());
 //             AccountRegistrationService accountRegistrationService = 
-//                 new AccountRegistrationService(dbFactory.Create());
+//                 new AccountRegistrationService(dbFactory.CreateAsync());
 //             AccountFacadeService accountFacadeService = 
 //                 new AccountFacadeService(accountDbReaderService, accountRegistrationService);
-//             string serviceId = UniqueStringFactory.Create();
+//             string serviceId = UniqueStringFactory.CreateAsync();
 //             
 //             //Act
-//             var accountInfo = await accountFacadeService.ReadOrCreateAccount(serviceId);
+//             var accountInfo = await accountFacadeService.ReadOrCreateAccountAsync(serviceId);
 //             
 //             //Assert
 //             Assert.IsNotNull(accountInfo);
 //             Assert.IsNotNull(accountInfo.Username);
 //
-//             var dbContext = dbFactory.Create();
+//             var dbContext = dbFactory.CreateAsync();
 //             Account account = await dbContext.Accounts
 //                 .Include(account1 => account1.Warships)
 //                 .ThenInclude(warship => warship.WarshipType)

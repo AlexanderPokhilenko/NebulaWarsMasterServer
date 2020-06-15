@@ -38,7 +38,7 @@ public class PurchasesController : ControllerBase
             return BadRequest();
         }
         
-        string[] productIdsToConfirm = await purchasesValidatorService.Validate(productId, token);
+        string[] productIdsToConfirm = await purchasesValidatorService.ValidateAsync(productId, token);
         if (productIdsToConfirm == null)
         {
             return Ok();
@@ -61,7 +61,7 @@ public class PurchasesController : ControllerBase
             throw new Exception($"{nameof(sku)} is null");
         }
 
-        bool success = await orderConfirmationService.TryConfirmOrder(serviceId, sku);
+        bool success = await orderConfirmationService.TryConfirmOrderAsync(serviceId, sku);
         Console.WriteLine($"{nameof(success)} {success}");
         if (success)
         {

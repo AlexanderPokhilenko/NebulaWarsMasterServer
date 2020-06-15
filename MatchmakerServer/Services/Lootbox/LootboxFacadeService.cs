@@ -28,10 +28,10 @@ namespace AmoebaGameMatcherServer.Controllers
         }
         
         [ItemCanBeNull]
-        public async Task<LootboxModel> CreateLootboxModel([NotNull] string playerServiceId)
+        public async Task<LootboxModel> CreateLootboxModelAsync([NotNull] string playerServiceId)
         {
             //Игрок может открыть лутбокс?
-            if (!await allowingService.CanPlayerOpenLootbox(playerServiceId))
+            if (!await allowingService.CanPlayerOpenLootboxAsync(playerServiceId))
             {
                 return null;
             }
@@ -44,7 +44,7 @@ namespace AmoebaGameMatcherServer.Controllers
             //Создать лутбокс
             LootboxModel lootboxModel = smallLootboxModelFactory.Create(warshipIds);
             //Сохранить лутбокс 
-            await lootboxDbWriterService.Write(playerServiceId, lootboxModel);
+            await lootboxDbWriterService.WriteAsync(playerServiceId, lootboxModel);
             return lootboxModel;
         }
     }

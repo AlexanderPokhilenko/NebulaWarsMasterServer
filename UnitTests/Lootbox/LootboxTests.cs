@@ -27,7 +27,7 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
             dbContext.SaveChanges();
             
             //Act
-            bool result = await service.CanPlayerOpenLootbox(playerId);
+            bool result = await service.CanPlayerOpenLootboxAsync(playerId);
 
             //Assert
             Assert.IsFalse(result);

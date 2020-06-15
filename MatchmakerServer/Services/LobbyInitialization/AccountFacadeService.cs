@@ -24,17 +24,17 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
         }
         
         [NotNull]
-        public async Task<AccountDbDto> ReadOrCreateAccount([NotNull] string serviceId)
+        public async Task<AccountDbDto> ReadOrCreateAccountAsync([NotNull] string serviceId)
         {
-            var account = await accountDbReaderService.ReadAccount(serviceId);
+            var account = await accountDbReaderService.ReadAccountAsync(serviceId);
             
             if (account == null)
             {
                 Console.WriteLine("Попытка создать аккаунт");
-                if (await accountRegistrationService.TryRegisterAccount(serviceId))
+                if (await accountRegistrationService.TryRegisterAccountAsync(serviceId))
                 {
                     Console.WriteLine("Успешная регистрация");
-                    account = await accountDbReaderService.ReadAccount(serviceId);
+                    account = await accountDbReaderService.ReadAccountAsync(serviceId);
                 }
                 else
                 {

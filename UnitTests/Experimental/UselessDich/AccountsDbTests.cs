@@ -19,7 +19,7 @@
 //         {
 //             //Arrange
 //             var account = TestsAccountFactory.CreateUniqueAccount();
-//             var dbContext = new InMemoryDbContextFactory(nameof(AccountsDbTests)).Create();
+//             var dbContext = new InMemoryDbContextFactory(nameof(AccountsDbTests)).CreateAsync();
 //             
 //             //Act
 //             await dbContext.Accounts.AddAsync(account);

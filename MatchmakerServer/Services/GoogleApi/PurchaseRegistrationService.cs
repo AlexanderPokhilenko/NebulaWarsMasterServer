@@ -19,9 +19,9 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
             this.dbContext = dbContext;
         }
 
-        public async Task TryEnterPurchaseIntoDb(string googleResponseJson, string sku, string token, int accountId)
+        public async Task TryEnterPurchaseIntoDbAsync(string googleResponseJson, string sku, string token, int accountId)
         {
-            Console.WriteLine(nameof(TryEnterPurchaseIntoDb)+" "+sku+" "+token+" "+accountId);
+            Console.WriteLine(nameof(TryEnterPurchaseIntoDbAsync)+" "+sku+" "+token+" "+accountId);
             dynamic jsonObj = JsonConvert.DeserializeObject(googleResponseJson);
             try
             {

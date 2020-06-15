@@ -48,7 +48,7 @@ namespace AmoebaGameMatcherServer.Controllers
             }
 
             bool succes = await battleRoyaleMatchFinisher
-                .UpdatePlayerMatchResultInDb(accountId.Value, placeInBattle.Value, matchId.Value);
+                .UpdatePlayerMatchResultInDbAsync(accountId.Value, placeInBattle.Value, matchId.Value);
             
             return Ok();
         }
@@ -67,7 +67,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 return BadRequest();
             }
             
-            await battleRoyaleMatchFinisher.FinishMatchAndWriteToDb(matchId.Value);
+            await battleRoyaleMatchFinisher.FinishMatchAndWriteToDbAsync(matchId.Value);
             return Ok();
         }
     }

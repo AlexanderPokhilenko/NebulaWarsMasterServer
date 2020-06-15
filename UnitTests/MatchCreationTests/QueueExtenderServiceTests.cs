@@ -28,7 +28,7 @@
 //             //Act    
 //             for (int i = 0; i < Globals.NumbersOfPlayersInBattleRoyaleMatch; i++)
 //             {
-//                 bool success = queueExtenderService.TryEnqueuePlayer(i.ToString(), i).Result;
+//                 bool success = queueExtenderService.TryEnqueuePlayerAsync(i.ToString(), i).Result;
 //                 if (!success)
 //                 {
 //                     Assert.Fail();
@@ -47,7 +47,7 @@
 //         public void TestMethod2()
 //         {
 //             //Arrange
-//             ApplicationDbContext dbContext = new InMemoryDbContextFactory(nameof(QueueExtenderServiceTests)).Create();
+//             ApplicationDbContext dbContext = new InMemoryDbContextFactory(nameof(QueueExtenderServiceTests)).CreateAsync();
 //             WarshipValidatorService warshipValidatorService = new WarshipValidatorService(dbContext);
 //             Account account = new Account
 //             {
@@ -79,7 +79,7 @@
 //         public void TestMethod3()
 //         {
 //             //Arrange
-//             ApplicationDbContext dbContext = new InMemoryDbContextFactory(nameof(QueueExtenderServiceTests)).Create();
+//             ApplicationDbContext dbContext = new InMemoryDbContextFactory(nameof(QueueExtenderServiceTests)).CreateAsync();
 //             WarshipValidatorService warshipValidatorService = new WarshipValidatorService(dbContext);
 //             
 //             //Act
@@ -97,7 +97,7 @@
 //         public void TestMethod4()
 //         {
 //             //Arrange
-//             ApplicationDbContext dbContext = new InMemoryDbContextFactory(nameof(QueueExtenderServiceTests)).Create();
+//             ApplicationDbContext dbContext = new InMemoryDbContextFactory(nameof(QueueExtenderServiceTests)).CreateAsync();
 //             WarshipValidatorService warshipValidatorService = new WarshipValidatorService(dbContext);
 //             Account account1 = new Account
 //             {
