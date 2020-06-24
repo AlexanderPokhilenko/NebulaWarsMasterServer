@@ -29,4 +29,16 @@ namespace DataLayer.Tables
             return stringBuilder.ToString();
         }
     }
+
+    // public class Purchase
+    // {
+    //     [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
+    //
+    //     [Required] public int AccountId { get; set; }
+    //     [Required] public DateTime DateTime { get; set; }
+    //     [Required] public int SoftCurrencyDelta { get; set; }
+    //     [Required] public int HardCurrencyDelta { get; set; }
+    //
+    //     public Account Account { get; set; }
+    // }
 }
