@@ -50,7 +50,7 @@ namespace AmoebaGameMatcherServer
             googleApiAccessTokenManagerService.Initialize().Wait();
             
             //Заполнение данными
-            new DataSeeder().TrySeed(dbContext);
+            new DataSeeder().Seed(dbContext);
 
             app.UseMvc();
         }

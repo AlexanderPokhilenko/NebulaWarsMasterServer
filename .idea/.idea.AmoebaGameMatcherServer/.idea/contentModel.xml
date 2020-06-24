@@ -30,39 +30,60 @@
         <e p="Entities" t="Include">
           <e p="Account.cs" t="Include" />
           <e p="AccountDbDto.cs" t="Include" />
-          <e p="Lootboxes" t="Include">
-            <e p="LootboxDb.cs" t="Include" />
-            <e p="LootboxPrizeHardCurrency.cs" t="Include" />
-            <e p="LootboxPrizeSmallLootboxPoints.cs" t="Include" />
-            <e p="LootboxPrizeSoftCurrency.cs" t="Include" />
-            <e p="LootboxPrizeWarshipPowerPoints.cs" t="Include" />
-            <e p="LootboxType.cs" t="Include" />
-          </e>
           <e p="Matches" t="Include">
             <e p="Match.cs" t="Include" />
             <e p="MatchResultForPlayer.cs" t="Include" />
             <e p="WarshipImprovementPurchase.cs" t="Include" />
           </e>
+          <e p="Orders" t="Include">
+            <e p="Decrement.cs" t="Include" />
+            <e p="DecrementType.cs" t="Include" />
+            <e p="DecrementTypeEnum.cs" t="Include" />
+            <e p="Increment.cs" t="Include" />
+            <e p="IncrementType.cs" t="Include" />
+            <e p="IncrementTypeEnum.cs" t="Include" />
+            <e p="Order.cs" t="Include" />
+            <e p="OrderType.cs" t="Include" />
+            <e p="OrderTypeEnum.cs" t="Include" />
+            <e p="Product.cs" t="Include" />
+            <e p="ProductType.cs" t="Include" />
+            <e p="ProductTypeEnum.cs" t="Include" />
+          </e>
           <e p="TestPurchase.cs" t="Include" />
           <e p="Warships" t="Include">
             <e p="Warship.cs" t="Include" />
             <e p="WarshipCombatRole.cs" t="Include" />
+            <e p="WarshipCombatRoleEnum.cs" t="Include" />
             <e p="WarshipDbDto.cs" t="Include" />
             <e p="WarshipType.cs" t="Include" />
+            <e p="WarshipTypeEnum.cs" t="Include" />
           </e>
         </e>
         <e p="EntitiesConfiguration" t="Include">
-          <e p="AccountsConfiguration.cs" t="Include" />
-          <e p="DataSeeder.cs" t="Include" />
-          <e p="LootboxesConfiguration.cs" t="Include" />
-          <e p="LootboxPrizeHardCurrencyConfiguration.cs" t="Include" />
-          <e p="LootboxPrizePointsForSmallLootboxConfiguration.cs" t="Include" />
-          <e p="LootboxPrizeSoftCurrencyConfiguration.cs" t="Include" />
-          <e p="LootboxPrizeWarshipPowerPointsConfiguration.cs" t="Include" />
-          <e p="MatchResultsConfiguration.cs" t="Include" />
-          <e p="TestPurchaseConfiguration.cs" t="Include" />
-          <e p="WarshipsConfiguration.cs" t="Include" />
-          <e p="WarshipTypesConfiguration.cs" t="Include" />
+          <e p="Constraints" t="Include">
+            <e p="AccountsConfiguration.cs" t="Include" />
+            <e p="LootboxesConfiguration.cs" t="Include" />
+            <e p="LootboxPrizeHardCurrencyConfiguration.cs" t="Include" />
+            <e p="LootboxPrizePointsForSmallLootboxConfiguration.cs" t="Include" />
+            <e p="LootboxPrizeSoftCurrencyConfiguration.cs" t="Include" />
+            <e p="LootboxPrizeWarshipPowerPointsConfiguration.cs" t="Include" />
+            <e p="MatchResultsConfiguration.cs" t="Include" />
+            <e p="TestPurchaseConfiguration.cs" t="Include" />
+            <e p="WarshipsConfiguration.cs" t="Include" />
+            <e p="WarshipTypesConfiguration.cs" t="Include" />
+          </e>
+          <e p="Seeding" t="Include">
+            <e p="DataSeeder.cs" t="Include" />
+            <e p="Seaders" t="Include">
+              <e p="AccountSeeder.cs" t="Include" />
+              <e p="DecrementTypeSeeder.cs" t="Include" />
+              <e p="IncrementTypeSeeder.cs" t="Include" />
+              <e p="OrderTypesSeeder.cs" t="Include" />
+              <e p="ProductTypesSeeder.cs" t="Include" />
+              <e p="WarshipCombatRoleSeeder.cs" t="Include" />
+              <e p="WarshipTypesSeeder.cs" t="Include" />
+            </e>
+          </e>
         </e>
         <e p="GoogleApi" t="Include">
           <e p="AccessTokenUpdatingArg.cs" t="Include" />

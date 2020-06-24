@@ -10,14 +10,14 @@ namespace DataLayer.Tables
     { 
         [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
         [Required] public int AccountId { get; set; }
-        [Required] public int WarshipTypeId { get; set; }
+        [Required] public WarshipTypeEnum WarshipTypeId { get; set; }
 
         public Account Account { get; set; }
         public WarshipType WarshipType { get; set; }
         
         public List<MatchResultForPlayer> MatchResultForPlayers{ get; set; } = new List<MatchResultForPlayer>();
 
-        public List<LootboxPrizeWarshipPowerPoints> WarshipPowerPoints { get; set; } = new List<LootboxPrizeWarshipPowerPoints>();
+        // public List<LootboxPrizeWarshipPowerPoints> WarshipPowerPoints { get; set; } = new List<LootboxPrizeWarshipPowerPoints>();
 
         public override string ToString()
         {

@@ -60,7 +60,7 @@ namespace MatchmakerTest
                     {
                         new Warship
                         {
-                            WarshipTypeId = 1
+                            WarshipTypeId = WarshipTypeEnum.Hare
                         }
                     }
                 };
@@ -164,7 +164,7 @@ namespace MatchmakerTest
                     {
                         new Warship
                         {
-                            WarshipTypeId = 1
+                            WarshipTypeId = WarshipTypeEnum.Hare
                         }
                     }
                 };
@@ -246,7 +246,7 @@ namespace MatchmakerTest
                     {
                         new Warship
                         {
-                            WarshipTypeId = 1
+                            WarshipTypeId = WarshipTypeEnum.Hare
                         }
                     }
                 };

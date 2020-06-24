@@ -7,10 +7,10 @@ namespace DataLayer.Tables
 {
     public class WarshipType
     {
-        [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
+        [Key] public WarshipTypeEnum Id { get; set; }
         [Required] public string Name { get; set; }
         [Required] public string Description { get; set; }
-        [Required] public int WarshipCombatRoleId { get; set; }
+        [Required] public WarshipCombatRoleEnum WarshipCombatRoleId { get; set; }
         
         public WarshipCombatRole WarshipCombatRole { get; set; }
 

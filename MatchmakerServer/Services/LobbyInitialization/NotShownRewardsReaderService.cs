@@ -69,29 +69,29 @@ namespace AmoebaGameMatcherServer.Controllers
 
         private async Task<RewardsThatHaveNotBeenShown> GetUnshownLootboxAward(int accountId)
         {
-            RewardsThatHaveNotBeenShown result = new RewardsThatHaveNotBeenShown();
-            List<LootboxDb> lootboxes = await dbContext.Lootbox
-                .Include(lootbox => lootbox.LootboxPrizeSoftCurrency)
-                .Include(lootbox => lootbox.LootboxPrizePointsForSmallLootboxes)
-                .Where(lootbox => lootbox.Account.Id == accountId && !lootbox.WasShown)
-                .ToListAsync();
-            
-            for (int index = 0; index < lootboxes.Count; index++)
-            {
-                var lootboxDb = lootboxes[index];
-                foreach (var softCurrencyPrize in lootboxDb.LootboxPrizeSoftCurrency)
-                {
-                    result.SoftCurrency += softCurrencyPrize.Quantity;
-                }
-                foreach (var smallLootboxPointsPrize in lootboxDb.LootboxPrizePointsForSmallLootboxes)
-                {
-                    result.SmallLootboxPoints += smallLootboxPointsPrize.Quantity;
-                }
-                //Пометить как прочитанное
-                lootboxDb.WasShown = true;
-            }
+            // RewardsThatHaveNotBeenShown result = new RewardsThatHaveNotBeenShown();
+            // List<LootboxDb> lootboxes = await dbContext.Lootbox
+            //     .Include(lootbox => lootbox.LootboxPrizeSoftCurrency)
+            //     .Include(lootbox => lootbox.LootboxPrizePointsForSmallLootboxes)
+            //     .Where(lootbox => lootbox.Account.Id == accountId && !lootbox.WasShown)
+            //     .ToListAsync();
+            //
+            // for (int index = 0; index < lootboxes.Count; index++)
+            // {
+            //     var lootboxDb = lootboxes[index];
+            //     foreach (var softCurrencyPrize in lootboxDb.LootboxPrizeSoftCurrency)
+            //     {
+            //         result.SoftCurrency += softCurrencyPrize.Quantity;
+            //     }
+            //     foreach (var smallLootboxPointsPrize in lootboxDb.LootboxPrizePointsForSmallLootboxes)
+            //     {
+            //         result.LootboxPoints += smallLootboxPointsPrize.Quantity;
+            //     }
+            //     //Пометить как прочитанное
+            //     lootboxDb.WasShown = true;
+            // }
 
-            return result;
+            return null;
         }
     }
 }

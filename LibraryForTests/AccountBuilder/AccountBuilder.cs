@@ -34,7 +34,7 @@ namespace LibraryForTests
             //Создать корабль
             Warship warship = new Warship
             {
-                WarshipTypeId = account.Warships.Count+1
+                WarshipTypeId = (WarshipTypeEnum) account.Warships.Count+1
             };
                 
             //Добавить мачти для корабля
@@ -95,47 +95,47 @@ namespace LibraryForTests
         /// из-за проблем с внешним ключём на сущность Warship
         /// </summary>
         public void AddLootbox(int countOfRegularCurrencyPrizes, int countOfWarshipPowerPointsPrizes, 
-            int countOfPointsForSmallLootboxPrizes, bool wasShown, LootboxType lootboxType = LootboxType.Small)
+            int countOfPointsForSmallLootboxPrizes, bool wasShown)
         {
-            LootboxDb lootboxDb = new LootboxDb
-            {
-                CreationDate = DateTime.Now,
-                WasShown = wasShown,
-                LootboxType = lootboxType
-            };
-
-            for (int i = 0; i < countOfRegularCurrencyPrizes; i++)
-            {
-                var prize = new LootboxPrizeSoftCurrency
-                {
-                    Quantity = random.Next(30)
-                };
-                lootboxDb.LootboxPrizeSoftCurrency.Add(prize);
-            }
-            
-            for (int i = 0; i < countOfWarshipPowerPointsPrizes; i++)
-            {
-                int warshipIndex = random.Next(account.Warships.Count);
-                var prize = new LootboxPrizeWarshipPowerPoints
-                {
-                    Quantity = random.Next(30),
-                    //TODO это опасно
-                    WarshipId = account.Warships[warshipIndex].Id
-                };
-                
-                lootboxDb.LootboxPrizeWarshipPowerPoints.Add(prize);
-            }
-            
-            for (int i = 0; i < countOfPointsForSmallLootboxPrizes; i++)
-            {
-                var prize = new LootboxPrizeSmallLootboxPoints
-                {
-                    Quantity = random.Next(30)
-                };
-                lootboxDb.LootboxPrizePointsForSmallLootboxes.Add(prize);
-            }
-            
-            account.Lootboxes.Add(lootboxDb);
+            // LootboxDb lootboxDb = new LootboxDb
+            // {
+            //     CreationDate = DateTime.Now,
+            //     WasShown = wasShown,
+            //     LootboxType = lootboxType
+            // };
+            //
+            // for (int i = 0; i < countOfRegularCurrencyPrizes; i++)
+            // {
+            //     var prize = new LootboxPrizeSoftCurrency
+            //     {
+            //         Quantity = random.Next(30)
+            //     };
+            //     lootboxDb.LootboxPrizeSoftCurrency.Add(prize);
+            // }
+            //
+            // for (int i = 0; i < countOfWarshipPowerPointsPrizes; i++)
+            // {
+            //     int warshipIndex = random.Next(account.Warships.Count);
+            //     var prize = new LootboxPrizeWarshipPowerPoints
+            //     {
+            //         Quantity = random.Next(30),
+            //         //TODO это опасно
+            //         WarshipId = account.Warships[warshipIndex].Id
+            //     };
+            //     
+            //     lootboxDb.LootboxPrizeWarshipPowerPoints.Add(prize);
+            // }
+            //
+            // for (int i = 0; i < countOfPointsForSmallLootboxPrizes; i++)
+            // {
+            //     var prize = new LootboxPrizeSmallLootboxPoints
+            //     {
+            //         Quantity = random.Next(30)
+            //     };
+            //     lootboxDb.LootboxPrizePointsForSmallLootboxes.Add(prize);
+            // }
+            //
+            // account.Lootboxes.Add(lootboxDb);
         }
 
         public Account GetAccount()

@@ -41,12 +41,14 @@ namespace AmoebaGameMatcherServer.Services.PlayerQueueing
                     warship1.Id == warshipId 
                     && warship1.Account.ServiceId==playerServiceId);
 
-            int warshipPowerPoints = await dbContext.LootboxPrizeWarshipPowerPoints
-                .Where(war => war.WarshipId == warshipId)
-                .SumAsync(lootbox => lootbox.Quantity);
+            // int warshipPowerPoints = await dbContext.LootboxPrizeWarshipPowerPoints
+            //     .Where(war => war.WarshipId == warshipId)
+            //     .SumAsync(lootbox => lootbox.Quantity);
+
+            int warshipPowerLevel = 1;
             
             QueueInfoForPlayer playerInfo = new QueueInfoForPlayer(playerServiceId, warship.AccountId, 
-                warship.WarshipType.Name, warshipPowerPoints, warshipId, DateTime.UtcNow);
+                warship.WarshipType.Name, warshipPowerLevel, warshipId, DateTime.UtcNow);
             return battleRoyaleQueueSingletonServiceService.TryEnqueuePlayer(playerInfo);
         }
     }

@@ -39,7 +39,7 @@
 //             Assert.AreEqual(4, results.HardCurrency);
 //             Assert.AreEqual(34, results.SoftCurrency);
 //             Assert.AreEqual(0, results.BigLootboxPoints);
-//             Assert.AreEqual(5, results.SmallLootboxPoints);
+//             Assert.AreEqual(5, results.LootboxPoints);
 //
 //             List<MatchResultForPlayer> matchResultForPlayers = await dbContext.MatchResultForPlayers
 //                 .Where(result => result.Warship.AccountId == account.Id)
@@ -80,7 +80,7 @@
 //                                 PremiumCurrencyDelta = 4,
 //                                 SoftCurrency = 34,
 //                                 BigLootboxPoints = 0,
-//                                 SmallLootboxPoints = 5,
+//                                 LootboxPoints = 5,
 //                                 
 //                                 WarshipRatingDelta = 9,
 //                                 WasShown = false
@@ -98,7 +98,7 @@
 //                                 PremiumCurrencyDelta = 0,
 //                                 SoftCurrency = 12,
 //                                 BigLootboxPoints = 1,
-//                                 SmallLootboxPoints = 2,
+//                                 LootboxPoints = 2,
 //                                 WarshipRatingDelta = 3,
 //                                 WasShown = true
 //                             },
@@ -115,7 +115,7 @@
 //                                 PremiumCurrencyDelta = null,
 //                                 SoftCurrency = null,
 //                                 BigLootboxPoints = null,
-//                                 SmallLootboxPoints = null,
+//                                 LootboxPoints = null,
 //                                 WarshipRatingDelta = null,
 //                                 WasShown = false
 //                             },

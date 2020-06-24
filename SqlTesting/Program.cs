@@ -48,7 +48,7 @@ namespace DeleteMe1
                 )											as ""WarshipPowerPoints"",
             (
                 sum(COALESCE(prizeSmallLootboxPoints.""Quantity"",0))
-            + sum(matchResult.""SmallLootboxPoints"")
+            + sum(matchResult.""LootboxPoints"")
                 )											as ""PointsForSmallLootboxes""
             from ""Accounts"" a
                 inner join ""Warships"" w on a.""Id"" = w.""AccountId""

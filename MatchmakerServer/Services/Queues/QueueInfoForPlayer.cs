@@ -15,14 +15,14 @@ namespace AmoebaGameMatcherServer.Services.Queues
         private readonly int warshipId;
 
         public QueueInfoForPlayer(string playerServiceId, int accountId, string warshipPrefabName,
-            int warshipPowerPoints, int warshipId,  DateTime dictionaryEntryTime)
+            int warshipPowerLevel, int warshipId,  DateTime dictionaryEntryTime)
         {
             playerInfoForMatch = new PlayerInfoForMatch
             {
                 ServiceId = playerServiceId,
                 AccountId = accountId,
                 PrefabName = warshipPrefabName,
-                WarshipPowerPoints = warshipPowerPoints
+                WarshipPowerPoints = warshipPowerLevel
             };
             unchecked
             {

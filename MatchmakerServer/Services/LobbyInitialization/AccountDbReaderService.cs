@@ -32,7 +32,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
             var accountResources = await accountResourcesDbReader.GetAccountResourcesAsync(serviceId);
             account.HardCurrency = accountResources.HardCurrency;
             account.SoftCurrency = accountResources.SoftCurrency;
-            account.SmallLootboxPoints = accountResources.SmallLootboxPoints;
+            account.LootboxPoints = accountResources.LootboxPoints;
             return account;
         }
     }

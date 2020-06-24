@@ -28,15 +28,15 @@ namespace AmoebaGameMatcherServer.Services
                 {
                     new Warship
                     {
-                        WarshipTypeId = warshipTypeHare
+                        WarshipTypeId = WarshipTypeEnum.Hare
                     },
                     new Warship
                     {
-                        WarshipTypeId = warshipTypeBird
+                        WarshipTypeId = WarshipTypeEnum.Bird
                     },
                     new Warship
                     {
-                        WarshipTypeId = warshipTypeSmiley
+                        WarshipTypeId = WarshipTypeEnum.Smiley
                     }
                 }
             };

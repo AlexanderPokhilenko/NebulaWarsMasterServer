@@ -16,18 +16,22 @@ namespace DataLayer
         public DbSet<WarshipType> WarshipTypes { get; set; }
         public DbSet<Match> Matches { get; set; }
         public DbSet<MatchResultForPlayer> MatchResultForPlayers { get; set; }
-        public DbSet<WarshipCombatRole> WarshipCombatRole { get; set; }
-        public DbSet<LootboxDb> Lootbox { get; set; }
-        public DbSet<LootboxPrizeSoftCurrency> LootboxPrizeSoftCurrency { get; set; }
-        public DbSet<LootboxPrizeHardCurrency> LootboxPrizeHardCurrency { get; set; }
-        public DbSet<LootboxPrizeWarshipPowerPoints> LootboxPrizeWarshipPowerPoints { get; set; }
-        public DbSet<LootboxPrizeSmallLootboxPoints> LootboxPrizeSmallLootboxPoints { get; set; }
+        public DbSet<WarshipCombatRole> WarshipCombatRoles { get; set; }
         
-        public DbSet<TestPurchase> Purchases { get; set; }
-        // public DbSet<Order> Orders { get; set; }
-        // public DbSet<Kit> Kits { get; set; }
-        // public DbSet<Product> Products { get; set; }
-        // public DbSet<WarshipImprovementPurchase> WarshipPowerPoints { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderType> OrderTypes { get; set; }
+        
+        
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductType> ProductTypes { get; set; }
+        
+        
+        public DbSet<Increment> Increments { get; set; }
+        public DbSet<IncrementType> IncrementTypes { get; set; }
+        
+        
+        public DbSet<Decrement> Decrement { get; set; }
+        public DbSet<DecrementType> DecrementTypes { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,12 +39,36 @@ namespace DataLayer
             modelBuilder.ApplyConfiguration(new WarshipsConfiguration());
             modelBuilder.ApplyConfiguration(new MatchResultsConfiguration());
             modelBuilder.ApplyConfiguration(new WarshipTypesConfiguration());
-            modelBuilder.ApplyConfiguration(new LootboxesConfiguration());
-            modelBuilder.ApplyConfiguration(new LootboxPrizeSoftCurrencyConfiguration());
-            modelBuilder.ApplyConfiguration(new LootboxPrizeWarshipPowerPointsConfiguration());
-            modelBuilder.ApplyConfiguration(new LootboxPrizePointsForSmallLootboxConfiguration());
-            modelBuilder.ApplyConfiguration(new LootboxPrizeHardCurrencyConfiguration());
-            modelBuilder.ApplyConfiguration(new TestPurchaseConfiguration());
+            
+            modelBuilder.Entity<Order>()
+                .HasOne(order => order.Account)
+                .WithMany(account => account.Orders)
+                .HasForeignKey(order => order.AccountId);
+            
+            modelBuilder.Entity<Order>()
+                .HasOne(order => order.OrderType)
+                .WithMany(orderType => orderType.Orders)
+                .HasForeignKey(order => order.OrderTypeId);
+            
+            modelBuilder.Entity<Product>()
+                .HasOne(prod => prod.Order)
+                .WithMany(order => order.Products)
+                .HasForeignKey(prod => prod.OrderId);
+            
+            modelBuilder.Entity<Product>()
+                .HasOne(prod => prod.ProductType)
+                .WithMany(productType => productType.Products)
+                .HasForeignKey(prod => prod.ProductTypeId);
+            
+            modelBuilder.Entity<Increment>()
+                .HasOne(inc => inc.Product)
+                .WithMany(prod => prod.Increments)
+                .HasForeignKey(inc => inc.ProductId);
+            
+            modelBuilder.Entity<Decrement>()
+                .HasOne(decr => decr.Product)
+                .WithMany(prod => prod.Decrements)
+                .HasForeignKey(decr => decr.ProductId);
         }
     }
 }

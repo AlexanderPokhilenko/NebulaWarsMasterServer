@@ -38,9 +38,9 @@ namespace IntegrationTests
             {
                 Warship originalWarship = originalAccount.Warships.Single(w => w.Id == warship.Id);
                 int originalWarshipRating = originalWarship.MatchResultForPlayers.Sum(mr => mr.WarshipRatingDelta);
-                int originalWarshipPowerPoints = originalWarship.WarshipPowerPoints.Sum(wpp => wpp.Quantity);
+                // int originalWarshipPowerPoints = originalWarship.WarshipPowerPoints.Sum(wpp => wpp.Quantity);
                 Assert.AreEqual(originalWarshipRating, warship.WarshipRating);
-                Assert.AreEqual(originalWarshipPowerPoints, warship.PowerPoints);
+                // Assert.AreEqual(originalWarshipPowerPoints, warship.PowerPoints);
             }
         }
 
@@ -80,9 +80,9 @@ namespace IntegrationTests
             {
                 Warship originalWarship = originalAccount.Warships.Single(w => w.Id == warship.Id);
                 int originalWarshipRating = originalWarship.MatchResultForPlayers.Sum(mr => mr.WarshipRatingDelta);
-                int originalWarshipPowerPoints = originalWarship.WarshipPowerPoints.Sum(wpp => wpp.Quantity);
+                // int originalWarshipPowerPoints = originalWarship.WarshipPowerPoints.Sum(wpp => wpp.Quantity);
                 Assert.AreEqual(originalWarshipRating, warship.WarshipRating);
-                Assert.AreEqual(originalWarshipPowerPoints, warship.PowerPoints);
+                // Assert.AreEqual(originalWarshipPowerPoints, warship.PowerPoints);
             }
         }
         
@@ -121,9 +121,9 @@ namespace IntegrationTests
             {
                 Warship originalWarship = originalAccount.Warships.Single(w => w.Id == warship.Id);
                 int originalWarshipRating = originalWarship.MatchResultForPlayers.Sum(mr => mr.WarshipRatingDelta);
-                int originalWarshipPowerPoints = originalWarship.WarshipPowerPoints.Sum(wpp => wpp.Quantity);
+                // int originalWarshipPowerPoints = originalWarship.WarshipPowerPoints.Sum(wpp => wpp.Quantity);
                 Assert.AreEqual(originalWarshipRating, warship.WarshipRating);
-                Assert.AreEqual(originalWarshipPowerPoints, warship.PowerPoints);
+                // Assert.AreEqual(originalWarshipPowerPoints, warship.PowerPoints);
             }
         }
     }

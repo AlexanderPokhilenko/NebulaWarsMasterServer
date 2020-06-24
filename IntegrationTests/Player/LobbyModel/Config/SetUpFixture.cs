@@ -29,7 +29,7 @@ namespace IntegrationTests
             DbContext = new DbContextFactory().Create(databaseName);
             //Ввести базовые данные
             var seeder = new DataSeeder();
-            seeder.TrySeed(DbContext);
+            seeder.Seed(DbContext);
             //Прервать текущие сессии
             DbContext.Accounts.FromSql(new RawSqlString("ALTER DATABASE {0} SET postgres WITH ROLLBACK IMMEDIATE"), databaseName);
             //Очиста аккаунта

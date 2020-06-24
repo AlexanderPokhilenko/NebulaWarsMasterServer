@@ -28,7 +28,7 @@ select a.*, w.*, wt.*, wcr.*,
             from ""Accounts"" a
                 inner join ""Warships"" w on a.""Id"" = w.""AccountId""
             inner join ""WarshipTypes"" wt on w.""WarshipTypeId"" = wt.""Id""
-            inner join ""WarshipCombatRole"" wcr on wt.""WarshipCombatRoleId"" = wcr.""Id""
+            inner join ""WarshipCombatRoles"" wcr on wt.""WarshipCombatRoleId"" = wcr.""Id""
             left join ""MatchResultForPlayers"" matchResult on w.""Id"" = matchResult.""WarshipId""
             left join ""Lootbox"" lootbox on lootbox.""AccountId"" = a.""Id""    
             left join ""LootboxPrizeWarshipPowerPoints"" prizeWarshipPowerPoints on prizeWarshipPowerPoints.""LootboxId""=lootbox.""Id""

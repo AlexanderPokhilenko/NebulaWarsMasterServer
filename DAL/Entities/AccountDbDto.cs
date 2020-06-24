@@ -11,10 +11,10 @@ namespace DataLayer.Tables
         public DateTime RegistrationDateTime { get; set; }
         public int SoftCurrency { get; set; }
         public int HardCurrency { get; set; }
-        public int SmallLootboxPoints { get; set; }
+        public int LootboxPoints { get; set; }
         public int Rating { get; set; }
         
         public List<WarshipDbDto> Warships { get; set; } = new List<WarshipDbDto>();
-        public List<LootboxDb> Lootboxes { get; set; } = new List<LootboxDb>();
+        // public List<LootboxDb> Lootboxes { get; set; } = new List<LootboxDb>();
     }
 }

@@ -18,7 +18,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 SoftCurrency = account.SoftCurrency,
                 HardCurrency = account.HardCurrency,
                 BigLootboxPoints = 0,
-                SmallLootboxPoints = account.SmallLootboxPoints,
+                SmallLootboxPoints = account.LootboxPoints,
                 Warships = new List<WarshipDto>()
             };
 

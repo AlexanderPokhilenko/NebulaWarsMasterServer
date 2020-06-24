@@ -5,42 +5,36 @@ using DataLayer.Tables;
 
 namespace AmoebaGameMatcherServer
 {
-    public class DataSeeder
+    public class WarshipTypesSeeder
     {
-        public void TrySeed(ApplicationDbContext dbContext)
+        public void Seed(ApplicationDbContext dbContext)
         {
-            //Если таблица пуста
             if (!dbContext.WarshipTypes.Any())
             {
                 var warshipTypes = new List<WarshipType>
                 {
                     new WarshipType
                     {
+                        Id = WarshipTypeEnum.Hare,
                         Name = "hare",
                         Description = "The hare attacks the enemies with four cannons. It is great for suppression fire. His ability is a shot with a huge charge of plasma.",
-                        WarshipCombatRole = new WarshipCombatRole
-                        {
-                            Name = "DURABLE"
-                        }
+                        WarshipCombatRoleId = WarshipCombatRoleEnum.Tank
                     },
                     new WarshipType
                     {
+                        Id = WarshipTypeEnum.Bird,
                         Name = "bird", 
                         Description = "The bird attacks the enemies with plasma charges and a laser. The laser breaks through any obstacles. Bird is the fastest ship.",
-                        WarshipCombatRole = new WarshipCombatRole
-                        {
-                            Name = "DAMAGE DEALER"
-                        }
+                        WarshipCombatRoleId = WarshipCombatRoleEnum.DamageDealer
                     },new WarshipType
                     {
+                        Id = WarshipTypeEnum.Smiley,
                         Name = "smiley",
                         Description = "The smiley attacks the enemies with eight cannons. This ship has more HP, than hare and bird, but slower.",
-                        WarshipCombatRole = new WarshipCombatRole
-                        {
-                            Name = "TANK"
-                        }
+                        WarshipCombatRoleId = WarshipCombatRoleEnum.Tank
                     }
                 };
+                
                 dbContext.WarshipTypes.AddRange(warshipTypes);
                 dbContext.SaveChanges();
             }

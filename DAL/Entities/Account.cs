@@ -14,8 +14,7 @@ namespace DataLayer.Tables
         [Required] public DateTime RegistrationDateTime { get; set; }
     
         public List<Warship> Warships { get; set; } = new List<Warship>();
-        public List<LootboxDb> Lootboxes { get; set; } = new List<LootboxDb>();
-        public List<TestPurchase> Purchases { get; set; } = new List<TestPurchase>();
+        public List<Order> Orders { get; set; } = new List<Order>();
         
         public override string ToString()
         {
@@ -25,20 +24,9 @@ namespace DataLayer.Tables
             stringBuilder.Append($"{nameof(ServiceId)} {ServiceId} ");
             stringBuilder.Append($"{nameof(RegistrationDateTime)} {RegistrationDateTime} ");
             stringBuilder.Append($"warshipsCount {Warships?.Count} ");
-            stringBuilder.Append($"lootboxesCount {Lootboxes?.Count} ");
             return stringBuilder.ToString();
         }
     }
 
-    // public class Purchase
-    // {
-    //     [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
-    //
-    //     [Required] public int AccountId { get; set; }
-    //     [Required] public DateTime DateTime { get; set; }
-    //     [Required] public int SoftCurrencyDelta { get; set; }
-    //     [Required] public int HardCurrencyDelta { get; set; }
-    //
-    //     public Account Account { get; set; }
-    // }
+    
 }

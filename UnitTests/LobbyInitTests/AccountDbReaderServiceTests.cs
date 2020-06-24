@@ -44,7 +44,7 @@
 //             Assert.AreEqual(accountRating, playerInfo.AccountRating);
 //             Assert.AreEqual(account.HardCurrency, playerInfo.HardCurrency);
 //             Assert.AreEqual(account.SoftCurrency, playerInfo.SoftCurrency);
-//             Assert.AreEqual(account.SmallLootboxPoints, playerInfo.SmallLootboxPoints);
+//             Assert.AreEqual(account.LootboxPoints, playerInfo.LootboxPoints);
 //         }
 //         
 //         /// <summary>

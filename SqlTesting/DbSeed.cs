@@ -20,7 +20,7 @@ namespace DeleteMe1
         {
             try
             {
-                new DataSeeder().TrySeed(dbContext);
+                new DataSeeder().Seed(dbContext);
                 AccountBuilder builder = new AccountBuilder();
                 AccountDirector accountDirector = new SmallAccountDirector(builder, dbContext);
                 accountDirector.WriteToDatabase();

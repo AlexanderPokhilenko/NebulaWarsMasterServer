@@ -49,7 +49,7 @@ select
 
         --Баллы для маленького сундука
             (coalesce(
-        (select sum(MRFP.""SmallLootboxPoints"")
+        (select sum(MRFP.""LootboxPoints"")
             from ""Accounts"" A1
             join ""Warships"" W on A1.""Id"" = W.""AccountId""
         join ""MatchResultForPlayers"" MRFP on W.""Id"" = MRFP.""WarshipId""
@@ -63,7 +63,7 @@ select
         join ""LootboxPrizeSmallLootboxPoints"" LPSLP on L.""Id"" = LPSLP.""LootboxId""
         where A.""ServiceId"" = @serviceIdPar
         )
-        , 0)) as ""SmallLootboxPoints""
+        , 0)) as ""LootboxPoints""
         ;";
 
         private readonly NpgsqlConnection connection;
@@ -76,7 +76,7 @@ select
         public async Task<DapperHelperAccountResources> GetAccountResourcesAsync([NotNull] string serviceId)
         {
             var parameters = new {serviceIdPar = serviceId};
-            DapperHelperAccountResources accountResources = await connection
+            var accountResources = await connection
                 .QuerySingleAsync<DapperHelperAccountResources>(sqlSelectAccountResourcesInfo, parameters);
 
             return accountResources;

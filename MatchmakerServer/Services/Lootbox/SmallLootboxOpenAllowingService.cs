@@ -31,7 +31,7 @@ namespace AmoebaGameMatcherServer.Controllers
             }
 
             // //TODO добавить нормальное чтения аккаунта
-            // if (account.SmallLootboxPoints < 100)
+            // if (account.LootboxPoints < 100)
             // {
             //     return false;
             // }
