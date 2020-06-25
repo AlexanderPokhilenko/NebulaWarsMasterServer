@@ -18,7 +18,7 @@ select
     (select sum(MRFP.""SoftCurrencyDelta"")
         from ""Accounts"" A1
             join ""Warships"" W on A1.""Id"" = W.""AccountId""
-        join ""BattleRoyaleMatchResults"" MRFP on W.""Id"" = MRFP.""WarshipId""
+        join ""MatchResults"" MRFP on W.""Id"" = MRFP.""WarshipId""
         where A1.""ServiceId"" = @serviceIdPar
         )
         , 0) + 
@@ -52,7 +52,7 @@ select
         (select sum(MRFP.""LootboxPoints"")
             from ""Accounts"" A1
             join ""Warships"" W on A1.""Id"" = W.""AccountId""
-        join ""BattleRoyaleMatchResults"" MRFP on W.""Id"" = MRFP.""WarshipId""
+        join ""MatchResults"" MRFP on W.""Id"" = MRFP.""WarshipId""
         where A1.""ServiceId"" = @serviceIdPar
         )
         , 0) +

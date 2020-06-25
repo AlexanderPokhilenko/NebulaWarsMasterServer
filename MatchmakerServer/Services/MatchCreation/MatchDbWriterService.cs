@@ -25,10 +25,10 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
             ApplicationDbContext dbContext = dbContextFactory.Create();
             
             //Создать объекты для результатов боя игроков
-            var playersResult = new List<BattleRoyaleMatchResult>();
+            var playersResult = new List<MatchResult>();
             // foreach (var playerQueueInfo in playersQueueInfo)
             // {
-            //     BattleRoyaleMatchResult matchResultForPlayer = new BattleRoyaleMatchResult
+            //     MatchResult matchResultForPlayer = new MatchResult
             //     {
             //         WarshipId = playerQueueInfo.GetWarshipId(),
             //         WasShown = false
@@ -44,7 +44,7 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
                 StartTime = DateTime.UtcNow,
                 GameServerIp = matchRoutingData.GameServerIp,
                 GameServerUdpPort = matchRoutingData.GameServerPort,
-                MatchResultForPlayers = playersResult
+                MatchResults = playersResult
             };
 
             await dbContext.Matches.AddAsync(match);

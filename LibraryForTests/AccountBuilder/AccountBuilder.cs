@@ -40,12 +40,12 @@ namespace LibraryForTests
             // //Добавить мачти для корабля
             // for (int j = 0; j < numberOfMatches; j++)
             // {
-            //     BattleRoyaleMatchResult matchResultForPlayer;
+            //     MatchResult matchResultForPlayer;
             //     DateTime start = new DateTime(2020, 1, 1).AddDays(random.Next(100));
             //     bool isFinished = random.Next() % 2 == 0;
             //     if (isFinished)
             //     {
-            //         matchResultForPlayer = new BattleRoyaleMatchResult()
+            //         matchResultForPlayer = new MatchResult()
             //         {    
             //             IsFinished = true,
             //             WasShown = random.Next()%2 == 0,
@@ -65,7 +65,7 @@ namespace LibraryForTests
             //     }
             //     else
             //     {
-            //         matchResultForPlayer = new BattleRoyaleMatchResult()
+            //         matchResultForPlayer = new MatchResult()
             //         {    
             //             IsFinished = false,
             //             WasShown = false,
@@ -84,7 +84,7 @@ namespace LibraryForTests
             //         };
             //     }
             //     
-            //     warship.BattleRoyaleMatchResults.Add(matchResultForPlayer);
+            //     warship.MatchResults.Add(matchResultForPlayer);
             // }
             //
             // account.Warships.Add(warship);

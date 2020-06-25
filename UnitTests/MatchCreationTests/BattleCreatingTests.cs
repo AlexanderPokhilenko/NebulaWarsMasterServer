@@ -101,15 +101,15 @@ namespace MatchmakerTest
 
             //Матч записан в базу
             var match = dbContext.Matches
-                .Include(match1 => match1.MatchResultForPlayers)
+                .Include(match1 => match1.MatchResults)
                 .SingleOrDefault(match1 => match1.Id == result.MatchId);
             Assert.IsNotNull(match);
 
             //Есть информация про игроков
-            Assert.IsNotNull(match.MatchResultForPlayers);
+            Assert.IsNotNull(match.MatchResults);
 
             //Количество игроков в БД правильное
-            List<int> playerInMatchIds = match.MatchResultForPlayers.Select(matchResult => matchResult.Warship.AccountId).ToList();
+            List<int> playerInMatchIds = match.MatchResults.Select(matchResult => matchResult.Warship.AccountId).ToList();
             Assert.AreEqual(numberOfPlayersInMatch, playerInMatchIds.Count);
 
             //Информация про игроков в бою была записана в БД
@@ -198,7 +198,7 @@ namespace MatchmakerTest
             Assert.AreEqual(expectedNumberOfMatches, matchesCount);
 
             //В базе появилась информация про m игроков в бою
-            int playerBattleInfoCount = dbContext.BattleRoyaleMatchResults.Count();
+            int playerBattleInfoCount = dbContext.MatchResults.Count();
             Assert.AreEqual(countOfAccounts, playerBattleInfoCount);
         }
         
@@ -282,7 +282,7 @@ namespace MatchmakerTest
             Assert.AreEqual(1, matchesCount);
 
             //В БД появилась информация про игроков в бою
-            int playerBattleInfoCount = dbContext.BattleRoyaleMatchResults.Count();
+            int playerBattleInfoCount = dbContext.MatchResults.Count();
             Assert.AreEqual(countOfPlayersInQueue, playerBattleInfoCount);
         }
     }

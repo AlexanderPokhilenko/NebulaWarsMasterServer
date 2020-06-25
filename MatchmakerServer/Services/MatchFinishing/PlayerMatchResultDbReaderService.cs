@@ -5,6 +5,7 @@ using DataLayer;
 using DataLayer.Tables;
 using Libraries.NetworkLibrary.Experimental;
 using Microsoft.EntityFrameworkCore;
+using MatchResult = DataLayer.Tables.MatchResult;
 
 namespace AmoebaGameMatcherServer.Services.MatchFinishing
 {
@@ -23,9 +24,9 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             this.warshipReaderService = warshipReaderService;
         }
 
-        public async Task<MatchResult> ReadMatchResultAsync(int matchId, string playerServiceId)
+        public async Task<Libraries.NetworkLibrary.Experimental.MatchResult> ReadMatchResultAsync(int matchId, string playerServiceId)
         {
-            BattleRoyaleMatchResult battleRoyaleMatchResultDb = await dbContext.BattleRoyaleMatchResults
+            MatchResult matchResultDb = await dbContext.MatchResults
                 .Include(matchResult1=>matchResult1.Warship)
                     .ThenInclude(warship => warship.WarshipType)
                 .SingleOrDefaultAsync(rec => 
@@ -33,29 +34,29 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                     && rec.Warship.Account.ServiceId == playerServiceId);
             
             //Такой матч существует?
-            if (battleRoyaleMatchResultDb == null)
+            if (matchResultDb == null)
             {
                 Console.WriteLine("\n\n\n\n\n\nmatchResult == null");
                 return null;
             }
             
             //Результат игрока записан?
-            if (!battleRoyaleMatchResultDb.IsFinished)
+            if (!matchResultDb.IsFinished)
             {
                 Console.WriteLine("Игрок не закончил этот матч.");
                 return null;
             }
 
 
-            int currentWarshipRating = await warshipReaderService.ReadWarshipRatingAsync(battleRoyaleMatchResultDb.WarshipId);
+            int currentWarshipRating = await warshipReaderService.ReadWarshipRatingAsync(matchResultDb.WarshipId);
             
             
-            MatchResult matchResult = new MatchResult();
+            Libraries.NetworkLibrary.Experimental.MatchResult matchResult = new Libraries.NetworkLibrary.Experimental.MatchResult();
             matchResult.CurrentSpaceshipRating = currentWarshipRating;
-            // matchResult.MatchRatingDelta = battleRoyaleMatchResultDb.WarshipRatingDelta;
-            // matchResult.PointsForSmallChest = battleRoyaleMatchResultDb.SmallLootboxPoints;
+            // matchResult.MatchRatingDelta = matchResultDb.WarshipRatingDelta;
+            // matchResult.PointsForSmallChest = matchResultDb.SmallLootboxPoints;
             matchResult.DoubleTokens = false;
-            matchResult.SpaceshipPrefabName = battleRoyaleMatchResultDb.Warship.WarshipType.Name;
+            matchResult.SpaceshipPrefabName = matchResultDb.Warship.WarshipType.Name;
 
             return matchResult; 
         }

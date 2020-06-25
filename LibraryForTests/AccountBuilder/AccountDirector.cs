@@ -40,7 +40,7 @@ namespace LibraryForTests
         public int GetAccountRating()
         {
             // return Builder.GetAccount().Warships
-            //            .SelectMany(warship => warship.BattleRoyaleMatchResults)
+            //            .SelectMany(warship => warship.MatchResults)
             //            .Sum(matchResult => matchResult.WarshipRatingDelta);
             throw new Exception();
         }
@@ -49,7 +49,7 @@ namespace LibraryForTests
         {
             throw new Exception();
             // int fromMatches = Builder.GetAccount().Warships
-            //     .SelectMany(warship => warship.BattleRoyaleMatchResults)
+            //     .SelectMany(warship => warship.MatchResults)
             //     .Sum(matchResult => matchResult.SoftCurrencyDelta);
             //
             // Console.WriteLine($"{nameof(fromMatches)} {fromMatches}");
@@ -74,7 +74,7 @@ namespace LibraryForTests
         {
             throw new Exception();
             // int fromMatches = Builder.GetAccount().Warships
-            //     .SelectMany(warship => warship.BattleRoyaleMatchResults)
+            //     .SelectMany(warship => warship.MatchResults)
             //     .Where( matchResult=> !matchResult.WasShown )
             //     .Sum(matchResult => matchResult.SoftCurrencyDelta);
             // int fromLootboxes = 0;
@@ -102,7 +102,7 @@ namespace LibraryForTests
         {
             throw new Exception();
             // int fromMatches = Builder.GetAccount().Warships
-            //     .SelectMany(warship => warship.BattleRoyaleMatchResults)
+            //     .SelectMany(warship => warship.MatchResults)
             //     .Where( matchResult=> !matchResult.WasShown )
             //     .Sum(matchResult => matchResult.SmallLootboxPoints);
             
@@ -120,7 +120,7 @@ namespace LibraryForTests
         {
             throw new Exception();
             // return Builder.GetAccount().Warships
-            //     .SelectMany(warship => warship.BattleRoyaleMatchResults)
+            //     .SelectMany(warship => warship.MatchResults)
             //     .Where(matchResult => matchResult.IsFinished && !matchResult.WasShown)
             //     .Sum(matchResult => matchResult.WarshipRatingDelta);
         }

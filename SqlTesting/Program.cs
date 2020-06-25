@@ -34,7 +34,7 @@ namespace DeleteMe1
                   select a.*, w.*, wt.*,
        (
 		   select sum(mr.""WarshipRatingDelta"")
-            from ""BattleRoyaleMatchResults"" mr
+            from ""MatchResults"" mr
                 where mr.""WarshipId"" = w.""Id""
                 )									 		as ""WarshipRating"",
             (
@@ -53,7 +53,7 @@ namespace DeleteMe1
             from ""Accounts"" a
                 inner join ""Warships"" w on a.""Id"" = w.""AccountId""
             inner join ""WarshipTypes"" wt on w.""WarshipTypeId"" = wt.""Id""
-            left join ""BattleRoyaleMatchResults"" matchResult on w.""Id"" = matchResult.""WarshipId""
+            left join ""MatchResults"" matchResult on w.""Id"" = matchResult.""WarshipId""
             left join ""Lootbox"" lootbox on lootbox.""AccountId"" = a.""Id""
             left join ""LootboxPrizeSmallLootboxPoints"" prizeSmallLootboxPoints on prizeSmallLootboxPoints.""LootboxId"" = lootbox.""Id""
             left join ""LootboxPrizeSoftCurrency"" prizeRegularCurrency on prizeRegularCurrency.""LootboxId""=lootbox.""Id""

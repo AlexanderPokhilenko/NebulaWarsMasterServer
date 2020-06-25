@@ -40,37 +40,37 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                 Console.WriteLine("Этот игрок не в бою UpdatePlayerMatchResultInDbAsync");
                 return false;
             }
-            
-            //Достать результат боя из БД
-            BattleRoyaleMatchResult battleRoyaleMatchResult = await dbContext.BattleRoyaleMatchResults
-                .Where(matchResult => matchResult.MatchId == matchId && matchResult.Warship.AccountId == accountId)
-                .SingleAsync();
-
-            //Прочитать текущий рейтинг корабля. Он нужен для вычисления награды за бой.
-            int currentWarshipRating = await warshipReaderService.ReadWarshipRatingAsync(battleRoyaleMatchResult.WarshipId);
-            
-            //Вычислить награду за бой
-            MatchReward matchReward = battleRoyaleMatchRewardCalculatorService
-                .Calculate(placeInMatch, currentWarshipRating);
-           
-            //Обновить поля результата в БД 
-            battleRoyaleMatchResult.PlaceInMatch = placeInMatch;
-            // battleRoyaleMatchResult.SoftCurrencyDelta = matchReward.SoftCurrencyDelta;
-            // battleRoyaleMatchResult.WarshipRatingDelta = matchReward.WarshipRatingDelta;
-            // battleRoyaleMatchResult.BigLootboxPoints = matchReward.BigLootboxPoints;
-            // battleRoyaleMatchResult.SmallLootboxPoints = matchReward.SmallLootboxPoints;
-            //Пометить, что игрок вышел окончил бой
-            battleRoyaleMatchResult.IsFinished = true;
-            
-            //Сохранить результат боя в БД
-            await dbContext.SaveChangesAsync();
-            
-            //Удалить игрока из памяти
-            bool success = unfinishedMatchesSingletonService.TryRemovePlayerFromMatch(account.ServiceId);
-            if (!success)
-            {
-                throw new Exception("Не удалось удалить игрока из матча ");
-            }
+            //
+            // //Достать результат боя из БД
+            // MatchResult matchResult = await dbContext.MatchResults
+            //     .Where(matchResult => matchResult.MatchId == matchId && matchResult.Warship.AccountId == accountId)
+            //     .SingleAsync();
+            //
+            // //Прочитать текущий рейтинг корабля. Он нужен для вычисления награды за бой.
+            // int currentWarshipRating = await warshipReaderService.ReadWarshipRatingAsync(matchResult.WarshipId);
+            //
+            // //Вычислить награду за бой
+            // MatchReward matchReward = battleRoyaleMatchRewardCalculatorService
+            //     .Calculate(placeInMatch, currentWarshipRating);
+            //
+            // //Обновить поля результата в БД 
+            // matchResult.PlaceInMatch = placeInMatch;
+            // // matchResult.SoftCurrencyDelta = matchReward.SoftCurrencyDelta;
+            // // matchResult.WarshipRatingDelta = matchReward.WarshipRatingDelta;
+            // // matchResult.BigLootboxPoints = matchReward.BigLootboxPoints;
+            // // matchResult.SmallLootboxPoints = matchReward.SmallLootboxPoints;
+            // //Пометить, что игрок вышел окончил бой
+            // matchResult.IsFinished = true;
+            //
+            // //Сохранить результат боя в БД
+            // await dbContext.SaveChangesAsync();
+            //
+            // //Удалить игрока из памяти
+            // bool success = unfinishedMatchesSingletonService.TryRemovePlayerFromMatch(account.ServiceId);
+            // if (!success)
+            // {
+            //     throw new Exception("Не удалось удалить игрока из матча ");
+            // }
 
             return true;
         }
@@ -79,7 +79,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
         {
             //Поставить дату окончания матча
             Match match = await dbContext.Matches
-                .Include(match1 => match1.MatchResultForPlayers)
+                .Include(match1 => match1.MatchResults)
                 .ThenInclude(matchResultResultForPlayer => matchResultResultForPlayer.Warship)
                 .Where(match1 => match1.Id == matchId)
                 .SingleOrDefaultAsync();
@@ -88,15 +88,15 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             
             //Дозаписать результаты для победителей
             //Для них результаты не были записаны, так как они не умирали
-            var incompleteMatchResults = match.MatchResultForPlayers
+            var incompleteMatchResults = match.MatchResults
                 .Where(matchResult => matchResult.IsFinished == false)
                 .ToList();
             
             for(int i = 0; i < incompleteMatchResults.Count; i++)
             {
-                BattleRoyaleMatchResult battleRoyaleMatchResult = incompleteMatchResults[i];
+                MatchResult matchResult = incompleteMatchResults[i];
                 int placeInMatch = ++i;
-                await UpdatePlayerMatchResultInDbAsync(battleRoyaleMatchResult.Warship.AccountId, placeInMatch, matchId);
+                await UpdatePlayerMatchResultInDbAsync(matchResult.Warship.AccountId, placeInMatch, matchId);
             }
             
             //Удалить матч из памяти

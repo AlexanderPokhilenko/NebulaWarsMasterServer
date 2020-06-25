@@ -20,7 +20,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                   --Достаёт всю информацию про корабли аккаунта
 select a.*, w.*, wt.*, wcr.*,
         (select coalesce(sum(mr.""WarshipRatingDelta""), 0)
-        from ""BattleRoyaleMatchResults"" mr
+        from ""MatchResults"" mr
             where mr.""WarshipId"" = w.""Id"")                                      	as ""WarshipRating"",
         (select sum(increments.""WarshipPowerPoints"")
             from ""Increments"" increments
@@ -31,7 +31,7 @@ select a.*, w.*, wt.*, wcr.*,
             inner join ""Warships"" w on a.""Id"" = w.""AccountId""
         inner join ""WarshipTypes"" wt on w.""WarshipTypeId"" = wt.""Id""
         inner join ""WarshipCombatRoles"" wcr on wt.""WarshipCombatRoleId"" = wcr.""Id""
-        left join ""BattleRoyaleMatchResults"" matchResult on w.""Id"" = matchResult.""WarshipId""
+        left join ""MatchResults"" matchResult on w.""Id"" = matchResult.""WarshipId""
         where a.""ServiceId"" = @serviceIdPar
         group by a.""Id"", w.""Id"", wt.""Id"", wcr.""Id""
         ;

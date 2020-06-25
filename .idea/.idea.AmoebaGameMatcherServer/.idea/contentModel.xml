@@ -31,8 +31,10 @@
           <e p="Account.cs" t="Include" />
           <e p="AccountDbDto.cs" t="Include" />
           <e p="Matches" t="Include">
-            <e p="BattleRoyaleMatchResult.cs" t="Include" />
+            <e p="GameMode.cs" t="Include" />
+            <e p="GameModeEnum.cs" t="Include" />
             <e p="Match.cs" t="Include" />
+            <e p="MatchResult.cs" t="Include" />
             <e p="WarshipImprovementPurchase.cs" t="Include" />
           </e>
           <e p="Orders" t="Include">

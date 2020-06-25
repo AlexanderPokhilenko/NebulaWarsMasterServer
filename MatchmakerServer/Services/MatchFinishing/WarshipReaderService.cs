@@ -16,9 +16,9 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
         {
             throw new Exception();
             // int currentWarshipRating = await dbContext.Warships
-            //     .Include(warship => warship.BattleRoyaleMatchResults)
+            //     .Include(warship => warship.MatchResults)
             //     .Where(warship => warship.Id == warshipId)
-            //     .SelectMany(warship => warship.BattleRoyaleMatchResults)
+            //     .SelectMany(warship => warship.MatchResults)
             //     .SumAsync(matchResult => matchResult.WarshipRatingDelta);
             //
             // return currentWarshipRating;

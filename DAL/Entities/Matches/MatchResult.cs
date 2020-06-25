@@ -4,13 +4,13 @@ using System.Text;
 
 namespace DataLayer.Tables
 {
-    public class BattleRoyaleMatchResult
+    public class MatchResult
     {
         [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
         
         [Required] public int MatchId { get; set; }
         [Required] public int WarshipId { get; set; }
-        [Required] public int OrderId { get; set; }
+        public int? TransactionId { get; set; }
         
         [Required] public bool IsFinished { get; set; }
         [Required] public int PlaceInMatch { get; set; }

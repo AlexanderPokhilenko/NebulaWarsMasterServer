@@ -14,8 +14,8 @@ namespace DataLayer.Tables
         public DateTime? FinishTime { get; set; }
         [Required] public string GameServerIp { get; set; }
         [Required] public int GameServerUdpPort { get; set; }
-        [Required] public GameMode GameModeId { get; set; }
+        [Required] public GameModeEnum GameModeId { get; set; }
         public GameMode GameMode { get; set; }
-        public List<BattleRoyaleMatchResult> MatchResultForPlayers { get; set; }
+        public List<MatchResult> MatchResults { get; set; }
     }
 }

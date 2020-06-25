@@ -37,7 +37,7 @@
 //             foreach (var warship in account.Warships)
 //             {
 //                 Warship originalWarship = originalAccount.Warships.Single(w => w.Id == warship.Id);
-//                 int originalWarshipRating = originalWarship.BattleRoyaleMatchResults.Sum(mr => mr.WarshipRatingDelta);
+//                 int originalWarshipRating = originalWarship.MatchResults.Sum(mr => mr.WarshipRatingDelta);
 //                 // int originalWarshipPowerPoints = originalWarship.WarshipPowerPoints.Sum(wpp => wpp.Quantity);
 //                 Assert.AreEqual(originalWarshipRating, warship.WarshipRating);
 //                 // Assert.AreEqual(originalWarshipPowerPoints, warship.PowerPoints);
@@ -79,7 +79,7 @@
 //             foreach (var warship in account.Warships)
 //             {
 //                 Warship originalWarship = originalAccount.Warships.Single(w => w.Id == warship.Id);
-//                 int originalWarshipRating = originalWarship.BattleRoyaleMatchResults.Sum(mr => mr.WarshipRatingDelta);
+//                 int originalWarshipRating = originalWarship.MatchResults.Sum(mr => mr.WarshipRatingDelta);
 //                 // int originalWarshipPowerPoints = originalWarship.WarshipPowerPoints.Sum(wpp => wpp.Quantity);
 //                 Assert.AreEqual(originalWarshipRating, warship.WarshipRating);
 //                 // Assert.AreEqual(originalWarshipPowerPoints, warship.PowerPoints);
@@ -120,7 +120,7 @@
 //             foreach (var warship in account.Warships)
 //             {
 //                 Warship originalWarship = originalAccount.Warships.Single(w => w.Id == warship.Id);
-//                 int originalWarshipRating = originalWarship.BattleRoyaleMatchResults.Sum(mr => mr.WarshipRatingDelta);
+//                 int originalWarshipRating = originalWarship.MatchResults.Sum(mr => mr.WarshipRatingDelta);
 //                 // int originalWarshipPowerPoints = originalWarship.WarshipPowerPoints.Sum(wpp => wpp.Quantity);
 //                 Assert.AreEqual(originalWarshipRating, warship.WarshipRating);
 //                 // Assert.AreEqual(originalWarshipPowerPoints, warship.PowerPoints);

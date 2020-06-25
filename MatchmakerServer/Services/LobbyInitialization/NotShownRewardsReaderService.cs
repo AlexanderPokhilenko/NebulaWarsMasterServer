@@ -49,8 +49,8 @@ namespace AmoebaGameMatcherServer.Controllers
             // var result = new RewardsThatHaveNotBeenShown(); 
             //
             // //Список законченных боёв, результат которых не был показан
-            // List<BattleRoyaleMatchResult> matchResults =  await dbContext
-            //     .BattleRoyaleMatchResults
+            // List<MatchResult> matchResults =  await dbContext
+            //     .MatchResults
             //     .Where(matchResultForPlayer => matchResultForPlayer.Warship.AccountId == accountId 
             //                      && !matchResultForPlayer.WasShown 
             //                      && matchResultForPlayer.IsFinished)
@@ -58,7 +58,7 @@ namespace AmoebaGameMatcherServer.Controllers
             //
             // for (var index = 0; index < matchResults.Count; index++)
             // {
-            //     BattleRoyaleMatchResult matchResultForPlayer = matchResults[index];
+            //     MatchResult matchResultForPlayer = matchResults[index];
             //     result.AccountRating += matchResultForPlayer.WarshipRatingDelta;
             //     result.SoftCurrency += matchResultForPlayer.SoftCurrencyDelta;
             //     result.SmallLootboxPoints += matchResultForPlayer.SmallLootboxPoints;
