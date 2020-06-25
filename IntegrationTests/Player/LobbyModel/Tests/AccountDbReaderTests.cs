@@ -29,8 +29,8 @@
 //             Assert.AreEqual(originalAccount.Username, account.Username);
 //             Assert.AreEqual(originalAccount.ServiceId, account.ServiceId);
 //             Assert.AreEqual(originalAccountRating, account.Rating);
-//             Assert.AreEqual(originalAccountRegularCurrency, account.SoftCurrency);
-//             Assert.AreEqual(originalAccountPremiumCurrency, account.HardCurrency);
+//             Assert.AreEqual(originalAccountRegularCurrency, account.SoftCurrencyDelta);
+//             Assert.AreEqual(originalAccountPremiumCurrency, account.HardCurrencyDelta);
 //             
 //             
 //             //TODO заменить это
@@ -72,8 +72,8 @@
 //             Assert.AreEqual(originalAccount.Username, account.Username);
 //             Assert.AreEqual(originalAccount.ServiceId, account.ServiceId);
 //             Assert.AreEqual(originalAccountRating, account.Rating);
-//             Assert.AreEqual(originalAccountRegularCurrency, account.SoftCurrency);
-//             Assert.AreEqual(originalAccountPremiumCurrency, account.HardCurrency);
+//             Assert.AreEqual(originalAccountRegularCurrency, account.SoftCurrencyDelta);
+//             Assert.AreEqual(originalAccountPremiumCurrency, account.HardCurrencyDelta);
 //
 //             //TODO заменить это
 //             foreach (var warship in account.Warships)
@@ -113,8 +113,8 @@
 //             Assert.AreEqual(originalAccount.Username, account.Username);
 //             Assert.AreEqual(originalAccount.ServiceId, account.ServiceId);
 //             Assert.AreEqual(originalAccountRating, account.Rating);
-//             Assert.AreEqual(originalAccountRegularCurrency, account.SoftCurrency);
-//             Assert.AreEqual(originalAccountPremiumCurrency, account.HardCurrency);
+//             Assert.AreEqual(originalAccountRegularCurrency, account.SoftCurrencyDelta);
+//             Assert.AreEqual(originalAccountPremiumCurrency, account.HardCurrencyDelta);
 //             
 //             //TODO заменить это
 //             foreach (var warship in account.Warships)

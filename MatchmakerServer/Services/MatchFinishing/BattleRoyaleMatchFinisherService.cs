@@ -58,7 +58,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             // // matchResult.SoftCurrencyDelta = matchReward.SoftCurrencyDelta;
             // // matchResult.WarshipRatingDelta = matchReward.WarshipRatingDelta;
             // // matchResult.BigLootboxPoints = matchReward.BigLootboxPoints;
-            // // matchResult.SmallLootboxPoints = matchReward.SmallLootboxPoints;
+            // // matchResult.LootboxPointsDelta = matchReward.LootboxPointsDelta;
             // //Пометить, что игрок вышел окончил бой
             // matchResult.IsFinished = true;
             //

@@ -1,39 +1,12 @@
-﻿select
-    (
-        coalesce(
-                sum(MR."SoftCurrencyDelta")    
-            ,0)
-         +
-        coalesce(
-                sum(LPSC."Quantity")
-            ,0)
-    ) as "SoftCurrencyDelta",
-       
-    (
-     coalesce(
-            sum(MR."SmallLootboxPoints")
-         ,0)
-         +
-     coalesce(
-         sum(LPSLP."Quantity")
-         ,0)
-    ) as "SmallLootboxPoints",
-    (
-            coalesce(
-                    sum(MR."WarshipRatingDelta")
-                ,0)
-            
-        ) as "AccountRatingDelta"
-
-from "Accounts" a
-
-         inner join "Warships" W on W."AccountId" = a."Id"
-         inner join "MatchResultForPlayers" MR on MR."WarshipId" = W."Id"
-
-         inner join "Lootbox" L on L."AccountId" = a."Id"
-         inner join "LootboxPrizeSmallLootboxPoints" LPSLP on LPSLP."LootboxId" = L."Id"
-         inner join "LootboxPrizeSoftCurrency" LPSC on LPSC."LootboxId"= L."Id"
-
-where a."ServiceId" = 'serviceId_17:03:38' 
-  and  MR."WasShown"=false 
-  and L."WasShown"=false;
+﻿select T."Id",
+    (coalesce(sum(I."SoftCurrency"),0)-coalesce(sum(D."SoftCurrency"),0)) as "SoftCurrencyDelta",
+    (coalesce(sum(I."HardCurrency"),0)-coalesce(sum(D."HardCurrency"),0)) as "HardCurrencyDelta",       
+    (coalesce(sum(I."LootboxPoints"),0)-coalesce(sum(D."LootboxPoints"),0)) as "LootboxPointsDelta",       
+    (coalesce(sum(I."WarshipRating"),0)-coalesce(sum(D."WarshipRating"),0)) as "AccountRatingDelta"
+from "Accounts" A
+     inner join "Transactions" T on T."AccountId" = A."Id"
+     inner join "Resources" R on T."Id" = R."TransactionId"   
+     inner join "Increments" I on R."Id" = I."ResourceId"   
+     inner join "Decrements" D on R."Id" = D."ResourceId"
+where A."ServiceId" = 'serviceId' and  T."WasShown" = false
+group by T."Id";

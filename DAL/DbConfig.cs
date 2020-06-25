@@ -9,7 +9,7 @@ namespace DataLayer
         
         static DbConfig()
         {
-            string num = "040";
+            string num = "041";
             conStrBuilder = new DbConnectionStringBuilder
             {
                 {"User ID", "postgres"},

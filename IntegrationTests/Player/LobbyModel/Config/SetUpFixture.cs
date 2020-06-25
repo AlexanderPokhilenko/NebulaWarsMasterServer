@@ -38,7 +38,7 @@ namespace IntegrationTests
             //Создать сервисы
             NpgsqlConnection conn = new NpgsqlConnection(connectionString);
             AccountReaderService = new AccountDbReaderService(conn);
-            NotShownRewardsReaderService = new NotShownRewardsReaderService(DbContext);
+            NotShownRewardsReaderService = new NotShownRewardsReaderService(null);
             var accountRegistrationService = new AccountRegistrationService(DbContext);
             AccountFacadeService = new AccountFacadeService(AccountReaderService, accountRegistrationService);
             LobbyModelFacadeService = new LobbyModelFacadeService(AccountFacadeService, NotShownRewardsReaderService);

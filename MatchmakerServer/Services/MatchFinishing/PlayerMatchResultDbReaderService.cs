@@ -54,7 +54,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             Libraries.NetworkLibrary.Experimental.MatchResult matchResult = new Libraries.NetworkLibrary.Experimental.MatchResult();
             matchResult.CurrentSpaceshipRating = currentWarshipRating;
             // matchResult.MatchRatingDelta = matchResultDb.WarshipRatingDelta;
-            // matchResult.PointsForSmallChest = matchResultDb.SmallLootboxPoints;
+            // matchResult.PointsForSmallChest = matchResultDb.LootboxPointsDelta;
             matchResult.DoubleTokens = false;
             matchResult.SpaceshipPrefabName = matchResultDb.Warship.WarshipType.Name;
 

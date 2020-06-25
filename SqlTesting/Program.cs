@@ -12,7 +12,7 @@ namespace DeleteMe1
     // public class Test
     // {
     //     public int WarshipRating { get; set; }
-    //     public int SoftCurrency { get; set; }
+    //     public int SoftCurrencyDelta { get; set; }
     //     public int WarshipPowerPoints { get; set; }
     //     public int PointsForSmallLootboxes { get; set; }
     // }
@@ -38,9 +38,9 @@ namespace DeleteMe1
                 where mr.""WarshipId"" = w.""Id""
                 )									 		as ""WarshipRating"",
             (
-                sum(matchResult.""SoftCurrency"") 
+                sum(matchResult.""SoftCurrencyDelta"") 
             + sum(COALESCE(prizeRegularCurrency.""Quantity"",0))
-                )											as ""SoftCurrency"",
+                )											as ""SoftCurrencyDelta"",
             (
                 select sum(wpp.""Quantity"")
             from ""LootboxPrizeWarshipPowerPoints"" wpp

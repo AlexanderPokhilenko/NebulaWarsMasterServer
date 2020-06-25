@@ -11,60 +11,64 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
     public class AccountResourcesDbReader
     {
         private readonly string sqlSelectAccountResourcesInfo = $@"
---Достаёт информацию про ресурсы аккаунта
-select 
-       --Обычная валюта
-(coalesce(
-    (select sum(MRFP.""SoftCurrencyDelta"")
-        from ""Accounts"" A1
-            join ""Warships"" W on A1.""Id"" = W.""AccountId""
-        join ""MatchResults"" MRFP on W.""Id"" = MRFP.""WarshipId""
-        where A1.""ServiceId"" = @serviceIdPar
+select        
+(
+    coalesce((select sum(I.""SoftCurrencyDelta"") 
+        from ""Accounts"" A
+            join ""Transactions"" O on A.""Id"" = O.""AccountId""
+        join ""Resources"" P on O.""Id"" = P.""TransactionId""
+        join ""Increments""  I on P.""Id"" = I.""ResourceId""
+        where A.""ServiceId"" = @serviceIdPar), 0)
+    
+        -
+        coalesce((select sum(D.""SoftCurrencyDelta"")
+            from ""Accounts"" A
+            join ""Transactions"" O on A.""Id"" = O.""AccountId""
+        join ""Resources"" P on O.""Id"" = P.""TransactionId""
+        join ""Decrements""  D on P.""Id"" = D.""ResourceId""
+        where A.""ServiceId"" = @serviceIdPar), 0)
+
+    
+        ) as ""SoftCurrencyDelta"",
+
+        (coalesce((select sum(I.""HardCurrencyDelta"")
+            from ""Accounts"" A
+            join ""Transactions"" T on A.""Id"" = T.""AccountId""
+        join ""Resources"" R on T.""Id"" = R.""TransactionId""
+        join ""Increments""  I on R.""Id"" = I.""ResourceId""
+        where A.""ServiceId"" = @serviceIdPar),0)
+        -
+        coalesce((select sum(D.""HardCurrencyDelta"")
+            from ""Accounts"" A
+            join ""Transactions"" T on A.""Id"" = T.""AccountId""
+        join ""Resources"" R on T.""Id"" = R.""TransactionId""
+        join ""Decrements""  D on R.""Id"" = D.""ResourceId""
+        where A.""ServiceId"" = @serviceIdPar),0)) as ""HardCurrencyDelta"",
+    
+
+        (coalesce(
+        (select sum(I.""LootboxPoints"")
+            from ""Accounts"" A
+            join ""Transactions"" T on A.""Id"" = T.""AccountId""
+        join ""Resources"" R on T.""Id"" = R.""TransactionId""
+        join ""Increments""  I on R.""Id"" = I.""ResourceId""
+        where A.""ServiceId"" = @serviceIdPar
         )
-        , 0) + 
+        , 0) 
+        -
         coalesce(
-            (select sum(LPSC.""Quantity"") 
+            (select sum(D.""LootboxPoints"")
             from ""Accounts"" A
-            join ""Lootbox"" L on A.""Id"" = L.""AccountId""
-        join ""LootboxPrizeSoftCurrency"" LPSC on L.""Id"" = LPSC.""LootboxId""
+            join ""Transactions"" T on A.""Id"" = T.""AccountId""
+        join ""Resources"" R on T.""Id"" = R.""TransactionId""
+        join ""Decrements"" D on R.""Id"" = D.""ResourceId""
         where A.""ServiceId"" = @serviceIdPar
         )
-        , 0)) as ""SoftCurrency"",
+        , 0))
+        as ""LootboxPoints""
+        ;
 
-
-
-        --Премиум валюта
-        --Добавить таблицы с покупками
-        (
-            coalesce(
-        (select sum(LPHC.""Quantity"")
-            from ""Accounts"" A
-            join ""Lootbox"" L on A.""Id"" = L.""AccountId""
-        join ""LootboxPrizeHardCurrency"" LPHC on L.""Id"" = LPHC.""LootboxId""
-        where A.""ServiceId"" = @serviceIdPar
-        )
-        , 0)) as ""HardCurrency"",
-
-
-
-        --Баллы для маленького сундука
-            (coalesce(
-        (select sum(MRFP.""LootboxPoints"")
-            from ""Accounts"" A1
-            join ""Warships"" W on A1.""Id"" = W.""AccountId""
-        join ""MatchResults"" MRFP on W.""Id"" = MRFP.""WarshipId""
-        where A1.""ServiceId"" = @serviceIdPar
-        )
-        , 0) +
-        coalesce(
-            (select sum(LPSLP.""Quantity"")
-            from ""Accounts"" A
-            join ""Lootbox"" L on A.""Id"" = L.""AccountId""
-        join ""LootboxPrizeSmallLootboxPoints"" LPSLP on L.""Id"" = LPSLP.""LootboxId""
-        where A.""ServiceId"" = @serviceIdPar
-        )
-        , 0)) as ""LootboxPoints""
-        ;";
+        ";
 
         private readonly NpgsqlConnection connection;
 

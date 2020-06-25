@@ -45,7 +45,7 @@ namespace AmoebaGameMatcherServer.Controllers
             // {
             //     switch (prize.LootboxPrizeType)
             //     {
-            //         case LootboxPrizeType.SoftCurrency:
+            //         case LootboxPrizeType.SoftCurrencyDelta:
             //             lootboxDb.LootboxPrizeSoftCurrency.Add(new LootboxPrizeSoftCurrency
             //             {
             //                 Quantity = prize.Quantity

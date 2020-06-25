@@ -10,32 +10,42 @@ using Npgsql;
 namespace AmoebaGameMatcherServer.Services.LobbyInitialization
 {
     /// <summary>
-    /// Достёт из БД данные про корабли аккаунта.
+    /// Достаёт из БД данные про корабли аккаунта.
     /// </summary>
     public class DbAccountWarshipsReader
     {
         private readonly NpgsqlConnection connection;
 
-        private readonly string sqlSelectAccountWarshipsInfo = $@"
+        private readonly string sqlSelectAccountWarshipsInfo = @"
                   --Достаёт всю информацию про корабли аккаунта
 select a.*, w.*, wt.*, wcr.*,
-        (select coalesce(sum(mr.""WarshipRatingDelta""), 0)
-        from ""MatchResults"" mr
-            where mr.""WarshipId"" = w.""Id"")                                      	as ""WarshipRating"",
+(
+    select coalesce(
+    
+        (select coalesce(sum(I.""WarshipRating""), 0)
+        from ""Increments"" I
+            where I.""WarshipId"" = w.""Id"")
+        -
+        (select coalesce(sum(D.""WarshipRating""), 0)
+        from ""Decrements"" D
+            where D.""WarshipId"" = w.""Id"")
+
+        ,0)) as ""WarshipRating"",
+       
         (select sum(increments.""WarshipPowerPoints"")
             from ""Increments"" increments
-            inner join ""IncrementTypes""   IT
-            on increments.""IncrementTypeId"" = IT.""Id""
-        where increments.""WarshipId"" = w.""Id"" and IT.""Name""='WarshipPowerPoints') as ""WarshipPowerPoints""
+            where increments.""WarshipId"" = w.""Id""
+        ) as ""WarshipPowerPoints""
+
+
         from ""Accounts"" a
             inner join ""Warships"" w on a.""Id"" = w.""AccountId""
         inner join ""WarshipTypes"" wt on w.""WarshipTypeId"" = wt.""Id""
         inner join ""WarshipCombatRoles"" wcr on wt.""WarshipCombatRoleId"" = wcr.""Id""
-        left join ""MatchResults"" matchResult on w.""Id"" = matchResult.""WarshipId""
+        left join ""MatchResults"" matchResults on w.""Id"" = matchResults.""WarshipId""
         where a.""ServiceId"" = @serviceIdPar
         group by a.""Id"", w.""Id"", wt.""Id"", wcr.""Id""
         ;
-
             ";
 
         public DbAccountWarshipsReader(NpgsqlConnection connection)

@@ -29,14 +29,14 @@ namespace IntegrationTests
             
             //Act
             RewardsThatHaveNotBeenShown result = await NotShownRewardsReaderService
-                .GetNotShownResultsAndMarkAsReadAsync(originalAccount.ServiceId);
+                .GetNotShownResults(originalAccount.ServiceId);
             
             //Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(notShownSoftCurrency, result.SoftCurrency);
-            Assert.AreEqual(notShownAccountRating, result.AccountRating);
-            Assert.AreEqual(notShownHardCurrency, result.HardCurrency);
-            Assert.AreEqual(notShownSmallLootboxPoints, result.SmallLootboxPoints);
+            Assert.AreEqual(notShownSoftCurrency, result.SoftCurrencyDelta);
+            Assert.AreEqual(notShownAccountRating, result.AccountRatingDelta);
+            Assert.AreEqual(notShownHardCurrency, result.HardCurrencyDelta);
+            Assert.AreEqual(notShownSmallLootboxPoints, result.LootboxPointsDelta);
         }
         
         [TestCase(1)]
@@ -55,18 +55,18 @@ namespace IntegrationTests
                         
             //Act
             await NotShownRewardsReaderService
-                .GetNotShownResultsAndMarkAsReadAsync(originalAccount.ServiceId);
+                .GetNotShownResults(originalAccount.ServiceId);
             
             RewardsThatHaveNotBeenShown result = await NotShownRewardsReaderService
-                .GetNotShownResultsAndMarkAsReadAsync(originalAccount.ServiceId);
+                .GetNotShownResults(originalAccount.ServiceId);
 
             
             //Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(0, result.SoftCurrency);
-            Assert.AreEqual(0, result.AccountRating);
-            Assert.AreEqual(0, result.HardCurrency);
-            Assert.AreEqual(0, result.SmallLootboxPoints);
+            Assert.AreEqual(0, result.SoftCurrencyDelta);
+            Assert.AreEqual(0, result.AccountRatingDelta);
+            Assert.AreEqual(0, result.HardCurrencyDelta);
+            Assert.AreEqual(0, result.LootboxPointsDelta);
         }
     }
 }

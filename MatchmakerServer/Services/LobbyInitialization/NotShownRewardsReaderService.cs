@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
-using DataLayer;
-using DataLayer.Tables;
 using JetBrains.Annotations;
-using Microsoft.EntityFrameworkCore;
 using NetworkLibrary.NetworkLibrary.Http;
 using Npgsql;
 
@@ -17,82 +12,44 @@ namespace AmoebaGameMatcherServer.Controllers
     /// </summary>
     public class NotShownRewardsReaderService
     {
-        private readonly ApplicationDbContext dbContext;
+        private readonly NpgsqlConnection npgsqlConnection;
 
-        public NotShownRewardsReaderService(ApplicationDbContext dbContext)
+        private const string Sql = @"select T.""Id"",
+        (coalesce(sum(I.""SoftCurrencyDelta""),0)-coalesce(sum(D.""SoftCurrencyDelta""),0)) as ""SoftCurrencyDelta"",
+        (coalesce(sum(I.""HardCurrencyDelta""),0)-coalesce(sum(D.""HardCurrencyDelta""),0)) as ""HardCurrencyDelta"",       
+        (coalesce(sum(I.""LootboxPoints""),0)-coalesce(sum(D.""LootboxPoints""),0)) as ""LootboxPointsDelta"",       
+        (coalesce(sum(I.""WarshipRating""),0)-coalesce(sum(D.""WarshipRating""),0)) as ""AccountRatingDelta""
+        from ""Accounts"" A
+            inner join ""Transactions"" T on T.""AccountId"" = A.""Id""
+        inner join ""Resources"" R on T.""Id"" = R.""TransactionId""   
+        inner join ""Increments"" I on R.""Id"" = I.""ResourceId""   
+        inner join ""Decrements"" D on R.""Id"" = D.""ResourceId""
+        where A.""ServiceId"" = @serviceIdPar and  T.""WasShown"" = false
+        group by T.""Id"";";
+        
+        public NotShownRewardsReaderService(NpgsqlConnection npgsqlConnection)
         {
-            this.dbContext = dbContext;
+            this.npgsqlConnection = npgsqlConnection;
         }
         
         [ItemCanBeNull]
-        public async Task<RewardsThatHaveNotBeenShown> GetNotShownResultsAndMarkAsReadAsync([NotNull] string playerServiceId)
+        public async Task<RewardsThatHaveNotBeenShown> GetNotShownResults([NotNull] string playerServiceId)
         {
-            Account account = await dbContext.Accounts
-                .SingleOrDefaultAsync(account1 => account1.ServiceId == playerServiceId);
+            var parameters = new {serviceIdPar = playerServiceId};
+            var collection = await npgsqlConnection.QueryAsync<DapperHelperNotShownReward>(Sql,parameters);
 
-            if (account == null)
+            var element = collection.SingleOrDefault();
+            if (element != null)
             {
-                return null;
+                return new RewardsThatHaveNotBeenShown
+                {
+                    AccountRatingDelta = element.AccountRatingDelta,
+                    HardCurrencyDelta = element.HardCurrencyDelta,
+                    SoftCurrencyDelta = element.SoftCurrencyDelta,
+                    LootboxPointsDelta = element.LootboxPointsDelta
+                };
             }
-
-            RewardsThatHaveNotBeenShown result = new RewardsThatHaveNotBeenShown();
-            result += await GetUnshownMatchReward(account.Id);
-            result += await GetUnshownLootboxAward(account.Id);
             
-            await dbContext.SaveChangesAsync();
-            return result;
-        }
-
-        private async Task<RewardsThatHaveNotBeenShown> GetUnshownMatchReward(int accountId)
-        {
-            throw new Exception();
-            // var result = new RewardsThatHaveNotBeenShown(); 
-            //
-            // //Список законченных боёв, результат которых не был показан
-            // List<MatchResult> matchResults =  await dbContext
-            //     .MatchResults
-            //     .Where(matchResultForPlayer => matchResultForPlayer.Warship.AccountId == accountId 
-            //                      && !matchResultForPlayer.WasShown 
-            //                      && matchResultForPlayer.IsFinished)
-            //     .ToListAsync();
-            //
-            // for (var index = 0; index < matchResults.Count; index++)
-            // {
-            //     MatchResult matchResultForPlayer = matchResults[index];
-            //     result.AccountRating += matchResultForPlayer.WarshipRatingDelta;
-            //     result.SoftCurrency += matchResultForPlayer.SoftCurrencyDelta;
-            //     result.SmallLootboxPoints += matchResultForPlayer.SmallLootboxPoints;
-            //     //Пометить как прочитанное
-            //     matchResultForPlayer.WasShown = true;
-            // }
-            //
-            // return result;
-        }
-
-        private async Task<RewardsThatHaveNotBeenShown> GetUnshownLootboxAward(int accountId)
-        {
-            // RewardsThatHaveNotBeenShown result = new RewardsThatHaveNotBeenShown();
-            // List<LootboxDb> lootboxes = await dbContext.Lootbox
-            //     .Include(lootbox => lootbox.LootboxPrizeSoftCurrency)
-            //     .Include(lootbox => lootbox.LootboxPrizePointsForSmallLootboxes)
-            //     .Where(lootbox => lootbox.Account.Id == accountId && !lootbox.WasShown)
-            //     .ToListAsync();
-            //
-            // for (int index = 0; index < lootboxes.Count; index++)
-            // {
-            //     var lootboxDb = lootboxes[index];
-            //     foreach (var softCurrencyPrize in lootboxDb.LootboxPrizeSoftCurrency)
-            //     {
-            //         result.SoftCurrency += softCurrencyPrize.Quantity;
-            //     }
-            //     foreach (var smallLootboxPointsPrize in lootboxDb.LootboxPrizePointsForSmallLootboxes)
-            //     {
-            //         result.LootboxPoints += smallLootboxPointsPrize.Quantity;
-            //     }
-            //     //Пометить как прочитанное
-            //     lootboxDb.WasShown = true;
-            // }
-
             return null;
         }
     }

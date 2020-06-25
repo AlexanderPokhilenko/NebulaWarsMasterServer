@@ -6,27 +6,27 @@ namespace NetworkLibrary.NetworkLibrary.Http
     [ZeroFormattable]
     public class RewardsThatHaveNotBeenShown
     {
-        [Index(0)] public virtual int SoftCurrency {get;set;}
-        [Index(1)] public virtual int HardCurrency {get;set;}
-        [Index(2)] public virtual int SmallLootboxPoints {get;set;}
-        [Index(3)] public virtual int AccountRating {get;set;}
+        [Index(0)] public virtual int SoftCurrencyDelta {get;set;}
+        [Index(1)] public virtual int HardCurrencyDelta {get;set;}
+        [Index(2)] public virtual int LootboxPointsDelta {get;set;}
+        [Index(3)] public virtual int AccountRatingDelta {get;set;}
 
         public override string ToString()
         {
             return
-                $"{nameof(SoftCurrency)} {SoftCurrency} " +
-                $"{nameof(SmallLootboxPoints)} {SmallLootboxPoints} " +
-                $"{nameof(AccountRating)} {AccountRating}";
+                $"{nameof(SoftCurrencyDelta)} {SoftCurrencyDelta} " +
+                $"{nameof(LootboxPointsDelta)} {LootboxPointsDelta} " +
+                $"{nameof(AccountRatingDelta)} {AccountRatingDelta}";
         }
 
         public static RewardsThatHaveNotBeenShown operator +([NotNull] RewardsThatHaveNotBeenShown arg1,
             [NotNull] RewardsThatHaveNotBeenShown arg2)
         {
             var shown = new RewardsThatHaveNotBeenShown();
-            shown.AccountRating = arg1.AccountRating + arg2.AccountRating;
-            shown.HardCurrency = arg1.HardCurrency+arg2.HardCurrency;
-            shown.SmallLootboxPoints = arg1.SmallLootboxPoints + arg2.SmallLootboxPoints;
-            shown.SoftCurrency = arg1.SoftCurrency + arg2.SoftCurrency;
+            shown.AccountRatingDelta = arg1.AccountRatingDelta + arg2.AccountRatingDelta;
+            shown.HardCurrencyDelta = arg1.HardCurrencyDelta+arg2.HardCurrencyDelta;
+            shown.LootboxPointsDelta = arg1.LootboxPointsDelta + arg2.LootboxPointsDelta;
+            shown.SoftCurrencyDelta = arg1.SoftCurrencyDelta + arg2.SoftCurrencyDelta;
             return shown;
         }
     }

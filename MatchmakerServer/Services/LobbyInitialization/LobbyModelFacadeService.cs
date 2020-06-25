@@ -37,7 +37,7 @@ namespace AmoebaGameMatcherServer.Controllers
             }
 
             RewardsThatHaveNotBeenShown rewardsThatHaveNotBeenShown = await notShownRewardsReaderService
-                .GetNotShownResultsAndMarkAsReadAsync(playerServiceId);
+                .GetNotShownResults(playerServiceId);
           
             WarshipRatingScaleModel warshipRatingScaleModel = warshipRatingScale.GetWarshipRatingScaleModel();
             if (warshipRatingScaleModel == null)
