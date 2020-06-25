@@ -4,10 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataLayer.Tables
 {
-    public class ProductType
+    public class ResourceType
     {
-        [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public ProductTypeEnum Id { get; set; }
+        [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public ResourceTypeEnum Id { get; set; }
         [Required] public string Name { get; set; }
-        public List<Product> Products { get; set; }
+        public List<Resource> Products { get; set; }
     }
 }

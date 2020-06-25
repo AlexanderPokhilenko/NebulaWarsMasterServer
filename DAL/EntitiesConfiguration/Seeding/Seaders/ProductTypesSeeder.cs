@@ -9,53 +9,53 @@ namespace AmoebaGameMatcherServer
     {
         public void Seed(ApplicationDbContext dbContext)
         {
-            if (!dbContext.ProductTypes.Any())
+            if (!dbContext.ResourceTypes.Any())
             {
-                var productTypes = new List<ProductType>
+                var productTypes = new List<ResourceType>
                 {
-                    new ProductType
+                    new ResourceType
                     {
-                        Name = ProductTypeEnum.Lootbox.ToString(),
-                        Id = ProductTypeEnum.Lootbox
+                        Name = ResourceTypeEnum.Lootbox.ToString(),
+                        Id = ResourceTypeEnum.Lootbox
                     },
-                    new ProductType
+                    new ResourceType
                     {
-                        Name = ProductTypeEnum.Warship.ToString(),
-                        Id = ProductTypeEnum.Warship
+                        Name = ResourceTypeEnum.Warship.ToString(),
+                        Id = ResourceTypeEnum.Warship
                     },
-                    new ProductType
+                    new ResourceType
                     {
-                        Name = ProductTypeEnum.Skin.ToString(),
-                        Id = ProductTypeEnum.Skin
+                        Name = ResourceTypeEnum.Skin.ToString(),
+                        Id = ResourceTypeEnum.Skin
                     },
-                    new ProductType 
+                    new ResourceType 
                     {
-                        Name = ProductTypeEnum.WarshipPowerPoints.ToString(),
-                        Id = ProductTypeEnum.WarshipPowerPoints
+                        Name = ResourceTypeEnum.WarshipPowerPoints.ToString(),
+                        Id = ResourceTypeEnum.WarshipPowerPoints
                         
                     },
-                    new ProductType 
+                    new ResourceType 
                     {
-                        Name = ProductTypeEnum.Prize.ToString(),
-                        Id = ProductTypeEnum.Prize
+                        Name = ResourceTypeEnum.Prize.ToString(),
+                        Id = ResourceTypeEnum.Prize
                     },
-                    new ProductType 
+                    new ResourceType 
                     {
-                        Name = ProductTypeEnum.GameRegistration.ToString(), 
-                        Id =  ProductTypeEnum.GameRegistration
+                        Name = ResourceTypeEnum.GameRegistration.ToString(), 
+                        Id =  ResourceTypeEnum.GameRegistration
                     },
-                    new ProductType 
+                    new ResourceType 
                     {
-                        Name = ProductTypeEnum.Currency.ToString(), 
-                        Id =  ProductTypeEnum.Currency
+                        Name = ResourceTypeEnum.Currency.ToString(), 
+                        Id =  ResourceTypeEnum.Currency
                     },
-                    new ProductType 
+                    new ResourceType 
                     {
-                        Name = ProductTypeEnum.WarshipLevel.ToString(), 
-                        Id = ProductTypeEnum.WarshipLevel
+                        Name = ResourceTypeEnum.WarshipLevel.ToString(), 
+                        Id = ResourceTypeEnum.WarshipLevel
                     }
                 };
-                dbContext.ProductTypes.AddRange(productTypes);
+                dbContext.ResourceTypes.AddRange(productTypes);
                 dbContext.SaveChanges();
             }
         }

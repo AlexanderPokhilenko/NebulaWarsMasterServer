@@ -37,7 +37,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
             //     
             //     //TODO проверить, что такой засиси нет в БД
             //     TestPurchase purchase = await dbContext.Purchases
-            //         .Where(purchase1 => purchase1.OrderId == orderId)
+            //         .Where(purchase1 => purchase1.TransactionId == orderId)
             //         .SingleOrDefaultAsync();
             //
             //     if (purchase == null)
@@ -50,7 +50,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
             //             ConsumptionState = consumptionState,
             //             DeveloperPayload = developerPayload,
             //             Kind = kind,
-            //             OrderId = orderId,
+            //             TransactionId = orderId,
             //             PurchaseState = purchaseState,
             //             PurchaseTimeMillis = purchaseTimeMillis,
             //             PurchaseType = purchaseType,

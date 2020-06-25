@@ -1,7 +1,6 @@
-﻿using System.Linq;
+﻿using System;
 using System.Threading.Tasks;
 using DataLayer;
-using Microsoft.EntityFrameworkCore;
 
 namespace AmoebaGameMatcherServer.Services.MatchFinishing
 {
@@ -15,13 +14,14 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
         }
         public async Task<int> ReadWarshipRatingAsync(int warshipId)
         {
-            int currentWarshipRating = await dbContext.Warships
-                .Include(warship => warship.MatchResultForPlayers)
-                .Where(warship => warship.Id == warshipId)
-                .SelectMany(warship => warship.MatchResultForPlayers)
-                .SumAsync(matchResult => matchResult.WarshipRatingDelta);
-
-            return currentWarshipRating;
+            throw new Exception();
+            // int currentWarshipRating = await dbContext.Warships
+            //     .Include(warship => warship.BattleRoyaleMatchResults)
+            //     .Where(warship => warship.Id == warshipId)
+            //     .SelectMany(warship => warship.BattleRoyaleMatchResults)
+            //     .SumAsync(matchResult => matchResult.WarshipRatingDelta);
+            //
+            // return currentWarshipRating;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ZeroFormatter;
+﻿using JetBrains.Annotations;
+using ZeroFormatter;
 
 namespace NetworkLibrary.NetworkLibrary.Http
 {
@@ -18,16 +19,15 @@ namespace NetworkLibrary.NetworkLibrary.Http
                 $"{nameof(AccountRating)} {AccountRating}";
         }
 
-        public static RewardsThatHaveNotBeenShown operator +(RewardsThatHaveNotBeenShown arg1,
-            RewardsThatHaveNotBeenShown arg2)
+        public static RewardsThatHaveNotBeenShown operator +([NotNull] RewardsThatHaveNotBeenShown arg1,
+            [NotNull] RewardsThatHaveNotBeenShown arg2)
         {
-            return new RewardsThatHaveNotBeenShown
-            {
-                SoftCurrency = arg1.SoftCurrency + arg2.SoftCurrency,
-                SmallLootboxPoints = arg1.SmallLootboxPoints + arg2.SmallLootboxPoints,
-                AccountRating = arg1.AccountRating + arg2.AccountRating,
-                HardCurrency = arg1.HardCurrency+arg2.HardCurrency
-            };
+            var shown = new RewardsThatHaveNotBeenShown();
+            shown.AccountRating = arg1.AccountRating + arg2.AccountRating;
+            shown.HardCurrency = arg1.HardCurrency+arg2.HardCurrency;
+            shown.SmallLootboxPoints = arg1.SmallLootboxPoints + arg2.SmallLootboxPoints;
+            shown.SoftCurrency = arg1.SoftCurrency + arg2.SoftCurrency;
+            return shown;
         }
     }
 }

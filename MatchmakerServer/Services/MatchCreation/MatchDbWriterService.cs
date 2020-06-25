@@ -25,18 +25,18 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
             ApplicationDbContext dbContext = dbContextFactory.Create();
             
             //Создать объекты для результатов боя игроков
-            var playersResult = new List<MatchResultForPlayer>();
-            foreach (var playerQueueInfo in playersQueueInfo)
-            {
-                MatchResultForPlayer matchResultForPlayer = new MatchResultForPlayer
-                {
-                    WarshipId = playerQueueInfo.GetWarshipId(),
-                    WasShown = false
-                };
-                
-                Console.WriteLine($"{nameof(matchResultForPlayer.WarshipId)} {matchResultForPlayer.WarshipId}");
-                playersResult.Add(matchResultForPlayer);
-            }
+            var playersResult = new List<BattleRoyaleMatchResult>();
+            // foreach (var playerQueueInfo in playersQueueInfo)
+            // {
+            //     BattleRoyaleMatchResult matchResultForPlayer = new BattleRoyaleMatchResult
+            //     {
+            //         WarshipId = playerQueueInfo.GetWarshipId(),
+            //         WasShown = false
+            //     };
+            //     
+            //     Console.WriteLine($"{nameof(matchResultForPlayer.WarshipId)} {matchResultForPlayer.WarshipId}");
+            //     playersResult.Add(matchResultForPlayer);
+            // }
 
             //Создать матч
             Match match = new Match

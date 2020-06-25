@@ -1,6 +1,6 @@
 ﻿namespace DataLayer.Tables
 {
-    public enum ProductTypeEnum
+    public enum ResourceTypeEnum
     {
         Lootbox=1,
         Warship=2,

@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DataLayer.TablesConfiguration
 {
-    public class MatchResultsConfiguration:IEntityTypeConfiguration<MatchResultForPlayer>
+    public class MatchResultsConfiguration:IEntityTypeConfiguration<BattleRoyaleMatchResult>
     {
-        public void Configure(EntityTypeBuilder<MatchResultForPlayer> builder)
+        public void Configure(EntityTypeBuilder<BattleRoyaleMatchResult> builder)
         {
             //В одном матче один корабль может учавствовать толко один раз
             builder

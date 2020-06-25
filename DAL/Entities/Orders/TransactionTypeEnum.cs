@@ -1,6 +1,6 @@
 ﻿namespace DataLayer.Tables
 {
-    public enum OrderTypeEnum
+    public enum TransactionTypeEnum
     {
         Lootbox=1,
         LootboxSet=2,

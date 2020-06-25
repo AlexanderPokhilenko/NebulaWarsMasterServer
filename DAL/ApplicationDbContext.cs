@@ -15,22 +15,24 @@ namespace DataLayer
         public DbSet<Warship> Warships { get; set; }
         public DbSet<WarshipType> WarshipTypes { get; set; }
         public DbSet<Match> Matches { get; set; }
-        public DbSet<MatchResultForPlayer> MatchResultForPlayers { get; set; }
+        public DbSet<GameMode> GameModes { get; set; }
+        public DbSet<BattleRoyaleMatchResult> BattleRoyaleMatchResults { get; set; }
         public DbSet<WarshipCombatRole> WarshipCombatRoles { get; set; }
         
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderType> OrderTypes { get; set; }
+        
+        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<TransactionType> TransactionTypes { get; set; }
         
         
-        public DbSet<Product> Products { get; set; }
-        public DbSet<ProductType> ProductTypes { get; set; }
+        public DbSet<Resource> Resources { get; set; }
+        public DbSet<ResourceType> ResourceTypes { get; set; }
         
         
         public DbSet<Increment> Increments { get; set; }
         public DbSet<IncrementType> IncrementTypes { get; set; }
         
         
-        public DbSet<Decrement> Decrement { get; set; }
+        public DbSet<Decrement> Decrements { get; set; }
         public DbSet<DecrementType> DecrementTypes { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -40,35 +42,35 @@ namespace DataLayer
             modelBuilder.ApplyConfiguration(new MatchResultsConfiguration());
             modelBuilder.ApplyConfiguration(new WarshipTypesConfiguration());
             
-            modelBuilder.Entity<Order>()
+            modelBuilder.Entity<Transaction>()
                 .HasOne(order => order.Account)
-                .WithMany(account => account.Orders)
+                .WithMany(account => account.Transactions)
                 .HasForeignKey(order => order.AccountId);
             
-            modelBuilder.Entity<Order>()
-                .HasOne(order => order.OrderType)
+            modelBuilder.Entity<Transaction>()
+                .HasOne(order => order.TransactionType)
                 .WithMany(orderType => orderType.Orders)
-                .HasForeignKey(order => order.OrderTypeId);
+                .HasForeignKey(order => order.TransactionTypeId);
             
-            modelBuilder.Entity<Product>()
-                .HasOne(prod => prod.Order)
-                .WithMany(order => order.Products)
-                .HasForeignKey(prod => prod.OrderId);
+            modelBuilder.Entity<Resource>()
+                .HasOne(prod => prod.Transaction)
+                .WithMany(order => order.Resources)
+                .HasForeignKey(prod => prod.TransactionId);
             
-            modelBuilder.Entity<Product>()
-                .HasOne(prod => prod.ProductType)
+            modelBuilder.Entity<Resource>()
+                .HasOne(prod => prod.ResourceType)
                 .WithMany(productType => productType.Products)
-                .HasForeignKey(prod => prod.ProductTypeId);
+                .HasForeignKey(prod => prod.ResourceTypeId);
             
             modelBuilder.Entity<Increment>()
-                .HasOne(inc => inc.Product)
+                .HasOne(inc => inc.Resource)
                 .WithMany(prod => prod.Increments)
-                .HasForeignKey(inc => inc.ProductId);
+                .HasForeignKey(inc => inc.ResourceId);
             
             modelBuilder.Entity<Decrement>()
-                .HasOne(decr => decr.Product)
+                .HasOne(decr => decr.Resource)
                 .WithMany(prod => prod.Decrements)
-                .HasForeignKey(decr => decr.ProductId);
+                .HasForeignKey(decr => decr.ResourceId);
         }
     }
 }

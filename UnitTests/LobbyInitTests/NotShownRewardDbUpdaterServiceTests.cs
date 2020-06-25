@@ -41,7 +41,7 @@
 //             Assert.AreEqual(0, results.BigLootboxPoints);
 //             Assert.AreEqual(5, results.LootboxPoints);
 //
-//             List<MatchResultForPlayer> matchResultForPlayers = await dbContext.MatchResultForPlayers
+//             List<BattleRoyaleMatchResult> matchResultForPlayers = await dbContext.BattleRoyaleMatchResults
 //                 .Where(result => result.Warship.AccountId == account.Id)
 //                 .ToListAsync();
 //             
@@ -65,9 +65,9 @@
 //                     new Warship
 //                     {
 //                         WarshipTypeId = 1,
-//                         MatchResultForPlayers = new List<MatchResultForPlayer>
+//                         BattleRoyaleMatchResults = new List<BattleRoyaleMatchResult>
 //                         {
-//                             new MatchResultForPlayer
+//                             new BattleRoyaleMatchResult
 //                             {
 //                                 Match = new Match
 //                                 {
@@ -85,7 +85,7 @@
 //                                 WarshipRatingDelta = 9,
 //                                 WasShown = false
 //                             },
-//                             new MatchResultForPlayer
+//                             new BattleRoyaleMatchResult
 //                             {
 //                                 Match = new Match
 //                                 {
@@ -102,7 +102,7 @@
 //                                 WarshipRatingDelta = 3,
 //                                 WasShown = true
 //                             },
-//                             new MatchResultForPlayer
+//                             new BattleRoyaleMatchResult
 //                             {
 //                                 Match = new Match
 //                                 {

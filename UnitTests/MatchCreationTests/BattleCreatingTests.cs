@@ -198,7 +198,7 @@ namespace MatchmakerTest
             Assert.AreEqual(expectedNumberOfMatches, matchesCount);
 
             //В базе появилась информация про m игроков в бою
-            int playerBattleInfoCount = dbContext.MatchResultForPlayers.Count();
+            int playerBattleInfoCount = dbContext.BattleRoyaleMatchResults.Count();
             Assert.AreEqual(countOfAccounts, playerBattleInfoCount);
         }
         
@@ -282,7 +282,7 @@ namespace MatchmakerTest
             Assert.AreEqual(1, matchesCount);
 
             //В БД появилась информация про игроков в бою
-            int playerBattleInfoCount = dbContext.MatchResultForPlayers.Count();
+            int playerBattleInfoCount = dbContext.BattleRoyaleMatchResults.Count();
             Assert.AreEqual(countOfPlayersInQueue, playerBattleInfoCount);
         }
     }

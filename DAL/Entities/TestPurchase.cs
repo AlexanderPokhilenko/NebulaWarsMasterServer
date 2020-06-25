@@ -11,7 +11,7 @@
 //         [Required] public int ConsumptionState { get; set; }
 //         [Required] public string DeveloperPayload { get; set; }
 //         [Required] public string Kind { get; set; }
-//         [Required] public string OrderId { get; set; }
+//         [Required] public string TransactionId { get; set; }
 //         [Required] public int PurchaseState { get; set; }
 //         [Required] public long PurchaseTimeMillis { get; set; }
 //         public int? PurchaseType { get; set; }

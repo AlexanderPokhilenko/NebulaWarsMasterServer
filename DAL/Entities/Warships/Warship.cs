@@ -15,7 +15,7 @@ namespace DataLayer.Tables
         public Account Account { get; set; }
         public WarshipType WarshipType { get; set; }
         
-        public List<MatchResultForPlayer> MatchResultForPlayers{ get; set; } = new List<MatchResultForPlayer>();
+        public List<BattleRoyaleMatchResult> MatchResultForPlayers{ get; set; } = new List<BattleRoyaleMatchResult>();
 
         // public List<LootboxPrizeWarshipPowerPoints> WarshipPowerPoints { get; set; } = new List<LootboxPrizeWarshipPowerPoints>();
 

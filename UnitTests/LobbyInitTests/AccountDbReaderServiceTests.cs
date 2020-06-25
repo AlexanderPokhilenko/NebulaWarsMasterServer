@@ -33,7 +33,7 @@
 //             int accountRating = 0;
 //             foreach (var warship in account.Warships)
 //             {
-//                 foreach (var matchResultForPlayer in warship.MatchResultForPlayers)
+//                 foreach (var matchResultForPlayer in warship.BattleRoyaleMatchResults)
 //                 {
 //                     accountRating += matchResultForPlayer.WarshipRatingDelta ?? 0;
 //                 }

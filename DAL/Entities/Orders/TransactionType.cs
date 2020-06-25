@@ -4,10 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataLayer.Tables
 {
-    public class OrderType
+    public class TransactionType
     {
-        [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public OrderTypeEnum Id { get; set; }
+        [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public TransactionTypeEnum Id { get; set; }
         [Required] public string Name { get; set; }
-        public List<Order> Orders { get; set; }
+        public List<Transaction> Orders { get; set; }
     }
 }

@@ -13,9 +13,9 @@ namespace DataLayer.TablesConfiguration
             //     .WithMany(account => account.Purchases)
             //     .HasForeignKey(purchase => purchase.AccountId);
             //
-            // //Уникальность OrderId
+            // //Уникальность TransactionId
             // builder
-            //     .HasIndex(purchase => purchase.OrderId)
+            //     .HasIndex(purchase => purchase.TransactionId)
             //     .IsUnique();
         }
     }

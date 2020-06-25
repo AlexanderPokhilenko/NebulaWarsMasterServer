@@ -6,6 +6,7 @@ namespace AmoebaGameMatcherServer
     {
         public void Seed(ApplicationDbContext dbContext)
         {
+            new GameModeSeeder().Seed(dbContext);
             new WarshipCombatRoleSeeder().Seed(dbContext);
             new WarshipTypesSeeder().Seed(dbContext);
             new OrderTypesSeeder().Seed(dbContext);

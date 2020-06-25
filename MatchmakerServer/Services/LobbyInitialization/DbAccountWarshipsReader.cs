@@ -20,20 +20,21 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                   --Достаёт всю информацию про корабли аккаунта
 select a.*, w.*, wt.*, wcr.*,
         (select coalesce(sum(mr.""WarshipRatingDelta""), 0)
-            from ""MatchResultForPlayers"" mr
-                where mr.""WarshipId"" = w.""Id"")              	as ""WarshipRating"",
-            (select sum(wpp.""Quantity"")
-            from ""LootboxPrizeWarshipPowerPoints"" wpp
-                where wpp.""WarshipId"" = w.""Id"")					as ""WarshipPowerPoints""
-            from ""Accounts"" a
-                inner join ""Warships"" w on a.""Id"" = w.""AccountId""
-            inner join ""WarshipTypes"" wt on w.""WarshipTypeId"" = wt.""Id""
-            inner join ""WarshipCombatRoles"" wcr on wt.""WarshipCombatRoleId"" = wcr.""Id""
-            left join ""MatchResultForPlayers"" matchResult on w.""Id"" = matchResult.""WarshipId""
-            left join ""Lootbox"" lootbox on lootbox.""AccountId"" = a.""Id""    
-            left join ""LootboxPrizeWarshipPowerPoints"" prizeWarshipPowerPoints on prizeWarshipPowerPoints.""LootboxId""=lootbox.""Id""
-            where a.""ServiceId"" = @serviceIdPar
-            group by a.""Id"",w.""Id"", wt.""Id"", wcr.""Id""
+        from ""BattleRoyaleMatchResults"" mr
+            where mr.""WarshipId"" = w.""Id"")                                      	as ""WarshipRating"",
+        (select sum(increments.""WarshipPowerPoints"")
+            from ""Increments"" increments
+            inner join ""IncrementTypes""   IT
+            on increments.""IncrementTypeId"" = IT.""Id""
+        where increments.""WarshipId"" = w.""Id"" and IT.""Name""='WarshipPowerPoints') as ""WarshipPowerPoints""
+        from ""Accounts"" a
+            inner join ""Warships"" w on a.""Id"" = w.""AccountId""
+        inner join ""WarshipTypes"" wt on w.""WarshipTypeId"" = wt.""Id""
+        inner join ""WarshipCombatRoles"" wcr on wt.""WarshipCombatRoleId"" = wcr.""Id""
+        left join ""BattleRoyaleMatchResults"" matchResult on w.""Id"" = matchResult.""WarshipId""
+        where a.""ServiceId"" = @serviceIdPar
+        group by a.""Id"", w.""Id"", wt.""Id"", wcr.""Id""
+        ;
 
             ";
 

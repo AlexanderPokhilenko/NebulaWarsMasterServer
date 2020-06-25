@@ -31,8 +31,8 @@
           <e p="Account.cs" t="Include" />
           <e p="AccountDbDto.cs" t="Include" />
           <e p="Matches" t="Include">
+            <e p="BattleRoyaleMatchResult.cs" t="Include" />
             <e p="Match.cs" t="Include" />
-            <e p="MatchResultForPlayer.cs" t="Include" />
             <e p="WarshipImprovementPurchase.cs" t="Include" />
           </e>
           <e p="Orders" t="Include">
@@ -42,12 +42,12 @@
             <e p="Increment.cs" t="Include" />
             <e p="IncrementType.cs" t="Include" />
             <e p="IncrementTypeEnum.cs" t="Include" />
-            <e p="Order.cs" t="Include" />
-            <e p="OrderType.cs" t="Include" />
-            <e p="OrderTypeEnum.cs" t="Include" />
-            <e p="Product.cs" t="Include" />
-            <e p="ProductType.cs" t="Include" />
-            <e p="ProductTypeEnum.cs" t="Include" />
+            <e p="Resource.cs" t="Include" />
+            <e p="ResourceType.cs" t="Include" />
+            <e p="ResourceTypeEnum.cs" t="Include" />
+            <e p="Transaction.cs" t="Include" />
+            <e p="TransactionType.cs" t="Include" />
+            <e p="TransactionTypeEnum.cs" t="Include" />
           </e>
           <e p="TestPurchase.cs" t="Include" />
           <e p="Warships" t="Include">
@@ -77,6 +77,7 @@
             <e p="Seaders" t="Include">
               <e p="AccountSeeder.cs" t="Include" />
               <e p="DecrementTypeSeeder.cs" t="Include" />
+              <e p="GameModeSeeder.cs" t="Include" />
               <e p="IncrementTypeSeeder.cs" t="Include" />
               <e p="OrderTypesSeeder.cs" t="Include" />
               <e p="ProductTypesSeeder.cs" t="Include" />

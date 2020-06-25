@@ -9,67 +9,67 @@ namespace AmoebaGameMatcherServer
     {
         public void Seed(ApplicationDbContext dbContext)
         {
-            if (!dbContext.OrderTypes.Any())
+            if (!dbContext.TransactionTypes.Any())
             {
-                var orderTypes = new List<OrderType>
+                var orderTypes = new List<TransactionType>
                 {
-                    new OrderType
+                    new TransactionType
                     {
-                        Name = OrderTypeEnum.Lootbox.ToString(), 
-                        Id = OrderTypeEnum.Lootbox
+                        Name = TransactionTypeEnum.Lootbox.ToString(), 
+                        Id = TransactionTypeEnum.Lootbox
                     },
-                    new OrderType
+                    new TransactionType
                     {
-                        Name = OrderTypeEnum.LootboxSet.ToString(),
-                        Id = OrderTypeEnum.LootboxSet
+                        Name = TransactionTypeEnum.LootboxSet.ToString(),
+                        Id = TransactionTypeEnum.LootboxSet
                     },
-                    new OrderType
+                    new TransactionType
                     {
-                        Name = OrderTypeEnum.Warship.ToString(),
-                        Id = OrderTypeEnum.Warship
+                        Name = TransactionTypeEnum.Warship.ToString(),
+                        Id = TransactionTypeEnum.Warship
                     },
-                    new OrderType
+                    new TransactionType
                     {
-                        Name = OrderTypeEnum.WarshipAndSkin.ToString(),
-                        Id = OrderTypeEnum.WarshipAndSkin
+                        Name = TransactionTypeEnum.WarshipAndSkin.ToString(),
+                        Id = TransactionTypeEnum.WarshipAndSkin
                     },
-                    new OrderType
+                    new TransactionType
                     {
-                        Name = OrderTypeEnum.Skin.ToString(),
-                        Id = OrderTypeEnum.Skin
+                        Name = TransactionTypeEnum.Skin.ToString(),
+                        Id = TransactionTypeEnum.Skin
                     },
-                    new OrderType
+                    new TransactionType
                     {
-                        Name = OrderTypeEnum.WarshipPowerPoints.ToString(), 
-                        Id = OrderTypeEnum.WarshipPowerPoints
+                        Name = TransactionTypeEnum.WarshipPowerPoints.ToString(), 
+                        Id = TransactionTypeEnum.WarshipPowerPoints
                     },
-                    new OrderType
+                    new TransactionType
                     {
-                        Name = OrderTypeEnum.Prize.ToString(),
-                        Id = OrderTypeEnum.Prize
+                        Name = TransactionTypeEnum.Prize.ToString(),
+                        Id = TransactionTypeEnum.Prize
                     },
-                    new OrderType
+                    new TransactionType
                     {
-                        Name = OrderTypeEnum.GameRegistration.ToString(), 
-                        Id = OrderTypeEnum.GameRegistration
+                        Name = TransactionTypeEnum.GameRegistration.ToString(), 
+                        Id = TransactionTypeEnum.GameRegistration
                     },
-                    new OrderType
+                    new TransactionType
                     {
-                        Name = OrderTypeEnum.SoftCurrency.ToString(),
-                        Id = OrderTypeEnum.SoftCurrency
+                        Name = TransactionTypeEnum.SoftCurrency.ToString(),
+                        Id = TransactionTypeEnum.SoftCurrency
                     },
-                    new OrderType
+                    new TransactionType
                     {
-                        Name = OrderTypeEnum.HardCurrency.ToString(), 
-                        Id = OrderTypeEnum.HardCurrency
+                        Name = TransactionTypeEnum.HardCurrency.ToString(), 
+                        Id = TransactionTypeEnum.HardCurrency
                     },
-                    new OrderType
+                    new TransactionType
                     {
-                        Name = OrderTypeEnum.WarshipLevel.ToString(),
-                        Id = OrderTypeEnum.WarshipLevel
+                        Name = TransactionTypeEnum.WarshipLevel.ToString(),
+                        Id = TransactionTypeEnum.WarshipLevel
                     }
                 };
-                dbContext.OrderTypes.AddRange(orderTypes);
+                dbContext.TransactionTypes.AddRange(orderTypes);
                 dbContext.SaveChanges();
             }
         }

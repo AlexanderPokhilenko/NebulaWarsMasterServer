@@ -26,68 +26,68 @@ namespace LibraryForTests
         
         public void AddWarship(int numberOfMatches)
         {
-            if (account.Username == null || account.ServiceId == null)
-            {
-                throw new Exception("Нужно установить базовую информацию про аккаунт");
-            }
-            
-            //Создать корабль
-            Warship warship = new Warship
-            {
-                WarshipTypeId = (WarshipTypeEnum) account.Warships.Count+1
-            };
-                
-            //Добавить мачти для корабля
-            for (int j = 0; j < numberOfMatches; j++)
-            {
-                MatchResultForPlayer matchResultForPlayer;
-                DateTime start = new DateTime(2020, 1, 1).AddDays(random.Next(100));
-                bool isFinished = random.Next() % 2 == 0;
-                if (isFinished)
-                {
-                    matchResultForPlayer = new MatchResultForPlayer()
-                    {    
-                        IsFinished = true,
-                        WasShown = random.Next()%2 == 0,
-                        PlaceInMatch = random.Next(30),
-                        SoftCurrencyDelta = random.Next(5,20),
-                        BigLootboxPoints = random.Next(1,6),
-                        SmallLootboxPoints = random.Next(5,20),
-                        WarshipRatingDelta = random.Next(1,10),
-                        Match = new Match
-                        {
-                            StartTime = start,
-                            FinishTime = start.AddSeconds(random.Next(100)),
-                            GameServerIp = "5",
-                            GameServerUdpPort = 5
-                        }
-                    };
-                }
-                else
-                {
-                    matchResultForPlayer = new MatchResultForPlayer()
-                    {    
-                        IsFinished = false,
-                        WasShown = false,
-                        PlaceInMatch = 0,
-                        SoftCurrencyDelta = 0,
-                        BigLootboxPoints = 0,
-                        SmallLootboxPoints = 0,
-                        WarshipRatingDelta = 0,
-                        Match = new Match
-                        {
-                            StartTime = start,
-                            FinishTime = null,
-                            GameServerIp = "5",
-                            GameServerUdpPort = 5
-                        }
-                    };
-                }
-                
-                warship.MatchResultForPlayers.Add(matchResultForPlayer);
-            }
-            
-            account.Warships.Add(warship);
+            // if (account.Username == null || account.ServiceId == null)
+            // {
+            //     throw new Exception("Нужно установить базовую информацию про аккаунт");
+            // }
+            //
+            // //Создать корабль
+            // Warship warship = new Warship
+            // {
+            //     WarshipTypeId = (WarshipTypeEnum) account.Warships.Count+1
+            // };
+            //     
+            // //Добавить мачти для корабля
+            // for (int j = 0; j < numberOfMatches; j++)
+            // {
+            //     BattleRoyaleMatchResult matchResultForPlayer;
+            //     DateTime start = new DateTime(2020, 1, 1).AddDays(random.Next(100));
+            //     bool isFinished = random.Next() % 2 == 0;
+            //     if (isFinished)
+            //     {
+            //         matchResultForPlayer = new BattleRoyaleMatchResult()
+            //         {    
+            //             IsFinished = true,
+            //             WasShown = random.Next()%2 == 0,
+            //             PlaceInMatch = random.Next(30),
+            //             SoftCurrencyDelta = random.Next(5,20),
+            //             BigLootboxPoints = random.Next(1,6),
+            //             SmallLootboxPoints = random.Next(5,20),
+            //             WarshipRatingDelta = random.Next(1,10),
+            //             Match = new Match
+            //             {
+            //                 StartTime = start,
+            //                 FinishTime = start.AddSeconds(random.Next(100)),
+            //                 GameServerIp = "5",
+            //                 GameServerUdpPort = 5
+            //             }
+            //         };
+            //     }
+            //     else
+            //     {
+            //         matchResultForPlayer = new BattleRoyaleMatchResult()
+            //         {    
+            //             IsFinished = false,
+            //             WasShown = false,
+            //             PlaceInMatch = 0,
+            //             SoftCurrencyDelta = 0,
+            //             BigLootboxPoints = 0,
+            //             SmallLootboxPoints = 0,
+            //             WarshipRatingDelta = 0,
+            //             Match = new Match
+            //             {
+            //                 StartTime = start,
+            //                 FinishTime = null,
+            //                 GameServerIp = "5",
+            //                 GameServerUdpPort = 5
+            //             }
+            //         };
+            //     }
+            //     
+            //     warship.BattleRoyaleMatchResults.Add(matchResultForPlayer);
+            // }
+            //
+            // account.Warships.Add(warship);
         }
 
         /// <summary>

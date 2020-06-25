@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
@@ -44,27 +45,28 @@ namespace AmoebaGameMatcherServer.Controllers
 
         private async Task<RewardsThatHaveNotBeenShown> GetUnshownMatchReward(int accountId)
         {
-            var result = new RewardsThatHaveNotBeenShown(); 
-            
-            //Список законченных боёв, результат которых не был показан
-            List<MatchResultForPlayer> matchResults =  await dbContext
-                .MatchResultForPlayers
-                .Where(matchResultForPlayer => matchResultForPlayer.Warship.AccountId == accountId 
-                                 && !matchResultForPlayer.WasShown 
-                                 && matchResultForPlayer.IsFinished)
-                .ToListAsync();
-            
-            for (var index = 0; index < matchResults.Count; index++)
-            {
-                MatchResultForPlayer matchResultForPlayer = matchResults[index];
-                result.AccountRating += matchResultForPlayer.WarshipRatingDelta;
-                result.SoftCurrency += matchResultForPlayer.SoftCurrencyDelta;
-                result.SmallLootboxPoints += matchResultForPlayer.SmallLootboxPoints;
-                //Пометить как прочитанное
-                matchResultForPlayer.WasShown = true;
-            }
-
-            return result;
+            throw new Exception();
+            // var result = new RewardsThatHaveNotBeenShown(); 
+            //
+            // //Список законченных боёв, результат которых не был показан
+            // List<BattleRoyaleMatchResult> matchResults =  await dbContext
+            //     .BattleRoyaleMatchResults
+            //     .Where(matchResultForPlayer => matchResultForPlayer.Warship.AccountId == accountId 
+            //                      && !matchResultForPlayer.WasShown 
+            //                      && matchResultForPlayer.IsFinished)
+            //     .ToListAsync();
+            //
+            // for (var index = 0; index < matchResults.Count; index++)
+            // {
+            //     BattleRoyaleMatchResult matchResultForPlayer = matchResults[index];
+            //     result.AccountRating += matchResultForPlayer.WarshipRatingDelta;
+            //     result.SoftCurrency += matchResultForPlayer.SoftCurrencyDelta;
+            //     result.SmallLootboxPoints += matchResultForPlayer.SmallLootboxPoints;
+            //     //Пометить как прочитанное
+            //     matchResultForPlayer.WasShown = true;
+            // }
+            //
+            // return result;
         }
 
         private async Task<RewardsThatHaveNotBeenShown> GetUnshownLootboxAward(int accountId)

@@ -42,25 +42,25 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             }
             
             //Достать результат боя из БД
-            MatchResultForPlayer matchResultForPlayer = await dbContext.MatchResultForPlayers
+            BattleRoyaleMatchResult battleRoyaleMatchResult = await dbContext.BattleRoyaleMatchResults
                 .Where(matchResult => matchResult.MatchId == matchId && matchResult.Warship.AccountId == accountId)
                 .SingleAsync();
 
             //Прочитать текущий рейтинг корабля. Он нужен для вычисления награды за бой.
-            int currentWarshipRating = await warshipReaderService.ReadWarshipRatingAsync(matchResultForPlayer.WarshipId);
+            int currentWarshipRating = await warshipReaderService.ReadWarshipRatingAsync(battleRoyaleMatchResult.WarshipId);
             
             //Вычислить награду за бой
             MatchReward matchReward = battleRoyaleMatchRewardCalculatorService
                 .Calculate(placeInMatch, currentWarshipRating);
            
             //Обновить поля результата в БД 
-            matchResultForPlayer.PlaceInMatch = placeInMatch;
-            matchResultForPlayer.SoftCurrencyDelta = matchReward.SoftCurrencyDelta;
-            matchResultForPlayer.WarshipRatingDelta = matchReward.WarshipRatingDelta;
-            matchResultForPlayer.BigLootboxPoints = matchReward.BigLootboxPoints;
-            matchResultForPlayer.SmallLootboxPoints = matchReward.SmallLootboxPoints;
+            battleRoyaleMatchResult.PlaceInMatch = placeInMatch;
+            // battleRoyaleMatchResult.SoftCurrencyDelta = matchReward.SoftCurrencyDelta;
+            // battleRoyaleMatchResult.WarshipRatingDelta = matchReward.WarshipRatingDelta;
+            // battleRoyaleMatchResult.BigLootboxPoints = matchReward.BigLootboxPoints;
+            // battleRoyaleMatchResult.SmallLootboxPoints = matchReward.SmallLootboxPoints;
             //Пометить, что игрок вышел окончил бой
-            matchResultForPlayer.IsFinished = true;
+            battleRoyaleMatchResult.IsFinished = true;
             
             //Сохранить результат боя в БД
             await dbContext.SaveChangesAsync();
@@ -94,9 +94,9 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             
             for(int i = 0; i < incompleteMatchResults.Count; i++)
             {
-                MatchResultForPlayer matchResultForPlayer = incompleteMatchResults[i];
+                BattleRoyaleMatchResult battleRoyaleMatchResult = incompleteMatchResults[i];
                 int placeInMatch = ++i;
-                await UpdatePlayerMatchResultInDbAsync(matchResultForPlayer.Warship.AccountId, placeInMatch, matchId);
+                await UpdatePlayerMatchResultInDbAsync(battleRoyaleMatchResult.Warship.AccountId, placeInMatch, matchId);
             }
             
             //Удалить матч из памяти

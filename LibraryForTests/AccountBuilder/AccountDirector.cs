@@ -39,26 +39,28 @@ namespace LibraryForTests
         
         public int GetAccountRating()
         {
-            return Builder.GetAccount().Warships
-                       .SelectMany(warship => warship.MatchResultForPlayers)
-                       .Sum(matchResult => matchResult.WarshipRatingDelta);
+            // return Builder.GetAccount().Warships
+            //            .SelectMany(warship => warship.BattleRoyaleMatchResults)
+            //            .Sum(matchResult => matchResult.WarshipRatingDelta);
+            throw new Exception();
         }
 
         public int GetAccountSoftCurrency()
         {
-            int fromMatches = Builder.GetAccount().Warships
-                .SelectMany(warship => warship.MatchResultForPlayers)
-                .Sum(matchResult => matchResult.SoftCurrencyDelta);
-
-            Console.WriteLine($"{nameof(fromMatches)} {fromMatches}");
-            int fromLootboxes = 0;
-                // Builder.GetAccount().Lootboxes
-                // .SelectMany(lootbox => lootbox.LootboxPrizeSoftCurrency)
-                // .Sum(prize => prize.Quantity);
-            
-            Console.WriteLine($"{nameof(fromLootboxes)} {fromLootboxes}");
-            //TODO посчитать покупки за реальную валюту
-            return fromMatches + fromLootboxes;
+            throw new Exception();
+            // int fromMatches = Builder.GetAccount().Warships
+            //     .SelectMany(warship => warship.BattleRoyaleMatchResults)
+            //     .Sum(matchResult => matchResult.SoftCurrencyDelta);
+            //
+            // Console.WriteLine($"{nameof(fromMatches)} {fromMatches}");
+            // int fromLootboxes = 0;
+            //     // Builder.GetAccount().Lootboxes
+            //     // .SelectMany(lootbox => lootbox.LootboxPrizeSoftCurrency)
+            //     // .Sum(prize => prize.Quantity);
+            //
+            // Console.WriteLine($"{nameof(fromLootboxes)} {fromLootboxes}");
+            // //TODO посчитать покупки за реальную валюту
+            // return fromMatches + fromLootboxes;
         }
         
         public int GetAccountHardCurrency()
@@ -70,18 +72,19 @@ namespace LibraryForTests
 
         public int GetNotShownSoftCurrency()
         {
-            int fromMatches = Builder.GetAccount().Warships
-                .SelectMany(warship => warship.MatchResultForPlayers)
-                .Where( matchResult=> !matchResult.WasShown )
-                .Sum(matchResult => matchResult.SoftCurrencyDelta);
-            int fromLootboxes = 0;
-            // int fromLootboxes = Builder.GetAccount().Lootboxes
-            //     .Where( lootbox=> !lootbox.WasShown )
-            //     .SelectMany(lootbox => lootbox.LootboxPrizeSoftCurrency)
-            //     .Sum(prize => prize.Quantity);
-
-            Console.WriteLine($"{nameof(fromMatches)} {fromMatches} {nameof(fromLootboxes)} {fromLootboxes}");
-            return fromMatches + fromLootboxes;
+            throw new Exception();
+            // int fromMatches = Builder.GetAccount().Warships
+            //     .SelectMany(warship => warship.BattleRoyaleMatchResults)
+            //     .Where( matchResult=> !matchResult.WasShown )
+            //     .Sum(matchResult => matchResult.SoftCurrencyDelta);
+            // int fromLootboxes = 0;
+            // // int fromLootboxes = Builder.GetAccount().Lootboxes
+            // //     .Where( lootbox=> !lootbox.WasShown )
+            // //     .SelectMany(lootbox => lootbox.LootboxPrizeSoftCurrency)
+            // //     .Sum(prize => prize.Quantity);
+            //
+            // Console.WriteLine($"{nameof(fromMatches)} {fromMatches} {nameof(fromLootboxes)} {fromLootboxes}");
+            // return fromMatches + fromLootboxes;
         }
         
         public int GetNotShownHardCurrency()
@@ -97,27 +100,29 @@ namespace LibraryForTests
         
         public int GetNotShownSmallLootboxPoints()
         {
-            int fromMatches = Builder.GetAccount().Warships
-                .SelectMany(warship => warship.MatchResultForPlayers)
-                .Where( matchResult=> !matchResult.WasShown )
-                .Sum(matchResult => matchResult.SmallLootboxPoints);
+            throw new Exception();
+            // int fromMatches = Builder.GetAccount().Warships
+            //     .SelectMany(warship => warship.BattleRoyaleMatchResults)
+            //     .Where( matchResult=> !matchResult.WasShown )
+            //     .Sum(matchResult => matchResult.SmallLootboxPoints);
             
-            
-            int fromLootboxes = 0;
-            // int fromLootboxes = Builder.GetAccount().Lootboxes
-            //     .Where( lootbox=> !lootbox.WasShown )
-            //     .SelectMany(lootbox => lootbox.LootboxPrizePointsForSmallLootboxes)
-            //     .Sum(prize => prize.Quantity);
-            
-            return fromMatches+fromLootboxes;
+            //
+            // int fromLootboxes = 0;
+            // // int fromLootboxes = Builder.GetAccount().Lootboxes
+            // //     .Where( lootbox=> !lootbox.WasShown )
+            // //     .SelectMany(lootbox => lootbox.LootboxPrizePointsForSmallLootboxes)
+            // //     .Sum(prize => prize.Quantity);
+            //
+            // return fromMatches+fromLootboxes;
         }
 
         public int GetNotShownAccountRating()
         {
-            return Builder.GetAccount().Warships
-                .SelectMany(warship => warship.MatchResultForPlayers)
-                .Where(matchResult => matchResult.IsFinished && !matchResult.WasShown)
-                .Sum(matchResult => matchResult.WarshipRatingDelta);
+            throw new Exception();
+            // return Builder.GetAccount().Warships
+            //     .SelectMany(warship => warship.BattleRoyaleMatchResults)
+            //     .Where(matchResult => matchResult.IsFinished && !matchResult.WasShown)
+            //     .Sum(matchResult => matchResult.WarshipRatingDelta);
         }
     }
 }

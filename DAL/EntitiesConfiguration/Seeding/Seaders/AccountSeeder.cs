@@ -29,21 +29,21 @@ namespace AmoebaGameMatcherServer
                 dbContext.Accounts.Add(account);
                 dbContext.SaveChanges();
                 
-                account.Orders = new List<Order>
+                account.Transactions = new List<Transaction>
                 {
-                    new Order
+                    new Transaction
                     {
-                        OrderTypeId = OrderTypeEnum.Lootbox,
-                        Products = new List<Product>
+                        TransactionTypeId = TransactionTypeEnum.Lootbox,
+                        Resources = new List<Resource>
                         {
-                            new Product
+                            new Resource
                             {
-                                ProductTypeId = ProductTypeEnum.Lootbox,
+                                ResourceTypeId = ResourceTypeEnum.Lootbox,
                                 Increments = new List<Increment>
                                 {
                                     new Increment
                                     {
-                                        LootboxPowerPoints = 100,
+                                        LootboxPoints = 100,
                                         IncrementTypeId = IncrementTypeEnum.Currency
                                     }
                                 },
@@ -58,14 +58,14 @@ namespace AmoebaGameMatcherServer
                             }
                         }
                     },
-                    new Order
+                    new Transaction
                     {
-                        OrderTypeId = OrderTypeEnum.WarshipPowerPoints,
-                        Products = new List<Product>
+                        TransactionTypeId = TransactionTypeEnum.WarshipPowerPoints,
+                        Resources = new List<Resource>
                         {
-                            new Product
+                            new Resource
                             {
-                                ProductTypeId = ProductTypeEnum.WarshipPowerPoints,
+                                ResourceTypeId = ResourceTypeEnum.WarshipPowerPoints,
                                 Increments = new List<Increment>
                                 {
                                     new Increment

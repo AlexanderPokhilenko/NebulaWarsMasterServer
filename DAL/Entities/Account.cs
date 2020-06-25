@@ -14,7 +14,7 @@ namespace DataLayer.Tables
         [Required] public DateTime RegistrationDateTime { get; set; }
     
         public List<Warship> Warships { get; set; } = new List<Warship>();
-        public List<Order> Orders { get; set; } = new List<Order>();
+        public List<Transaction> Transactions { get; set; } = new List<Transaction>();
         
         public override string ToString()
         {

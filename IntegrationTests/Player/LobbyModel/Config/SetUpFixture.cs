@@ -24,7 +24,7 @@ namespace IntegrationTests
         [OneTimeSetUp]
         public void Initialize()
         {
-            string databaseName = "IntegrationTests29";
+            string databaseName = "IntegrationTests30";
             //Создать БД
             DbContext = new DbContextFactory().Create(databaseName);
             //Ввести базовые данные
