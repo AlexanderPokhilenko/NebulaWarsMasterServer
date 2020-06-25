@@ -11,7 +11,10 @@ namespace DataLayer.Tables
         [Required] public int HardCurrency { get; set; }
         [Required] public int LootboxPoints { get; set; }
         [Required] public DecrementTypeEnum DecrementTypeId { get; set; }
-        public string RealPurchaseData { get; set; }
+
+        [Required] public int WarshipRating {get;set; }
+        [Required] public int WarshipId {get;set;}
+        public string RealPurchaseData { get; set;}
         
         public Resource Resource { get; set; }
         public DecrementType DecrementType { get; set; }

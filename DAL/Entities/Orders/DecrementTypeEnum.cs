@@ -3,6 +3,7 @@
     public enum DecrementTypeEnum
     {
         GameCurrency=1,
-        RealCurrency=2
+        RealCurrency=2,
+        WarshipRating=3
     }
 }
