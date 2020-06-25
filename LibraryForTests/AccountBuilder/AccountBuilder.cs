@@ -77,10 +77,14 @@ namespace LibraryForTests
                                         {
                                             new Increment()
                                             {
-                                                LootboxPoints = random.Next(10),
                                                 WarshipRating = random.Next(10),
                                                 WarshipId = warship.Id,
-                                                IncrementTypeId = IncrementTypeEnum.MatchReward 
+                                                IncrementTypeId = IncrementTypeEnum.WarshipRating 
+                                            },
+                                            new Increment()
+                                            {
+                                                LootboxPoints = random.Next(10),
+                                                IncrementTypeId = IncrementTypeEnum.Lootbox
                                             }
                                         },
                                         ResourceTypeId =ResourceTypeEnum.MatchReward 
@@ -124,7 +128,7 @@ namespace LibraryForTests
             {
                 DateTime = DateTime.Now,
                 TransactionTypeId = TransactionTypeEnum.Lootbox,
-                WasShown = random.Next() % 2 == 0,
+                WasShown = wasShown,
                 Resources = new List<Resource>()
                 {
                     new Resource()

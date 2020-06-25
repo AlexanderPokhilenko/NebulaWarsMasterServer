@@ -43,7 +43,7 @@
 //             Assert.AreNotEqual(0, accountRating);
 //             Assert.AreEqual(accountRating, playerInfo.AccountRatingDelta);
 //             Assert.AreEqual(account.HardCurrencyDelta, playerInfo.HardCurrencyDelta);
-//             Assert.AreEqual(account.SoftCurrencyDelta, playerInfo.SoftCurrencyDelta);
+//             Assert.AreEqual(account.SoftCurrency, playerInfo.SoftCurrency);
 //             Assert.AreEqual(account.LootboxPoints, playerInfo.LootboxPoints);
 //         }
 //         

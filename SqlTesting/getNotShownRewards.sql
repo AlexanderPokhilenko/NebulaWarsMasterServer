@@ -6,7 +6,17 @@
 from "Accounts" A
      inner join "Transactions" T on T."AccountId" = A."Id"
      inner join "Resources" R on T."Id" = R."TransactionId"   
-     inner join "Increments" I on R."Id" = I."ResourceId"   
-     inner join "Decrements" D on R."Id" = D."ResourceId"
+     left join "Increments" I on R."Id" = I."ResourceId"
+     left join "Decrements" D on R."Id" = D."ResourceId"
 where A."ServiceId" = 'serviceId' and  T."WasShown" = false
 group by T."Id";
+
+
+select 
+       (coalesce(sum(I."SoftCurrency"),0) ) as "SoftCurrencyDelta"
+from "Transactions" T
+         left join "Resources" R on T."Id" = R."TransactionId"
+         left join "Increments" I on R."Id" = I."ResourceId"
+where  T."WasShown" = false
+group by T."Id";
+

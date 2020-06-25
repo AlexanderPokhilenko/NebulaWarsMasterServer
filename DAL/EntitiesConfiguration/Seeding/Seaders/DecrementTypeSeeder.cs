@@ -22,6 +22,11 @@ namespace AmoebaGameMatcherServer
                     {
                         Name = DecrementTypeEnum.RealCurrency.ToString(),
                         Id = DecrementTypeEnum.RealCurrency
+                    },
+                    new DecrementType
+                    {
+                        Name = DecrementTypeEnum.WarshipRating.ToString(),
+                        Id = DecrementTypeEnum.WarshipRating
                     }
                 };
                 dbContext.DecrementTypes.AddRange(decrementTypes);

@@ -56,7 +56,7 @@
 //             
 //             //Достаточно денег для покупки улучшения?
 //             int improvementCost = warshipPowerScaleModelStorage.GetWarshipImprovementCost(warship.PowerLevel);
-//             if (account.SoftCurrencyDelta < improvementCost)
+//             if (account.SoftCurrency < improvementCost)
 //             {
 //                 Console.WriteLine($"Недостаточно денег у аккаунта {nameof(playerServiceId)} {playerServiceId} для " +
 //                                   $"покупки улучшений {nameof(warshipId)} {warshipId}");

@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
+using DataLayer.Tables;
+using Microsoft.EntityFrameworkCore;
+using Remotion.Linq.Clauses;
 
 namespace AmoebaGameMatcherServer.Services.MatchFinishing
 {
@@ -14,14 +18,23 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
         }
         public async Task<int> ReadWarshipRatingAsync(int warshipId)
         {
-            throw new Exception();
-            // int currentWarshipRating = await dbContext.Warships
-            //     .Include(warship => warship.MatchResults)
-            //     .Where(warship => warship.Id == warshipId)
-            //     .SelectMany(warship => warship.MatchResults)
-            //     .SumAsync(matchResult => matchResult.WarshipRatingDelta);
-            //
-            // return currentWarshipRating;
+            int currentWarshipRating = await dbContext.Transactions
+                .Include(transaction => transaction.Resources)
+                    .ThenInclude(resource => resource.Increments)
+                .SelectMany(transaction => transaction.Resources)
+                .SelectMany(resource => resource.Increments)
+                .Where(increment => increment.WarshipId==warshipId)
+                .SumAsync(increment => increment.WarshipRating);
+            
+            currentWarshipRating -= await dbContext.Transactions
+                .Include(transaction => transaction.Resources)
+                .ThenInclude(resource => resource.Decrements)
+                .SelectMany(transaction => transaction.Resources)
+                .SelectMany(resource => resource.Decrements)
+                .Where(decrement => decrement.WarshipId==warshipId)
+                .SumAsync(decrement => decrement.WarshipRating);
+            
+            return currentWarshipRating;
         }
     }
 }

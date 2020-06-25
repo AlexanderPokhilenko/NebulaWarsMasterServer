@@ -21,11 +21,8 @@
             MatchReward result = new MatchReward
             {
                 WarshipRatingDelta = GetWarshipRatingDelta(placeInMatch, currentWarshipRating),
-                PremiumCurrencyDelta = 0,
-                SoftCurrencyDelta = 0,
-                JsonMatchResultDetails = null,
-                BigLootboxPoints = 0,
-                SmallLootboxPoints = GetPointsForSmallLootbox(placeInMatch, currentWarshipRating)
+                SoftCurrency = 0,
+                LootboxPoints = GetPointsForSmallLootbox(placeInMatch, currentWarshipRating)
             };
             return result;
         }

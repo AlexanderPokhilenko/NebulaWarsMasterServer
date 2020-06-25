@@ -37,7 +37,7 @@
 //             //Assert
 //             Assert.IsNotNull(results);
 //             Assert.AreEqual(4, results.HardCurrencyDelta);
-//             Assert.AreEqual(34, results.SoftCurrencyDelta);
+//             Assert.AreEqual(34, results.SoftCurrency);
 //             Assert.AreEqual(0, results.BigLootboxPoints);
 //             Assert.AreEqual(5, results.LootboxPoints);
 //
@@ -47,7 +47,7 @@
 //             
 //             foreach (var matchResultForPlayer in matchResultForPlayers)
 //             {
-//                 if (matchResultForPlayer.SoftCurrencyDelta != null)
+//                 if (matchResultForPlayer.SoftCurrency != null)
 //                 {
 //                     Assert.IsTrue(matchResultForPlayer.WasShown);
 //                 }
@@ -78,7 +78,7 @@
 //                                 },
 //                                 PlaceInMatch = 2,
 //                                 PremiumCurrencyDelta = 4,
-//                                 SoftCurrencyDelta = 34,
+//                                 SoftCurrency = 34,
 //                                 BigLootboxPoints = 0,
 //                                 LootboxPoints = 5,
 //                                 
@@ -96,7 +96,7 @@
 //                                 },
 //                                 PlaceInMatch = 4,
 //                                 PremiumCurrencyDelta = 0,
-//                                 SoftCurrencyDelta = 12,
+//                                 SoftCurrency = 12,
 //                                 BigLootboxPoints = 1,
 //                                 LootboxPoints = 2,
 //                                 WarshipRatingDelta = 3,
@@ -113,7 +113,7 @@
 //                                 },
 //                                 PlaceInMatch = null,
 //                                 PremiumCurrencyDelta = null,
-//                                 SoftCurrencyDelta = null,
+//                                 SoftCurrency = null,
 //                                 BigLootboxPoints = null,
 //                                 LootboxPoints = null,
 //                                 WarshipRatingDelta = null,

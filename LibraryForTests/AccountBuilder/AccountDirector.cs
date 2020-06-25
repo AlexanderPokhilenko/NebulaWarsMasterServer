@@ -114,7 +114,7 @@ namespace LibraryForTests
             return result;
         }
         
-        public int GetNotShownLootboxPoints()
+        public int GetNotShownLootboxPointsDelta()
         {
             int result = Builder.GetAccount().Transactions
                              .Where(transaction => !transaction.WasShown)

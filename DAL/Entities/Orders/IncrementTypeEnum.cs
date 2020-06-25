@@ -8,6 +8,6 @@
         WarshipPowerPoints=4,
         WarshipLevel=5,
         Lootbox=6,
-        MatchReward=7
+        WarshipRating=7
     }
 }

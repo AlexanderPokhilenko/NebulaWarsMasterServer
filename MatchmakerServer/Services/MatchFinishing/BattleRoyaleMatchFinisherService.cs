@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services.Queues;
@@ -32,7 +33,6 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
         
         public async Task<bool> UpdatePlayerMatchResultInDbAsync(int accountId, int placeInMatch, int matchId)
         {
-            //В памяти есть этот игрок?
             Account account = await dbContext.Accounts.FindAsync(accountId);
             bool isPlayerInMatch = unfinishedMatchesSingletonService.IsPlayerInMatch(account.ServiceId, matchId);
             if (!isPlayerInMatch)
@@ -40,37 +40,87 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                 Console.WriteLine("Этот игрок не в бою UpdatePlayerMatchResultInDbAsync");
                 return false;
             }
-            //
-            // //Достать результат боя из БД
-            // MatchResult matchResult = await dbContext.MatchResults
-            //     .Where(matchResult => matchResult.MatchId == matchId && matchResult.Warship.AccountId == accountId)
-            //     .SingleAsync();
-            //
-            // //Прочитать текущий рейтинг корабля. Он нужен для вычисления награды за бой.
-            // int currentWarshipRating = await warshipReaderService.ReadWarshipRatingAsync(matchResult.WarshipId);
-            //
-            // //Вычислить награду за бой
-            // MatchReward matchReward = battleRoyaleMatchRewardCalculatorService
-            //     .Calculate(placeInMatch, currentWarshipRating);
-            //
-            // //Обновить поля результата в БД 
-            // matchResult.PlaceInMatch = placeInMatch;
-            // // matchResult.SoftCurrencyDelta = matchReward.SoftCurrencyDelta;
-            // // matchResult.WarshipRatingDelta = matchReward.WarshipRatingDelta;
-            // // matchResult.BigLootboxPoints = matchReward.BigLootboxPoints;
-            // // matchResult.LootboxPointsDelta = matchReward.LootboxPointsDelta;
-            // //Пометить, что игрок вышел окончил бой
-            // matchResult.IsFinished = true;
-            //
-            // //Сохранить результат боя в БД
-            // await dbContext.SaveChangesAsync();
-            //
-            // //Удалить игрока из памяти
-            // bool success = unfinishedMatchesSingletonService.TryRemovePlayerFromMatch(account.ServiceId);
-            // if (!success)
-            // {
-            //     throw new Exception("Не удалось удалить игрока из матча ");
-            // }
+            
+            //Достать результат боя из БД
+            MatchResult matchResult = await dbContext.MatchResults
+                .Where(matchResult1 => matchResult1.MatchId == matchId && matchResult1.Warship.AccountId == accountId)
+                .SingleAsync();
+            
+            //Прочитать текущий рейтинг корабля. Он нужен для вычисления награды за бой.
+            int currentWarshipRating = await warshipReaderService.ReadWarshipRatingAsync(matchResult.WarshipId);
+            
+            //Вычислить награду за бой
+            MatchReward matchReward = battleRoyaleMatchRewardCalculatorService
+                .Calculate(placeInMatch, currentWarshipRating);
+            
+            //Обновить поля результата в БД 
+            matchResult.PlaceInMatch = placeInMatch;
+
+
+            var increments = new List<Increment>()
+            {
+                new Increment()
+                {
+                    SoftCurrency = matchReward.SoftCurrency,
+                    IncrementTypeId = IncrementTypeEnum.Currency
+                },
+                new Increment()
+                {
+                    LootboxPoints = matchReward.LootboxPoints,
+                    IncrementTypeId = IncrementTypeEnum.Lootbox
+                }
+            };
+            var decrements = new List<Decrement>();
+            if (matchReward.WarshipRatingDelta > 0)
+            {
+                increments.Add(new Increment()
+                {
+                    WarshipRating = matchReward.WarshipRatingDelta,
+                    IncrementTypeId = IncrementTypeEnum.WarshipRating,
+                    WarshipId = matchResult.WarshipId
+                });
+            }
+            else if(matchReward.WarshipRatingDelta < 0)
+            {
+                decrements.Add(new Decrement()
+                {
+                    DecrementTypeId = DecrementTypeEnum.WarshipRating,
+                    WarshipId = matchResult.WarshipId,
+                    WarshipRating = Math.Abs(matchReward.WarshipRatingDelta)
+                });
+            }
+            
+            Transaction transaction = new Transaction()
+            {
+                WasShown = false,
+                DateTime = DateTime.UtcNow,
+                Resources = new List<Resource>
+                {
+                    new Resource
+                    {
+                        Increments = increments,
+                        Decrements = decrements,
+                        ResourceTypeId = ResourceTypeEnum.MatchReward
+                    }
+                },
+                TransactionTypeId = TransactionTypeEnum.MatchReward,
+                AccountId = accountId
+            };
+
+            matchResult.Transaction = transaction;
+            
+            //Пометить, что игрок окончил бой
+            matchResult.IsFinished = true;
+            
+            //Сохранить результат боя в БД
+            await dbContext.SaveChangesAsync();
+            
+            //Удалить игрока из памяти
+            bool success = unfinishedMatchesSingletonService.TryRemovePlayerFromMatch(account.ServiceId);
+            if (!success)
+            {
+                throw new Exception("Не удалось удалить игрока из матча ");
+            }
 
             return true;
         }

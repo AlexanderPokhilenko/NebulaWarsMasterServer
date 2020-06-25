@@ -46,8 +46,8 @@ namespace AmoebaGameMatcherServer
                     ,
                     new IncrementType
                     {
-                        Name = IncrementTypeEnum.MatchReward.ToString(),
-                        Id = IncrementTypeEnum.MatchReward
+                        Name = IncrementTypeEnum.WarshipRating.ToString(),
+                        Id = IncrementTypeEnum.WarshipRating
                     }
                 };
                 dbContext.IncrementTypes.AddRange(incrementTypes);
