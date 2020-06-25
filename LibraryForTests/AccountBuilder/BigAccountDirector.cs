@@ -11,8 +11,8 @@ namespace LibraryForTests
         
         protected override void ConstructWarships()
         {
-            Builder.AddWarship(5);
-            Builder.AddWarship(13);
+            Builder.AddWarship();
+            Builder.AddWarship();
         }
 
         protected override void ConstructLootboxes()
@@ -20,6 +20,12 @@ namespace LibraryForTests
             Builder.AddLootbox(1,1,1, false);
             Builder.AddLootbox(3,0,0, false);
             Builder.AddLootbox(2,2,0, true);
+        }
+
+        protected override void ConstructMatches()
+        {
+            Builder.AddMatches(5);
+            Builder.AddMatches(13);
         }
     }
 }

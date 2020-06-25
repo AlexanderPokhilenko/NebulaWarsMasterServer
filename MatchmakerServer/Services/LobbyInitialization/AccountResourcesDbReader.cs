@@ -13,7 +13,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
         private readonly string sqlSelectAccountResourcesInfo = $@"
 select        
 (
-    coalesce((select sum(I.""SoftCurrencyDelta"") 
+    coalesce((select sum(I.""SoftCurrency"") 
         from ""Accounts"" A
             join ""Transactions"" O on A.""Id"" = O.""AccountId""
         join ""Resources"" P on O.""Id"" = P.""TransactionId""
@@ -21,7 +21,7 @@ select
         where A.""ServiceId"" = @serviceIdPar), 0)
     
         -
-        coalesce((select sum(D.""SoftCurrencyDelta"")
+        coalesce((select sum(D.""SoftCurrency"")
             from ""Accounts"" A
             join ""Transactions"" O on A.""Id"" = O.""AccountId""
         join ""Resources"" P on O.""Id"" = P.""TransactionId""
@@ -29,21 +29,21 @@ select
         where A.""ServiceId"" = @serviceIdPar), 0)
 
     
-        ) as ""SoftCurrencyDelta"",
+        ) as ""SoftCurrency"",
 
-        (coalesce((select sum(I.""HardCurrencyDelta"")
+        (coalesce((select sum(I.""HardCurrency"")
             from ""Accounts"" A
             join ""Transactions"" T on A.""Id"" = T.""AccountId""
         join ""Resources"" R on T.""Id"" = R.""TransactionId""
         join ""Increments""  I on R.""Id"" = I.""ResourceId""
         where A.""ServiceId"" = @serviceIdPar),0)
         -
-        coalesce((select sum(D.""HardCurrencyDelta"")
+        coalesce((select sum(D.""HardCurrency"")
             from ""Accounts"" A
             join ""Transactions"" T on A.""Id"" = T.""AccountId""
         join ""Resources"" R on T.""Id"" = R.""TransactionId""
         join ""Decrements""  D on R.""Id"" = D.""ResourceId""
-        where A.""ServiceId"" = @serviceIdPar),0)) as ""HardCurrencyDelta"",
+        where A.""ServiceId"" = @serviceIdPar),0)) as ""HardCurrency"",
     
 
         (coalesce(

@@ -276,6 +276,7 @@
             <e p="AccountRegistrationService.cs" t="Include" />
             <e p="AccountResourcesDbReader.cs" t="Include" />
             <e p="DapperHelperAccountResources.cs" t="Include" />
+            <e p="DapperHelperNotShownReward.cs" t="Include" />
             <e p="DbAccountWarshipsReader.cs" t="Include" />
             <e p="LobbyModelFacadeService.cs" t="Include" />
             <e p="NotShownRewardsReaderService.cs" t="Include" />

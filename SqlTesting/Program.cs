@@ -9,13 +9,6 @@ using Npgsql;
 
 namespace DeleteMe1
 {
-    // public class Test
-    // {
-    //     public int WarshipRating { get; set; }
-    //     public int SoftCurrencyDelta { get; set; }
-    //     public int WarshipPowerPoints { get; set; }
-    //     public int PointsForSmallLootboxes { get; set; }
-    // }
     public class Program
     {
         static async Task Main()

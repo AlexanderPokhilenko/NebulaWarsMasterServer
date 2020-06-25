@@ -15,6 +15,5 @@ namespace DataLayer.Tables
         public int Rating { get; set; }
         
         public List<WarshipDbDto> Warships { get; set; } = new List<WarshipDbDto>();
-        // public List<LootboxDb> Lootboxes { get; set; } = new List<LootboxDb>();
     }
 }

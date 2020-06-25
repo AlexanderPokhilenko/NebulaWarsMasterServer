@@ -30,7 +30,7 @@ namespace DeleteMe1
             }
             catch (AggregateException e)
             {
-                Console.WriteLine("Не удалось всавить данные");
+                Console.WriteLine("Не удалось встевить данные");
                 Console.WriteLine(e.Message+e.InnerExceptions);
             }
         }

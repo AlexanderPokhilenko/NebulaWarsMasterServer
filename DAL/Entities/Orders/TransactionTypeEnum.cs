@@ -12,6 +12,7 @@
         GameRegistration=8,
         SoftCurrency=9,
         HardCurrency=10,
-        WarshipLevel=11
+        WarshipLevel=11,
+        MatchReward=12
     }
 }

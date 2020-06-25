@@ -16,7 +16,7 @@ namespace DataLayer.TablesConfiguration
             //У каждого корабля может быть много результатов матчей
             builder
                 .HasOne(matchResultForPlayer => matchResultForPlayer.Warship)
-                .WithMany(warship => warship.MatchResultForPlayers)
+                .WithMany(warship => warship.MatchResults)
                 .HasForeignKey(matchResultForPlayer => matchResultForPlayer.WarshipId);
             
             builder

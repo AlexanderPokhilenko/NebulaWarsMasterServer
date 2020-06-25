@@ -15,7 +15,7 @@ namespace DataLayer.Tables
         public Account Account { get; set; }
         public WarshipType WarshipType { get; set; }
         
-        public List<MatchResult> MatchResultForPlayers{ get; set; } = new List<MatchResult>();
+        public List<MatchResult> MatchResults{ get; set; } = new List<MatchResult>();
 
         // public List<LootboxPrizeWarshipPowerPoints> WarshipPowerPoints { get; set; } = new List<LootboxPrizeWarshipPowerPoints>();
 
@@ -28,7 +28,7 @@ namespace DataLayer.Tables
             // stringBuilder.Append($"{nameof(PowerLevel)} {PowerLevel} ");
             // stringBuilder.Append($"{nameof(PowerPoints)} {PowerPoints} ");
             // stringBuilder.Append($"{nameof(WarshipRating)} {WarshipRating} ");
-            stringBuilder.Append($"{nameof(MatchResultForPlayers)} {MatchResultForPlayers?.Count} ");
+            stringBuilder.Append($"{nameof(MatchResults)} {MatchResults?.Count} ");
             return stringBuilder.ToString();
         }
     }

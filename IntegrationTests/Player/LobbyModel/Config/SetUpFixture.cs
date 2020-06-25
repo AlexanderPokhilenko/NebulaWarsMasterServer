@@ -24,7 +24,7 @@ namespace IntegrationTests
         [OneTimeSetUp]
         public void Initialize()
         {
-            string databaseName = "IntegrationTests30";
+            string databaseName = "IntegrationTests32";
             //Создать БД
             DbContext = new DbContextFactory().Create(databaseName);
             //Ввести базовые данные
@@ -38,7 +38,7 @@ namespace IntegrationTests
             //Создать сервисы
             NpgsqlConnection conn = new NpgsqlConnection(connectionString);
             AccountReaderService = new AccountDbReaderService(conn);
-            NotShownRewardsReaderService = new NotShownRewardsReaderService(null);
+            NotShownRewardsReaderService = new NotShownRewardsReaderService(conn);
             var accountRegistrationService = new AccountRegistrationService(DbContext);
             AccountFacadeService = new AccountFacadeService(AccountReaderService, accountRegistrationService);
             LobbyModelFacadeService = new LobbyModelFacadeService(AccountFacadeService, NotShownRewardsReaderService);

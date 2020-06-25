@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DataLayer.Tables;
 
 namespace LibraryForTests
@@ -24,118 +25,151 @@ namespace LibraryForTests
             account.RegistrationDateTime = registrationTime;
         }
         
-        public void AddWarship(int numberOfMatches)
+        public void AddWarship()
         {
-            // if (account.Username == null || account.ServiceId == null)
-            // {
-            //     throw new Exception("Нужно установить базовую информацию про аккаунт");
-            // }
-            //
-            // //Создать корабль
-            // Warship warship = new Warship
-            // {
-            //     WarshipTypeId = (WarshipTypeEnum) account.Warships.Count+1
-            // };
-            //     
-            // //Добавить мачти для корабля
-            // for (int j = 0; j < numberOfMatches; j++)
-            // {
-            //     MatchResult matchResultForPlayer;
-            //     DateTime start = new DateTime(2020, 1, 1).AddDays(random.Next(100));
-            //     bool isFinished = random.Next() % 2 == 0;
-            //     if (isFinished)
-            //     {
-            //         matchResultForPlayer = new MatchResult()
-            //         {    
-            //             IsFinished = true,
-            //             WasShown = random.Next()%2 == 0,
-            //             PlaceInMatch = random.Next(30),
-            //             SoftCurrencyDelta = random.Next(5,20),
-            //             BigLootboxPoints = random.Next(1,6),
-            //             SmallLootboxPoints = random.Next(5,20),
-            //             WarshipRatingDelta = random.Next(1,10),
-            //             Match = new Match
-            //             {
-            //                 StartTime = start,
-            //                 FinishTime = start.AddSeconds(random.Next(100)),
-            //                 GameServerIp = "5",
-            //                 GameServerUdpPort = 5
-            //             }
-            //         };
-            //     }
-            //     else
-            //     {
-            //         matchResultForPlayer = new MatchResult()
-            //         {    
-            //             IsFinished = false,
-            //             WasShown = false,
-            //             PlaceInMatch = 0,
-            //             SoftCurrencyDelta = 0,
-            //             BigLootboxPoints = 0,
-            //             SmallLootboxPoints = 0,
-            //             WarshipRatingDelta = 0,
-            //             Match = new Match
-            //             {
-            //                 StartTime = start,
-            //                 FinishTime = null,
-            //                 GameServerIp = "5",
-            //                 GameServerUdpPort = 5
-            //             }
-            //         };
-            //     }
-            //     
-            //     warship.MatchResults.Add(matchResultForPlayer);
-            // }
-            //
-            // account.Warships.Add(warship);
+            Warship warship = new Warship
+            {
+                WarshipTypeId = (WarshipTypeEnum) account.Warships.Count+1
+            };
+            
+            account.Warships.Add(warship);
         }
 
         /// <summary>
         /// Нельзя вызывать, если в БД не были сохранены корабли. В таком случает бросит исключение
         /// из-за проблем с внешним ключём на сущность Warship
         /// </summary>
-        public void AddLootbox(int countOfRegularCurrencyPrizes, int countOfWarshipPowerPointsPrizes, 
-            int countOfPointsForSmallLootboxPrizes, bool wasShown)
+        public void AddMatches(int numberOfMatches)
         {
-            // LootboxDb lootboxDb = new LootboxDb
-            // {
-            //     CreationDate = DateTime.Now,
-            //     WasShown = wasShown,
-            //     LootboxType = lootboxType
-            // };
-            //
-            // for (int i = 0; i < countOfRegularCurrencyPrizes; i++)
-            // {
-            //     var prize = new LootboxPrizeSoftCurrency
-            //     {
-            //         Quantity = random.Next(30)
-            //     };
-            //     lootboxDb.LootboxPrizeSoftCurrency.Add(prize);
-            // }
-            //
-            // for (int i = 0; i < countOfWarshipPowerPointsPrizes; i++)
-            // {
-            //     int warshipIndex = random.Next(account.Warships.Count);
-            //     var prize = new LootboxPrizeWarshipPowerPoints
-            //     {
-            //         Quantity = random.Next(30),
-            //         //TODO это опасно
-            //         WarshipId = account.Warships[warshipIndex].Id
-            //     };
-            //     
-            //     lootboxDb.LootboxPrizeWarshipPowerPoints.Add(prize);
-            // }
-            //
-            // for (int i = 0; i < countOfPointsForSmallLootboxPrizes; i++)
-            // {
-            //     var prize = new LootboxPrizeSmallLootboxPoints
-            //     {
-            //         Quantity = random.Next(30)
-            //     };
-            //     lootboxDb.LootboxPrizePointsForSmallLootboxes.Add(prize);
-            // }
-            //
-            // account.Lootboxes.Add(lootboxDb);
+            for (int warshipIndex = 0; warshipIndex < account.Warships.Count; warshipIndex++)
+            {
+                Warship warship = account.Warships[warshipIndex];
+                for (int j = 0; j < numberOfMatches; j++)
+                {
+                    MatchResult matchResultForPlayer;
+                    DateTime start = new DateTime(2020, 1, 1).AddDays(random.Next(100));
+                    bool isFinished = random.Next() % 2 == 0;
+                    if (isFinished)
+                    {
+                        bool wasShown = random.Next() % 2 == 0;
+                        matchResultForPlayer = new MatchResult()
+                        {    
+                            IsFinished = true,
+                            PlaceInMatch = random.Next(30),
+                            Match = new Match
+                            {
+                                StartTime = start,
+                                FinishTime = start.AddSeconds(random.Next(100)),
+                                GameServerIp = "5",
+                                GameServerUdpPort = 5,
+                                GameModeId = GameModeEnum.BattleRoyale
+                            },
+                            Transaction = new Transaction()
+                            {
+                                DateTime = DateTime.Now,
+                                TransactionTypeId = TransactionTypeEnum.MatchReward,
+                                WasShown = wasShown,
+                                Resources = new List<Resource>()
+                                {
+                                    new Resource()
+                                    {
+                                        Increments = new List<Increment>()
+                                        {
+                                            new Increment()
+                                            {
+                                                LootboxPoints = random.Next(10),
+                                                WarshipRating = random.Next(10),
+                                                WarshipId = warship.Id,
+                                                IncrementTypeId = IncrementTypeEnum.MatchReward 
+                                            }
+                                        },
+                                        ResourceTypeId =ResourceTypeEnum.MatchReward 
+                                    }
+                                },
+                                AccountId = account.Id
+                            }
+                        };
+                    }
+                    else
+                    {
+                        matchResultForPlayer = new MatchResult()
+                        {    
+                            IsFinished = false,
+                            PlaceInMatch = 0,
+                            Match = new Match
+                            {
+                                StartTime = start,
+                                FinishTime = null,
+                                GameServerIp = "5",
+                                GameServerUdpPort = 5,
+                                GameModeId = GameModeEnum.BattleRoyale
+                            }
+                        };
+                    }
+                    
+                    warship.MatchResults.Add(matchResultForPlayer);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Нельзя вызывать, если в БД не были сохранены корабли. В таком случает бросит исключение
+        /// из-за проблем с внешним ключём на сущность Warship
+        /// </summary>
+        public void AddLootbox(int countOfSoftCurrencyPrizes, int countOfWarshipPowerPointsPrizes, 
+            int countOfLootboxPointsPrizes, bool wasShown)
+        {
+            var increments = new List<Increment>();
+            Transaction transaction = new Transaction()
+            {
+                DateTime = DateTime.Now,
+                TransactionTypeId = TransactionTypeEnum.Lootbox,
+                WasShown = random.Next() % 2 == 0,
+                Resources = new List<Resource>()
+                {
+                    new Resource()
+                    {
+                        Increments = increments,
+                        ResourceTypeId = ResourceTypeEnum.Lootbox
+                    }
+                },
+                AccountId = account.Id
+            };
+
+            for (int i = 0; i < countOfSoftCurrencyPrizes; i++)
+            {
+                Increment increment = new Increment()
+                {
+                    SoftCurrency = random.Next(30),
+                    IncrementTypeId = IncrementTypeEnum.Currency
+                };
+                increments.Add(increment);
+            }
+            
+            for (int i = 0; i < countOfWarshipPowerPointsPrizes; i++)
+            {
+                int warshipId = random.Next(account.Warships.Count);
+                Increment increment = new Increment()
+                {
+                    WarshipPowerPoints = random.Next(30),
+                    WarshipId = warshipId,
+                    IncrementTypeId = IncrementTypeEnum.Currency
+                };
+                
+                increments.Add(increment);
+            }
+            
+            for (int i = 0; i < countOfLootboxPointsPrizes; i++)
+            {
+                Increment increment = new Increment()
+                {
+                    LootboxPoints = random.Next(30),
+                    IncrementTypeId = IncrementTypeEnum.Lootbox
+                };
+                increments.Add(increment);
+            }
+            
+            account.Transactions.Add(transaction);
         }
 
         public Account GetAccount()

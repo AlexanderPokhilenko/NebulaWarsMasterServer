@@ -9,6 +9,7 @@
         Prize=5,
         GameRegistration=6,
         Currency=7,
-        WarshipLevel=8
+        WarshipLevel=8,
+        MatchReward=9
     }
 }

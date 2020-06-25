@@ -11,9 +11,14 @@ namespace LibraryForTests
         
         protected override void ConstructWarships()
         {
-            Builder.AddWarship(5);
+            Builder.AddWarship();
         }
 
+        protected override void ConstructMatches()
+        {
+            Builder.AddMatches(15);
+        }
+        
         protected override void ConstructLootboxes()
         {
             

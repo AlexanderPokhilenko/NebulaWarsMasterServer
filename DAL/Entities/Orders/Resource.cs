@@ -14,7 +14,7 @@ namespace DataLayer.Tables
         [Required] public ResourceTypeEnum ResourceTypeId { get; set; }
         public Transaction Transaction { get; set; }
         public ResourceType ResourceType { get; set; }
-        public List<Increment> Increments { get; set; }
-        public List<Decrement> Decrements { get; set; }
+        public List<Increment> Increments { get; set; }=new List<Increment>();
+        public List<Decrement> Decrements { get; set; }=new List<Decrement>();
     }
 }

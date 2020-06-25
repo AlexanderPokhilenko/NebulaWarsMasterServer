@@ -53,6 +53,11 @@ namespace AmoebaGameMatcherServer
                     {
                         Name = ResourceTypeEnum.WarshipLevel.ToString(), 
                         Id = ResourceTypeEnum.WarshipLevel
+                    },
+                    new ResourceType 
+                    {
+                        Name = ResourceTypeEnum.MatchReward.ToString(), 
+                        Id = ResourceTypeEnum.MatchReward
                     }
                 };
                 dbContext.ResourceTypes.AddRange(productTypes);

@@ -18,12 +18,13 @@ namespace LibraryForTests
 
         public void WriteToDatabase()
         {
-            string username = "username_" + DateTime.Now.ToLongTimeString();
-            string serviceId = "serviceId_" + DateTime.Now.ToLongTimeString();
-            Builder.SetBaseInfo(username, serviceId, DateTime.Now);
-            ConstructWarships();
+            Builder.SetBaseInfo("username", "serviceId", DateTime.Now);
             Account account = Builder.GetAccount();
             dbContext.Accounts.Add(account);
+            dbContext.SaveChanges();
+            ConstructWarships();
+            dbContext.SaveChanges();
+            ConstructMatches();
             dbContext.SaveChanges();
             ConstructLootboxes();
             dbContext.SaveChanges();
@@ -31,6 +32,7 @@ namespace LibraryForTests
         
         protected abstract void ConstructWarships();
         protected abstract void ConstructLootboxes();
+        protected abstract void ConstructMatches();
 
         public Account GetAccount()
         {
@@ -39,90 +41,138 @@ namespace LibraryForTests
         
         public int GetAccountRating()
         {
-            // return Builder.GetAccount().Warships
-            //            .SelectMany(warship => warship.MatchResults)
-            //            .Sum(matchResult => matchResult.WarshipRatingDelta);
-            throw new Exception();
+            int rating = Builder.GetAccount().Transactions
+                    .SelectMany(transaction => transaction.Resources)
+                    .SelectMany(resource =>  resource.Increments)
+                    .Sum(increment => increment.WarshipRating)
+                -
+                Builder.GetAccount().Transactions
+                    .SelectMany(transaction => transaction.Resources)
+                    .SelectMany(resource =>  resource.Decrements)
+                    .Sum(decrement => decrement .WarshipRating);
+            return rating;
         }
 
         public int GetAccountSoftCurrency()
         {
-            throw new Exception();
-            // int fromMatches = Builder.GetAccount().Warships
-            //     .SelectMany(warship => warship.MatchResults)
-            //     .Sum(matchResult => matchResult.SoftCurrencyDelta);
-            //
-            // Console.WriteLine($"{nameof(fromMatches)} {fromMatches}");
-            // int fromLootboxes = 0;
-            //     // Builder.GetAccount().Lootboxes
-            //     // .SelectMany(lootbox => lootbox.LootboxPrizeSoftCurrency)
-            //     // .Sum(prize => prize.Quantity);
-            //
-            // Console.WriteLine($"{nameof(fromLootboxes)} {fromLootboxes}");
-            // //TODO посчитать покупки за реальную валюту
-            // return fromMatches + fromLootboxes;
+            int result = Builder.GetAccount().Transactions
+                             .SelectMany(transaction => transaction.Resources)
+                             .SelectMany(resource =>  resource.Increments)
+                             .Sum(increment => increment.SoftCurrency)
+                         -
+                         Builder.GetAccount().Transactions
+                             .SelectMany(transaction => transaction.Resources)
+                             .SelectMany(resource =>  resource.Decrements)
+                             .Sum(decrement => decrement .SoftCurrency);
+            return result;
         }
         
         public int GetAccountHardCurrency()
         {
-            //TODO посчитать лутбоксы
-            //TODO посчитать покупки за реальную валюту
-            return 0;
+            int result = Builder.GetAccount().Transactions
+                             .SelectMany(transaction => transaction.Resources)
+                             .SelectMany(resource =>  resource.Increments)
+                             .Sum(increment => increment.HardCurrency)
+                         -
+                         Builder.GetAccount().Transactions
+                             .SelectMany(transaction => transaction.Resources)
+                             .SelectMany(resource =>  resource.Decrements)
+                             .Sum(decrement => decrement .HardCurrency);
+            return result;
         }
 
-        public int GetNotShownSoftCurrency()
+        public int GetNotShownSoftCurrencyDelta()
         {
-            throw new Exception();
-            // int fromMatches = Builder.GetAccount().Warships
-            //     .SelectMany(warship => warship.MatchResults)
-            //     .Where( matchResult=> !matchResult.WasShown )
-            //     .Sum(matchResult => matchResult.SoftCurrencyDelta);
-            // int fromLootboxes = 0;
-            // // int fromLootboxes = Builder.GetAccount().Lootboxes
-            // //     .Where( lootbox=> !lootbox.WasShown )
-            // //     .SelectMany(lootbox => lootbox.LootboxPrizeSoftCurrency)
-            // //     .Sum(prize => prize.Quantity);
-            //
-            // Console.WriteLine($"{nameof(fromMatches)} {fromMatches} {nameof(fromLootboxes)} {fromLootboxes}");
-            // return fromMatches + fromLootboxes;
+            int result = Builder.GetAccount().Transactions
+                             .Where(transaction => !transaction.WasShown)
+                             .SelectMany(transaction => transaction.Resources)
+                             .SelectMany(resource =>  resource.Increments)
+                             .Sum(increment => increment.SoftCurrency)
+                         -
+                         Builder.GetAccount().Transactions
+                             .Where(transaction => !transaction.WasShown)
+                             .SelectMany(transaction => transaction.Resources)
+                             .SelectMany(resource =>  resource.Decrements)
+                             .Sum(decrement => decrement .SoftCurrency);
+            return result;
         }
         
-        public int GetNotShownHardCurrency()
+        public int GetNotShownHardCurrencyDelta()
         {
-            int fromLootboxes = 0;
-            // int fromLootboxes = Builder.GetAccount().Lootboxes
-            //     .Where( lootbox=> !lootbox.WasShown )
-            //     .SelectMany(lootbox => lootbox.LootboxPrizeHardCurrency)
-            //     .Sum(prize => prize.Quantity);
             
-            return fromLootboxes;
+            int result = Builder.GetAccount().Transactions
+                             .Where(transaction => !transaction.WasShown)
+                             .SelectMany(transaction => transaction.Resources)
+                             .SelectMany(resource =>  resource.Increments)
+                             .Sum(increment => increment.HardCurrency)
+                         -
+                         Builder.GetAccount().Transactions
+                             .Where(transaction => !transaction.WasShown)
+                             .SelectMany(transaction => transaction.Resources)
+                             .SelectMany(resource =>  resource.Decrements)
+                             .Sum(decrement => decrement .HardCurrency);
+            return result;
         }
         
-        public int GetNotShownSmallLootboxPoints()
+        public int GetNotShownLootboxPoints()
         {
-            throw new Exception();
-            // int fromMatches = Builder.GetAccount().Warships
-            //     .SelectMany(warship => warship.MatchResults)
-            //     .Where( matchResult=> !matchResult.WasShown )
-            //     .Sum(matchResult => matchResult.SmallLootboxPoints);
-            
-            //
-            // int fromLootboxes = 0;
-            // // int fromLootboxes = Builder.GetAccount().Lootboxes
-            // //     .Where( lootbox=> !lootbox.WasShown )
-            // //     .SelectMany(lootbox => lootbox.LootboxPrizePointsForSmallLootboxes)
-            // //     .Sum(prize => prize.Quantity);
-            //
-            // return fromMatches+fromLootboxes;
+            int result = Builder.GetAccount().Transactions
+                             .Where(transaction => !transaction.WasShown)
+                             .SelectMany(transaction => transaction.Resources)
+                             .SelectMany(resource =>  resource.Increments)
+                             .Sum(increment => increment.LootboxPoints)
+                         -
+                         Builder.GetAccount().Transactions
+                             .Where(transaction => !transaction.WasShown)
+                             .SelectMany(transaction => transaction.Resources)
+                             .SelectMany(resource =>  resource.Decrements)
+                             .Sum(decrement => decrement.LootboxPoints);
+            return result;
         }
 
-        public int GetNotShownAccountRating()
+        public int GetWarshipRating(int warshipId)
         {
-            throw new Exception();
-            // return Builder.GetAccount().Warships
-            //     .SelectMany(warship => warship.MatchResults)
-            //     .Where(matchResult => matchResult.IsFinished && !matchResult.WasShown)
-            //     .Sum(matchResult => matchResult.WarshipRatingDelta);
+            int result = Builder.GetAccount().Transactions
+                             .SelectMany(transaction => transaction.Resources)
+                             .SelectMany(resource =>  resource.Increments)
+                             .Where(increment => increment.WarshipId==warshipId)
+                             .Sum(increment => increment.WarshipRating)
+                         -
+                         Builder.GetAccount().Transactions
+                             .SelectMany(transaction => transaction.Resources)
+                             .SelectMany(resource =>  resource.Decrements)
+                             .Where(increment => increment.WarshipId==warshipId)
+                             .Sum(decrement => decrement.WarshipRating);
+            return result;
         }
+
+        public int GetWarshipPowerPoints(int warshipId)
+        {
+            int result = Builder.GetAccount().Transactions
+                             .SelectMany(transaction => transaction.Resources)
+                             .SelectMany(resource =>  resource.Increments)
+                             .Where(increment => increment.WarshipId==warshipId)
+                             .Sum(increment => increment.WarshipPowerPoints)
+                       ;
+            return result;
+        }
+        
+        public int GetNotShownAccountRatingDelta()
+        {
+            int result = Builder.GetAccount().Transactions
+                             .Where(transaction => !transaction.WasShown)
+                             .SelectMany(transaction => transaction.Resources)
+                             .SelectMany(resource =>  resource.Increments)
+                             .Sum(increment => increment.WarshipRating)
+                         -
+                         Builder.GetAccount().Transactions
+                             .Where(transaction => !transaction.WasShown)
+                             .SelectMany(transaction => transaction.Resources)
+                             .SelectMany(resource =>  resource.Decrements)
+                             .Sum(decrement => decrement.WarshipRating);
+            return result;
+        }
+
+        
     }
 }

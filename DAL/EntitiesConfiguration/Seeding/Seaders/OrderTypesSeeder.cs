@@ -67,6 +67,12 @@ namespace AmoebaGameMatcherServer
                     {
                         Name = TransactionTypeEnum.WarshipLevel.ToString(),
                         Id = TransactionTypeEnum.WarshipLevel
+                    },
+                    
+                    new TransactionType
+                    {
+                        Name = TransactionTypeEnum.MatchReward.ToString(),
+                        Id = TransactionTypeEnum.MatchReward
                     }
                 };
                 dbContext.TransactionTypes.AddRange(orderTypes);

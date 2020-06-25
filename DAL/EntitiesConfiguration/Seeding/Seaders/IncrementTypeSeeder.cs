@@ -37,6 +37,17 @@ namespace AmoebaGameMatcherServer
                     {
                         Name = IncrementTypeEnum.WarshipLevel.ToString(),
                         Id = IncrementTypeEnum.WarshipLevel
+                    },
+                    new IncrementType
+                    {
+                        Name = IncrementTypeEnum.Lootbox.ToString(),
+                        Id = IncrementTypeEnum.Lootbox
+                    }
+                    ,
+                    new IncrementType
+                    {
+                        Name = IncrementTypeEnum.MatchReward.ToString(),
+                        Id = IncrementTypeEnum.MatchReward
                     }
                 };
                 dbContext.IncrementTypes.AddRange(incrementTypes);

@@ -15,8 +15,8 @@ namespace AmoebaGameMatcherServer.Controllers
         private readonly NpgsqlConnection npgsqlConnection;
 
         private const string Sql = @"select T.""Id"",
-        (coalesce(sum(I.""SoftCurrencyDelta""),0)-coalesce(sum(D.""SoftCurrencyDelta""),0)) as ""SoftCurrencyDelta"",
-        (coalesce(sum(I.""HardCurrencyDelta""),0)-coalesce(sum(D.""HardCurrencyDelta""),0)) as ""HardCurrencyDelta"",       
+        (coalesce(sum(I.""SoftCurrency""),0)-coalesce(sum(D.""SoftCurrency""),0)) as ""SoftCurrencyDelta"",
+        (coalesce(sum(I.""HardCurrency""),0)-coalesce(sum(D.""HardCurrency""),0)) as ""HardCurrencyDelta"",       
         (coalesce(sum(I.""LootboxPoints""),0)-coalesce(sum(D.""LootboxPoints""),0)) as ""LootboxPointsDelta"",       
         (coalesce(sum(I.""WarshipRating""),0)-coalesce(sum(D.""WarshipRating""),0)) as ""AccountRatingDelta""
         from ""Accounts"" A
@@ -32,25 +32,23 @@ namespace AmoebaGameMatcherServer.Controllers
             this.npgsqlConnection = npgsqlConnection;
         }
         
-        [ItemCanBeNull]
+        
         public async Task<RewardsThatHaveNotBeenShown> GetNotShownResults([NotNull] string playerServiceId)
         {
+            var result = new RewardsThatHaveNotBeenShown();
             var parameters = new {serviceIdPar = playerServiceId};
             var collection = await npgsqlConnection.QueryAsync<DapperHelperNotShownReward>(Sql,parameters);
 
             var element = collection.SingleOrDefault();
             if (element != null)
             {
-                return new RewardsThatHaveNotBeenShown
-                {
-                    AccountRatingDelta = element.AccountRatingDelta,
-                    HardCurrencyDelta = element.HardCurrencyDelta,
-                    SoftCurrencyDelta = element.SoftCurrencyDelta,
-                    LootboxPointsDelta = element.LootboxPointsDelta
-                };
+                result.AccountRatingDelta = element.AccountRatingDelta;
+                result.HardCurrencyDelta = element.HardCurrencyDelta;
+                result.SoftCurrencyDelta = element.SoftCurrencyDelta;
+                result.LootboxPointsDelta = element.LootboxPointsDelta;
             }
             
-            return null;
+            return result;
         }
     }
 }
