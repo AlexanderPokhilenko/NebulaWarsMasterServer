@@ -30,7 +30,7 @@ namespace AmoebaGameMatcherServer.Controllers
         [ItemCanBeNull]
         public async Task<LootboxModel> CreateLootboxModelAsync([NotNull] string playerServiceId)
         {
-            //Игрок может открыть лутбокс?
+            //У игрока достаточно денег на лутбокс?
             if (!await allowingService.CanPlayerOpenLootboxAsync(playerServiceId))
             {
                 return null;
@@ -43,8 +43,10 @@ namespace AmoebaGameMatcherServer.Controllers
 
             //Создать лутбокс
             LootboxModel lootboxModel = smallLootboxModelFactory.Create(warshipIds);
+            
             //Сохранить лутбокс 
             await lootboxDbWriterService.WriteAsync(playerServiceId, lootboxModel);
+            
             return lootboxModel;
         }
     }

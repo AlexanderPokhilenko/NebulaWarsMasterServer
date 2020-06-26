@@ -84,7 +84,7 @@ namespace LibraryForTests
                                             new Increment()
                                             {
                                                 LootboxPoints = random.Next(10),
-                                                IncrementTypeId = IncrementTypeEnum.Lootbox
+                                                IncrementTypeId = IncrementTypeEnum.LootboxPoints
                                             }
                                         },
                                         ResourceTypeId =ResourceTypeEnum.MatchReward 
@@ -145,7 +145,7 @@ namespace LibraryForTests
                 Increment increment = new Increment()
                 {
                     SoftCurrency = random.Next(30),
-                    IncrementTypeId = IncrementTypeEnum.Currency
+                    IncrementTypeId = IncrementTypeEnum.SoftCurrency
                 };
                 increments.Add(increment);
             }
@@ -157,7 +157,7 @@ namespace LibraryForTests
                 {
                     WarshipPowerPoints = random.Next(30),
                     WarshipId = warshipId,
-                    IncrementTypeId = IncrementTypeEnum.Currency
+                    IncrementTypeId = IncrementTypeEnum.WarshipPowerPoints
                 };
                 
                 increments.Add(increment);
@@ -168,7 +168,7 @@ namespace LibraryForTests
                 Increment increment = new Increment()
                 {
                     LootboxPoints = random.Next(30),
-                    IncrementTypeId = IncrementTypeEnum.Lootbox
+                    IncrementTypeId = IncrementTypeEnum.LootboxPoints
                 };
                 increments.Add(increment);
             }

@@ -73,6 +73,7 @@
               <e p="Increment.cs" t="Include" />
               <e p="IncrementType.cs" t="Include" />
               <e p="IncrementTypeEnum.cs" t="Include" />
+              <e p="MatchRewardType.cs" t="Include" />
             </e>
             <e p="Resource" t="Include">
               <e p="Resource.cs" t="Include" />

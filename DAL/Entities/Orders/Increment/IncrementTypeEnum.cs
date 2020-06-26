@@ -4,10 +4,11 @@
     {
         Warship=1,
         Skin=2,
-        Currency=3,
+        SoftCurrency=3,
         WarshipPowerPoints=4,
         WarshipLevel=5,
-        Lootbox=6,
-        WarshipRating=7
+        LootboxPoints=6,
+        WarshipRating=7,
+        HardCurrency=8,
     }
 }

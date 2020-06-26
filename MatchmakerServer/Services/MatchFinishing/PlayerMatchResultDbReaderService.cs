@@ -68,7 +68,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             foreach (var increment in increments)
             {
                 Console.WriteLine(increment.IncrementTypeId.ToString()+" "+increment.MatchRewardTypeId.Value.ToString());
-                if (increment.IncrementTypeId == IncrementTypeEnum.Lootbox)
+                if (increment.IncrementTypeId == IncrementTypeEnum.LootboxPoints)
                 {
                     Console.WriteLine("это лутбокс");
                     if (increment.MatchRewardTypeId!=null)

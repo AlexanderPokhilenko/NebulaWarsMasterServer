@@ -20,7 +20,7 @@ namespace NetworkLibrary.NetworkLibrary.Http
     public enum LootboxPrizeType
     {
         SoftCurrency,
-        SmallLootboxPoints,
+        LootboxPoints,
         WarshipPowerPoints
     }
 }

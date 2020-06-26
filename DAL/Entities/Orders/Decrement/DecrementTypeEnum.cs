@@ -2,8 +2,10 @@
 {
     public enum DecrementTypeEnum
     {
-        GameCurrency=1,
+        LootboxPoints=1,
         RealCurrency=2,
-        WarshipRating=3
+        WarshipRating=3,
+        SoftCurrency=4,
+        HardCurrency=5
     }
 }

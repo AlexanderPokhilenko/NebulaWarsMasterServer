@@ -67,7 +67,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                 increments.Add( new Increment
                 {
                     SoftCurrency = matchReward.SoftCurrency,
-                    IncrementTypeId = IncrementTypeEnum.Currency,
+                    IncrementTypeId = IncrementTypeEnum.SoftCurrency,
                     MatchRewardTypeId = MatchRewardTypeEnum.RankingReward 
                 });
             }
@@ -78,7 +78,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                     new Increment
                     {
                         LootboxPoints = matchReward.LootboxPoints,
-                        IncrementTypeId = IncrementTypeEnum.Lootbox,
+                        IncrementTypeId = IncrementTypeEnum.LootboxPoints,
                         MatchRewardTypeId = MatchRewardTypeEnum.RankingReward
                     });
             }

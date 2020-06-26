@@ -39,11 +39,11 @@ namespace AmoebaGameMatcherServer.Controllers
                         WarshipId = warshipId
                     };
                 }
-                case LootboxPrizeType.SmallLootboxPoints:
+                case LootboxPrizeType.LootboxPoints:
                     return new LootboxPrizeModel
                     {
                         Quantity = random.Next(44),
-                        LootboxPrizeType = LootboxPrizeType.SmallLootboxPoints
+                        LootboxPrizeType = LootboxPrizeType.LootboxPoints
                     };
                 default:
                     throw new Exception("Неизвестный тип подарка");

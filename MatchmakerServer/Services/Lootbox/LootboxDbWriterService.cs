@@ -23,62 +23,69 @@ namespace AmoebaGameMatcherServer.Controllers
         
         public async Task WriteAsync(string playerServiceId, LootboxModel lootboxModel)
         {
-            // Account account = await dbContext.Accounts
-            //     .Where(account1 => account1.ServiceId == playerServiceId)
-            //     .SingleOrDefaultAsync();
-            //
-            // //TODO создать сущность покупки лутбокса
-            // // account.LootboxPoints -= 100;
-            //
-            // LootboxDb lootboxDb = new LootboxDb
-            // {
-            //     LootboxType = LootboxType.Small,
-            //     LootboxPrizePointsForSmallLootboxes = new List<LootboxPrizeSmallLootboxPoints>(),
-            //     LootboxPrizeSoftCurrency = new List<LootboxPrizeSoftCurrency>(),
-            //     LootboxPrizeWarshipPowerPoints = new List<LootboxPrizeWarshipPowerPoints>(),
-            //     AccountId = account.Id,
-            //     CreationDate = DateTime.UtcNow,
-            //     WasShown = false
-            // };
-            //
-            // foreach (LootboxPrizeModel prize in lootboxModel.Prizes)
-            // {
-            //     switch (prize.LootboxPrizeType)
-            //     {
-            //         case LootboxPrizeType.SoftCurrency:
-            //             lootboxDb.LootboxPrizeSoftCurrency.Add(new LootboxPrizeSoftCurrency
-            //             {
-            //                 Quantity = prize.Quantity
-            //             });
-            //             break;
-            //         case LootboxPrizeType.LootboxPoints:
-            //             lootboxDb.LootboxPrizePointsForSmallLootboxes.Add(new LootboxPrizeSmallLootboxPoints
-            //             {
-            //                 Quantity = prize.Quantity
-            //             });
-            //             break;
-            //         case LootboxPrizeType.WarshipPowerPoints:
-            //             if (prize.WarshipId != null)
-            //             {
-            //                 var lootboxPrizeWarshipPowerPoints = new LootboxPrizeWarshipPowerPoints
-            //                 {
-            //                     Quantity = prize.Quantity,
-            //                     WarshipId = prize.WarshipId.Value
-            //                 };
-            //                 lootboxDb.LootboxPrizeWarshipPowerPoints.Add(lootboxPrizeWarshipPowerPoints);
-            //             }
-            //             else
-            //             {
-            //                 throw new Exception($"Не установлен {nameof(prize.WarshipId)}");
-            //             }
-            //             break;
-            //         default:
-            //             throw new ArgumentOutOfRangeException();
-            //     }
-            // }
-            //
-            // await dbContext.Lootbox.AddAsync(lootboxDb);
-            // await dbContext.SaveChangesAsync();
+            Account account = await dbContext.Accounts
+                .Where(account1 => account1.ServiceId == playerServiceId)
+                .SingleOrDefaultAsync();
+
+            List<Increment> increments = new List<Increment>();
+            foreach (LootboxPrizeModel prize in lootboxModel.Prizes)
+            {
+                Increment increment = new Increment();
+                switch (prize.LootboxPrizeType)
+                {
+                    case LootboxPrizeType.SoftCurrency:
+                        increment.IncrementTypeId = IncrementTypeEnum.SoftCurrency;
+                        increment.SoftCurrency = prize.Quantity;
+                        break;
+                    case LootboxPrizeType.LootboxPoints:
+                        increment.IncrementTypeId = IncrementTypeEnum.LootboxPoints;
+                        increment.LootboxPoints = prize.Quantity;
+                        break;
+                    case LootboxPrizeType.WarshipPowerPoints:
+                        if (prize.WarshipId != null)
+                        {
+                            increment.IncrementTypeId = IncrementTypeEnum.WarshipPowerPoints;
+                            increment.WarshipPowerPoints = prize.Quantity;
+                        }
+                        else
+                        {
+                            throw new NullReferenceException(nameof(prize.WarshipId));
+                        }
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                
+                increments.Add(increment);
+            }
+            
+            Resource resource = new Resource
+            {
+                Decrements = new List<Decrement>
+                {
+                    new Decrement
+                    {
+                        DecrementTypeId = DecrementTypeEnum.LootboxPoints,
+                        LootboxPoints = 100
+                    }
+                },
+                Increments = increments
+            };
+
+            Transaction transaction = new Transaction
+            {
+                AccountId = account.Id,
+                DateTime = DateTime.UtcNow,
+                TransactionTypeId = TransactionTypeEnum.Lootbox,
+                Resources = new List<Resource>
+                {
+                    resource
+                },
+                WasShown = false
+            };
+            
+            await dbContext.Transactions.AddAsync(transaction);
+            await dbContext.SaveChangesAsync();
         }
     }
 }

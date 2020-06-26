@@ -44,7 +44,7 @@ namespace AmoebaGameMatcherServer
                                     new Increment
                                     {
                                         LootboxPoints = 100,
-                                        IncrementTypeId = IncrementTypeEnum.Currency
+                                        IncrementTypeId = IncrementTypeEnum.LootboxPoints
                                     }
                                 },
                                 Decrements = new List<Decrement>
@@ -52,7 +52,7 @@ namespace AmoebaGameMatcherServer
                                     new Decrement
                                     {
                                         HardCurrency = 80,
-                                        DecrementTypeId = DecrementTypeEnum.GameCurrency
+                                        DecrementTypeId = DecrementTypeEnum.HardCurrency
                                     }
                                 }
                             }

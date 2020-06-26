@@ -47,7 +47,7 @@ namespace DeleteMe1
                 inner join ""Warships"" w on a.""Id"" = w.""AccountId""
             inner join ""WarshipTypes"" wt on w.""WarshipTypeId"" = wt.""Id""
             left join ""MatchResults"" matchResult on w.""Id"" = matchResult.""WarshipId""
-            left join ""Lootbox"" lootbox on lootbox.""AccountId"" = a.""Id""
+            left join ""LootboxPoints"" lootbox on lootbox.""AccountId"" = a.""Id""
             left join ""LootboxPrizeSmallLootboxPoints"" prizeSmallLootboxPoints on prizeSmallLootboxPoints.""LootboxId"" = lootbox.""Id""
             left join ""LootboxPrizeSoftCurrency"" prizeRegularCurrency on prizeRegularCurrency.""LootboxId""=lootbox.""Id""
             left join ""LootboxPrizeWarshipPowerPoints"" prizeWarshipPowerPoints on prizeWarshipPowerPoints.""LootboxId""=lootbox.""Id""

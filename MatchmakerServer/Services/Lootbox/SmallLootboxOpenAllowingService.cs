@@ -20,8 +20,14 @@ namespace AmoebaGameMatcherServer.Controllers
 
         public async Task<bool> CanPlayerOpenLootboxAsync(string playerServiceId)
         {
-            //TODO добавить нормальное чтения аккаунта
             Account account = await dbContext.Accounts
+                .Include(account1 => account1.Transactions)
+                    .ThenInclude(transaction => transaction.Resources)
+                        .ThenInclude(resource => resource.Increments.Where(increment => increment.IncrementTypeId==IncrementTypeEnum.LootboxPoints))
+                .Include(account1 => account1.Transactions)
+                    .ThenInclude(transaction => transaction.Resources)
+                        .ThenInclude(resource => resource.Decrements
+                    .Where(decrement => decrement.DecrementTypeId==DecrementTypeEnum.LootboxPoints))
                 .Where(account1 => account1.ServiceId == playerServiceId)
                 .SingleOrDefaultAsync();
 
@@ -30,11 +36,21 @@ namespace AmoebaGameMatcherServer.Controllers
                 return false;
             }
 
-            // //TODO добавить нормальное чтения аккаунта
-            // if (account.LootboxPoints < 100)
-            // {
-            //     return false;
-            // }
+            int lootboxPoints = account.Transactions
+                .SelectMany(transaction => transaction.Resources)
+                .SelectMany(resource => resource.Increments)
+                .Sum(increment => increment.LootboxPoints)
+                                -
+                            account.Transactions
+                .SelectMany(transaction => transaction.Resources)
+                .SelectMany(resource => resource.Decrements)
+                .Sum(decrement => decrement.LootboxPoints);
+            
+           
+            if (lootboxPoints < 100)
+            {
+                return false;
+            }
 
             return true;
         }

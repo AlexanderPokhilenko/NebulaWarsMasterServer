@@ -15,8 +15,8 @@ namespace AmoebaGameMatcherServer
                 {
                     new DecrementType
                     {
-                        Name = DecrementTypeEnum.GameCurrency.ToString(),
-                        Id = DecrementTypeEnum.GameCurrency
+                        Name = DecrementTypeEnum.LootboxPoints.ToString(),
+                        Id = DecrementTypeEnum.LootboxPoints
                     },
                     new DecrementType
                     {
@@ -27,6 +27,16 @@ namespace AmoebaGameMatcherServer
                     {
                         Name = DecrementTypeEnum.WarshipRating.ToString(),
                         Id = DecrementTypeEnum.WarshipRating
+                    },
+                    new DecrementType
+                    {
+                        Name = DecrementTypeEnum.SoftCurrency.ToString(),
+                        Id = DecrementTypeEnum.SoftCurrency
+                    },
+                    new DecrementType
+                    {
+                        Name = DecrementTypeEnum.HardCurrency.ToString(),
+                        Id = DecrementTypeEnum.HardCurrency
                     }
                 };
                 dbContext.DecrementTypes.AddRange(decrementTypes);

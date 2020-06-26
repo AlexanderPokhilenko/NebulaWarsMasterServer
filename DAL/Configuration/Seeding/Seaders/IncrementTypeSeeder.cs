@@ -25,8 +25,14 @@ namespace AmoebaGameMatcherServer
                     },
                     new IncrementType
                     {
-                        Name = IncrementTypeEnum.Currency.ToString(),
-                        Id = IncrementTypeEnum.Currency
+                        Name = IncrementTypeEnum.SoftCurrency.ToString(),
+                        Id = IncrementTypeEnum.SoftCurrency
+                    },
+                    
+                    new IncrementType
+                    {
+                        Name = IncrementTypeEnum.HardCurrency.ToString(),
+                        Id = IncrementTypeEnum.HardCurrency
                     },
                     new IncrementType
                     {
@@ -40,8 +46,8 @@ namespace AmoebaGameMatcherServer
                     },
                     new IncrementType
                     {
-                        Name = IncrementTypeEnum.Lootbox.ToString(),
-                        Id = IncrementTypeEnum.Lootbox
+                        Name = IncrementTypeEnum.LootboxPoints.ToString(),
+                        Id = IncrementTypeEnum.LootboxPoints
                     }
                     ,
                     new IncrementType
