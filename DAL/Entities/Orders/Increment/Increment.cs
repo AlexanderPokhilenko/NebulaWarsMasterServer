@@ -1,17 +1,9 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using NetworkLibrary.NetworkLibrary.Http;
+using Libraries.NetworkLibrary.Experimental;
 
 namespace DataLayer.Tables
 {
-    public class MatchRewardType
-    {
-        [Key] public MatchRewardTypeEnum Id { get; set; }
-        [Required] public string Name { get; set; }
-        public List<Increment> Increments { get; set; }
-    }
-    
     /// <summary>
     /// Все значения положительны.
     /// </summary>

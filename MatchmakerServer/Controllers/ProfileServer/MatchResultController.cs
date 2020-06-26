@@ -45,10 +45,31 @@ namespace AmoebaGameMatcherServer.Controllers
             MatchResultDto matchResultDto = await matchResultDbReaderService
                 .ReadMatchResultAsync(matchId.Value, playerServiceId);
             
+            
+            if (matchResultDto == null)
+            {
+                throw new NullReferenceException(nameof(matchResultDto));
+            }
+
+            if (matchResultDto.CurrentWarshipRating < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(matchResultDto.CurrentWarshipRating));
+            }
+
+            if (matchResultDto.LootboxPoints.Count == 0)
+            {
+                throw new Exception("список наград пуст");
+            }
+            
+            foreach (var pair in matchResultDto.LootboxPoints)
+            {
+                Console.WriteLine($"{pair.Key} {pair.Value}");
+            }
+            
+            
             //Чек на адекватность ответа
             if (matchResultDto == null)
             {
-                Console.WriteLine("\n\n\n\n\nmatchResult is null");
                 return StatusCode(500);
             }
 

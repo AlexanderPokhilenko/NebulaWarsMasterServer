@@ -8,22 +8,22 @@ namespace AmoebaGameMatcherServer.Controllers
     /// </summary>
     public class ShopLootboxService
     {
-        public ShopSectionModel Get()
+        public SectionModel Get()
         {
             throw new NotImplementedException();
-            ShopSectionModel result = new ShopSectionModel();
+            SectionModel result = new SectionModel();
             
-            result.UiItems=new ShopItemModel[2][];
-            //TODO добавить обычный ящик
-            
-            result.UiItems[0] = new ShopItemModel[1]
-            {
-                new ShopItemModel()
-                {
-                     
-                }
-            };
-            //TODO добавить большой ящик
+            // result.UiItems=new SectionModel[2][];
+            // //TODO добавить обычный ящик
+            //
+            // result.UiItems[0] = new ProductModel[1]
+            // {
+            //     new ProductModel()
+            //     {
+            //          
+            //     }
+            // };
+            // //TODO добавить большой ящик
             
             return result;
         }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services.Queues;
 using DataLayer;
 using DataLayer.Tables;
+using Libraries.NetworkLibrary.Experimental;
 using Microsoft.EntityFrameworkCore;
 using NetworkLibrary.NetworkLibrary.Http;
 
@@ -17,9 +18,9 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
     public class BattleRoyaleMatchFinisherService
     {
         private readonly ApplicationDbContext dbContext;
+        private readonly WarshipReaderService warshipReaderService;
         private readonly BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesSingletonService;
         private readonly BattleRoyaleMatchRewardCalculatorService battleRoyaleMatchRewardCalculatorService;
-        private readonly WarshipReaderService warshipReaderService;
 
         public BattleRoyaleMatchFinisherService(ApplicationDbContext dbContext,
             BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesSingletonService,
@@ -31,7 +32,6 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             this.battleRoyaleMatchRewardCalculatorService = battleRoyaleMatchRewardCalculatorService;
             this.warshipReaderService = warshipReaderService;
         }
-        
         
         public async Task<bool> UpdatePlayerMatchResultInDbAsync(int accountId, int placeInMatch, int matchId)
         {
@@ -78,7 +78,8 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                     new Increment
                     {
                         LootboxPoints = matchReward.LootboxPoints,
-                        IncrementTypeId = IncrementTypeEnum.Lootbox
+                        IncrementTypeId = IncrementTypeEnum.Lootbox,
+                        MatchRewardTypeId = MatchRewardTypeEnum.RankingReward
                     });
             }
             
@@ -88,7 +89,8 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                 {
                     WarshipRating = matchReward.WarshipRatingDelta,
                     IncrementTypeId = IncrementTypeEnum.WarshipRating,
-                    WarshipId = matchResult.WarshipId
+                    WarshipId = matchResult.WarshipId,
+                    MatchRewardTypeId = MatchRewardTypeEnum.RankingReward
                 });
             }
             else if(matchReward.WarshipRatingDelta < 0)

@@ -10,9 +10,9 @@ namespace AmoebaGameMatcherServer.Controllers
     /// </summary>
     public class ShopGemsService
     {
-        public ShopSectionModel Get()
+        public SectionModel Get()
         {
-            ShopSectionModel model = new ShopSectionModel();
+            SectionModel model = new SectionModel();
             //TODO добавить премиум валюту 
             throw new NotImplementedException();
         }

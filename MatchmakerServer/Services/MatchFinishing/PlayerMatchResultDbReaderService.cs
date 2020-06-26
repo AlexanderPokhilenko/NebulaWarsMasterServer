@@ -44,24 +44,38 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             //Такой матч существует?
             if (matchResult == null)
             {
-                Console.WriteLine("\n\n\n\n\n\nmatchResult == null");
+                throw new NullReferenceException(nameof(matchResult));
                 return null;
             }
             
             //Результат игрока записан?
             if (!matchResult.IsFinished)
             {
-                Console.WriteLine("Игрок не закончил этот матч.");
+                throw new Exception("Игрок не закончил этот матч");
                 return null;
             }
             
             int currentWarshipRating = await warshipReaderService.ReadWarshipRatingAsync(matchResult.WarshipId);
             var lootboxPoints = new Dictionary<MatchRewardTypeEnum, int>();
-            foreach (var increment in matchResult.Transaction.Resources.SelectMany(resource =>resource.Increments))
+            var matchIncrements = matchResult.Transaction.Resources
+                .SelectMany(resource => resource.Increments);
+            var increments = matchIncrements as Increment[] ?? matchIncrements.ToArray();
+            if (increments.Length == 0)
             {
-                if (increment.IncrementTypeId == IncrementTypeEnum.Lootbox && increment.MatchRewardTypeId!=null)
+                throw new Exception("Игрок ничего не заработал за бой");
+            }
+            
+            foreach (var increment in increments)
+            {
+                Console.WriteLine(increment.IncrementTypeId.ToString()+" "+increment.MatchRewardTypeId.Value.ToString());
+                if (increment.IncrementTypeId == IncrementTypeEnum.Lootbox)
                 {
-                    lootboxPoints.Add(increment.MatchRewardTypeId.Value, increment.LootboxPoints);
+                    Console.WriteLine("это лутбокс");
+                    if (increment.MatchRewardTypeId!=null)
+                    {
+                        Console.WriteLine("добавление");
+                        lootboxPoints.Add(increment.MatchRewardTypeId.Value, increment.LootboxPoints);
+                    }
                 }
             }
 
@@ -82,6 +96,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                 LootboxPoints = lootboxPoints,
                 WarshipPrefabName = matchResult.Warship.WarshipType.Name
             };
+            
             return matchResultDto; 
         }
     }
