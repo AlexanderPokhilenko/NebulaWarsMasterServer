@@ -16,9 +16,9 @@ namespace DataLayer.Tables
         public WarshipType WarshipType { get; set; }
         
         public List<MatchResult> MatchResults{ get; set; } = new List<MatchResult>();
-
-        // public List<LootboxPrizeWarshipPowerPoints> WarshipPowerPoints { get; set; } = new List<LootboxPrizeWarshipPowerPoints>();
-
+        public List<Increment> Increments { get; set; }
+        public List<Decrement> Decrements { get; set; }
+        
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();

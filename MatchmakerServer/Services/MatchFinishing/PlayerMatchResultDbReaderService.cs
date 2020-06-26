@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
 using DataLayer.Tables;
 using Libraries.NetworkLibrary.Experimental;
 using Microsoft.EntityFrameworkCore;
+using NetworkLibrary.NetworkLibrary.Http;
 using MatchResult = DataLayer.Tables.MatchResult;
 
 namespace AmoebaGameMatcherServer.Services.MatchFinishing
@@ -24,41 +26,63 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             this.warshipReaderService = warshipReaderService;
         }
 
-        public async Task<Libraries.NetworkLibrary.Experimental.MatchResult> ReadMatchResultAsync(int matchId, string playerServiceId)
+        public async Task<MatchResultDto> ReadMatchResultAsync(int matchId, string playerServiceId)
         {
-            MatchResult matchResultDb = await dbContext.MatchResults
+            MatchResult matchResult = await dbContext.MatchResults
                 .Include(matchResult1=>matchResult1.Warship)
                     .ThenInclude(warship => warship.WarshipType)
-                .SingleOrDefaultAsync(rec => 
-                    rec.MatchId == matchId 
-                    && rec.Warship.Account.ServiceId == playerServiceId);
+                .Include(matchResult1 => matchResult1.Transaction)
+                    .ThenInclude(transaction => transaction.Resources)
+                        .ThenInclude(resource => resource.Increments)
+                .Include(matchResult1 => matchResult1.Transaction)
+                    .ThenInclude(transaction => transaction.Resources)
+                        .ThenInclude(resource => resource.Decrements)
+                .SingleOrDefaultAsync(matchResult1 => 
+                    matchResult1.MatchId == matchId 
+                    && matchResult1.Warship.Account.ServiceId == playerServiceId);
             
             //Такой матч существует?
-            if (matchResultDb == null)
+            if (matchResult == null)
             {
                 Console.WriteLine("\n\n\n\n\n\nmatchResult == null");
                 return null;
             }
             
             //Результат игрока записан?
-            if (!matchResultDb.IsFinished)
+            if (!matchResult.IsFinished)
             {
                 Console.WriteLine("Игрок не закончил этот матч.");
                 return null;
             }
-
-
-            int currentWarshipRating = await warshipReaderService.ReadWarshipRatingAsync(matchResultDb.WarshipId);
             
-            
-            Libraries.NetworkLibrary.Experimental.MatchResult matchResult = new Libraries.NetworkLibrary.Experimental.MatchResult();
-            matchResult.CurrentSpaceshipRating = currentWarshipRating;
-            // matchResult.MatchRatingDelta = matchResultDb.WarshipRatingDelta;
-            // matchResult.PointsForSmallChest = matchResultDb.LootboxPointsDelta;
-            matchResult.DoubleTokens = false;
-            matchResult.SpaceshipPrefabName = matchResultDb.Warship.WarshipType.Name;
+            int currentWarshipRating = await warshipReaderService.ReadWarshipRatingAsync(matchResult.WarshipId);
+            var lootboxPoints = new Dictionary<MatchRewardTypeEnum, int>();
+            foreach (var increment in matchResult.Transaction.Resources.SelectMany(resource =>resource.Increments))
+            {
+                if (increment.IncrementTypeId == IncrementTypeEnum.Lootbox && increment.MatchRewardTypeId!=null)
+                {
+                    lootboxPoints.Add(increment.MatchRewardTypeId.Value, increment.LootboxPoints);
+                }
+            }
 
-            return matchResult; 
+            int warshipRatingIncrement = matchResult.Transaction.Resources
+                .SelectMany(resource => resource.Increments)
+                .Where(increment => increment.IncrementTypeId == IncrementTypeEnum.WarshipRating)
+                .Sum(increment => increment.WarshipRating);
+            int warshipRatingDecrement = matchResult.Transaction.Resources
+                .SelectMany(resource => resource.Decrements)
+                .Where(decrement => decrement.DecrementTypeId == DecrementTypeEnum.WarshipRating)
+                .Sum(decrement => decrement.WarshipRating);
+            int matchRatingDelta = warshipRatingIncrement - warshipRatingDecrement;
+
+            MatchResultDto matchResultDto = new MatchResultDto
+            {
+                CurrentWarshipRating = currentWarshipRating,
+                MatchRatingDelta = matchRatingDelta,
+                LootboxPoints = lootboxPoints,
+                WarshipPrefabName = matchResult.Warship.WarshipType.Name
+            };
+            return matchResultDto; 
         }
     }
 }

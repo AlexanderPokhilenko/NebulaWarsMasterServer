@@ -20,7 +20,7 @@ namespace AmoebaGameMatcherServer
 
             services.AddTransient(provider =>
             {
-                string connectionString = DbConfig.GetConnectionString();
+                string connectionString = DbConnectionConfig.GetConnectionString();
                 return new NpgsqlConnection(connectionString);
             });
             

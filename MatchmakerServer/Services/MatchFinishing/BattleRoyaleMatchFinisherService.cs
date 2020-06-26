@@ -6,9 +6,11 @@ using AmoebaGameMatcherServer.Services.Queues;
 using DataLayer;
 using DataLayer.Tables;
 using Microsoft.EntityFrameworkCore;
+using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services.MatchFinishing
 {
+    
     /// <summary>
     /// Отвечает за дописывание результатов матча для батл рояль режима.
     /// </summary>
@@ -53,27 +55,36 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             MatchReward matchReward = battleRoyaleMatchRewardCalculatorService
                 .Calculate(placeInMatch, currentWarshipRating);
             
-            //Обновить поля результата в БД 
+            //Обновить место в бою
             matchResult.PlaceInMatch = placeInMatch;
 
+            //ОБновить ресурсы
+            var increments = new List<Increment>();
+            var decrements = new List<Decrement>();
 
-            var increments = new List<Increment>()
+            if (matchReward.SoftCurrency > 0)
             {
-                new Increment()
+                increments.Add( new Increment
                 {
                     SoftCurrency = matchReward.SoftCurrency,
-                    IncrementTypeId = IncrementTypeEnum.Currency
-                },
-                new Increment()
-                {
-                    LootboxPoints = matchReward.LootboxPoints,
-                    IncrementTypeId = IncrementTypeEnum.Lootbox
-                }
-            };
-            var decrements = new List<Decrement>();
+                    IncrementTypeId = IncrementTypeEnum.Currency,
+                    MatchRewardTypeId = MatchRewardTypeEnum.RankingReward 
+                });
+            }
+
+            if (matchReward.LootboxPoints > 0)
+            {
+                increments.Add(
+                    new Increment
+                    {
+                        LootboxPoints = matchReward.LootboxPoints,
+                        IncrementTypeId = IncrementTypeEnum.Lootbox
+                    });
+            }
+            
             if (matchReward.WarshipRatingDelta > 0)
             {
-                increments.Add(new Increment()
+                increments.Add(new Increment
                 {
                     WarshipRating = matchReward.WarshipRatingDelta,
                     IncrementTypeId = IncrementTypeEnum.WarshipRating,
@@ -82,7 +93,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             }
             else if(matchReward.WarshipRatingDelta < 0)
             {
-                decrements.Add(new Decrement()
+                decrements.Add(new Decrement
                 {
                     DecrementTypeId = DecrementTypeEnum.WarshipRating,
                     WarshipId = matchResult.WarshipId,
@@ -90,7 +101,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                 });
             }
             
-            Transaction transaction = new Transaction()
+            Transaction transaction = new Transaction
             {
                 WasShown = false,
                 DateTime = DateTime.UtcNow,

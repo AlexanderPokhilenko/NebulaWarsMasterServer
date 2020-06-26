@@ -30,6 +30,7 @@ namespace DataLayer
         
         public DbSet<Increment> Increments { get; set; }
         public DbSet<IncrementType> IncrementTypes { get; set; }
+        public DbSet<MatchRewardType> MatchRewardTypes { get; set; }
         
         
         public DbSet<Decrement> Decrements { get; set; }
@@ -41,36 +42,11 @@ namespace DataLayer
             modelBuilder.ApplyConfiguration(new WarshipsConfiguration());
             modelBuilder.ApplyConfiguration(new MatchResultsConfiguration());
             modelBuilder.ApplyConfiguration(new WarshipTypesConfiguration());
+            modelBuilder.ApplyConfiguration(new TransactionsConfiguration());
+            modelBuilder.ApplyConfiguration(new ResourcesConfiguration());
+            modelBuilder.ApplyConfiguration(new DecrementsConfiguration());
+            modelBuilder.ApplyConfiguration(new IncrementsConfiguration());
             
-            modelBuilder.Entity<Transaction>()
-                .HasOne(order => order.Account)
-                .WithMany(account => account.Transactions)
-                .HasForeignKey(order => order.AccountId);
-            
-            modelBuilder.Entity<Transaction>()
-                .HasOne(order => order.TransactionType)
-                .WithMany(orderType => orderType.Orders)
-                .HasForeignKey(order => order.TransactionTypeId);
-            
-            modelBuilder.Entity<Resource>()
-                .HasOne(prod => prod.Transaction)
-                .WithMany(order => order.Resources)
-                .HasForeignKey(prod => prod.TransactionId);
-            
-            modelBuilder.Entity<Resource>()
-                .HasOne(prod => prod.ResourceType)
-                .WithMany(productType => productType.Products)
-                .HasForeignKey(prod => prod.ResourceTypeId);
-            
-            modelBuilder.Entity<Increment>()
-                .HasOne(inc => inc.Resource)
-                .WithMany(prod => prod.Increments)
-                .HasForeignKey(inc => inc.ResourceId);
-            
-            modelBuilder.Entity<Decrement>()
-                .HasOne(decr => decr.Resource)
-                .WithMany(prod => prod.Decrements)
-                .HasForeignKey(decr => decr.ResourceId);
         }
     }
 }

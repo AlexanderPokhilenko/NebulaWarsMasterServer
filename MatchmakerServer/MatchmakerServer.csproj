@@ -25,6 +25,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\DAL\DAL.csproj" />
+      <ProjectReference Include="..\NetworkLibrary\NetworkLibrary.csproj" />
     </ItemGroup>
    
    

@@ -11,7 +11,7 @@ namespace DataLayer
         {
             DbContextOptionsBuilder<ApplicationDbContext> builder = new DbContextOptionsBuilder<ApplicationDbContext>();
             
-            string connectionString = DbConfig.GetConnectionString(databaseName);
+            string connectionString = DbConnectionConfig.GetConnectionString(databaseName);
             builder.UseNpgsql(connectionString);
             return new ApplicationDbContext(builder.Options);
         }

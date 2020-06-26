@@ -18,6 +18,7 @@
       <ProjectReference Include="..\DAL\DAL.csproj" />
       <ProjectReference Include="..\LibraryForTests\LibraryForTests.csproj" />
       <ProjectReference Include="..\MatchmakerServer\MatchmakerServer.csproj" />
+      <ProjectReference Include="..\NetworkLibrary\NetworkLibrary.csproj" />
     </ItemGroup>
 
 </Project>
