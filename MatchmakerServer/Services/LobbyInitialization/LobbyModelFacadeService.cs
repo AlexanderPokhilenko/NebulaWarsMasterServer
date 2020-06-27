@@ -32,7 +32,7 @@ namespace AmoebaGameMatcherServer.Controllers
             var account = await accountFacadeService.ReadOrCreateAccountAsync(playerServiceId);
             if (account == null)
             {
-                throw new Exception($"{nameof(account)} is null");
+                throw new NullReferenceException(nameof(account));
             }
 
             RewardsThatHaveNotBeenShown rewardsThatHaveNotBeenShown = await notShownRewardsReaderService

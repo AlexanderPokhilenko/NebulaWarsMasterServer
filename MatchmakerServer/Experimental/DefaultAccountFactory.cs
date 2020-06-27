@@ -12,10 +12,7 @@ namespace AmoebaGameMatcherServer.Services
         // private static readonly int defaultPointsForSmallChest = 100;
         // private static readonly int defaultWarshipCombatPowerLevel = 1;
         // private static readonly int defaultWarshipCombatPowerValue = 0;
-        private static readonly int warshipTypeHare = 1;
-        private static readonly int warshipTypeBird = 2;
-        private static readonly int warshipTypeSmiley = 3;
-
+        
         public static Account CreateDefaultAccount(string playerId)
         {
             //TODO добавить немного денег аккаунту
@@ -37,6 +34,39 @@ namespace AmoebaGameMatcherServer.Services
                     new Warship
                     {
                         WarshipTypeId = WarshipTypeEnum.Smiley
+                    }
+                },Transactions = new List<Transaction>()
+                {
+                    new Transaction()
+                    {
+                        DateTime = DateTime.UtcNow,
+                        TransactionTypeId = TransactionTypeEnum.GameRegistration,
+                        WasShown = false,
+                        Resources = new List<Resource>()
+                        {
+                            new Resource()
+                            {
+                                ResourceTypeId = ResourceTypeEnum.Prize,
+                                Increments = new List<Increment>()
+                                {
+                                    new Increment()
+                                    {
+                                        IncrementTypeId = IncrementTypeEnum.SoftCurrency,
+                                        SoftCurrency = 100
+                                    },
+                                    new Increment()
+                                    {
+                                        IncrementTypeId = IncrementTypeEnum.HardCurrency,
+                                        HardCurrency = 30
+                                    },
+                                    new Increment()
+                                    {
+                                        IncrementTypeId = IncrementTypeEnum.LootboxPoints,
+                                        LootboxPoints = 150
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             };

@@ -46,11 +46,6 @@ namespace AmoebaGameMatcherServer
                     },
                     new ResourceType 
                     {
-                        Name = ResourceTypeEnum.Currency.ToString(), 
-                        Id =  ResourceTypeEnum.Currency
-                    },
-                    new ResourceType 
-                    {
                         Name = ResourceTypeEnum.WarshipLevel.ToString(), 
                         Id = ResourceTypeEnum.WarshipLevel
                     },
