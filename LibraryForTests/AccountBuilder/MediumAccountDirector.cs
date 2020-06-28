@@ -32,5 +32,10 @@ namespace LibraryForTests
         {
             Builder.AddWarshipImprovements(12);
         }
+
+        protected override void ConstructWarshipLevel()
+        {
+            Builder.AddWarshipLevels(12);
+        }
     }
 }

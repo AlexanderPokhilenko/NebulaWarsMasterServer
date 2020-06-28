@@ -218,5 +218,42 @@ namespace LibraryForTests
         {
             return account;
         }
+
+        public void AddWarshipLevels(int maxLevel=15)
+        {
+            for (int warshipIndex = 0; warshipIndex < account.Warships.Count; warshipIndex++)
+            {
+                Warship warship = account.Warships[warshipIndex];
+                int warshipId = warship.Id;
+                int level = random.Next(1, maxLevel);
+                for (int i = 1; i <= level; i++)
+                {
+                    Transaction transaction = new Transaction()
+                    {
+                        AccountId = account.Id,
+                        DateTime = DateTime.UtcNow,
+                        TransactionTypeId = TransactionTypeEnum.Prize,
+                        WasShown = false,
+                        Resources = new List<Resource>()
+                        {
+                            new Resource()
+                            {
+                                ResourceTypeId = ResourceTypeEnum.WarshipLevel,
+                                Increments = new List<Increment>()
+                                {
+                                    new Increment()
+                                    {
+                                        IncrementTypeId = IncrementTypeEnum.WarshipLevel,
+                                        WarshipId = warshipId,
+                                        Amount = i
+                                    }
+                                }
+                            }
+                        }
+                    };
+                    account.Transactions.Add(transaction);
+                }
+            }
+        }
     }
 }

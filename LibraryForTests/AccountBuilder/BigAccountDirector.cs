@@ -2,17 +2,22 @@
 
 namespace LibraryForTests
 {
-    public class BigAccountDirector:AccountDirector
+    public class BigAccountDirector : AccountDirector
     {
         public BigAccountDirector(AccountBuilder builder, ApplicationDbContext dbContext)
             : base(builder, dbContext)
         {
         }
-        
+
         protected override void ConstructWarships()
         {
             Builder.AddWarship();
             Builder.AddWarship();
+        }
+
+        protected override void ConstructWarshipLevel()
+        {
+            Builder.AddWarshipLevels();
         }
 
         protected override void ConstructLootboxes()

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using DataLayer.Tables;
 using JetBrains.Annotations;
 using Npgsql;
@@ -27,6 +28,14 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
             if (account == null)
             {
                 return null;
+            }
+
+            foreach (var warshipDbDto in account.Warships)
+            {
+                if (warshipDbDto.WarshipPowerLevel == 0)
+                {
+                    throw new Exception("Нулевой уровень "+nameof(AccountDbReaderService));
+                }
             }
             
             var accountResources = await accountResourcesDbReader.GetAccountResourcesAsync(serviceId);

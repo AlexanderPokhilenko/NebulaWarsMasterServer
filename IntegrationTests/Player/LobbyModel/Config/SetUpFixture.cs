@@ -21,7 +21,7 @@ namespace IntegrationTests
         internal static LobbyModelFacadeService LobbyModelFacadeService;
         internal static AccountFacadeService AccountFacadeService;
         internal static LobbyModelController LobbyModelController;
-        private const string DatabaseName = "IntegrationTests36";
+        private const string DatabaseName = "DevelopmentDb065";
 
         [OneTimeSetUp]
         public void Initialize()

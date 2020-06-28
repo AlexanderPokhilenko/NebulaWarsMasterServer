@@ -5,6 +5,7 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Controllers
 {
+    //todo написать тесты на эту поеботу
     /// <summary>
     /// Превращает AccountDbDto, в сериализуемый AccountDto
     /// </summary>
@@ -33,6 +34,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 warshipDto.PowerPoints = warship.WarshipPowerPoints;
                 warshipDto.Id = warship.Id;
                 warshipDto.ViewTypeId = GetViewTypeByName(warshipDto.WarshipName);
+                warshipDto.PowerLevel = warship.WarshipPowerLevel;
                 
                 result.Warships.Add(warshipDto);
             }

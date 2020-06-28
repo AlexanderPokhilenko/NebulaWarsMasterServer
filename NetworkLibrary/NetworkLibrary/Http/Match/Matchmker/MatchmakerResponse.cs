@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿using ZeroFormatter;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using ZeroFormatter;
 
 namespace NetworkLibrary.NetworkLibrary.Http
 {

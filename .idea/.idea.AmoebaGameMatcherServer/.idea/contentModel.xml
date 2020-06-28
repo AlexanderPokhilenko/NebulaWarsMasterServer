@@ -356,6 +356,8 @@
                 <e p="SectionModel.cs.meta" t="Include" />
                 <e p="ShopModel.cs" t="Include" />
                 <e p="ShopModel.cs.meta" t="Include" />
+                <e p="WarshipModel.cs" t="Include" />
+                <e p="WarshipModel.cs.meta" t="Include" />
                 <e p="WarshipPowerPointsProduct.cs" t="Include" />
                 <e p="WarshipPowerPointsProduct.cs.meta" t="Include" />
               </e>

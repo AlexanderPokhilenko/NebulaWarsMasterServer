@@ -24,6 +24,11 @@ namespace LibraryForTests
             Builder.AddWarshipImprovements(45);
         }
 
+        protected override void ConstructWarshipLevel()
+        {
+            Builder.AddWarshipLevels(5);
+        }
+
         protected override void ConstructLootboxes()
         {
             

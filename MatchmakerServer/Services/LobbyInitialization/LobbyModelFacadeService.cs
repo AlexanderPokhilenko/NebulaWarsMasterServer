@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services.LobbyInitialization;
+using DataLayer.Tables;
 using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
 
@@ -29,7 +30,7 @@ namespace AmoebaGameMatcherServer.Controllers
 
         public async Task<LobbyModel> CreateAsync([NotNull] string playerServiceId)
         {
-            var account = await accountFacadeService.ReadOrCreateAccountAsync(playerServiceId);
+            AccountDbDto account = await accountFacadeService.ReadOrCreateAccountAsync(playerServiceId);
             if (account == null)
             {
                 throw new NullReferenceException(nameof(account));

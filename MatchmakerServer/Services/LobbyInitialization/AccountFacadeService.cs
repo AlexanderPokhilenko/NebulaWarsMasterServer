@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using DataLayer.Tables;
 using JetBrains.Annotations;
-using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services.LobbyInitialization
 {

@@ -97,6 +97,8 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                 {
                     throw new Exception("Сука блять какого хуя уровень нулевой?");
                 }
+
+                Console.WriteLine("warshipDbDto.WarshipPowerLevel "+warshipDbDto.WarshipPowerLevel);
                 
                 warshipDbDto.WarshipPowerPoints = await dbContext.Increments
                        .Where(increment => increment.WarshipId == warship.Id

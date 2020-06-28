@@ -58,15 +58,4 @@ namespace NetworkLibrary.NetworkLibrary.Http
         
         [Index(13)] public virtual WarshipModel WarshipModel { get; set; }
     }
-
-    [ZeroFormattable]
-    public class WarshipModel
-    {
-        [Index(0)] public virtual string PrefabPath { get; set; }
-        [Index(1)] public virtual string Description{ get; set; }
-        /// <summary>
-        /// Скин или корабль или кораль плюс скин
-        /// </summary>
-        [Index(2)] public virtual string KitName { get; set; }
-    }
 }

@@ -24,6 +24,8 @@ namespace LibraryForTests
             dbContext.SaveChanges();
             ConstructWarships();
             dbContext.SaveChanges();
+            ConstructWarshipLevel();
+            dbContext.SaveChanges();
             ConstructMatches();
             dbContext.SaveChanges();
             ConstructLootboxes();
@@ -191,5 +193,6 @@ namespace LibraryForTests
 
 
         protected abstract void ConstructWarshipImprovements();
+        protected abstract void ConstructWarshipLevel();
     }
 }
