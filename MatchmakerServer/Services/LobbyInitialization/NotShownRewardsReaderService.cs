@@ -55,11 +55,6 @@ namespace AmoebaGameMatcherServer.Controllers
                     .Where(increment => increment.IncrementTypeId == IncrementTypeEnum.WarshipRating)
                     .Select(increment => increment.Amount)
                     .Sum();
-                accountRatingDelta -= transaction.Resources
-                    .SelectMany(resource => resource.Decrements)
-                    .Where(decrement => decrement.DecrementTypeId == DecrementTypeEnum.WarshipRating)
-                    .Select(decrement => decrement.Amount)
-                    .Sum();
                 
                 //Премиум валюта
                 hardCurrencyDelta = transaction.Resources
@@ -67,11 +62,7 @@ namespace AmoebaGameMatcherServer.Controllers
                     .Where(increment => increment.IncrementTypeId == IncrementTypeEnum.HardCurrency)
                     .Select(increment => increment.Amount)
                     .Sum();
-                hardCurrencyDelta -= transaction.Resources
-                    .SelectMany(resource => resource.Decrements)
-                    .Where(decrement => decrement.DecrementTypeId == DecrementTypeEnum.HardCurrency)
-                    .Select(decrement => decrement.Amount)
-                    .Sum();
+                
                 
                 //Обычная валюта
                 softCurrencyDelta = transaction.Resources
@@ -79,11 +70,7 @@ namespace AmoebaGameMatcherServer.Controllers
                     .Where(increment => increment.IncrementTypeId == IncrementTypeEnum.SoftCurrency)
                     .Select(increment => increment.Amount)
                     .Sum();
-                softCurrencyDelta -= transaction.Resources
-                    .SelectMany(resource => resource.Decrements)
-                    .Where(decrement => decrement.DecrementTypeId == DecrementTypeEnum.SoftCurrency)
-                    .Select(decrement => decrement.Amount)
-                    .Sum();
+                
                 
                 //Очки для сундуков
                 lootboxPointsDelta = transaction.Resources
@@ -91,21 +78,17 @@ namespace AmoebaGameMatcherServer.Controllers
                     .Where(increment => increment.IncrementTypeId == IncrementTypeEnum.LootboxPoints)
                     .Select(increment => increment.Amount)
                     .Sum();
-                lootboxPointsDelta -= transaction.Resources
-                    .SelectMany(resource => resource.Decrements)
-                    .Where(decrement => decrement.DecrementTypeId == DecrementTypeEnum.LootboxPoints)
-                    .Select(decrement => decrement.Amount)
-                    .Sum();
+                
 
                 transaction.WasShown = true;
             }
 
             await dbContext.SaveChangesAsync();
-
-            Console.WriteLine(accountRatingDelta);
-            Console.WriteLine(hardCurrencyDelta);
-            Console.WriteLine(lootboxPointsDelta);
-            Console.WriteLine(softCurrencyDelta);
+            //
+            // Console.WriteLine(accountRatingDelta);
+            // Console.WriteLine(hardCurrencyDelta);
+            // Console.WriteLine(lootboxPointsDelta);
+            // Console.WriteLine(softCurrencyDelta);
 
             RewardsThatHaveNotBeenShown result = new RewardsThatHaveNotBeenShown()
             {
