@@ -18,19 +18,19 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
     public class BattleRoyaleMatchFinisherService
     {
         private readonly ApplicationDbContext dbContext;
-        private readonly WarshipReaderService warshipReaderService;
+        private readonly WarshipRatingReaderService warshipRatingReaderService;
         private readonly BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesSingletonService;
         private readonly BattleRoyaleMatchRewardCalculatorService battleRoyaleMatchRewardCalculatorService;
 
         public BattleRoyaleMatchFinisherService(ApplicationDbContext dbContext,
             BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesSingletonService,
             BattleRoyaleMatchRewardCalculatorService battleRoyaleMatchRewardCalculatorService,
-            WarshipReaderService warshipReaderService)
+            WarshipRatingReaderService warshipRatingReaderService)
         {
             this.dbContext = dbContext;
             this.unfinishedMatchesSingletonService = unfinishedMatchesSingletonService;
             this.battleRoyaleMatchRewardCalculatorService = battleRoyaleMatchRewardCalculatorService;
-            this.warshipReaderService = warshipReaderService;
+            this.warshipRatingReaderService = warshipRatingReaderService;
         }
         
         public async Task<bool> UpdatePlayerMatchResultInDbAsync(int accountId, int placeInMatch, int matchId)
@@ -49,7 +49,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                 .SingleAsync();
             
             //Прочитать текущий рейтинг корабля. Он нужен для вычисления награды за бой.
-            int currentWarshipRating = await warshipReaderService.ReadWarshipRatingAsync(matchResult.WarshipId);
+            int currentWarshipRating = await warshipRatingReaderService.ReadWarshipRatingAsync(matchResult.WarshipId);
             
             //Вычислить награду за бой
             MatchReward matchReward = battleRoyaleMatchRewardCalculatorService
@@ -66,7 +66,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             {
                 increments.Add( new Increment
                 {
-                    SoftCurrency = matchReward.SoftCurrency,
+                    Amount = matchReward.SoftCurrency,
                     IncrementTypeId = IncrementTypeEnum.SoftCurrency,
                     MatchRewardTypeId = MatchRewardTypeEnum.RankingReward 
                 });
@@ -77,7 +77,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                 increments.Add(
                     new Increment
                     {
-                        LootboxPoints = matchReward.LootboxPoints,
+                        Amount = matchReward.LootboxPoints,
                         IncrementTypeId = IncrementTypeEnum.LootboxPoints,
                         MatchRewardTypeId = MatchRewardTypeEnum.RankingReward
                     });
@@ -87,7 +87,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             {
                 increments.Add(new Increment
                 {
-                    WarshipRating = matchReward.WarshipRatingDelta,
+                    Amount = matchReward.WarshipRatingDelta,
                     IncrementTypeId = IncrementTypeEnum.WarshipRating,
                     WarshipId = matchResult.WarshipId,
                     MatchRewardTypeId = MatchRewardTypeEnum.RankingReward
@@ -99,7 +99,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                 {
                     DecrementTypeId = DecrementTypeEnum.WarshipRating,
                     WarshipId = matchResult.WarshipId,
-                    WarshipRating = Math.Abs(matchReward.WarshipRatingDelta)
+                    Amount = Math.Abs(matchReward.WarshipRatingDelta)
                 });
             }
             

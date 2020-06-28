@@ -11,4 +11,8 @@
       <PackageReference Include="ZeroFormatter.Interfaces" Version="1.6.4" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="NetworkLibrary" />
+    </ItemGroup>
+
 </Project>

@@ -35,17 +35,17 @@ namespace AmoebaGameMatcherServer.Controllers
                 {
                     case LootboxPrizeType.SoftCurrency:
                         increment.IncrementTypeId = IncrementTypeEnum.SoftCurrency;
-                        increment.SoftCurrency = prize.Quantity;
+                        increment.Amount = prize.Quantity;
                         break;
                     case LootboxPrizeType.LootboxPoints:
                         increment.IncrementTypeId = IncrementTypeEnum.LootboxPoints;
-                        increment.LootboxPoints = prize.Quantity;
+                        increment.Amount = prize.Quantity;
                         break;
                     case LootboxPrizeType.WarshipPowerPoints:
                         if (prize.WarshipId != null)
                         {
                             increment.IncrementTypeId = IncrementTypeEnum.WarshipPowerPoints;
-                            increment.WarshipPowerPoints = prize.Quantity;
+                            increment.Amount = prize.Quantity;
                         }
                         else
                         {
@@ -61,12 +61,13 @@ namespace AmoebaGameMatcherServer.Controllers
             
             Resource resource = new Resource
             {
+                ResourceTypeId = ResourceTypeEnum.Lootbox,
                 Decrements = new List<Decrement>
                 {
                     new Decrement
                     {
-                        DecrementTypeId = DecrementTypeEnum.LootboxPoints,
-                        LootboxPoints = 100
+                        Amount = 100,
+                        DecrementTypeId = DecrementTypeEnum.LootboxPoints
                     }
                 },
                 Increments = increments

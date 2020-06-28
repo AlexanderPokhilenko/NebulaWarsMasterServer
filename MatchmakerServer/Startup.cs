@@ -34,6 +34,7 @@ namespace AmoebaGameMatcherServer
             services.AddFeature(new GameServerNegotiationFeature());
             services.AddFeature(new LootboxFeature());
             services.AddFeature(new PurchasingFeature());
+            services.AddFeature(new WarshipUpgradeFeature());
             
             //Общие очереди игроков
             services.AddSingleton<BattleRoyaleQueueSingletonService>();

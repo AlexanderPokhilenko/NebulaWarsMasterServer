@@ -29,7 +29,7 @@ namespace DeleteMe1
 		   select sum(mr.""WarshipRatingDelta"")
             from ""MatchResults"" mr
                 where mr.""WarshipId"" = w.""Id""
-                )									 		as ""WarshipRating"",
+                )									 		as ""Amount"",
             (
                 sum(matchResult.""SoftCurrency"") 
             + sum(COALESCE(prizeRegularCurrency.""Quantity"",0))
@@ -63,7 +63,7 @@ namespace DeleteMe1
                     {
                         Console.WriteLine(dapperHelper1.ToString());
                         return null;
-                    }, parameters, splitOn:"Id,WarshipRating");
+                    }, parameters, splitOn:"Id,Amount");
 
             }
         }

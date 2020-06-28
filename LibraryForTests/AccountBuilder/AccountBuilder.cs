@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DataLayer.Tables;
 
 namespace LibraryForTests
@@ -34,7 +35,43 @@ namespace LibraryForTests
             
             account.Warships.Add(warship);
         }
-
+        
+        public void AddWarshipImprovements(int numberOfImprovements)
+        {
+            for (int index = 0; index < numberOfImprovements; index++)
+            {
+                int warshipIndex = random.Next(account.Warships.Count);
+                int warshipId = account.Warships[warshipIndex].Id;
+                int amount = random.Next(33);
+                Increment increment = new Increment()
+                {
+                    IncrementTypeId = IncrementTypeEnum.LootboxPoints,
+                    Amount = amount,
+                    WarshipId = warshipId
+                };
+                Resource resource = new Resource()
+                {
+                    Increments = new List<Increment>()
+                    {
+                        increment
+                    },
+                    ResourceTypeId = ResourceTypeEnum.Lootbox
+                };
+                Transaction transaction = new Transaction()
+                {
+                    AccountId = account.Id,
+                    DateTime = DateTime.Now,
+                    TransactionTypeId = TransactionTypeEnum.Lootbox,
+                    WasShown = false,
+                    Resources = new List<Resource>()
+                    {
+                        resource
+                    }
+                };
+                account.Transactions.Add(transaction);
+            }
+        }
+        
         /// <summary>
         /// Нельзя вызывать, если в БД не были сохранены корабли. В таком случает бросит исключение
         /// из-за проблем с внешним ключём на сущность Warship
@@ -77,13 +114,13 @@ namespace LibraryForTests
                                         {
                                             new Increment()
                                             {
-                                                WarshipRating = random.Next(10),
+                                                Amount = random.Next(10),
                                                 WarshipId = warship.Id,
                                                 IncrementTypeId = IncrementTypeEnum.WarshipRating 
                                             },
                                             new Increment()
                                             {
-                                                LootboxPoints = random.Next(10),
+                                                Amount = random.Next(10),
                                                 IncrementTypeId = IncrementTypeEnum.LootboxPoints
                                             }
                                         },
@@ -144,7 +181,7 @@ namespace LibraryForTests
             {
                 Increment increment = new Increment()
                 {
-                    SoftCurrency = random.Next(30),
+                    Amount = random.Next(30),
                     IncrementTypeId = IncrementTypeEnum.SoftCurrency
                 };
                 increments.Add(increment);
@@ -152,10 +189,11 @@ namespace LibraryForTests
             
             for (int i = 0; i < countOfWarshipPowerPointsPrizes; i++)
             {
-                int warshipId = random.Next(account.Warships.Count);
-                Increment increment = new Increment()
+                int warshipIndex = random.Next(account.Warships.Count);
+                int warshipId = account.Warships[warshipIndex].Id;
+                Increment increment = new Increment
                 {
-                    WarshipPowerPoints = random.Next(30),
+                    Amount = random.Next(30),
                     WarshipId = warshipId,
                     IncrementTypeId = IncrementTypeEnum.WarshipPowerPoints
                 };
@@ -167,7 +205,7 @@ namespace LibraryForTests
             {
                 Increment increment = new Increment()
                 {
-                    LootboxPoints = random.Next(30),
+                    Amount = random.Next(30),
                     IncrementTypeId = IncrementTypeEnum.LootboxPoints
                 };
                 increments.Add(increment);

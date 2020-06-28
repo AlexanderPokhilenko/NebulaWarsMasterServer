@@ -14,9 +14,9 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
         private readonly DbAccountWarshipsReader dbAccountWarshipsReader;
         private readonly AccountResourcesDbReader accountResourcesDbReader;
 
-        public AccountDbReaderService(NpgsqlConnection connection)
+        public AccountDbReaderService(NpgsqlConnection connection, DbAccountWarshipsReader dbAccountWarshipsReader)
         {
-            dbAccountWarshipsReader = new DbAccountWarshipsReader(connection);
+            this.dbAccountWarshipsReader = dbAccountWarshipsReader;
             accountResourcesDbReader = new AccountResourcesDbReader(connection);
         }
 

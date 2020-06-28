@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
 
@@ -28,14 +29,30 @@ namespace AmoebaGameMatcherServer.Controllers
                 warshipDto.Rating = warship.WarshipRating;
                 warshipDto.CombatRoleName = warship.WarshipType.WarshipCombatRole.Name;
                 warshipDto.Description = warship.WarshipType.Description;
-                warshipDto.PrefabName = warship.WarshipType.Name;
-                warshipDto.PowerPoints = warship.PowerPoints;
+                warshipDto.WarshipName = warship.WarshipType.Name;
+                warshipDto.PowerPoints = warship.WarshipPowerPoints;
                 warshipDto.Id = warship.Id;
-
+                warshipDto.ViewTypeId = GetViewTypeByName(warshipDto.WarshipName);
+                
                 result.Warships.Add(warshipDto);
             }
 
             return result;
+        }
+
+        private ViewTypeId GetViewTypeByName(string warshipDtoWarshipName)
+        {
+            switch (warshipDtoWarshipName)
+            {
+                case "hare":
+                    return ViewTypeId.HareShip;
+                case "bird":
+                    return ViewTypeId.BirdPlayer;
+                case "smiley":
+                    return ViewTypeId.SmileyPlayer;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(warshipDtoWarshipName));
+            }
         }
     }
 }

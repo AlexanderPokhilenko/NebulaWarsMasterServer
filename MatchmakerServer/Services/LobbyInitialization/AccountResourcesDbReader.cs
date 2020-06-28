@@ -13,60 +13,74 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
         private readonly string sqlSelectAccountResourcesInfo = $@"
 select        
 (
-    coalesce((select sum(I.""SoftCurrency"") 
-        from ""Accounts"" A
-            join ""Transactions"" O on A.""Id"" = O.""AccountId""
+    coalesce((select sum(I.""Amount"") 
+      from ""Accounts"" A
+        join ""Transactions"" O on A.""Id"" = O.""AccountId""
         join ""Resources"" P on O.""Id"" = P.""TransactionId""
         join ""Increments""  I on P.""Id"" = I.""ResourceId""
-        where A.""ServiceId"" = @serviceIdPar), 0)
+        join ""IncrementTypes"" IT on I.""IncrementTypeId"" = IT.""Id""    
+        where A.""ServiceId"" = @serviceIdPar and it.""Name"" = 'SoftCurrency'
+        
+        ), 0)
     
-        -
-        coalesce((select sum(D.""SoftCurrency"")
-            from ""Accounts"" A
-            join ""Transactions"" O on A.""Id"" = O.""AccountId""
+    -
+ coalesce((select sum(D.""Amount"")
+    from ""Accounts"" A
+        join ""Transactions"" O on A.""Id"" = O.""AccountId""
         join ""Resources"" P on O.""Id"" = P.""TransactionId""
         join ""Decrements""  D on P.""Id"" = D.""ResourceId""
-        where A.""ServiceId"" = @serviceIdPar), 0)
+        join ""DecrementTypes"" DT on D.""DecrementTypeId"" = DT.""Id""
+           where A.""ServiceId"" = @serviceIdPar and DT.""Name"" = 'SoftCurrency'
+    ), 0)
 
     
-        ) as ""SoftCurrency"",
+    ) as ""SoftCurrency"",
 
-        (coalesce((select sum(I.""HardCurrency"")
-            from ""Accounts"" A
-            join ""Transactions"" T on A.""Id"" = T.""AccountId""
+(coalesce((select sum(I.""Amount"")
+    from ""Accounts"" A
+        join ""Transactions"" T on A.""Id"" = T.""AccountId""
         join ""Resources"" R on T.""Id"" = R.""TransactionId""
         join ""Increments""  I on R.""Id"" = I.""ResourceId""
-        where A.""ServiceId"" = @serviceIdPar),0)
-        -
-        coalesce((select sum(D.""HardCurrency"")
-            from ""Accounts"" A
-            join ""Transactions"" T on A.""Id"" = T.""AccountId""
-        join ""Resources"" R on T.""Id"" = R.""TransactionId""
+        join ""IncrementTypes"" IT on I.""IncrementTypeId"" = IT.""Id""
+           where A.""ServiceId"" = @serviceIdPar and it.""Name"" = 'HardCurrency'
+    ),0)
+    -
+    coalesce((select sum(D.""Amount"")
+    from ""Accounts"" A
+         join ""Transactions"" T on A.""Id"" = T.""AccountId""
+         join ""Resources"" R on T.""Id"" = R.""TransactionId""
         join ""Decrements""  D on R.""Id"" = D.""ResourceId""
-        where A.""ServiceId"" = @serviceIdPar),0)) as ""HardCurrency"",
+         join ""DecrementTypes"" DT on D.""DecrementTypeId"" = DT.""Id""
+              where A.""ServiceId"" = @serviceIdPar and DT.""Name"" = 'HardCurrency'
+    ),0)) as ""HardCurrency"",
     
 
-        (coalesce(
-        (select sum(I.""LootboxPoints"")
-            from ""Accounts"" A
-            join ""Transactions"" T on A.""Id"" = T.""AccountId""
-        join ""Resources"" R on T.""Id"" = R.""TransactionId""
-        join ""Increments""  I on R.""Id"" = I.""ResourceId""
-        where A.""ServiceId"" = @serviceIdPar
-        )
-        , 0) 
-        -
-        coalesce(
-            (select sum(D.""LootboxPoints"")
-            from ""Accounts"" A
-            join ""Transactions"" T on A.""Id"" = T.""AccountId""
-        join ""Resources"" R on T.""Id"" = R.""TransactionId""
-        join ""Decrements"" D on R.""Id"" = D.""ResourceId""
-        where A.""ServiceId"" = @serviceIdPar
-        )
-        , 0))
-        as ""LootboxPoints""
-        ;
+ (coalesce(
+         (select sum(I.""Amount"")
+          from ""Accounts"" A
+           join ""Transactions"" T on A.""Id"" = T.""AccountId""
+           join ""Resources"" R on T.""Id"" = R.""TransactionId""
+           join ""Increments""  I on R.""Id"" = I.""ResourceId""
+           join ""IncrementTypes"" IT on I.""IncrementTypeId"" = IT.""Id""
+          where A.""ServiceId"" = @serviceIdPar and it.""Name"" = 'LootboxPoints'
+         )
+     , 0) 
+     -
+  coalesce(
+          (select sum(D.""Amount"")
+           from ""Accounts"" A
+                join ""Transactions"" T on A.""Id"" = T.""AccountId""
+                join ""Resources"" R on T.""Id"" = R.""TransactionId""
+                join ""Decrements"" D on R.""Id"" = D.""ResourceId""
+                join ""DecrementTypes"" DT on D.""DecrementTypeId"" = DT.""Id""
+           where A.""ServiceId"" = @serviceIdPar and DT.""Name"" = 'LootboxPoints'
+        
+          )
+      , 0))
+     as ""LootboxPoints""
+;
+
+
 
         ";
 

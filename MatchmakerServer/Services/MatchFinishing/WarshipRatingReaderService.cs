@@ -8,11 +8,11 @@ using Remotion.Linq.Clauses;
 
 namespace AmoebaGameMatcherServer.Services.MatchFinishing
 {
-    public class WarshipReaderService
+    public class WarshipRatingReaderService
     {
         private readonly ApplicationDbContext dbContext;
 
-        public WarshipReaderService(ApplicationDbContext dbContext)
+        public WarshipRatingReaderService(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
@@ -24,7 +24,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                 .SelectMany(transaction => transaction.Resources)
                 .SelectMany(resource => resource.Increments)
                 .Where(increment => increment.WarshipId==warshipId)
-                .SumAsync(increment => increment.WarshipRating);
+                .SumAsync(increment => increment.Amount);
             
             currentWarshipRating -= await dbContext.Transactions
                 .Include(transaction => transaction.Resources)
@@ -32,7 +32,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                 .SelectMany(transaction => transaction.Resources)
                 .SelectMany(resource => resource.Decrements)
                 .Where(decrement => decrement.WarshipId==warshipId)
-                .SumAsync(decrement => decrement.WarshipRating);
+                .SumAsync(decrement => decrement.Amount);
             
             return currentWarshipRating;
         }

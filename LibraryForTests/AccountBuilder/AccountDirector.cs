@@ -44,12 +44,14 @@ namespace LibraryForTests
             int rating = Builder.GetAccount().Transactions
                     .SelectMany(transaction => transaction.Resources)
                     .SelectMany(resource =>  resource.Increments)
-                    .Sum(increment => increment.WarshipRating)
+                    .Where(increment => increment.IncrementTypeId==IncrementTypeEnum.WarshipRating)
+                    .Sum(increment => increment.Amount)
                 -
                 Builder.GetAccount().Transactions
                     .SelectMany(transaction => transaction.Resources)
                     .SelectMany(resource =>  resource.Decrements)
-                    .Sum(decrement => decrement .WarshipRating);
+                    .Where(decrement => decrement.DecrementTypeId==DecrementTypeEnum.WarshipRating)
+                    .Sum(decrement => decrement .Amount);
             return rating;
         }
 
@@ -58,12 +60,14 @@ namespace LibraryForTests
             int result = Builder.GetAccount().Transactions
                              .SelectMany(transaction => transaction.Resources)
                              .SelectMany(resource =>  resource.Increments)
-                             .Sum(increment => increment.SoftCurrency)
+                             .Where(increment => increment.IncrementTypeId==IncrementTypeEnum.SoftCurrency)
+                             .Sum(increment => increment.Amount)
                          -
                          Builder.GetAccount().Transactions
                              .SelectMany(transaction => transaction.Resources)
                              .SelectMany(resource =>  resource.Decrements)
-                             .Sum(decrement => decrement .SoftCurrency);
+                             .Where(decrement => decrement.DecrementTypeId==DecrementTypeEnum.SoftCurrency)
+                             .Sum(decrement => decrement .Amount);
             return result;
         }
         
@@ -72,12 +76,14 @@ namespace LibraryForTests
             int result = Builder.GetAccount().Transactions
                              .SelectMany(transaction => transaction.Resources)
                              .SelectMany(resource =>  resource.Increments)
-                             .Sum(increment => increment.HardCurrency)
+                             .Where(increment => increment.IncrementTypeId==IncrementTypeEnum.HardCurrency)
+                             .Sum(increment => increment.Amount)
                          -
                          Builder.GetAccount().Transactions
                              .SelectMany(transaction => transaction.Resources)
                              .SelectMany(resource =>  resource.Decrements)
-                             .Sum(decrement => decrement .HardCurrency);
+                             .Where(decrement => decrement.DecrementTypeId==DecrementTypeEnum.HardCurrency)
+                             .Sum(decrement => decrement.Amount);
             return result;
         }
 
@@ -87,30 +93,33 @@ namespace LibraryForTests
                              .Where(transaction => !transaction.WasShown)
                              .SelectMany(transaction => transaction.Resources)
                              .SelectMany(resource =>  resource.Increments)
-                             .Sum(increment => increment.SoftCurrency)
+                             .Where(increment => increment.IncrementTypeId==IncrementTypeEnum.SoftCurrency)
+                             .Sum(increment => increment.Amount)
                          -
                          Builder.GetAccount().Transactions
                              .Where(transaction => !transaction.WasShown)
                              .SelectMany(transaction => transaction.Resources)
                              .SelectMany(resource =>  resource.Decrements)
-                             .Sum(decrement => decrement .SoftCurrency);
+                             .Where(decrement => decrement.DecrementTypeId==DecrementTypeEnum.SoftCurrency)
+                             .Sum(decrement => decrement.Amount);
             return result;
         }
         
         public int GetNotShownHardCurrencyDelta()
         {
-            
             int result = Builder.GetAccount().Transactions
                              .Where(transaction => !transaction.WasShown)
                              .SelectMany(transaction => transaction.Resources)
                              .SelectMany(resource =>  resource.Increments)
-                             .Sum(increment => increment.HardCurrency)
+                             .Where(increment => increment.IncrementTypeId==IncrementTypeEnum.SoftCurrency)
+                             .Sum(increment => increment.Amount)
                          -
                          Builder.GetAccount().Transactions
                              .Where(transaction => !transaction.WasShown)
                              .SelectMany(transaction => transaction.Resources)
                              .SelectMany(resource =>  resource.Decrements)
-                             .Sum(decrement => decrement .HardCurrency);
+                             .Where(decrement => decrement.DecrementTypeId==DecrementTypeEnum.HardCurrency)
+                             .Sum(decrement => decrement.Amount);
             return result;
         }
         
@@ -120,13 +129,15 @@ namespace LibraryForTests
                              .Where(transaction => !transaction.WasShown)
                              .SelectMany(transaction => transaction.Resources)
                              .SelectMany(resource =>  resource.Increments)
-                             .Sum(increment => increment.LootboxPoints)
+                             .Where(increment => increment.IncrementTypeId==IncrementTypeEnum.LootboxPoints)
+                             .Sum(increment => increment.Amount)
                          -
                          Builder.GetAccount().Transactions
                              .Where(transaction => !transaction.WasShown)
                              .SelectMany(transaction => transaction.Resources)
                              .SelectMany(resource =>  resource.Decrements)
-                             .Sum(decrement => decrement.LootboxPoints);
+                             .Where(decrement => decrement.DecrementTypeId==DecrementTypeEnum.LootboxPoints)
+                             .Sum(decrement => decrement.Amount);
             return result;
         }
 
@@ -136,13 +147,15 @@ namespace LibraryForTests
                              .SelectMany(transaction => transaction.Resources)
                              .SelectMany(resource =>  resource.Increments)
                              .Where(increment => increment.WarshipId==warshipId)
-                             .Sum(increment => increment.WarshipRating)
+                             .Where(increment => increment.IncrementTypeId==IncrementTypeEnum.WarshipRating)
+                             .Sum(increment => increment.Amount)
                          -
                          Builder.GetAccount().Transactions
                              .SelectMany(transaction => transaction.Resources)
                              .SelectMany(resource =>  resource.Decrements)
                              .Where(increment => increment.WarshipId==warshipId)
-                             .Sum(decrement => decrement.WarshipRating);
+                             .Where(decrement => decrement.DecrementTypeId==DecrementTypeEnum.WarshipRating)
+                             .Sum(decrement => decrement.Amount);
             return result;
         }
 
@@ -152,7 +165,8 @@ namespace LibraryForTests
                              .SelectMany(transaction => transaction.Resources)
                              .SelectMany(resource =>  resource.Increments)
                              .Where(increment => increment.WarshipId==warshipId)
-                             .Sum(increment => increment.WarshipPowerPoints)
+                             .Where(increment => increment.IncrementTypeId==IncrementTypeEnum.WarshipPowerPoints)
+                             .Sum(increment => increment.Amount)
                        ;
             return result;
         }
@@ -163,16 +177,19 @@ namespace LibraryForTests
                              .Where(transaction => !transaction.WasShown)
                              .SelectMany(transaction => transaction.Resources)
                              .SelectMany(resource =>  resource.Increments)
-                             .Sum(increment => increment.WarshipRating)
+                             .Where(increment => increment.IncrementTypeId==IncrementTypeEnum.WarshipRating)
+                             .Sum(increment => increment.Amount)
                          -
                          Builder.GetAccount().Transactions
                              .Where(transaction => !transaction.WasShown)
                              .SelectMany(transaction => transaction.Resources)
                              .SelectMany(resource =>  resource.Decrements)
-                             .Sum(decrement => decrement.WarshipRating);
+                             .Where(decrement => decrement.DecrementTypeId==DecrementTypeEnum.WarshipRating)
+                             .Sum(decrement => decrement.Amount);
             return result;
         }
 
-        
+
+        protected abstract void ConstructWarshipImprovements();
     }
 }

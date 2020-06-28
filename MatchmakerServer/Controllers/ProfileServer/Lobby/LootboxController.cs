@@ -28,7 +28,7 @@ namespace AmoebaGameMatcherServer.Controllers
             LootboxModel lootboxModel = await lootboxFacadeService.CreateLootboxModelAsync(playerServiceId);
             if (lootboxModel == null)
             {
-                throw new NullReferenceException(nameof(lootboxModel));
+                return BadRequest();
             }
             
             return lootboxModel.SerializeToBase64String();

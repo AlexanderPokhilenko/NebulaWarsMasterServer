@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using AmoebaGameMatcherServer.Services;
 using AmoebaGameMatcherServer.Services.LobbyInitialization;
 using DataLayer;
 using DataLayer.Tables;
@@ -20,8 +21,8 @@ namespace MatchmakerTest
             //Arrange
             ApplicationDbContext dbContext = new InMemoryDbContextFactory(nameof(AccountRegistrationServiceTests))
                 .Create();
-            AccountRegistrationService accountRegistrationService = 
-                new AccountRegistrationService(dbContext);
+            DefaultAccountFactoryService defaultAccountFactoryService = new DefaultAccountFactoryService(dbContext);
+            AccountRegistrationService accountRegistrationService = new AccountRegistrationService(defaultAccountFactoryService);
             string serviceId = UniqueStringFactory.Create();
             
             //Act

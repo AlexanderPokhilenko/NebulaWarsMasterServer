@@ -17,13 +17,13 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
     public class PlayerMatchResultDbReaderService
     {
         private readonly ApplicationDbContext dbContext;
-        private readonly WarshipReaderService warshipReaderService;
+        private readonly WarshipRatingReaderService warshipRatingReaderService;
 
         public PlayerMatchResultDbReaderService(ApplicationDbContext dbContext, 
-            WarshipReaderService warshipReaderService)
+            WarshipRatingReaderService warshipRatingReaderService)
         {
             this.dbContext = dbContext;
-            this.warshipReaderService = warshipReaderService;
+            this.warshipRatingReaderService = warshipRatingReaderService;
         }
 
         public async Task<MatchResultDto> ReadMatchResultAsync(int matchId, string playerServiceId)
@@ -55,7 +55,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                 return null;
             }
             
-            int currentWarshipRating = await warshipReaderService.ReadWarshipRatingAsync(matchResult.WarshipId);
+            int currentWarshipRating = await warshipRatingReaderService.ReadWarshipRatingAsync(matchResult.WarshipId);
             var lootboxPoints = new Dictionary<MatchRewardTypeEnum, int>();
             var matchIncrements = matchResult.Transaction.Resources
                 .SelectMany(resource => resource.Increments);
@@ -74,7 +74,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                     if (increment.MatchRewardTypeId!=null)
                     {
                         Console.WriteLine("добавление");
-                        lootboxPoints.Add(increment.MatchRewardTypeId.Value, increment.LootboxPoints);
+                        lootboxPoints.Add(increment.MatchRewardTypeId.Value, increment.Amount);
                     }
                 }
             }
@@ -82,11 +82,11 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             int warshipRatingIncrement = matchResult.Transaction.Resources
                 .SelectMany(resource => resource.Increments)
                 .Where(increment => increment.IncrementTypeId == IncrementTypeEnum.WarshipRating)
-                .Sum(increment => increment.WarshipRating);
+                .Sum(increment => increment.Amount);
             int warshipRatingDecrement = matchResult.Transaction.Resources
                 .SelectMany(resource => resource.Decrements)
                 .Where(decrement => decrement.DecrementTypeId == DecrementTypeEnum.WarshipRating)
-                .Sum(decrement => decrement.WarshipRating);
+                .Sum(decrement => decrement.Amount);
             int matchRatingDelta = warshipRatingIncrement - warshipRatingDecrement;
 
             MatchResultDto matchResultDto = new MatchResultDto

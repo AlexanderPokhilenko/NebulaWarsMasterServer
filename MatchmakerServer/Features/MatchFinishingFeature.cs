@@ -11,7 +11,7 @@ namespace AmoebaGameMatcherServer
             serviceCollection.AddTransient<BattleRoyaleMatchFinisherService>();
             serviceCollection.AddTransient<BattleRoyaleMatchRewardCalculatorService>();
             serviceCollection.AddTransient<PlayerMatchResultDbReaderService>();
-            serviceCollection.AddTransient<WarshipReaderService>();
+            serviceCollection.AddTransient<WarshipRatingReaderService>();
         }
     }
 }

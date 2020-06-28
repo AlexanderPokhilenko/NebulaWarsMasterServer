@@ -18,7 +18,12 @@ namespace LibraryForTests
         {
             Builder.AddMatches(15);
         }
-        
+
+        protected override void ConstructWarshipImprovements()
+        {
+            Builder.AddWarshipImprovements(45);
+        }
+
         protected override void ConstructLootboxes()
         {
             

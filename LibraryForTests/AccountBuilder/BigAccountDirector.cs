@@ -24,8 +24,13 @@ namespace LibraryForTests
 
         protected override void ConstructMatches()
         {
-            Builder.AddMatches(5);
-            Builder.AddMatches(13);
+            Builder.AddMatches(51);
+            Builder.AddMatches(130);
+        }
+        
+        protected override void ConstructWarshipImprovements()
+        {
+            Builder.AddWarshipImprovements(54);
         }
     }
 }

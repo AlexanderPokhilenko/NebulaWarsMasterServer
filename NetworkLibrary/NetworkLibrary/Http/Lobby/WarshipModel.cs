@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿using ZeroFormatter;
+﻿﻿﻿﻿﻿﻿﻿﻿using ZeroFormatter;
 
 namespace NetworkLibrary.NetworkLibrary.Http
 {
@@ -8,7 +8,7 @@ namespace NetworkLibrary.NetworkLibrary.Http
         //Значение для операций с кораблём
         [Index(0)] public virtual int Id { get; set; }
         //Значение для отображения корабля
-        [Index(1)] public virtual string PrefabName { get; set; }
+        [Index(1)] public virtual ViewTypeId ViewTypeId { get; set; }
 
         //Значения для рейтинга корабля
         [Index(2)] public virtual int Rating { get; set; }
@@ -18,5 +18,6 @@ namespace NetworkLibrary.NetworkLibrary.Http
         [Index(4)] public virtual int PowerPoints { get; set; }
         [Index(5)] public virtual string Description { get; set; }
         [Index(6)] public virtual string CombatRoleName { get; set; }
+        [Index(7)] public virtual string WarshipName { get; set; }
     }
 }

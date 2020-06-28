@@ -38,7 +38,7 @@ namespace IntegrationTests
                 int originalWarshipRating = accountDirector.GetWarshipRating(warship.Id);
                 int originalWarshipPowerPoints = accountDirector.GetWarshipPowerPoints(warship.Id);
                 Assert.AreEqual(originalWarshipRating, warshipDbDto.WarshipRating);
-                Assert.AreEqual(originalWarshipPowerPoints, warshipDbDto.PowerPoints);
+                Assert.AreEqual(originalWarshipPowerPoints, warshipDbDto.WarshipPowerPoints);
             }
         }
 
@@ -78,7 +78,7 @@ namespace IntegrationTests
                 int originalWarshipRating = accountDirector.GetWarshipRating(warship.Id);
                 int originalWarshipPowerPoints = accountDirector.GetWarshipPowerPoints(warship.Id);
                 Assert.AreEqual(originalWarshipRating, warshipDbDto.WarshipRating);
-                Assert.AreEqual(originalWarshipPowerPoints, warshipDbDto.PowerPoints);
+                Assert.AreEqual(originalWarshipPowerPoints, warshipDbDto.WarshipPowerPoints);
             }
         }
         
@@ -118,7 +118,7 @@ namespace IntegrationTests
                 int originalWarshipRating = accountDirector.GetWarshipRating(warship.Id);
                 int originalWarshipPowerPoints = accountDirector.GetWarshipPowerPoints(warship.Id);
                 Assert.AreEqual(originalWarshipRating, warshipDbDto.WarshipRating);
-                Assert.AreEqual(originalWarshipPowerPoints, warshipDbDto.PowerPoints);
+                Assert.AreEqual(originalWarshipPowerPoints, warshipDbDto.WarshipPowerPoints);
             }
         }
     }

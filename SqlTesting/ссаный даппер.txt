@@ -1,0 +1,37 @@
+﻿ IEnumerable<AccountDbDto> accounts = await connection
+                .QueryAsync<AccountDbDto, WarshipDbDto,WarshipType, WarshipCombatRole, AccountQueryDapperHelper1, AccountDbDto>(sqlSelectAccountWarshipsInfo,
+                    (accountArg, warshipArg, warshipTypeArg, warshipCombatRole, dapperHelper) =>
+                    {
+                        Console.WriteLine(accountArg.ServiceId);
+                        Console.WriteLine(dapperHelper.WarshipLevel+" "+dapperHelper.WarshipRating+" "+dapperHelper.WarshipPowerPoints);
+                        //Если такого аккаунта ещё не было
+                        if (!lookup.TryGetValue(accountArg.Id, out AccountDbDto account))
+                        {
+                            //Положить аккаунт в словарь
+                            lookup.Add(accountArg.Id, account = accountArg);
+                        }
+
+                        //Попытаться достать корабль c таким id из коллекции
+                        var warship = account.Warships.Find(wArg => wArg.Id == warshipArg.Id);
+                        //Этот корабль уже есть в коллекции?
+                        if (warship == null)
+                        {
+                            //Заполнить тип корабля и положить в коллекцию
+                            warship = warshipArg;
+                            warship.WarshipType = warshipTypeArg;
+                            warship.WarshipRating = dapperHelper.WarshipRating;
+                            warship.PowerPoints = dapperHelper.WarshipPowerPoints;
+                            warship.WarshipLevel = dapperHelper.WarshipLevel;
+                            warship.WarshipType.WarshipCombatRole = warshipCombatRole;
+                            
+                            account.Warships.Add(warship);
+                            account.Rating += warship.WarshipRating;
+
+                            Console.WriteLine("Внимание очки силы "+dapperHelper.WarshipPowerPoints);
+                        }
+
+                        Console.WriteLine(" " + accountArg);
+                        Console.WriteLine("\t\t " + warshipArg);
+                        Console.WriteLine("\t\t\t " + dapperHelper);
+                        return account;
+                    }, parameters, splitOn:"Id,WarshipRating,WarshipPowerPoints,WarshipLevel");

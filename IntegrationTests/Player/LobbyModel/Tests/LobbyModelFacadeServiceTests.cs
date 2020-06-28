@@ -40,7 +40,7 @@ namespace IntegrationTests
             foreach (var warshipDto in lobbyModel.AccountDto.Warships)
             {
                 Assert.IsNotNull(warshipDto.Description);
-                Assert.IsNotNull(warshipDto.PrefabName);
+                Assert.IsNotNull(warshipDto.WarshipName);
                 Assert.IsNotNull(warshipDto.CombatRoleName);
             }
         }
@@ -78,7 +78,7 @@ namespace IntegrationTests
             foreach (var warshipDto in lobbyModel.AccountDto.Warships)
             {
                 Assert.IsNotNull(warshipDto.Description);
-                Assert.IsNotNull(warshipDto.PrefabName);
+                Assert.IsNotNull(warshipDto.WarshipName);
                 Assert.IsNotNull(warshipDto.CombatRoleName);
             }
         }
@@ -112,7 +112,7 @@ namespace IntegrationTests
             foreach (var warshipDto in lobbyModel.AccountDto.Warships)
             {
                 Assert.IsNotNull(warshipDto.Description);
-                Assert.IsNotNull(warshipDto.PrefabName);
+                Assert.IsNotNull(warshipDto.WarshipName);
                 Assert.IsNotNull(warshipDto.CombatRoleName);
             }
         }
@@ -150,8 +150,11 @@ namespace IntegrationTests
             foreach (var warshipDto in lobbyModel.AccountDto.Warships)
             {
                 Assert.IsNotNull(warshipDto.Description);
-                Assert.IsNotNull(warshipDto.PrefabName);
+                Assert.IsNotNull(warshipDto.WarshipName);
                 Assert.IsNotNull(warshipDto.CombatRoleName);
+                Assert.IsTrue(warshipDto.ViewTypeId==ViewTypeId.HareShip 
+                              || warshipDto.ViewTypeId==ViewTypeId.BirdPlayer
+                              ||warshipDto.ViewTypeId==ViewTypeId.SmileyPlayer);
             }
         }
     }

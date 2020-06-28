@@ -1,5 +1,6 @@
 using AmoebaGameMatcherServer;
 using AmoebaGameMatcherServer.Controllers;
+using AmoebaGameMatcherServer.Services;
 using AmoebaGameMatcherServer.Services.LobbyInitialization;
 using DataLayer;
 using Microsoft.EntityFrameworkCore;
@@ -20,33 +21,46 @@ namespace IntegrationTests
         internal static LobbyModelFacadeService LobbyModelFacadeService;
         internal static AccountFacadeService AccountFacadeService;
         internal static LobbyModelController LobbyModelController;
+        private const string DatabaseName = "IntegrationTests36";
 
         [OneTimeSetUp]
         public void Initialize()
         {
-            string databaseName = "IntegrationTests33";
             //Создать БД
-            DbContext = new DbContextFactory().Create(databaseName);
+            DbContext = new DbContextFactory().Create(DatabaseName);
             //Ввести базовые данные
             var seeder = new DataSeeder();
             seeder.Seed(DbContext);
             //Прервать текущие сессии
-            DbContext.Accounts.FromSql(new RawSqlString("ALTER DATABASE {0} SET postgres WITH ROLLBACK IMMEDIATE"), databaseName);
+            DbContext.Accounts.FromSql(new RawSqlString("ALTER DATABASE {0} SET postgres WITH ROLLBACK IMMEDIATE"), DatabaseName);
             //Очиста аккаунта
             TruncateAccountsTable();
-            string connectionString = DbConnectionConfig.GetConnectionString(databaseName);
+            string connectionString = DbConnectionConfig.GetConnectionString(DatabaseName);
             //Создать сервисы
             NpgsqlConnection conn = new NpgsqlConnection(connectionString);
-            AccountReaderService = new AccountDbReaderService(conn);
-            NotShownRewardsReaderService = new NotShownRewardsReaderService(conn, DbContext);
-            var accountRegistrationService = new AccountRegistrationService(DbContext);
+            AccountReaderService = new AccountDbReaderService(conn, new DbAccountWarshipsReader(DbContext));
+            NotShownRewardsReaderService = new NotShownRewardsReaderService(DbContext);
+            DefaultAccountFactoryService defaultAccountFactoryService = new DefaultAccountFactoryService(DbContext);
+            var accountRegistrationService = new AccountRegistrationService(defaultAccountFactoryService);
             AccountFacadeService = new AccountFacadeService(AccountReaderService, accountRegistrationService);
             LobbyModelFacadeService = new LobbyModelFacadeService(AccountFacadeService, NotShownRewardsReaderService);
 
             LobbyModelController = new LobbyModelController(LobbyModelFacadeService);
         }
 
-        public static void TruncateAccountsTable()
+        
+        public static void SetUp()
+        {
+            ReloadDbContext();
+            TruncateAccountsTable();
+        }
+
+        private static void ReloadDbContext()
+        {
+            DbContext = new DbContextFactory().Create(DatabaseName);
+        }
+
+        private static void TruncateAccountsTable()
         {
             DbContext.Database.ExecuteSqlCommand(new RawSqlString("TRUNCATE TABLE \"Accounts\" CASCADE;"));
         }

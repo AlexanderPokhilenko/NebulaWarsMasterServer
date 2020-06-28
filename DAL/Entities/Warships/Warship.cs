@@ -25,9 +25,9 @@ namespace DataLayer.Tables
             stringBuilder.Append($"{GetType().Name} ");
             stringBuilder.Append($"{nameof(Id)} {Id} ");
             stringBuilder.Append($"{nameof(WarshipTypeId)} {WarshipTypeId} ");
-            // stringBuilder.Append($"{nameof(PowerLevel)} {PowerLevel} ");
-            // stringBuilder.Append($"{nameof(PowerPoints)} {PowerPoints} ");
-            // stringBuilder.Append($"{nameof(WarshipRating)} {WarshipRating} ");
+            // stringBuilder.Append($"{nameof(WarshipPowerLevel)} {WarshipPowerLevel} ");
+            // stringBuilder.Append($"{nameof(PowerPointsCost)} {PowerPointsCost} ");
+            // stringBuilder.Append($"{nameof(Amount)} {Amount} ");
             stringBuilder.Append($"{nameof(MatchResults)} {MatchResults?.Count} ");
             return stringBuilder.ToString();
         }

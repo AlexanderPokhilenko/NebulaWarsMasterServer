@@ -20,33 +20,22 @@ namespace AmoebaGameMatcherServer.Controllers
 
         public async Task<bool> CanPlayerOpenLootboxAsync(string playerServiceId)
         {
-            Account account = await dbContext.Accounts
-                .Include(account1 => account1.Transactions)
-                    .ThenInclude(transaction => transaction.Resources)
-                        .ThenInclude(resource => resource.Increments.Where(increment => increment.IncrementTypeId==IncrementTypeEnum.LootboxPoints))
-                .Include(account1 => account1.Transactions)
-                    .ThenInclude(transaction => transaction.Resources)
-                        .ThenInclude(resource => resource.Decrements
-                    .Where(decrement => decrement.DecrementTypeId==DecrementTypeEnum.LootboxPoints))
-                .Where(account1 => account1.ServiceId == playerServiceId)
-                .SingleOrDefaultAsync();
-
-            if (account == null)
-            {
-                return false;
-            }
-
-            int lootboxPoints = account.Transactions
-                .SelectMany(transaction => transaction.Resources)
-                .SelectMany(resource => resource.Increments)
-                .Sum(increment => increment.LootboxPoints)
-                                -
-                            account.Transactions
-                .SelectMany(transaction => transaction.Resources)
-                .SelectMany(resource => resource.Decrements)
-                .Sum(decrement => decrement.LootboxPoints);
+            int lootboxPoints = await dbContext.Increments
+                .Include(increment => increment.Resource)
+                    .ThenInclude(resource => resource.Transaction)
+                        .ThenInclude(transaction => transaction.Account)
+                .Where(increment => increment.IncrementTypeId == IncrementTypeEnum.LootboxPoints
+                                    && increment.Resource.Transaction.Account.ServiceId == playerServiceId)
+                .SumAsync(increment => increment.Amount);
             
-           
+            lootboxPoints -= await dbContext.Decrements
+                .Include(decrement =>  decrement.Resource)
+                    .ThenInclude(resource => resource.Transaction)
+                        .ThenInclude(transaction => transaction.Account)
+                .Where(decrement => decrement.DecrementTypeId == DecrementTypeEnum.LootboxPoints
+                                    && decrement.Resource.Transaction.Account.ServiceId == playerServiceId)
+                .SumAsync(decrement => decrement.Amount);
+            
             if (lootboxPoints < 100)
             {
                 return false;

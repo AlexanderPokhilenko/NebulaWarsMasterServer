@@ -43,7 +43,7 @@ namespace AmoebaGameMatcherServer
                                 {
                                     new Increment
                                     {
-                                        LootboxPoints = 100,
+                                        Amount = 100,
                                         IncrementTypeId = IncrementTypeEnum.LootboxPoints
                                     }
                                 },
@@ -51,7 +51,7 @@ namespace AmoebaGameMatcherServer
                                 {
                                     new Decrement
                                     {
-                                        HardCurrency = 80,
+                                        Amount = 80,
                                         DecrementTypeId = DecrementTypeEnum.HardCurrency
                                     }
                                 }
@@ -72,7 +72,7 @@ namespace AmoebaGameMatcherServer
                                     {
                                         IncrementTypeId = IncrementTypeEnum.WarshipPowerPoints,
                                         WarshipId = 1,
-                                        WarshipPowerPoints = 15
+                                        Amount = 15
                                     }
                                 }
                             }

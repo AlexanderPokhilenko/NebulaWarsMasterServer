@@ -9,15 +9,15 @@ namespace AmoebaGameMatcherServer.Controllers
         {
             PowerLevelModels = new[]
             {
-                new WarshipPowerLevelModel {PowerPoints = 0,    Cost = 0},
-                new WarshipPowerLevelModel {PowerPoints = 20,    Cost = 20},
-                new WarshipPowerLevelModel {PowerPoints = 30,    Cost = 35},
-                new WarshipPowerLevelModel {PowerPoints = 50,    Cost = 75},
-                new WarshipPowerLevelModel {PowerPoints = 80,    Cost = 140},
-                new WarshipPowerLevelModel {PowerPoints = 130,   Cost = 290},
-                new WarshipPowerLevelModel {PowerPoints = 210,   Cost = 480},
-                new WarshipPowerLevelModel {PowerPoints = 340,   Cost = 800},
-                new WarshipPowerLevelModel {PowerPoints = 550,   Cost = 1250}
+                new WarshipPowerLevelModel {PowerPointsCost = 0,    SoftCurrencyCost = 0},
+                new WarshipPowerLevelModel {PowerPointsCost = 20,    SoftCurrencyCost = 20},
+                new WarshipPowerLevelModel {PowerPointsCost = 30,    SoftCurrencyCost = 35},
+                new WarshipPowerLevelModel {PowerPointsCost = 50,    SoftCurrencyCost = 75},
+                new WarshipPowerLevelModel {PowerPointsCost = 80,    SoftCurrencyCost = 140},
+                new WarshipPowerLevelModel {PowerPointsCost = 130,   SoftCurrencyCost = 290},
+                new WarshipPowerLevelModel {PowerPointsCost = 210,   SoftCurrencyCost = 480},
+                new WarshipPowerLevelModel {PowerPointsCost = 340,   SoftCurrencyCost = 800},
+                new WarshipPowerLevelModel {PowerPointsCost = 550,   SoftCurrencyCost = 1250}
             }
         };
         
@@ -26,14 +26,9 @@ namespace AmoebaGameMatcherServer.Controllers
             return warshipPowerScaleModel;
         }
 
-        public int GetWarshipImprovementCost(int powerLevel)
+        public WarshipPowerLevelModel GetWarshipImprovementModel(int powerLevel)
         {
-            return warshipPowerScaleModel.PowerLevelModels[powerLevel].Cost;
-        }
-
-        public int GetNumberOfPointsNeededToPurchaseImprovements(int powerLevel)
-        {
-            return warshipPowerScaleModel.PowerLevelModels[powerLevel].PowerPoints;
+            return warshipPowerScaleModel.PowerLevelModels[powerLevel];
         }
     }
 }

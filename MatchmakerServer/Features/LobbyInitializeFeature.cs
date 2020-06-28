@@ -11,11 +11,12 @@ namespace AmoebaGameMatcherServer
         {
             serviceCollection.AddTransient<LobbyModelFacadeService>();
             serviceCollection.AddTransient<WarshipRatingScale>();
-            // serviceCollection.AddTransient<WarshipPowerScaleModelStorage>();
+            serviceCollection.AddTransient<DefaultAccountFactoryService>();
             serviceCollection.AddTransient<AccountFacadeService>();
             serviceCollection.AddTransient<AccountDbReaderService>();
             serviceCollection.AddTransient<AccountRegistrationService>();
             serviceCollection.AddTransient<NotShownRewardsReaderService>();
+            serviceCollection.AddTransient<DbAccountWarshipsReader>();
         }
     }
 }
