@@ -102,6 +102,12 @@ namespace AmoebaGameMatcherServer.Services
                                 IncrementTypeId = IncrementTypeEnum.WarshipLevel,
                                 Amount = 1,
                                 WarshipId = account.Warships[1].Id
+                            },
+                            new Increment
+                            {
+                                IncrementTypeId = IncrementTypeEnum.WarshipLevel,
+                                Amount = 1,
+                                WarshipId = account.Warships[2].Id
                             }
                         }
                     }

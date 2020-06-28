@@ -46,6 +46,7 @@ namespace AmoebaGameMatcherServer.Controllers
                         {
                             increment.IncrementTypeId = IncrementTypeEnum.WarshipPowerPoints;
                             increment.Amount = prize.Quantity;
+                            increment.WarshipId = prize.WarshipId;
                         }
                         else
                         {

@@ -9,6 +9,6 @@
         WarshipLevel=5,
         LootboxPoints=6,
         WarshipRating=7,
-        HardCurrency=8,
+        HardCurrency=8
     }
 }

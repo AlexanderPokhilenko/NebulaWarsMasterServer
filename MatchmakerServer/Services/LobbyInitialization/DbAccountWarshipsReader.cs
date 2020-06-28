@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
@@ -34,6 +35,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                 return null;
             }
 
+            //todo пиздец
             int accountRating = await dbContext.Increments
                                     .Include(increment => increment.Resource)
                                     .ThenInclude(resource => resource.Transaction)
@@ -68,6 +70,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                 Id = account.Id
             };
 
+            //todo кусок говна
             List<Warship> warships = await dbContext.Warships
                 .Include(warship => warship.Account)
                 .Include(warship => warship.WarshipType)
@@ -78,6 +81,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
             //todo куча запросов вместо одного
             foreach (Warship warship in warships)
             {
+                Console.WriteLine($"warship.Id "+warship.Id);
                 WarshipDbDto warshipDbDto = new WarshipDbDto
                 {
                     WarshipType = warship.WarshipType,
@@ -87,9 +91,12 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                 warshipDbDto.WarshipPowerLevel = await dbContext.Increments
                     .Where(increment => increment.WarshipId == warship.Id
                                         && increment.IncrementTypeId == IncrementTypeEnum.WarshipLevel)
-                    .DefaultIfEmpty()
                     .MaxAsync(increment => increment.Amount);
 
+                if (warshipDbDto.WarshipPowerLevel == 0)
+                {
+                    throw new Exception("Сука блять какого хуя уровень нулевой?");
+                }
                 
                 warshipDbDto.WarshipPowerPoints = await dbContext.Increments
                        .Where(increment => increment.WarshipId == warship.Id
@@ -103,6 +110,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                        .DefaultIfEmpty()
                        .SumAsync(decrement => decrement.Amount);
 
+                Console.WriteLine($"warshipDbDto.WarshipPowerPoints = "+warshipDbDto.WarshipPowerPoints);
                 
                 warshipDbDto.WarshipRating = await dbContext.Increments
                          .Where(increment => increment.WarshipId == warship.Id

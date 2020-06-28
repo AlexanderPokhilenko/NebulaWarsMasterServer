@@ -11,10 +11,10 @@ namespace AmoebaGameMatcherServer.Controllers
     /// </summary>
     public class LootboxFacadeService
     {
+        private readonly ApplicationDbContext dbContext;
+        private readonly LootboxDbWriterService lootboxDbWriterService;
         private readonly SmallLootboxOpenAllowingService allowingService;
         private readonly SmallLootboxDataFactory smallLootboxModelFactory;
-        private readonly LootboxDbWriterService lootboxDbWriterService;
-        private readonly ApplicationDbContext dbContext;
 
         public LootboxFacadeService(SmallLootboxOpenAllowingService allowingService,
             SmallLootboxDataFactory smallLootboxModelFactory,
