@@ -1,11 +1,14 @@
-﻿using System.Runtime.InteropServices;
+﻿using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Controllers
 {
-    public class WarshipPowerScaleModelStorage
+    /// <summary>
+    /// Хранит цену для перехода на новый уровень для всех уровней
+    /// </summary>
+    public class WarshipPowerScaleModelStorage    
     {
-        private readonly WarshipPowerScaleModel warshipPowerScaleModel = new WarshipPowerScaleModel()
+        private readonly WarshipPowerScaleModel warshipPowerScaleModel = new WarshipPowerScaleModel
         {
             PowerLevelModels = new[]
             {
@@ -26,9 +29,17 @@ namespace AmoebaGameMatcherServer.Controllers
             return warshipPowerScaleModel;
         }
 
+        [CanBeNull]
         public WarshipPowerLevelModel GetWarshipImprovementModel(int powerLevel)
         {
-            return warshipPowerScaleModel.PowerLevelModels[powerLevel];
+            if (warshipPowerScaleModel.PowerLevelModels.Length < powerLevel)
+            {
+                return null;
+            }
+            else
+            {
+                return warshipPowerScaleModel.PowerLevelModels[powerLevel];
+            }
         }
     }
 }

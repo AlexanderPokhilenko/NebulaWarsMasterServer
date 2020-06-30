@@ -91,7 +91,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                 warshipDbDto.WarshipPowerLevel = await dbContext.Increments
                     .Where(increment => increment.WarshipId == warship.Id
                                         && increment.IncrementTypeId == IncrementTypeEnum.WarshipLevel)
-                    .MaxAsync(increment => increment.Amount);
+                    .CountAsync();
 
                 if (warshipDbDto.WarshipPowerLevel == 0)
                 {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DataLayer;
 using DataLayer.Tables;
@@ -37,10 +38,20 @@ namespace AmoebaGameMatcherServer
                     {
                         Name = DecrementTypeEnum.HardCurrency.ToString(),
                         Id = DecrementTypeEnum.HardCurrency
+                    },
+                    new DecrementType
+                    {
+                        Name = DecrementTypeEnum.WarshipPowerPoints.ToString(),
+                        Id = DecrementTypeEnum.WarshipPowerPoints
                     }
                 };
                 dbContext.DecrementTypes.AddRange(decrementTypes);
                 dbContext.SaveChanges();
+            }
+            
+            if (dbContext.DecrementTypes.Count() != Enum.GetNames(typeof(DecrementTypeEnum)).Length)
+            {
+                throw new ArgumentOutOfRangeException();
             }
         }
     }

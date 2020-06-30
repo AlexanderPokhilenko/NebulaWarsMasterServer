@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DataLayer;
 using DataLayer.Tables;
@@ -9,18 +10,23 @@ namespace AmoebaGameMatcherServer
     {
         public void Seed(ApplicationDbContext dbContext)
         {
-            if (!dbContext.GameModes.Any())
+            if (!dbContext.GameModeTypes.Any())
             {
-                var gameModes = new List<GameMode>
+                var gameModes = new List<GameModeType>
                 {
-                    new GameMode
+                    new GameModeType
                     {
                         Name = GameModeEnum.BattleRoyale.ToString(),
                         Id = GameModeEnum.BattleRoyale
                     }
                 };
-                dbContext.GameModes.AddRange(gameModes);
+                dbContext.GameModeTypes.AddRange(gameModes);
                 dbContext.SaveChanges();
+            }
+            
+            if (dbContext.GameModeTypes.Count() != Enum.GetNames(typeof(GameModeEnum)).Length)
+            {
+                throw new ArgumentOutOfRangeException();
             }
         }
     }

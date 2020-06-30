@@ -12,48 +12,60 @@ namespace AmoebaGameMatcherServer.Controllers
     public class WarshipLevelFacadeService
     {
         private readonly ApplicationDbContext dbContext;
-        private readonly DbAccountWarshipsReader dbAccountWarshipsReader;
+        private readonly AccountDbReaderService accountDbReaderService;
         private readonly WarshipPowerScaleModelStorage warshipPowerScaleModelStorage;
 
-        public WarshipLevelFacadeService(DbAccountWarshipsReader dbAccountWarshipsReader, 
+        public WarshipLevelFacadeService(AccountDbReaderService accountDbReaderService,
             WarshipPowerScaleModelStorage warshipPowerScaleModelStorage, ApplicationDbContext dbContext)
         {
+            this.accountDbReaderService = accountDbReaderService;
             this.dbContext = dbContext;
-            this.dbAccountWarshipsReader = dbAccountWarshipsReader;
             this.warshipPowerScaleModelStorage = warshipPowerScaleModelStorage;
         }
 
         public async Task<bool> TryBuyLevel([NotNull] string serviceId, int warshipId)
         {
-            //Проверить, что корабль принадлежит этому человеку
-            AccountDbDto accountDbDto = await dbAccountWarshipsReader.GetAccountWithWarshipsAsync(serviceId);
-            WarshipDbDto warship = accountDbDto.Warships
-                .SingleOrDefault(warshipDbDto => warshipDbDto.Id == warshipId);
-
-            if (warship == null)
+            //Аккаунт существует?
+            var accountDbDto = await accountDbReaderService.ReadAccountAsync(serviceId);
+            if (accountDbDto == null)
             {
-                Console.WriteLine("Этот корабль не принадлежит аккаунту");
+                throw new Exception("Такого аккаунта не существует");
+            }
+            
+            //Корабль существует?
+            var warshipDbDto = accountDbDto.Warships.SingleOrDefault(dto => dto.Id == warshipId);
+            if (warshipDbDto == null)
+            {
+                throw new Exception("Этому аккаунту не принаждлежит этот корабль");
+            }
+
+            //Достать цену улучшения
+            var improvementModel = warshipPowerScaleModelStorage
+                .GetWarshipImprovementModel(warshipDbDto.WarshipPowerLevel);
+
+            if (improvementModel == null)
+            {
+                Console.WriteLine("У корабля уже максимальный уровень");
                 return false;
             }
-        
-            //Выяснить стоимость транзакции
-            var improvementModel = warshipPowerScaleModelStorage.GetWarshipImprovementModel(warship.WarshipPowerLevel);
-
-            //Проверить, что ресурсов хватает
+            
+            //Достаточно ресурсов для покупки улучшения?
             if (accountDbDto.SoftCurrency < improvementModel.SoftCurrencyCost)
             {
-                Console.WriteLine("Не хватает обычной валюты");
+                Console.WriteLine($"Недостаточно денег у аккаунта {nameof(serviceId)} {serviceId} для " +
+                                  $"покупки улучшений {nameof(warshipId)} {warshipId}");
                 return false;
             }
-
-            if (warship.WarshipPowerPoints < improvementModel.PowerPointsCost)
+            
+            //Достаточно очков силы для покупки улучшения
+            if (warshipDbDto.WarshipPowerPoints < improvementModel.PowerPointsCost)
             {
-                Console.WriteLine("Не хватает очков силы");
+                Console.WriteLine("Недостаточно очков силы для улучшения");
                 return false;
             }
             
             //Записать транзакцию
-            Transaction transaction = new Transaction()
+            Transaction transaction = new Transaction
             {
                 AccountId = accountDbDto.Id,
                 DateTime = DateTime.UtcNow,
@@ -64,6 +76,15 @@ namespace AmoebaGameMatcherServer.Controllers
                     new Resource
                     {
                         ResourceTypeId = ResourceTypeEnum.WarshipLevel,
+                        Increments = new List<Increment>
+                        {
+                            new Increment
+                            {
+                                IncrementTypeId = IncrementTypeEnum.WarshipLevel,
+                                Amount = 1,
+                                WarshipId = warshipId
+                            }
+                        },
                         Decrements = new List<Decrement>
                         {
                             new Decrement
@@ -75,17 +96,7 @@ namespace AmoebaGameMatcherServer.Controllers
                             {
                                 DecrementTypeId = DecrementTypeEnum.WarshipPowerPoints,
                                 Amount = improvementModel.PowerPointsCost,
-                                WarshipId = warship.Id
-                            }
-                        },
-                        Increments = new List<Increment>
-                        {
-                            new Increment
-                            {
-                                IncrementTypeId = IncrementTypeEnum.WarshipLevel,
-                                Amount = warship.WarshipPowerLevel + 1,
-                                WarshipId = warship.Id
-
+                                WarshipId = warshipDbDto.Id
                             }
                         }
                     }
@@ -94,6 +105,7 @@ namespace AmoebaGameMatcherServer.Controllers
 
             await dbContext.Transactions.AddAsync(transaction);
             await dbContext.SaveChangesAsync();
+            
             return true;
         }
     }

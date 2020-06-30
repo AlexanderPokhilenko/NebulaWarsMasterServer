@@ -1,16 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Permissions;
 using DataLayer.Tables;
+using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Controllers
 {
-    //todo написать тесты на эту поеботу
     /// <summary>
     /// Превращает AccountDbDto, в сериализуемый AccountDto
     /// </summary>
-    public class AccountMapper
+    public class AccountMapperService
     {
+        private readonly WarshipsCharacteristicsService warshipsCharacteristicsService;
+        public AccountMapperService(WarshipsCharacteristicsService warshipsCharacteristicsService)
+        {
+            this.warshipsCharacteristicsService = warshipsCharacteristicsService;
+        }
+        
         public AccountDto Map(AccountDbDto account)
         {
             AccountDto result = new AccountDto
@@ -24,7 +31,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 Warships = new List<WarshipDto>()
             };
 
-            foreach (var warship in account.Warships)
+            foreach (WarshipDbDto warship in account.Warships)
             {
                 WarshipDto warshipDto = new WarshipDto();
                 warshipDto.Rating = warship.WarshipRating;
@@ -35,6 +42,8 @@ namespace AmoebaGameMatcherServer.Controllers
                 warshipDto.Id = warship.Id;
                 warshipDto.ViewTypeId = GetViewTypeByName(warshipDto.WarshipName);
                 warshipDto.PowerLevel = warship.WarshipPowerLevel;
+                warshipDto.WarshipCharacteristics = warshipsCharacteristicsService
+                    .GetWarshipCharacteristics(warship.WarshipType.Id);
                 
                 result.Warships.Add(warshipDto);
             }

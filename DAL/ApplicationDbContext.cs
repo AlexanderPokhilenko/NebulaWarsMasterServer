@@ -15,7 +15,7 @@ namespace DataLayer
         public DbSet<Warship> Warships { get; set; }
         public DbSet<WarshipType> WarshipTypes { get; set; }
         public DbSet<Match> Matches { get; set; }
-        public DbSet<GameMode> GameModes { get; set; }
+        public DbSet<GameModeType> GameModeTypes { get; set; }
         public DbSet<MatchResult> MatchResults { get; set; }
         public DbSet<WarshipCombatRole> WarshipCombatRoles { get; set; }
         

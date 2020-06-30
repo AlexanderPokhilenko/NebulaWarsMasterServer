@@ -42,8 +42,10 @@ namespace IntegrationTests
             NotShownRewardsReaderService = new NotShownRewardsReaderService(DbContext);
             DefaultAccountFactoryService defaultAccountFactoryService = new DefaultAccountFactoryService(DbContext);
             var accountRegistrationService = new AccountRegistrationService(defaultAccountFactoryService);
+            var warshipsCharacteristicsService = new WarshipsCharacteristicsService();
+            AccountMapperService accountMapperService = new AccountMapperService(warshipsCharacteristicsService);
             AccountFacadeService = new AccountFacadeService(AccountReaderService, accountRegistrationService);
-            LobbyModelFacadeService = new LobbyModelFacadeService(AccountFacadeService, NotShownRewardsReaderService);
+            LobbyModelFacadeService = new LobbyModelFacadeService(AccountFacadeService, NotShownRewardsReaderService, accountMapperService);
 
             LobbyModelController = new LobbyModelController(LobbyModelFacadeService);
         }

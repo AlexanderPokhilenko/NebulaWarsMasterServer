@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DataLayer;
 using DataLayer.Tables;
@@ -58,6 +59,11 @@ namespace AmoebaGameMatcherServer
                 };
                 dbContext.IncrementTypes.AddRange(incrementTypes);
                 dbContext.SaveChanges();
+            }
+            
+            if (dbContext.IncrementTypes.Count() != Enum.GetNames(typeof(IncrementTypeEnum)).Length)
+            {
+                throw new ArgumentOutOfRangeException();
             }
         }
     }

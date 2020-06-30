@@ -15,7 +15,7 @@ namespace DataLayer.Tables
         [Required] public string GameServerIp { get; set; }
         [Required] public int GameServerUdpPort { get; set; }
         [Required] public GameModeEnum GameModeId { get; set; }
-        public GameMode GameMode { get; set; }
+        public GameModeType GameModeType { get; set; }
         public List<MatchResult> MatchResults { get; set; }
     }
 }

@@ -1,17 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DataLayer;
 using DataLayer.Tables;
 
 namespace AmoebaGameMatcherServer
 {
-    public class OrderTypesSeeder
+    public class TransactionTypesSeeder
     {
         public void Seed(ApplicationDbContext dbContext)
         {
             if (!dbContext.TransactionTypes.Any())
             {
-                var orderTypes = new List<TransactionType>
+                var transactionTypes = new List<TransactionType>
                 {
                     new TransactionType
                     {
@@ -75,8 +76,13 @@ namespace AmoebaGameMatcherServer
                         Id = TransactionTypeEnum.MatchReward
                     }
                 };
-                dbContext.TransactionTypes.AddRange(orderTypes);
+                dbContext.TransactionTypes.AddRange(transactionTypes);
                 dbContext.SaveChanges();
+            }
+            
+            if (dbContext.TransactionTypes.Count() != Enum.GetNames(typeof(TransactionTypeEnum)).Length)
+            {
+                throw new ArgumentOutOfRangeException();
             }
         }
     }

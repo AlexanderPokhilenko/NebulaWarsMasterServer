@@ -1,23 +1,49 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using ZeroFormatter;
+﻿using ZeroFormatter;
 
 namespace NetworkLibrary.NetworkLibrary.Http
 {
     [ZeroFormattable]
     public class WarshipDto
     {
-        //Значение для операций с кораблём
         [Index(0)] public virtual int Id { get; set; }
-        //Значение для отображения корабля
         [Index(1)] public virtual ViewTypeId ViewTypeId { get; set; }
-
-        //Значения для рейтинга корабля
         [Index(2)] public virtual int Rating { get; set; }
-
-        //Значения для прокачки корабля (уровень силы)
         [Index(3)] public virtual int PowerLevel { get; set; }
         [Index(4)] public virtual int PowerPoints { get; set; }
         [Index(5)] public virtual string Description { get; set; }
         [Index(6)] public virtual string CombatRoleName { get; set; }
         [Index(7)] public virtual string WarshipName { get; set; }
+        [Index(8)] public virtual WarshipCharacteristics WarshipCharacteristics { get; set; }
+    }
+
+    [ZeroFormattable]
+    public class WarshipCharacteristics
+    {
+        [Index(0)] public virtual WarshipParameter[] DefenceParameters { get; set; }
+        [Index(1)] public virtual WarshipParameter[] AttackParameters { get; set; }
+        [Index(2)] public virtual string AttackName { get; set; }
+        [Index(3)] public virtual string AttackDescription { get; set; }
+        [Index(4)] public virtual WarshipParameter[] UltimateParameters { get; set; }
+        [Index(5)] public virtual string UltimateName { get; set; }
+        [Index(6)] public virtual string UltimateDescription { get; set; }
+    }
+
+    [ZeroFormattable]
+    public class WarshipParameter
+    {
+        [Index(0)] public virtual string Name { get; set; }
+        /// <summary>
+        /// Позиция в массиве - уровень.
+        /// </summary>
+        [Index(1)] public virtual string[] Values { get; set; }
+        [Index(2)] public virtual string[] Increments { get; set; }
+        [Index(3)] public virtual UiIncrementTypeEnum UiIncrementTypeEnum { get; set; }
+    }
+
+    public enum UiIncrementTypeEnum
+    {
+        None,
+        Plus,
+        Replace
     }
 }

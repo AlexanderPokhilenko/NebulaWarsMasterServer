@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DataLayer;
 using DataLayer.Tables;
@@ -27,6 +28,11 @@ namespace AmoebaGameMatcherServer
                 
                 dbContext.WarshipCombatRoles.AddRange(warshipCombatRoles);
                 dbContext.SaveChanges();
+            }
+            
+            if (dbContext.WarshipCombatRoles.Count() != Enum.GetNames(typeof(WarshipCombatRoleEnum)).Length)
+            {
+                throw new ArgumentOutOfRangeException();
             }
         }
     }

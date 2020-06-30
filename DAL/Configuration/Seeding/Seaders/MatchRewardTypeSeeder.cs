@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DataLayer;
 using DataLayer.Tables;
@@ -28,6 +29,11 @@ namespace AmoebaGameMatcherServer
                 };
                 dbContext.MatchRewardTypes.AddRange(matchRewardTypes);
                 dbContext.SaveChanges();
+            }
+            
+            if (dbContext.MatchRewardTypes.Count() != Enum.GetNames(typeof(MatchRewardTypeEnum)).Length)
+            {
+                throw new ArgumentOutOfRangeException();
             }
         }
     }
