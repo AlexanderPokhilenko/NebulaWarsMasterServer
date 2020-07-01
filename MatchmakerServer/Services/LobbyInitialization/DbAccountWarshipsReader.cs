@@ -2,134 +2,126 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DataLayer;
+using Dapper;
 using DataLayer.Tables;
 using JetBrains.Annotations;
-using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 namespace AmoebaGameMatcherServer.Services.LobbyInitialization
 {
-    //TODO сука блять эта поебота не маппит вложенный запрос
     /// <summary>
     /// Достаёт из БД данные про корабли аккаунта.
     /// </summary>
     public class DbAccountWarshipsReader
     {
-        private readonly ApplicationDbContext dbContext;
+        private readonly NpgsqlConnection connection;
 
-        public DbAccountWarshipsReader(ApplicationDbContext dbContext)
+        private readonly string sql = @"
+                  --Достаёт всю информацию про корабли аккаунта
+select a.*, w.*, wt.*, wcr.*,
+(
+    select coalesce(
+       (
+            select coalesce(sum(I.""Amount""),0)
+            from ""Increments"" I
+                 inner join ""IncrementTypes"" IT on I.""IncrementTypeId"" = IT.""Id""
+            where I.""WarshipId"" = w.""Id"" and IT.""Name""='WarshipRating'
+       )
+   -
+       (
+            select coalesce(sum(D.""Amount""),0)
+            from ""Decrements"" D
+                inner join ""DecrementTypes"" DT on D.""DecrementTypeId"" = DT.""Id""
+            where D.""WarshipId"" = w.""Id"" and DT.""Name""='WarshipRating'
+       )
+        ,0
+    ) as ""WarshipRating""
+),
+(
+    select coalesce(
+          (
+              select sum(I.""Amount"")
+              from ""Increments"" I
+                       inner join ""IncrementTypes"" IT on I.""IncrementTypeId"" = IT.""Id""
+              where I.""WarshipId"" = w.""Id"" and IT.""Name""='WarshipPowerPoints'
+          )
+          ,0
+    ) as ""WarshipPowerPoints"" 
+),
+(
+    select coalesce(
+          (
+              select count(I.""Amount"")
+              from ""Increments"" I
+                       inner join ""IncrementTypes"" IT on I.""IncrementTypeId"" = IT.""Id""
+              where I.""WarshipId"" = w.""Id"" and IT.""Name""='WarshipLevel'
+          )
+          ,0
+    ) as ""WarshipLevel"" 
+)
+
+from ""Accounts"" A
+         join ""Warships"" w on a.""Id"" = w.""AccountId""
+         join ""WarshipTypes"" wt on w.""WarshipTypeId"" = wt.""Id""
+         join ""WarshipCombatRoles"" wcr on wt.""WarshipCombatRoleId"" = wcr.""Id""
+where a.""ServiceId"" = @serviceIdPar
+group by a.""Id"", w.""Id"", wt.""Id"", wcr.""Id"";
+            ";
+
+        public DbAccountWarshipsReader(NpgsqlConnection connection)
         {
-            this.dbContext = dbContext;
+            this.connection = connection;
         }
-
-        [ItemCanBeNull]
+        
         public async Task<AccountDbDto> GetAccountWithWarshipsAsync([NotNull] string serviceId)
         {
-            //todo это пизда
-            Account account = await dbContext.Accounts
-                .Where(account1 => account1.ServiceId == serviceId)
-                .SingleOrDefaultAsync();
+            var parameters = new {serviceIdPar = serviceId};
+            //accountId + account
+            Dictionary<int, AccountDbDto> lookup = new Dictionary<int, AccountDbDto>();
+            await connection
+                .QueryAsync<AccountDbDto, WarshipDbDto,WarshipType, WarshipCombatRole, WarshipStatistics, AccountDbDto>(sql,
+                    (accountDbDto, warshipDbDto, warshipTypeArg, warshipCombatRole, dapperHelper) =>
+                    {
+                        //Если такого аккаунта ещё не было
+                        if (!lookup.TryGetValue(accountDbDto.Id, out AccountDbDto account))
+                        {
+                            //Положить аккаунт в словарь
+                            lookup.Add(accountDbDto.Id, account = accountDbDto);
+                        }
 
-            if (account == null)
-            {
-                return null;
-            }
+                        //Попытаться достать корабль c таким id из коллекции
+                        var warship = account.Warships.Find(wArg => wArg.Id == warshipDbDto.Id);
+                        //Этот корабль уже есть в коллекции?
+                        if (warship == null)
+                        {
+                            warship = warshipDbDto;
+                            warship.WarshipType = warshipTypeArg;
+                            warship.WarshipRating = dapperHelper.WarshipRating;
+                            warship.WarshipPowerPoints = dapperHelper.WarshipPowerPoints;
+                            warship.WarshipType.WarshipCombatRole = warshipCombatRole;
+                            warship.Id = warshipDbDto.Id;
+                            warship.WarshipPowerLevel = dapperHelper.WarshipLevel;
+                            warship.WarshipTypeId = warshipDbDto.WarshipTypeId;
+                            
+                            account.Warships.Add(warship);
+                            account.Rating += warship.WarshipRating;
+                        }
 
-            //todo пиздец
-            int accountRating = await dbContext.Increments
-                                    .Include(increment => increment.Resource)
-                                    .ThenInclude(resource => resource.Transaction)
-                                    .ThenInclude(transaction => transaction.Account)
-                                    .Where(increment => increment.IncrementTypeId == IncrementTypeEnum.WarshipRating
-                                                        && increment.Resource.Transaction.Account.ServiceId ==
-                                                        serviceId)
-                                    .Select(increment => increment.Amount)
-                                    .DefaultIfEmpty()
-                                    .SumAsync()
-                                -
-                                await dbContext.Decrements
-                                    .Include(increment => increment.Resource)
-                                    .ThenInclude(resource => resource.Transaction)
-                                    .ThenInclude(transaction => transaction.Account)
-                                    .Where(decrement => decrement.DecrementTypeId == DecrementTypeEnum.WarshipRating
-                                                        && decrement.Resource.Transaction.Account.ServiceId ==
-                                                        serviceId)
-                                    .Select(increment => increment.Amount)
-                                    .DefaultIfEmpty()
-                                    .SumAsync()
-                ;
+                        Console.WriteLine(" " + accountDbDto);
+                        Console.WriteLine("\t\t " + warshipDbDto);
+                        Console.WriteLine("\t\t\t " + dapperHelper);
+                        return account;
+                    }, parameters, splitOn:"Id,WarshipRating");
             
-            
-            AccountDbDto accountDbDto = new AccountDbDto
+            switch (lookup.Count)
             {
-                Username = account.Username,
-                ServiceId = account.ServiceId,
-                RegistrationDateTime = account.RegistrationDateTime,
-                Warships = new List<WarshipDbDto>(),
-                Rating = accountRating,
-                Id = account.Id
-            };
-
-            //todo кусок говна
-            List<Warship> warships = await dbContext.Warships
-                .Include(warship => warship.Account)
-                .Include(warship => warship.WarshipType)
-                    .ThenInclude(warshipType => warshipType.WarshipCombatRole)
-                .Where(warship => warship.Account.ServiceId == serviceId)
-                .ToListAsync();
-
-            //todo куча запросов вместо одного
-            foreach (Warship warship in warships)
-            {
-                Console.WriteLine($"warship.Id "+warship.Id);
-                WarshipDbDto warshipDbDto = new WarshipDbDto
-                {
-                    WarshipType = warship.WarshipType,
-                    Id = warship.Id
-                };
-
-                warshipDbDto.WarshipPowerLevel = await dbContext.Increments
-                    .Where(increment => increment.WarshipId == warship.Id
-                                        && increment.IncrementTypeId == IncrementTypeEnum.WarshipLevel)
-                    .CountAsync();
-
-                if (warshipDbDto.WarshipPowerLevel == 0)
-                {
-                    throw new Exception("Сука блять какого хуя уровень нулевой?");
-                }
-
-                Console.WriteLine("warshipDbDto.WarshipPowerLevel "+warshipDbDto.WarshipPowerLevel);
-                
-                warshipDbDto.WarshipPowerPoints = await dbContext.Increments
-                       .Where(increment => increment.WarshipId == warship.Id
-                                           && increment.IncrementTypeId == IncrementTypeEnum.WarshipPowerPoints)
-                       .DefaultIfEmpty()
-                       .SumAsync(increment => increment.Amount)
-                   -
-                   await dbContext.Decrements
-                       .Where(decrement => decrement.WarshipId == warship.Id
-                                           && decrement.DecrementTypeId == DecrementTypeEnum.WarshipPowerPoints)
-                       .DefaultIfEmpty()
-                       .SumAsync(decrement => decrement.Amount);
-
-                Console.WriteLine($"warshipDbDto.WarshipPowerPoints = "+warshipDbDto.WarshipPowerPoints);
-                
-                warshipDbDto.WarshipRating = await dbContext.Increments
-                         .Where(increment => increment.WarshipId == warship.Id
-                                             && increment.IncrementTypeId == IncrementTypeEnum.WarshipRating)
-                         .DefaultIfEmpty()
-                         .SumAsync(increment => increment.Amount)
-                     -
-                     await dbContext.Decrements
-                         .Where(decrement => decrement.WarshipId == warship.Id 
-                                             && decrement.DecrementTypeId == DecrementTypeEnum.WarshipRating)
-                         .DefaultIfEmpty()
-                         .SumAsync(decrement => decrement.Amount);
-                
-                accountDbDto.Warships.Add(warshipDbDto);
+                case 0:
+                    return null;
+                case 1 :
+                    return lookup.Single().Value;
+                default:
+                    throw new Exception($"По serviceId = {serviceId} найдено {lookup.Count} аккаунтов.");
             }
-
-            return accountDbDto;
         }
     }
 }

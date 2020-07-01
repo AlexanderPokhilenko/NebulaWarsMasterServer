@@ -247,7 +247,6 @@
             <e p="AccountDbReaderService.cs" t="Include" />
             <e p="AccountFacadeService.cs" t="Include" />
             <e p="AccountMapperService.cs" t="Include" />
-            <e p="AccountQueryDapperHelper1.cs" t="Include" />
             <e p="AccountRegistrationService.cs" t="Include" />
             <e p="AccountResourcesDbReader.cs" t="Include" />
             <e p="DapperHelperAccountResources.cs" t="Include" />
@@ -258,6 +257,7 @@
             <e p="WarshipPowerScaleModelStorage.cs" t="Include" />
             <e p="WarshipRatingScale.cs" t="Include" />
             <e p="WarshipsCharacteristicsService.cs" t="Include" />
+            <e p="WarshipStatistics.cs" t="Include" />
           </e>
           <e p="Lootbox" t="Include">
             <e p="LootboxDbWriterService.cs" t="Include" />

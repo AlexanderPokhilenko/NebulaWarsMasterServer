@@ -58,7 +58,7 @@ namespace DeleteMe1
 
             Dictionary<int, Account> lookup = new Dictionary<int, Account>();
             IEnumerable<Account> accounts = await connection
-                .QueryAsync<Account, Warship,WarshipType, AccountQueryDapperHelper1,  Account>(sql,
+                .QueryAsync<Account, Warship,WarshipType, WarshipStatistics,  Account>(sql,
                     (accountArg, warshipArg, warshipTypeArg,dapperHelper1) =>
                     {
                         Console.WriteLine(dapperHelper1.ToString());

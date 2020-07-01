@@ -21,7 +21,7 @@ namespace IntegrationTests
         internal static LobbyModelFacadeService LobbyModelFacadeService;
         internal static AccountFacadeService AccountFacadeService;
         internal static LobbyModelController LobbyModelController;
-        private const string DatabaseName = "DevelopmentDb065";
+        private const string DatabaseName = "DevelopmentDb101";
 
         [OneTimeSetUp]
         public void Initialize()
@@ -37,8 +37,8 @@ namespace IntegrationTests
             TruncateAccountsTable();
             string connectionString = DbConnectionConfig.GetConnectionString(DatabaseName);
             //Создать сервисы
-            NpgsqlConnection conn = new NpgsqlConnection(connectionString);
-            AccountReaderService = new AccountDbReaderService(conn, new DbAccountWarshipsReader(DbContext));
+            NpgsqlConnection npgsqlConnection = new NpgsqlConnection(connectionString);
+            AccountReaderService = new AccountDbReaderService(npgsqlConnection, new DbAccountWarshipsReader(npgsqlConnection));
             NotShownRewardsReaderService = new NotShownRewardsReaderService(DbContext);
             DefaultAccountFactoryService defaultAccountFactoryService = new DefaultAccountFactoryService(DbContext);
             var accountRegistrationService = new AccountRegistrationService(defaultAccountFactoryService);
@@ -46,11 +46,9 @@ namespace IntegrationTests
             AccountMapperService accountMapperService = new AccountMapperService(warshipsCharacteristicsService);
             AccountFacadeService = new AccountFacadeService(AccountReaderService, accountRegistrationService);
             LobbyModelFacadeService = new LobbyModelFacadeService(AccountFacadeService, NotShownRewardsReaderService, accountMapperService);
-
             LobbyModelController = new LobbyModelController(LobbyModelFacadeService);
         }
 
-        
         public static void SetUp()
         {
             ReloadDbContext();

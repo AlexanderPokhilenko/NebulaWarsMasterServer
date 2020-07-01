@@ -1,5 +1,5 @@
-﻿    using System;
-    using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
 
@@ -7,7 +7,7 @@ namespace AmoebaGameMatcherServer.Controllers
 {
     public class WarshipsCharacteristicsService
     {
-        private readonly Dictionary<WarshipTypeEnum, WarshipCharacteristics> WarshipParameters =
+        private readonly Dictionary<WarshipTypeEnum, WarshipCharacteristics> warshipParameters =
             new Dictionary<WarshipTypeEnum, WarshipCharacteristics>()
             {
                 {
@@ -18,14 +18,14 @@ namespace AmoebaGameMatcherServer.Controllers
                             new WarshipParameter
                             {
                                 Name = "Health",
-                                Values = new []{null, "2000", "2200", "2600", "2900", "3000", "3300", "3900"},
-                                Increments = new []{null, "200","400","300","100","300","600"},
+                                Values = new []{null, "2000", "2200", "2600", "2900", "3000", "3300", "3900", "3900", "3900", "3900", "3900", "3900", "3900", },
+                                Increments = new []{null, "200","400","300","100","300","600","600","600","600","600","600","600","600","600","600"},
                                 UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
                             }  ,
                             new WarshipParameter
                             {
                                 Name = "Movement speed",
-                                Values = new []{"NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL"},
+                                Values = new []{"NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL"},
                                 Increments = null,
                                 UiIncrementTypeEnum = UiIncrementTypeEnum.None
                             }
@@ -37,14 +37,14 @@ namespace AmoebaGameMatcherServer.Controllers
                             new WarshipParameter
                             {
                                 Name = "Damage per second",
-                                Values = new []{null,"200","250","350"},
-                                Increments = new []{null, "50", "100"},
+                                Values = new []{null,"200","250","350","350","350","350","350","350"},
+                                Increments = new []{null, "50", "100", "100", "100", "100", "100", "100"},
                                 UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
                             }, 
                             new WarshipParameter
                             {
                                 Name = "Range",
-                                Values = new[]{"Big","Big","Big","Big","Big","Big","Big",},
+                                Values = new[]{"Big","Big","Big","Big","Big","Big","Big","Big","Big","Big","Big","Big","Big"},
                                 UiIncrementTypeEnum = UiIncrementTypeEnum.None,
                                 Increments = null
                             }
@@ -66,6 +66,10 @@ namespace AmoebaGameMatcherServer.Controllers
                                     "5 x 690",
                                     "5 x 700",
                                     "5 x 720",
+                                    "5 x 720",
+                                    "5 x 720",
+                                    "5 x 720",
+                                    "5 x 720",
                                 },
                                 Increments = new[]
                                 {
@@ -73,6 +77,13 @@ namespace AmoebaGameMatcherServer.Controllers
                                     "15",
                                     "10",
                                     "15",
+                                    "10",
+                                    "10",
+                                    "10",
+                                    "10",
+                                    "10",
+                                    "10",
+                                    "10",
                                     "10",
                                     "20"
                                 }
@@ -89,14 +100,14 @@ namespace AmoebaGameMatcherServer.Controllers
                             new WarshipParameter
                             {
                                 Name = "Health",
-                                Values = new []{null, "2000", "2200", "2600", "2900", "3000", "3300", "3900"},
-                                Increments = new []{null, "200","400","300","100","300","600"},
+                                Values = new []{null, "2000", "2200", "2600", "2900", "3000", "3300", "3900", "3900", "3900", "3900"},
+                                Increments = new []{null, "200","400","300","100","300","600","600","600","600","600","600"},
                                 UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
                             }  ,
                             new WarshipParameter
                             {
                                 Name = "Movement speed",
-                                Values = new []{"NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL"},
+                                Values = new []{"NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL"},
                                 Increments = null,
                                 UiIncrementTypeEnum = UiIncrementTypeEnum.None
                             }
@@ -108,14 +119,14 @@ namespace AmoebaGameMatcherServer.Controllers
                             new WarshipParameter
                             {
                                 Name = "Damage per second",
-                                Values = new []{null,"200","250","350"},
-                                Increments = new []{null, "50", "100"},
+                                Values = new []{null,"200","250","350","350","350","350","350","350","350","350","350","350","350"},
+                                Increments = new []{null, "50", "100", "100", "100", "100", "100", "100", "100", "100", "100"},
                                 UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
                             }, 
                             new WarshipParameter
                             {
                                 Name = "RANGE",
-                                Values = new[]{"BIG","BIG","BIG","BIG","BIG","BIG","BIG"},
+                                Values = new[]{"BIG","BIG","BIG","BIG","BIG","BIG","BIG","BIG","BIG","BIG","BIG","BIG","BIG"},
                                 UiIncrementTypeEnum = UiIncrementTypeEnum.None,
                                 Increments = null
                             }
@@ -137,6 +148,10 @@ namespace AmoebaGameMatcherServer.Controllers
                                     "5 x 690",
                                     "5 x 700",
                                     "5 x 720",
+                                    "5 x 720",
+                                    "5 x 720",
+                                    "5 x 720",
+                                    "5 x 720",
                                 },
                                 Increments = new[]
                                 {
@@ -144,6 +159,11 @@ namespace AmoebaGameMatcherServer.Controllers
                                     "15",
                                     "10",
                                     "15",
+                                    "10",
+                                    "10",
+                                    "10",
+                                    "10",
+                                    "10",
                                     "10",
                                     "20"
                                 }
@@ -160,14 +180,14 @@ namespace AmoebaGameMatcherServer.Controllers
                             new WarshipParameter
                             {
                                 Name = "Health",
-                                Values = new []{null, "2000", "2200", "2600", "2900", "3000", "3300", "3900"},
-                                Increments = new []{null, "200","400","300","100","300","600"},
+                                Values = new []{null, "2000", "2200", "2600", "2900", "3000", "3300", "3900", "3900", "3900", "3900", "3900", "3900"},
+                                Increments = new []{null, "200","400","300","100","300","600","600","600","600","600","600"},
                                 UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
                             }  ,
                             new WarshipParameter
                             {
                                 Name = "Movement speed",
-                                Values = new []{"LOW","LOW","LOW","LOW","LOW","LOW" },
+                                Values = new []{"LOW","LOW","LOW","LOW","LOW","LOW","LOW","LOW","LOW","LOW" },
                                 Increments = null,
                                 UiIncrementTypeEnum = UiIncrementTypeEnum.None
                             }
@@ -179,14 +199,14 @@ namespace AmoebaGameMatcherServer.Controllers
                             new WarshipParameter
                             {
                                 Name = "Damage per second",
-                                Values = new []{null,"200","250","350"},
-                                Increments = new []{null, "50", "100"},
+                                Values = new []{null,"200","250","350","350","350","350","350","350","350"},
+                                Increments = new []{null, "50", "100", "100", "100", "100", "100", "100"},
                                 UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
                             }, 
                             new WarshipParameter
                             {
                                 Name = "Range",
-                                Values = new[]{"BIG","BIG","BIG","BIG","BIG","BIG","BIG"},
+                                Values = new[]{"BIG","BIG","BIG","BIG","BIG","BIG","BIG","BIG","BIG"},
                                 UiIncrementTypeEnum = UiIncrementTypeEnum.None,
                                 Increments = null
                             }
@@ -208,6 +228,9 @@ namespace AmoebaGameMatcherServer.Controllers
                                     "5 x 690",
                                     "5 x 700",
                                     "5 x 720",
+                                    "5 x 720",
+                                    "5 x 720",
+                                    "5 x 720",
                                 },
                                 Increments = new[]
                                 {
@@ -216,9 +239,12 @@ namespace AmoebaGameMatcherServer.Controllers
                                     "10",
                                     "15",
                                     "10",
+                                    "10",
+                                    "10",
+                                    "10",
+                                    "10",
                                     "20"
                                 }
-                                
                             }
                         }
                     }
@@ -227,7 +253,7 @@ namespace AmoebaGameMatcherServer.Controllers
         
         public WarshipCharacteristics GetWarshipCharacteristics(WarshipTypeEnum warshipTypeEnum)
         {
-            if (WarshipParameters.TryGetValue(warshipTypeEnum, out var result))
+            if (warshipParameters.TryGetValue(warshipTypeEnum, out var result))
             {
                 return result;
             }

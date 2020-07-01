@@ -32,7 +32,7 @@ select a.*, w.*, wt.*, wcr.*,
 (
     select coalesce(
           (
-              select max(I."Amount")
+              select count(I."Amount")
               from "Increments" I
                        inner join "IncrementTypes" IT on I."IncrementTypeId" = IT."Id"
               where I."WarshipId" = w."Id" and IT."Name"='WarshipLevel'
