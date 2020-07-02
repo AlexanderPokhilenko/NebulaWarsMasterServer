@@ -12,15 +12,15 @@ namespace AmoebaGameMatcherServer.Controllers
         {
             PowerLevelModels = new[]
             {
-                new WarshipPowerLevelModel {PowerPointsCost = 0,    SoftCurrencyCost = 0},
-                new WarshipPowerLevelModel {PowerPointsCost = 20,    SoftCurrencyCost = 20},
-                new WarshipPowerLevelModel {PowerPointsCost = 30,    SoftCurrencyCost = 35},
-                new WarshipPowerLevelModel {PowerPointsCost = 50,    SoftCurrencyCost = 75},
-                new WarshipPowerLevelModel {PowerPointsCost = 80,    SoftCurrencyCost = 140},
-                new WarshipPowerLevelModel {PowerPointsCost = 130,   SoftCurrencyCost = 290},
-                new WarshipPowerLevelModel {PowerPointsCost = 210,   SoftCurrencyCost = 480},
-                new WarshipPowerLevelModel {PowerPointsCost = 340,   SoftCurrencyCost = 800},
-                new WarshipPowerLevelModel {PowerPointsCost = 550,   SoftCurrencyCost = 1250}
+                new WarshipImprovementModel {PowerPointsCost = 0,    SoftCurrencyCost = 0},
+                new WarshipImprovementModel {PowerPointsCost = 20,    SoftCurrencyCost = 20},
+                new WarshipImprovementModel {PowerPointsCost = 30,    SoftCurrencyCost = 35},
+                new WarshipImprovementModel {PowerPointsCost = 50,    SoftCurrencyCost = 75},
+                new WarshipImprovementModel {PowerPointsCost = 80,    SoftCurrencyCost = 140},
+                new WarshipImprovementModel {PowerPointsCost = 130,   SoftCurrencyCost = 290},
+                new WarshipImprovementModel {PowerPointsCost = 210,   SoftCurrencyCost = 480},
+                new WarshipImprovementModel {PowerPointsCost = 340,   SoftCurrencyCost = 800},
+                new WarshipImprovementModel {PowerPointsCost = 550,   SoftCurrencyCost = 1250}
             }
         };
         
@@ -30,7 +30,7 @@ namespace AmoebaGameMatcherServer.Controllers
         }
 
         [CanBeNull]
-        public WarshipPowerLevelModel GetWarshipImprovementModel(int powerLevel)
+        public WarshipImprovementModel GetWarshipImprovementModel(int powerLevel)
         {
             if (warshipPowerScaleModel.PowerLevelModels.Length < powerLevel)
             {

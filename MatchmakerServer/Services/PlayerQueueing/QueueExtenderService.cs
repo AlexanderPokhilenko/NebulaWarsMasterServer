@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AmoebaGameMatcherServer.Services.LobbyInitialization;
 using AmoebaGameMatcherServer.Services.Queues;
 using DataLayer;
 using DataLayer.Tables;
@@ -13,14 +14,16 @@ namespace AmoebaGameMatcherServer.Services.PlayerQueueing
     /// </summary>
     public class QueueExtenderService
     {
-        private readonly BattleRoyaleQueueSingletonService battleRoyaleQueueSingletonServiceService;
         private readonly ApplicationDbContext dbContext;
+        private readonly DbAccountWarshipsReader dbAccountWarshipsReader;
+        private readonly BattleRoyaleQueueSingletonService battleRoyaleQueueSingletonServiceService;
 
         public QueueExtenderService(BattleRoyaleQueueSingletonService battleRoyaleQueueSingletonServiceService,
-            ApplicationDbContext dbContext)
+            ApplicationDbContext dbContext, DbAccountWarshipsReader dbAccountWarshipsReader)
         {
-            this.battleRoyaleQueueSingletonServiceService = battleRoyaleQueueSingletonServiceService;
             this.dbContext = dbContext;
+            this.dbAccountWarshipsReader = dbAccountWarshipsReader;
+            this.battleRoyaleQueueSingletonServiceService = battleRoyaleQueueSingletonServiceService;
         }
         
         /// <summary>
@@ -33,22 +36,20 @@ namespace AmoebaGameMatcherServer.Services.PlayerQueueing
         {
             //Достать информацию про корабль из БД. Нужно для балансировки по силе
             //+ проверка того, что корабль принадлежит этому игроку
-            
-            Warship warship = await dbContext.Warships
-                .Include(warship1 => warship1.WarshipType)
-                .Include(warship1 =>warship1.Account)
-                .SingleOrDefaultAsync(warship1 => 
-                    warship1.Id == warshipId 
-                    && warship1.Account.ServiceId==playerServiceId);
 
-            // int warshipPowerPoints = await dbContext.LootboxPrizeWarshipPowerPoints
-            //     .Where(war => war.WarshipId == warshipId)
-            //     .SumAsync(lootbox => lootbox.Quantity);
+            var accountDbDto = await dbAccountWarshipsReader.GetAccountWithWarshipsAsync(playerServiceId);
 
-            int warshipPowerLevel = 1;
-            
-            QueueInfoForPlayer playerInfo = new QueueInfoForPlayer(playerServiceId, warship.AccountId, 
-                warship.WarshipType.Name, warshipPowerLevel, warshipId, DateTime.UtcNow);
+            var warship = accountDbDto.Warships
+                .SingleOrDefault(dto => dto.Id == warshipId);
+
+            if (warship == null)
+            {
+                Console.WriteLine("Корабль не принадлежит этому игроку");
+                return false;
+            }
+
+            QueueInfoForPlayer playerInfo = new QueueInfoForPlayer(playerServiceId, accountDbDto.Id, 
+                warship.WarshipType.Name, warship.WarshipPowerLevel, warshipId, DateTime.UtcNow);
             return battleRoyaleQueueSingletonServiceService.TryEnqueuePlayer(playerInfo);
         }
     }

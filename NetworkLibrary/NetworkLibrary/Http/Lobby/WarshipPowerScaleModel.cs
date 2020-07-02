@@ -8,6 +8,6 @@ namespace NetworkLibrary.NetworkLibrary.Http
     [ZeroFormattable]
     public class WarshipPowerScaleModel
     {
-        [Index(0)] public virtual WarshipPowerLevelModel[] PowerLevelModels { get; set; }
+        [Index(0)] public virtual WarshipImprovementModel[] PowerLevelModels { get; set; }
     }
 }

@@ -70,10 +70,7 @@ namespace IntegrationTests
             
             //Assert
             Assert.IsNotNull(result1);
-            Assert.AreNotEqual(0, result1.AccountRatingDelta);
-            Assert.AreNotEqual(0, result1.LootboxPointsDelta);
-            Assert.AreNotEqual(0, result1.SoftCurrencyDelta);
-            
+           
             Assert.IsNotNull(result2);
             Assert.AreEqual(0, result2.SoftCurrencyDelta);
             Assert.AreEqual(0, result2.AccountRatingDelta);

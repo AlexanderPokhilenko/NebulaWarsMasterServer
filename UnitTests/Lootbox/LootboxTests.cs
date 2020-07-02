@@ -17,14 +17,14 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
             var dbContextFactory = new InMemoryDbContextFactory(nameof(LootboxTests));
             var dbContext = dbContextFactory.Create();
             var service = new SmallLootboxOpenAllowingService(dbContext);
-            string playerId = UniqueStringFactory.Create();
-            Account account = new Account()
+            string playerId = "serviceId";
+            Account account = new Account
             {
                 ServiceId = playerId,
                 Username = playerId
             };
-            dbContext.Accounts.Add(account);
-            dbContext.SaveChanges();
+            await dbContext.Accounts.AddAsync(account);
+            await dbContext.SaveChangesAsync();
             
             //Act
             bool result = await service.CanPlayerOpenLootboxAsync(playerId);

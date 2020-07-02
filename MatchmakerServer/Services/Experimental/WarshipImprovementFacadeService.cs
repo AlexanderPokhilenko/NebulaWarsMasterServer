@@ -9,18 +9,18 @@ using JetBrains.Annotations;
 
 namespace AmoebaGameMatcherServer.Controllers
 {
-    public class WarshipLevelFacadeService
+    public class WarshipImprovementFacadeService
     {
         private readonly ApplicationDbContext dbContext;
         private readonly AccountDbReaderService accountDbReaderService;
-        private readonly WarshipPowerScaleModelStorage warshipPowerScaleModelStorage;
-
-        public WarshipLevelFacadeService(AccountDbReaderService accountDbReaderService,
-            WarshipPowerScaleModelStorage warshipPowerScaleModelStorage, ApplicationDbContext dbContext)
+        private readonly WarshipImprovementCostChecker warshipImprovementCostChecker;
+        
+        public WarshipImprovementFacadeService(AccountDbReaderService accountDbReaderService,
+            ApplicationDbContext dbContext, WarshipImprovementCostChecker warshipImprovementCostChecker)
         {
-            this.accountDbReaderService = accountDbReaderService;
             this.dbContext = dbContext;
-            this.warshipPowerScaleModelStorage = warshipPowerScaleModelStorage;
+            this.warshipImprovementCostChecker = warshipImprovementCostChecker;
+            this.accountDbReaderService = accountDbReaderService;
         }
 
         public async Task<bool> TryBuyLevel([NotNull] string serviceId, int warshipId)
@@ -38,31 +38,15 @@ namespace AmoebaGameMatcherServer.Controllers
             {
                 throw new Exception("Этому аккаунту не принаждлежит этот корабль");
             }
-
-            //Достать цену улучшения
-            var improvementModel = warshipPowerScaleModelStorage
-                .GetWarshipImprovementModel(warshipDbDto.WarshipPowerLevel);
-
-            if (improvementModel == null)
-            {
-                Console.WriteLine("У корабля уже максимальный уровень");
-                return false;
-            }
             
-            //Достаточно ресурсов для покупки улучшения?
-            if (accountDbDto.SoftCurrency < improvementModel.SoftCurrencyCost)
+            bool canAPurchaseBeMade = warshipImprovementCostChecker
+                .CanAPurchaseBeMade(accountDbDto.SoftCurrency, warshipDbDto.WarshipPowerLevel, warshipDbDto.WarshipPowerPoints, out var faultReason );
+            if (!canAPurchaseBeMade)
             {
-                Console.WriteLine($"Недостаточно денег у аккаунта {nameof(serviceId)} {serviceId} для " +
-                                  $"покупки улучшений {nameof(warshipId)} {warshipId}");
-                return false;
+                throw new Exception("Невозможно осуществить покупку улучшения для корабля по причине "+faultReason);
             }
-            
-            //Достаточно очков силы для покупки улучшения
-            if (warshipDbDto.WarshipPowerPoints < improvementModel.PowerPointsCost)
-            {
-                Console.WriteLine("Недостаточно очков силы для улучшения");
-                return false;
-            }
+
+            var improvementModel = warshipImprovementCostChecker.GetImprovementModel(warshipDbDto.WarshipPowerLevel); 
             
             //Записать транзакцию
             Transaction transaction = new Transaction

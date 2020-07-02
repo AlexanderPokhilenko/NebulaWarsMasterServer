@@ -23,9 +23,13 @@ namespace DataLayer
             return dbContext;
         }
 
-        public ApplicationDbContext Create(string databaseName)
+        public ApplicationDbContext Create(string databaseNameArg)
         {
-            throw new NotImplementedException();
+            DbContextOptions<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(guidString+" "+databaseNameArg)
+                .Options;
+            ApplicationDbContext dbContext = new ApplicationDbContext(options);
+            return dbContext;
         }
     }
 }

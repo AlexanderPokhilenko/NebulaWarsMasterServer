@@ -3,7 +3,7 @@
 namespace NetworkLibrary.NetworkLibrary.Http
 {
     [ZeroFormattable]
-    public class WarshipPowerLevelModel
+    public class WarshipImprovementModel
     {
         /// <summary>
         /// Кол-во очков силы для возможности купить улучшение.

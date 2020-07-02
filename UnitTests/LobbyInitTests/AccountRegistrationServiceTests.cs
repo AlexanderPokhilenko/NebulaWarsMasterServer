@@ -23,7 +23,7 @@ namespace MatchmakerTest
                 .Create();
             DefaultAccountFactoryService defaultAccountFactoryService = new DefaultAccountFactoryService(dbContext);
             AccountRegistrationService accountRegistrationService = new AccountRegistrationService(defaultAccountFactoryService);
-            string serviceId = UniqueStringFactory.Create();
+            string serviceId = "serviceId";
             
             //Act
             bool success = await accountRegistrationService.TryRegisterAccountAsync(serviceId);
@@ -35,7 +35,7 @@ namespace MatchmakerTest
                 .SingleOrDefaultAsync(account => account.ServiceId == serviceId);
             Assert.IsNotNull(accountDb);
             int warshipsCount = accountDb.Warships.Count;
-            Assert.AreEqual(2, warshipsCount);
+            Assert.AreEqual(3, warshipsCount);
         }
     }
 }

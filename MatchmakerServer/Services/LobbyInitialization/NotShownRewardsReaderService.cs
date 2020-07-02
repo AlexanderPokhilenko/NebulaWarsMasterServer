@@ -50,14 +50,14 @@ namespace AmoebaGameMatcherServer.Controllers
             foreach (var transaction in transactions)
             {
                 //Рейтинг
-                accountRatingDelta = transaction.Resources
+                accountRatingDelta += transaction.Resources
                     .SelectMany(resource => resource.Increments)
                     .Where(increment => increment.IncrementTypeId == IncrementTypeEnum.WarshipRating)
                     .Select(increment => increment.Amount)
                     .Sum();
                 
                 //Премиум валюта
-                hardCurrencyDelta = transaction.Resources
+                hardCurrencyDelta += transaction.Resources
                     .SelectMany(resource => resource.Increments)
                     .Where(increment => increment.IncrementTypeId == IncrementTypeEnum.HardCurrency)
                     .Select(increment => increment.Amount)
@@ -65,7 +65,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 
                 
                 //Обычная валюта
-                softCurrencyDelta = transaction.Resources
+                softCurrencyDelta += transaction.Resources
                     .SelectMany(resource => resource.Increments)
                     .Where(increment => increment.IncrementTypeId == IncrementTypeEnum.SoftCurrency)
                     .Select(increment => increment.Amount)
@@ -73,7 +73,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 
                 
                 //Очки для сундуков
-                lootboxPointsDelta = transaction.Resources
+                lootboxPointsDelta += transaction.Resources
                     .SelectMany(resource => resource.Increments)
                     .Where(increment => increment.IncrementTypeId == IncrementTypeEnum.LootboxPoints)
                     .Select(increment => increment.Amount)
@@ -83,13 +83,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 transaction.WasShown = true;
             }
 
-            await dbContext.SaveChangesAsync();
-            //
-            // Console.WriteLine(accountRatingDelta);
-            // Console.WriteLine(hardCurrencyDelta);
-            // Console.WriteLine(lootboxPointsDelta);
-            // Console.WriteLine(softCurrencyDelta);
-
+        
             RewardsThatHaveNotBeenShown result = new RewardsThatHaveNotBeenShown()
             {
                 AccountRatingDelta = accountRatingDelta,

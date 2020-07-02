@@ -132,9 +132,11 @@
               <e p="AccountFacadeServiceTests.cs" t="Include" />
               <e p="LobbyModelFacadeServiceTests.cs" t="Include" />
               <e p="NotShownRewardsTests.cs" t="Include" />
+              <e p="WarshipImprovementPurchasingTests.cs" t="Include" />
             </e>
           </e>
         </e>
+        <e p="readme.txt" t="Include" />
       </e>
       <e p="LibraryforTests" t="IncludeRecursive">
         <e p="AccountBuilder" t="Include">
@@ -214,7 +216,8 @@
         <e p="readme.txt" t="Include" />
         <e p="Services" t="Include">
           <e p="Experimental" t="Include">
-            <e p="WarshipLevelFacadeService.cs" t="Include" />
+            <e p="WarshipImprovementCostChecker.cs" t="Include" />
+            <e p="WarshipImprovementFacadeService.cs" t="Include" />
           </e>
           <e p="GameServerNegotiation" t="Include">
             <e p="GameServerNegotiatorService.cs" t="Include" />
@@ -362,9 +365,9 @@
                 <e p="WarshipPowerPointsProduct.cs.meta" t="Include" />
               </e>
               <e p="Shop.meta" t="Include" />
+              <e p="WarshipImprovementModel.cs" t="Include" />
               <e p="WarshipModel.cs" t="Include" />
               <e p="WarshipModel.cs.meta" t="Include" />
-              <e p="WarshipPowerLevelModel.cs" t="Include" />
               <e p="WarshipPowerLevelModel.cs.meta" t="Include" />
               <e p="WarshipPowerScaleModel.cs" t="Include" />
               <e p="WarshipPowerScaleModel.cs.meta" t="Include" />

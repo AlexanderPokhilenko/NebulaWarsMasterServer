@@ -60,6 +60,7 @@ namespace AmoebaGameMatcherServer.Controllers
             {
                 return BadRequest();
             }
+            
             MatchmakerResponse matcherResponse = await matchmakerFacadeService.GetMatchDataAsync(playerId, warshipId);
             return matcherResponse.SerializeToBase64String();
         }

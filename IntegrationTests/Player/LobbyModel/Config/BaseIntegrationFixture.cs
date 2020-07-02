@@ -16,6 +16,8 @@ namespace IntegrationTests
         protected AccountFacadeService AccountFacadeService => SetUpFixture.AccountFacadeService;
         protected LobbyModelFacadeService LobbyModelFacadeService => SetUpFixture.LobbyModelFacadeService;
         protected LobbyModelController LobbyModelController => SetUpFixture.LobbyModelController;
+        protected WarshipImprovementFacadeService WarshipImprovementFacadeService => SetUpFixture.WarshipImprovementFacadeService;
+        protected WarshipImprovementCostChecker WarshipImprovementCostChecker => SetUpFixture.WarshipImprovementCostChecker;
         
         [SetUp]
         public void ResetChangeTracker()

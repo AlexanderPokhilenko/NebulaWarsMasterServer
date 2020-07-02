@@ -11,11 +11,11 @@ namespace AmoebaGameMatcherServer.Controllers
     [ApiController]
     public class WarshipLevelController : ControllerBase
     {
-        private readonly WarshipLevelFacadeService warshipLevelFacadeService;
+        private readonly WarshipImprovementFacadeService warshipImprovementFacadeService;
 
-        public WarshipLevelController(WarshipLevelFacadeService warshipLevelFacadeService)
+        public WarshipLevelController(WarshipImprovementFacadeService warshipImprovementFacadeService)
         {
-            this.warshipLevelFacadeService = warshipLevelFacadeService;
+            this.warshipImprovementFacadeService = warshipImprovementFacadeService;
         }
 
         [Route(nameof(BuyLevel))]
@@ -32,7 +32,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 return BadRequest();
             }
             
-            bool success = await warshipLevelFacadeService.TryBuyLevel(playerServiceId, warshipId.Value);
+            bool success = await warshipImprovementFacadeService.TryBuyLevel(playerServiceId, warshipId.Value);
 
             if (success)
             {

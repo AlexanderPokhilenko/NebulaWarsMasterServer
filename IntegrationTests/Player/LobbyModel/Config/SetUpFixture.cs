@@ -16,12 +16,14 @@ namespace IntegrationTests
     internal sealed class SetUpFixture
     {
         internal static ApplicationDbContext DbContext;
-        internal static AccountDbReaderService AccountReaderService;
-        internal static NotShownRewardsReaderService NotShownRewardsReaderService;
-        internal static LobbyModelFacadeService LobbyModelFacadeService;
+        private const string DatabaseName = "DevelopmentDb102";
         internal static AccountFacadeService AccountFacadeService;
         internal static LobbyModelController LobbyModelController;
-        private const string DatabaseName = "DevelopmentDb101";
+        internal static AccountDbReaderService AccountReaderService;
+        internal static LobbyModelFacadeService LobbyModelFacadeService;
+        internal static NotShownRewardsReaderService NotShownRewardsReaderService;
+        internal static WarshipImprovementFacadeService WarshipImprovementFacadeService;
+        internal static WarshipImprovementCostChecker WarshipImprovementCostChecker;
 
         [OneTimeSetUp]
         public void Initialize()
@@ -47,6 +49,9 @@ namespace IntegrationTests
             AccountFacadeService = new AccountFacadeService(AccountReaderService, accountRegistrationService);
             LobbyModelFacadeService = new LobbyModelFacadeService(AccountFacadeService, NotShownRewardsReaderService, accountMapperService);
             LobbyModelController = new LobbyModelController(LobbyModelFacadeService);
+            var warshipPowerScaleModelStorage = new WarshipPowerScaleModelStorage();
+            WarshipImprovementCostChecker = new WarshipImprovementCostChecker(warshipPowerScaleModelStorage);
+            WarshipImprovementFacadeService = new WarshipImprovementFacadeService(AccountReaderService, DbContext, WarshipImprovementCostChecker);
         }
 
         public static void SetUp()
