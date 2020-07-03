@@ -18,9 +18,10 @@ namespace AmoebaGameMatcherServer.Controllers
             this.warshipPowerScaleModelStorage = warshipPowerScaleModelStorage;
         }
 
-        public bool CanAPurchaseBeMade(int softCurrency, int warshipPowerPoints, int warshipPowerLevel, 
+        public bool CanAPurchaseBeMade(int softCurrency, int warshipPowerLevel,  int warshipPowerPoints,
             out FaultReason? faultReason)
         {
+            Console.WriteLine($"{nameof(warshipPowerLevel)} {warshipPowerLevel} {nameof(warshipPowerPoints)} {warshipPowerPoints}");
             //Достать цену улучшения
             WarshipImprovementModel improvementModel = warshipPowerScaleModelStorage
                 .GetWarshipImprovementModel(warshipPowerLevel);
