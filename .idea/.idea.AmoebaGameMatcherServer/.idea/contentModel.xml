@@ -343,6 +343,7 @@
             <e p="ShopWarshipPowerImprovementService.cs" t="Include" />
           </e>
         </e>
+        <e p="ShopFeature.cs" t="Include" />
         <e p="Startup.cs" t="Include" />
       </e>
       <e p="NetworkLibrary" t="IncludeRecursive">
