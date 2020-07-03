@@ -21,6 +21,7 @@
 
     <ItemGroup>
       <None Remove="NetworkLibrary\Udp\Common.meta" />
+      <None Remove="Services\Shop\ShopSectionsCreation\ShopSectionFactories\DailyDealsSectionFactory.cs.meta" />
     </ItemGroup>
 
     <ItemGroup>

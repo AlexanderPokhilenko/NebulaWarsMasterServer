@@ -83,6 +83,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 transaction.WasShown = true;
             }
 
+            await dbContext.SaveChangesAsync();
         
             RewardsThatHaveNotBeenShown result = new RewardsThatHaveNotBeenShown()
             {

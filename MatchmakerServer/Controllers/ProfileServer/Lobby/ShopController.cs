@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Controllers
 {
@@ -7,11 +8,11 @@ namespace AmoebaGameMatcherServer.Controllers
     [ApiController]
     public class ShopController : ControllerBase
     {
-        private readonly ShopFacadeService shopFacadeService;
+        private readonly ShopFactoryService shopFactoryService;
 
-        public ShopController(ShopFacadeService shopFacadeService)
+        public ShopController(ShopFactoryService shopFactoryService)
         {
-            this.shopFacadeService = shopFacadeService;
+            this.shopFactoryService = shopFactoryService;
         }
         
         /// <summary>
@@ -26,7 +27,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 return BadRequest();
             }
 
-            var shopModel = await shopFacadeService.GetShopModelAsync(playerId);
+            ShopModel shopModel = await shopFactoryService.GetShopModelAsync(playerId);
             if (shopModel == null)
             {
                 return StatusCode(500);
