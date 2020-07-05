@@ -1,3 +1,4 @@
+using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
 
 namespace Code.Scenes.LobbyScene.Scripts
@@ -18,20 +19,21 @@ namespace Code.Scenes.LobbyScene.Scripts
             {
                 new ProductModel
                 {
-                    ProductType = ProductType.Warship,
+                    TransactionType = TransactionTypeEnum.Warship,
                     CurrencyType = CurrencyType.HardCurrency,
                     Name = "HARE",
-                    Cost = 200.ToString(),
+                    CostString = 200.ToString(),
+                    Cost = 200,
                     ShopItemSize = ProductSizeEnum.Big,
-                    KitId = "15_1",
+                    Id = 18,
                     WarshipModel = new WarshipModel
                     {
                         Description = 
 @"The hare attacks the enemies with four cannons. It is great for suppression fire. His ability is a shot with a huge charge of plasma.",
                         KitName = "HARE DESTROYER",
-                        ViewTypeId = ViewTypeId.HareShip,
                         PrefabPath = "Prefabs/Hare"
-                    }
+                    },
+                    ImagePreviewPath = "hare"
                 }
             };
 

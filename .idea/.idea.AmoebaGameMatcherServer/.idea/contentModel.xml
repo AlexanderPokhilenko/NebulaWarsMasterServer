@@ -63,7 +63,8 @@
             <e p="MatchResult.cs" t="Include" />
             <e p="WarshipImprovementPurchase.cs" t="Include" />
           </e>
-          <e p="Orders" t="Include">
+          <e p="TestPurchase.cs" t="Include" />
+          <e p="Transactions" t="Include">
             <e p="Decrement" t="Include">
               <e p="Decrement.cs" t="Include" />
               <e p="DecrementType.cs" t="Include" />
@@ -83,10 +84,8 @@
             <e p="Transaction" t="Include">
               <e p="Transaction.cs" t="Include" />
               <e p="TransactionType.cs" t="Include" />
-              <e p="TransactionTypeEnum.cs" t="Include" />
             </e>
           </e>
-          <e p="TestPurchase.cs" t="Include" />
           <e p="Warships" t="Include">
             <e p="Warship.cs" t="Include" />
             <e p="WarshipCombatRole.cs" t="Include" />
@@ -178,6 +177,7 @@
               <e p="LootboxController.cs" t="Include" />
               <e p="PurchasesController.cs" t="Include" />
               <e p="ShopController.cs" t="Include" />
+              <e p="ShopTransactionFactory.cs" t="Include" />
               <e p="WarshipImprovementPurchasingController.cs" t="Include" />
               <e p="WarshipLevelController.cs" t="Include" />
             </e>
@@ -315,14 +315,17 @@
             <e p="QueueInfoForPlayer.cs" t="Include" />
           </e>
           <e p="Shop" t="Include">
+            <e p="DailyDealsSectionFactory.cs" t="Include" />
             <e p="DailyDealsUiContainerService.cs" t="Include" />
+            <e p="ListExtension.cs" t="Include" />
+            <e p="PrizeFactoryService.cs" t="Include" />
             <e p="ShopFactoryService.cs" t="Include" />
             <e p="ShopFreeGiftManagerService.cs" t="Include" />
             <e p="ShopGemsService.cs" t="Include" />
             <e p="ShopLootboxService.cs" t="Include" />
             <e p="ShopRegularCurrencyService.cs" t="Include" />
             <e p="ShopSectionsCreation" t="Include">
-              <e p="ShopModelBuilder.cs" t="Include" />
+              <e p="ShopModelBuilder.cs.meta" t="Include" />
               <e p="ShopSectionFactories" t="Include">
                 <e p="DailyDealsSectionFactory.cs" t="Include" />
                 <e p="DiscountsSectionFactory.cs" t="Include" />
@@ -338,9 +341,11 @@
                 <e p="WarshipsSectionFactory.cs" t="Include" />
                 <e p="WarshipsSectionFactory.cs.meta" t="Include" />
               </e>
+              <e p="ShopSectionFactories.meta" t="Include" />
             </e>
             <e p="ShopSkinsService.cs" t="Include" />
             <e p="ShopWarshipPowerImprovementService.cs" t="Include" />
+            <e p="WarshipPowerPointsProductsFactoryService.cs" t="Include" />
           </e>
         </e>
         <e p="ShopFeature.cs" t="Include" />
@@ -348,91 +353,89 @@
       </e>
       <e p="NetworkLibrary" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
-        <e p="NetworkLibrary" t="Include">
-          <e p="Http" t="Include">
-            <e p="Experimental" t="Include">
-              <e p="ViewTypeId.cs" t="Include" />
-              <e p="ViewTypeId.cs.meta" t="Include" />
-            </e>
-            <e p="Experimental.meta" t="Include" />
-            <e p="Lobby" t="Include">
-              <e p="AccountModel.cs" t="Include" />
-              <e p="AccountModel.cs.meta" t="Include" />
-              <e p="LobbyModel.cs" t="Include" />
-              <e p="LobbyModel.cs.meta" t="Include" />
-              <e p="LootboxModel.cs" t="Include" />
-              <e p="LootboxModel.cs.meta" t="Include" />
-              <e p="RewardsThatHaveNotBeenShown.cs" t="Include" />
-              <e p="RewardsThatHaveNotBeenShown.cs.meta" t="Include" />
-              <e p="Shop" t="Include">
-                <e p="CurrencyType.cs" t="Include" />
-                <e p="CurrencyType.cs.meta" t="Include" />
-                <e p="DiscountPrice.cs" t="Include" />
-                <e p="DiscountPrice.cs.meta" t="Include" />
-                <e p="ForeignServiceProduct.cs" t="Include" />
-                <e p="ForeignServiceProduct.cs.meta" t="Include" />
-                <e p="MarkType.cs" t="Include" />
-                <e p="MarkType.cs.meta" t="Include" />
-                <e p="ProductMark.cs" t="Include" />
-                <e p="ProductMark.cs.meta" t="Include" />
-                <e p="ProductModel.cs" t="Include" />
-                <e p="ProductModel.cs.meta" t="Include" />
-                <e p="ProductSizeEnum.cs" t="Include" />
-                <e p="ProductSizeEnum.cs.meta" t="Include" />
-                <e p="ProductType.cs" t="Include" />
-                <e p="ProductType.cs.meta" t="Include" />
-                <e p="SectionModel.cs" t="Include" />
-                <e p="SectionModel.cs.meta" t="Include" />
-                <e p="ShopModel.cs" t="Include" />
-                <e p="ShopModel.cs.meta" t="Include" />
-                <e p="WarshipModel.cs" t="Include" />
-                <e p="WarshipModel.cs.meta" t="Include" />
-                <e p="WarshipPowerPointsProduct.cs" t="Include" />
-                <e p="WarshipPowerPointsProduct.cs.meta" t="Include" />
-              </e>
-              <e p="Shop.meta" t="Include" />
-              <e p="WarshipImprovementModel.cs" t="Include" />
+        <e p="Http" t="Include">
+          <e p="Experimental" t="Include">
+            <e p="ViewTypeId.cs" t="Include" />
+            <e p="ViewTypeId.cs.meta" t="Include" />
+          </e>
+          <e p="Experimental.meta" t="Include" />
+          <e p="Lobby" t="Include">
+            <e p="AccountModel.cs" t="Include" />
+            <e p="AccountModel.cs.meta" t="Include" />
+            <e p="LobbyModel.cs" t="Include" />
+            <e p="LobbyModel.cs.meta" t="Include" />
+            <e p="LootboxModel.cs" t="Include" />
+            <e p="LootboxModel.cs.meta" t="Include" />
+            <e p="RewardsThatHaveNotBeenShown.cs" t="Include" />
+            <e p="RewardsThatHaveNotBeenShown.cs.meta" t="Include" />
+            <e p="Shop" t="Include">
+              <e p="CurrencyType.cs" t="Include" />
+              <e p="CurrencyType.cs.meta" t="Include" />
+              <e p="DiscountPrice.cs" t="Include" />
+              <e p="DiscountPrice.cs.meta" t="Include" />
+              <e p="ForeignServiceProduct.cs" t="Include" />
+              <e p="ForeignServiceProduct.cs.meta" t="Include" />
+              <e p="MarkType.cs" t="Include" />
+              <e p="MarkType.cs.meta" t="Include" />
+              <e p="ProductMark.cs" t="Include" />
+              <e p="ProductMark.cs.meta" t="Include" />
+              <e p="ProductModel.cs" t="Include" />
+              <e p="ProductModel.cs.meta" t="Include" />
+              <e p="ProductSizeEnum.cs" t="Include" />
+              <e p="ProductSizeEnum.cs.meta" t="Include" />
+              <e p="ProductType.cs.meta" t="Include" />
+              <e p="SectionModel.cs" t="Include" />
+              <e p="SectionModel.cs.meta" t="Include" />
+              <e p="ShopModel.cs" t="Include" />
+              <e p="ShopModel.cs.meta" t="Include" />
+              <e p="TransactionTypeEnum.cs" t="Include" />
               <e p="WarshipModel.cs" t="Include" />
               <e p="WarshipModel.cs.meta" t="Include" />
-              <e p="WarshipPowerLevelModel.cs.meta" t="Include" />
-              <e p="WarshipPowerScaleModel.cs" t="Include" />
-              <e p="WarshipPowerScaleModel.cs.meta" t="Include" />
-              <e p="WarshipRatingScaleModel.cs" t="Include" />
-              <e p="WarshipRatingScaleModel.cs.meta" t="Include" />
+              <e p="WarshipPowerPointsProduct.cs" t="Include" />
+              <e p="WarshipPowerPointsProduct.cs.meta" t="Include" />
             </e>
-            <e p="Lobby.meta" t="Include" />
-            <e p="Match" t="Include">
-              <e p="GameRoomValidationResult.cs" t="Include" />
-              <e p="GameRoomValidationResult.cs.meta" t="Include" />
-              <e p="Matchmker" t="Include">
-                <e p="MatchmakerResponse.cs" t="Include" />
-                <e p="MatchmakerResponse.cs.meta" t="Include" />
-              </e>
-              <e p="Matchmker.meta" t="Include" />
-              <e p="MatchModel" t="Include">
-                <e p="BattleRoyaleMatchModel.cs" t="Include" />
-                <e p="BattleRoyaleMatchModel.cs.meta" t="Include" />
-                <e p="BotInfo.cs" t="Include" />
-                <e p="BotInfo.cs.meta" t="Include" />
-                <e p="GameUnit.cs" t="Include" />
-                <e p="GameUnit.cs.meta" t="Include" />
-                <e p="GameUnitsEnum.cs" t="Include" />
-                <e p="GameUnitsEnum.cs.meta" t="Include" />
-                <e p="GameUnitsForMatch.cs" t="Include" />
-                <e p="GameUnitsForMatch.cs.meta" t="Include" />
-                <e p="PlayerInfoForMatch.cs" t="Include" />
-                <e p="PlayerInfoForMatch.cs.meta" t="Include" />
-              </e>
-              <e p="MatchModel.meta" t="Include" />
-              <e p="MatchResultDto.cs" t="Include" />
-              <e p="MatchResultDto.cs.meta" t="Include" />
-              <e p="MatchRewardTypeEnum.cs" t="Include" />
-              <e p="MatchRewardTypeEnum.cs.meta" t="Include" />
-              <e p="MatchType.cs" t="Include" />
-              <e p="MatchType.cs.meta" t="Include" />
-            </e>
-            <e p="Match.meta" t="Include" />
+            <e p="Shop.meta" t="Include" />
+            <e p="WarshipImprovementModel.cs" t="Include" />
+            <e p="WarshipImprovementModel.cs.meta" t="Include" />
+            <e p="WarshipModel.cs" t="Include" />
+            <e p="WarshipModel.cs.meta" t="Include" />
+            <e p="WarshipPowerScaleModel.cs" t="Include" />
+            <e p="WarshipPowerScaleModel.cs.meta" t="Include" />
+            <e p="WarshipRatingScaleModel.cs" t="Include" />
+            <e p="WarshipRatingScaleModel.cs.meta" t="Include" />
           </e>
+          <e p="Lobby.meta" t="Include" />
+          <e p="Match" t="Include">
+            <e p="GameRoomValidationResult.cs" t="Include" />
+            <e p="GameRoomValidationResult.cs.meta" t="Include" />
+            <e p="Matchmker" t="Include">
+              <e p="MatchmakerResponse.cs" t="Include" />
+              <e p="MatchmakerResponse.cs.meta" t="Include" />
+            </e>
+            <e p="Matchmker.meta" t="Include" />
+            <e p="MatchModel" t="Include">
+              <e p="BattleRoyaleMatchModel.cs" t="Include" />
+              <e p="BattleRoyaleMatchModel.cs.meta" t="Include" />
+              <e p="BotInfo.cs" t="Include" />
+              <e p="BotInfo.cs.meta" t="Include" />
+              <e p="GameUnit.cs" t="Include" />
+              <e p="GameUnit.cs.meta" t="Include" />
+              <e p="GameUnitsEnum.cs" t="Include" />
+              <e p="GameUnitsEnum.cs.meta" t="Include" />
+              <e p="GameUnitsForMatch.cs" t="Include" />
+              <e p="GameUnitsForMatch.cs.meta" t="Include" />
+              <e p="PlayerInfoForMatch.cs" t="Include" />
+              <e p="PlayerInfoForMatch.cs.meta" t="Include" />
+            </e>
+            <e p="MatchModel.meta" t="Include" />
+            <e p="MatchResultDto.cs" t="Include" />
+            <e p="MatchResultDto.cs.meta" t="Include" />
+            <e p="MatchRewardTypeEnum.cs" t="Include" />
+            <e p="MatchRewardTypeEnum.cs.meta" t="Include" />
+            <e p="MatchType.cs" t="Include" />
+            <e p="MatchType.cs.meta" t="Include" />
+          </e>
+          <e p="Match.meta" t="Include" />
         </e>
         <e p="NetworkLibrary.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">

@@ -45,29 +45,22 @@ namespace AmoebaGameMatcherServer.Services
                         DateTime = DateTime.UtcNow,
                         TransactionTypeId = TransactionTypeEnum.GameRegistration,
                         WasShown = false,
-                        Resources = new List<Resource>
+                        Increments = new List<Increment>
                         {
-                            new Resource
+                            new Increment
                             {
-                                ResourceTypeId = ResourceTypeEnum.Prize,
-                                Increments = new List<Increment>
-                                {
-                                    new Increment
-                                    {
-                                        IncrementTypeId = IncrementTypeEnum.SoftCurrency,
-                                        Amount = 100
-                                    },
-                                    new Increment
-                                    {
-                                        IncrementTypeId = IncrementTypeEnum.HardCurrency,
-                                        Amount = 30
-                                    },
-                                    new Increment
-                                    {
-                                        IncrementTypeId = IncrementTypeEnum.LootboxPoints,
-                                        Amount = 1505
-                                    }
-                                }
+                                IncrementTypeId = IncrementTypeEnum.SoftCurrency,
+                                Amount = 100
+                            },
+                            new Increment
+                            {
+                                IncrementTypeId = IncrementTypeEnum.HardCurrency,
+                                Amount = 30
+                            },
+                            new Increment
+                            {
+                                IncrementTypeId = IncrementTypeEnum.LootboxPoints,
+                                Amount = 1505
                             }
                         }
                     }
@@ -81,35 +74,28 @@ namespace AmoebaGameMatcherServer.Services
             Transaction transaction = new Transaction
             {
                 AccountId = account.Id,
-                TransactionTypeId = TransactionTypeEnum.Prize,
+                TransactionTypeId = TransactionTypeEnum.DailyPrize,
                 DateTime = DateTime.UtcNow,
                 WasShown = false,
-                Resources = new List<Resource>
+                Increments = new List<Increment>
                 {
-                    new Resource
+                    new Increment
                     {
-                        ResourceTypeId = ResourceTypeEnum.WarshipLevel,
-                        Increments = new List<Increment>
-                        {
-                            new Increment
-                            {
-                                IncrementTypeId = IncrementTypeEnum.WarshipLevel,
-                                Amount = 1,
-                                WarshipId = account.Warships[0].Id
-                            },
-                            new Increment
-                            {
-                                IncrementTypeId = IncrementTypeEnum.WarshipLevel,
-                                Amount = 1,
-                                WarshipId = account.Warships[1].Id
-                            },
-                            new Increment
-                            {
-                                IncrementTypeId = IncrementTypeEnum.WarshipLevel,
-                                Amount = 1,
-                                WarshipId = account.Warships[2].Id
-                            }
-                        }
+                        IncrementTypeId = IncrementTypeEnum.WarshipLevel,
+                        Amount = 1,
+                        WarshipId = account.Warships[0].Id
+                    },
+                    new Increment
+                    {
+                        IncrementTypeId = IncrementTypeEnum.WarshipLevel,
+                        Amount = 1,
+                        WarshipId = account.Warships[1].Id
+                    },
+                    new Increment
+                    {
+                        IncrementTypeId = IncrementTypeEnum.WarshipLevel,
+                        Amount = 1,
+                        WarshipId = account.Warships[2].Id
                     }
                 }
             };

@@ -49,24 +49,17 @@ namespace LibraryForTests
                     Amount = amount,
                     WarshipId = warshipId
                 };
-                Resource resource = new Resource()
-                {
-                    Increments = new List<Increment>()
-                    {
-                        increment
-                    },
-                    ResourceTypeId = ResourceTypeEnum.Lootbox
-                };
+              
                 Transaction transaction = new Transaction()
                 {
                     AccountId = account.Id,
                     DateTime = DateTime.Now,
                     TransactionTypeId = TransactionTypeEnum.Lootbox,
                     WasShown = false,
-                    Resources = new List<Resource>()
+                    Increments = new List<Increment>()
                     {
-                        resource
-                    }
+                        increment
+                    },
                 };
                 account.Transactions.Add(transaction);
             }
@@ -106,25 +99,18 @@ namespace LibraryForTests
                                 DateTime = DateTime.Now,
                                 TransactionTypeId = TransactionTypeEnum.MatchReward,
                                 WasShown = wasShown,
-                                Resources = new List<Resource>()
+                                Increments = new List<Increment>()
                                 {
-                                    new Resource()
+                                    new Increment()
                                     {
-                                        Increments = new List<Increment>()
-                                        {
-                                            new Increment()
-                                            {
-                                                Amount = random.Next(10),
-                                                WarshipId = warship.Id,
-                                                IncrementTypeId = IncrementTypeEnum.WarshipRating 
-                                            },
-                                            new Increment()
-                                            {
-                                                Amount = random.Next(10),
-                                                IncrementTypeId = IncrementTypeEnum.LootboxPoints
-                                            }
-                                        },
-                                        ResourceTypeId =ResourceTypeEnum.MatchReward 
+                                        Amount = random.Next(10),
+                                        WarshipId = warship.Id,
+                                        IncrementTypeId = IncrementTypeEnum.WarshipRating 
+                                    },
+                                    new Increment()
+                                    {
+                                        Amount = random.Next(10),
+                                        IncrementTypeId = IncrementTypeEnum.LootboxPoints
                                     }
                                 },
                                 AccountId = account.Id
@@ -166,14 +152,7 @@ namespace LibraryForTests
                 DateTime = DateTime.Now,
                 TransactionTypeId = TransactionTypeEnum.Lootbox,
                 WasShown = wasShown,
-                Resources = new List<Resource>()
-                {
-                    new Resource()
-                    {
-                        Increments = increments,
-                        ResourceTypeId = ResourceTypeEnum.Lootbox
-                    }
-                },
+                Increments = increments,
                 AccountId = account.Id
             };
 
@@ -232,22 +211,15 @@ namespace LibraryForTests
                     {
                         AccountId = account.Id,
                         DateTime = DateTime.UtcNow,
-                        TransactionTypeId = TransactionTypeEnum.Prize,
+                        TransactionTypeId = TransactionTypeEnum.DailyPrize,
                         WasShown = false,
-                        Resources = new List<Resource>()
+                        Increments = new List<Increment>()
                         {
-                            new Resource()
+                            new Increment()
                             {
-                                ResourceTypeId = ResourceTypeEnum.WarshipLevel,
-                                Increments = new List<Increment>()
-                                {
-                                    new Increment()
-                                    {
-                                        IncrementTypeId = IncrementTypeEnum.WarshipLevel,
-                                        WarshipId = warshipId,
-                                        Amount = i
-                                    }
-                                }
+                                IncrementTypeId = IncrementTypeEnum.WarshipLevel,
+                                WarshipId = warshipId,
+                                Amount = i
                             }
                         }
                     };

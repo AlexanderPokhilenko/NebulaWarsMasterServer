@@ -32,11 +32,9 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                 .Include(matchResult1=>matchResult1.Warship)
                     .ThenInclude(warship => warship.WarshipType)
                 .Include(matchResult1 => matchResult1.Transaction)
-                    .ThenInclude(transaction => transaction.Resources)
-                        .ThenInclude(resource => resource.Increments)
+                    .ThenInclude(resource => resource.Increments)
                 .Include(matchResult1 => matchResult1.Transaction)
-                    .ThenInclude(transaction => transaction.Resources)
-                        .ThenInclude(resource => resource.Decrements)
+                    .ThenInclude(resource => resource.Decrements)
                 .SingleOrDefaultAsync(matchResult1 => 
                     matchResult1.MatchId == matchId 
                     && matchResult1.Warship.Account.ServiceId == playerServiceId);
@@ -57,17 +55,16 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             
             int currentWarshipRating = await warshipRatingReaderService.ReadWarshipRatingAsync(matchResult.WarshipId);
             var lootboxPoints = new Dictionary<MatchRewardTypeEnum, int>();
-            var matchIncrements = matchResult.Transaction.Resources
-                .SelectMany(resource => resource.Increments);
-            var increments = matchIncrements as Increment[] ?? matchIncrements.ToArray();
-            if (increments.Length == 0)
+            var increments = matchResult.Transaction.Increments;
+            
+            if (increments.Count == 0)
             {
                 throw new Exception("Игрок ничего не заработал за бой");
             }
             
             foreach (var increment in increments)
             {
-                Console.WriteLine(increment.IncrementTypeId.ToString()+" "+increment.MatchRewardTypeId.Value.ToString());
+                Console.WriteLine(increment.IncrementTypeId+" "+increment.MatchRewardTypeId);
                 if (increment.IncrementTypeId == IncrementTypeEnum.LootboxPoints)
                 {
                     Console.WriteLine("это лутбокс");
@@ -79,12 +76,10 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                 }
             }
 
-            int warshipRatingIncrement = matchResult.Transaction.Resources
-                .SelectMany(resource => resource.Increments)
+            int warshipRatingIncrement = matchResult.Transaction.Increments
                 .Where(increment => increment.IncrementTypeId == IncrementTypeEnum.WarshipRating)
                 .Sum(increment => increment.Amount);
-            int warshipRatingDecrement = matchResult.Transaction.Resources
-                .SelectMany(resource => resource.Decrements)
+            int warshipRatingDecrement = matchResult.Transaction.Decrements
                 .Where(decrement => decrement.DecrementTypeId == DecrementTypeEnum.WarshipRating)
                 .Sum(decrement => decrement.Amount);
             int matchRatingDelta = warshipRatingIncrement - warshipRatingDecrement;

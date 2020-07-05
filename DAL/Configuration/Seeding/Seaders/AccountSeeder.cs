@@ -28,60 +28,46 @@ namespace AmoebaGameMatcherServer
                 };
                 dbContext.Accounts.Add(account);
                 dbContext.SaveChanges();
-                
+
                 account.Transactions = new List<Transaction>
                 {
                     new Transaction
                     {
                         TransactionTypeId = TransactionTypeEnum.Lootbox,
-                        Resources = new List<Resource>
+                        Increments = new List<Increment>
                         {
-                            new Resource
+                            new Increment
                             {
-                                ResourceTypeId = ResourceTypeEnum.Lootbox,
-                                Increments = new List<Increment>
-                                {
-                                    new Increment
-                                    {
-                                        Amount = 100,
-                                        IncrementTypeId = IncrementTypeEnum.LootboxPoints
-                                    }
-                                },
-                                Decrements = new List<Decrement>
-                                {
-                                    new Decrement
-                                    {
-                                        Amount = 80,
-                                        DecrementTypeId = DecrementTypeEnum.HardCurrency
-                                    }
-                                }
+                                Amount = 100,
+                                IncrementTypeId = IncrementTypeEnum.LootboxPoints
+                            }
+                        },
+                        Decrements = new List<Decrement>
+                        {
+                            new Decrement
+                            {
+                                Amount = 80,
+                                DecrementTypeId = DecrementTypeEnum.HardCurrency
                             }
                         }
                     },
                     new Transaction
                     {
                         TransactionTypeId = TransactionTypeEnum.WarshipPowerPoints,
-                        Resources = new List<Resource>
+                        Increments = new List<Increment>
                         {
-                            new Resource
+                            new Increment
                             {
-                                ResourceTypeId = ResourceTypeEnum.WarshipPowerPoints,
-                                Increments = new List<Increment>
-                                {
-                                    new Increment
-                                    {
-                                        IncrementTypeId = IncrementTypeEnum.WarshipPowerPoints,
-                                        WarshipId = 1,
-                                        Amount = 15
-                                    }
-                                }
+                                IncrementTypeId = IncrementTypeEnum.WarshipPowerPoints,
+                                WarshipId = 1,
+                                Amount = 15
                             }
                         }
                     }
                 };
+            };
                 
-                dbContext.SaveChanges();
+            dbContext.SaveChanges();
             }
         }
     }
-}

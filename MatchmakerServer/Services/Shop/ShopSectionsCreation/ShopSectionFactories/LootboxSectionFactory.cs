@@ -1,3 +1,4 @@
+using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
 
 namespace Code.Scenes.LobbyScene.Scripts
@@ -16,11 +17,12 @@ namespace Code.Scenes.LobbyScene.Scripts
             {
                 new ProductModel
                 {
-                    ProductType = ProductType.BigLootbox,
+                    TransactionType = TransactionTypeEnum.Lootbox,
                     CurrencyType = CurrencyType.HardCurrency,
-                    Cost = 30.ToString(),
+                    CostString = 30.ToString(),
+                    Cost = 30,
                     ImagePreviewPath = "BigLootbox",
-                    KitId = "3_1",
+                    Id = 10,
                     Name = "BIG BOX",
                     ShopItemSize = ProductSizeEnum.Small,
                 }
@@ -29,11 +31,12 @@ namespace Code.Scenes.LobbyScene.Scripts
             {
                 new ProductModel
                 {
-                    ProductType = ProductType.MegaLootbox,
+                    TransactionType = TransactionTypeEnum.Lootbox,
                     CurrencyType = CurrencyType.HardCurrency,
-                    Cost = 80.ToString(),
+                    CostString = 80.ToString(),
+                    Cost = 80,
                     ImagePreviewPath = "BigLootbox",
-                    KitId = "3_2",
+                    Id = 11,
                     Name = "MEGA BOX",
                     ShopItemSize = ProductSizeEnum.Small
                 }

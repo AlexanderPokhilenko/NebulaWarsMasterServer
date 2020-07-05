@@ -1,4 +1,5 @@
 using System;
+using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
 
 namespace Code.Scenes.LobbyScene.Scripts
@@ -19,12 +20,13 @@ namespace Code.Scenes.LobbyScene.Scripts
             {
                 new ProductModel
                 {
-                    KitId = "pokaszhiMneDengi654654",
-                    ProductType = ProductType.MegaLootbox,
+                    Id = 2,
+                    TransactionType = TransactionTypeEnum.Lootbox,
                     CurrencyType = CurrencyType.HardCurrency,
                     ImagePreviewPath = "BigLootbox",
                     Name = "MEGA BOX",
-                    Cost = 139.ToString(),
+                    CostString = 139.ToString(),
+                    Cost = 139,
                     ShopItemSize = ProductSizeEnum.Big,
                     DiscountPrice = new DiscountPrice
                     {

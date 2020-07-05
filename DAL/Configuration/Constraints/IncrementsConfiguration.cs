@@ -9,8 +9,8 @@ namespace DataLayer.TablesConfiguration
         public void Configure(EntityTypeBuilder<Increment> builder)
         {
             builder
-                .HasOne(inc => inc.Resource)
-                .WithMany(prod => prod.Increments)
+                .HasOne(inc => inc.Transaction)
+                .WithMany(tran => tran.Increments)
                 .HasForeignKey(inc => inc.ResourceId);
             
             builder

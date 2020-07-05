@@ -1,3 +1,4 @@
+using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
 
 namespace Code.Scenes.LobbyScene.Scripts
@@ -18,12 +19,13 @@ namespace Code.Scenes.LobbyScene.Scripts
             {
                 new ProductModel
                 {
-                    ProductType = ProductType.Skin,
+                    TransactionType = TransactionTypeEnum.Skin,
                     CurrencyType = CurrencyType.HardCurrency,
                     Name = "HARE DESTROYER",
-                    Cost = 200.ToString(),
+                    CostString = 200.ToString(),
+                    Cost = 200,
                     ShopItemSize = ProductSizeEnum.Big,
-                    KitId = "2_1",
+                    Id = 12,
                     WarshipModel = new WarshipModel
                     {
                          Description = 
@@ -32,18 +34,19 @@ namespace Code.Scenes.LobbyScene.Scripts
 - a special torpedo model;
 - special effects.",
                          KitName = "HARE DESTROYER",
-                         ViewTypeId = ViewTypeId.HareShip,
                          PrefabPath = "Prefabs/Hare"
-                    }
+                    },
+                    ImagePreviewPath = "hare"
                 }, 
                 new ProductModel
                 {
-                    ProductType = ProductType.Skin,
+                    TransactionType = TransactionTypeEnum.Skin,
                     CurrencyType = CurrencyType.HardCurrency,
                     Name = "BIRD DESTROYER",
-                    Cost = 50.ToString(),
+                    CostString = 50.ToString(),
+                    Cost = 50,
                     ShopItemSize = ProductSizeEnum.Big,
-                    KitId = "2_2",
+                    Id = 13,
                     WarshipModel = new WarshipModel()
                     {
                         Description = 
@@ -52,9 +55,9 @@ namespace Code.Scenes.LobbyScene.Scripts
 - a special torpedo model;
 - special effects.",
                         KitName = "FLAMING BIRD",
-                        ViewTypeId = ViewTypeId.BirdPlayer,
                         PrefabPath = "Prefabs/Bird"
-                    }
+                    },
+                    ImagePreviewPath = "bird"
                 }
             };
 

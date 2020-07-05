@@ -30,10 +30,8 @@ namespace AmoebaGameMatcherServer.Controllers
         {
             List<Transaction> transactions = await dbContext.Transactions
                 .Include(transaction => transaction.Account)
-                    .Include(transaction => transaction.Resources)
-                        .ThenInclude(resource => resource.Increments)
-                    .Include(transaction => transaction.Resources)
-                        .ThenInclude(resource => resource.Decrements)
+                .Include(resource => resource.Increments)
+                .Include(resource => resource.Decrements)
                 .Where(transaction => transaction.Account.ServiceId == playerServiceId 
                                       && transaction.WasShown == false)
                 .ToListAsync();
@@ -50,31 +48,28 @@ namespace AmoebaGameMatcherServer.Controllers
             foreach (var transaction in transactions)
             {
                 //Рейтинг
-                accountRatingDelta += transaction.Resources
-                    .SelectMany(resource => resource.Increments)
+                accountRatingDelta += transaction
+                    .Increments
                     .Where(increment => increment.IncrementTypeId == IncrementTypeEnum.WarshipRating)
                     .Select(increment => increment.Amount)
                     .Sum();
                 
                 //Премиум валюта
-                hardCurrencyDelta += transaction.Resources
-                    .SelectMany(resource => resource.Increments)
+                hardCurrencyDelta += transaction.Increments
                     .Where(increment => increment.IncrementTypeId == IncrementTypeEnum.HardCurrency)
                     .Select(increment => increment.Amount)
                     .Sum();
                 
                 
                 //Обычная валюта
-                softCurrencyDelta += transaction.Resources
-                    .SelectMany(resource => resource.Increments)
+                softCurrencyDelta += transaction.Increments
                     .Where(increment => increment.IncrementTypeId == IncrementTypeEnum.SoftCurrency)
                     .Select(increment => increment.Amount)
                     .Sum();
                 
                 
                 //Очки для сундуков
-                lootboxPointsDelta += transaction.Resources
-                    .SelectMany(resource => resource.Increments)
+                lootboxPointsDelta += transaction.Increments
                     .Where(increment => increment.IncrementTypeId == IncrementTypeEnum.LootboxPoints)
                     .Select(increment => increment.Amount)
                     .Sum();

@@ -55,34 +55,27 @@ namespace AmoebaGameMatcherServer.Controllers
                 DateTime = DateTime.UtcNow,
                 TransactionTypeId = TransactionTypeEnum.WarshipLevel,
                 WasShown = false,
-                Resources = new List<Resource>
+                Increments = new List<Increment>
                 {
-                    new Resource
+                    new Increment
                     {
-                        ResourceTypeId = ResourceTypeEnum.WarshipLevel,
-                        Increments = new List<Increment>
-                        {
-                            new Increment
-                            {
-                                IncrementTypeId = IncrementTypeEnum.WarshipLevel,
-                                Amount = 1,
-                                WarshipId = warshipId
-                            }
-                        },
-                        Decrements = new List<Decrement>
-                        {
-                            new Decrement
-                            {
-                                DecrementTypeId = DecrementTypeEnum.SoftCurrency,
-                                Amount = improvementModel.SoftCurrencyCost
-                            },
-                            new Decrement
-                            {
-                                DecrementTypeId = DecrementTypeEnum.WarshipPowerPoints,
-                                Amount = improvementModel.PowerPointsCost,
-                                WarshipId = warshipDbDto.Id
-                            }
-                        }
+                        IncrementTypeId = IncrementTypeEnum.WarshipLevel,
+                        Amount = 1,
+                        WarshipId = warshipId
+                    }
+                },
+                Decrements = new List<Decrement>
+                {
+                    new Decrement
+                    {
+                        DecrementTypeId = DecrementTypeEnum.SoftCurrency,
+                        Amount = improvementModel.SoftCurrencyCost
+                    },
+                    new Decrement
+                    {
+                        DecrementTypeId = DecrementTypeEnum.WarshipPowerPoints,
+                        Amount = improvementModel.PowerPointsCost,
+                        WarshipId = warshipDbDto.Id
                     }
                 }
             };

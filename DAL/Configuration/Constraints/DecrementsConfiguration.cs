@@ -9,8 +9,8 @@ namespace DataLayer.TablesConfiguration
         public void Configure(EntityTypeBuilder<Decrement> builder)
         {
             builder
-                .HasOne(decr => decr.Resource)
-                .WithMany(prod => prod.Decrements)
+                .HasOne(decr => decr.Transaction)
+                .WithMany(transaction => transaction.Decrements)
                 .HasForeignKey(decr => decr.ResourceId);
             
             builder

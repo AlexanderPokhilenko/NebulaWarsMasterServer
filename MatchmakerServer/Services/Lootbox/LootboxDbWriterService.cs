@@ -60,9 +60,12 @@ namespace AmoebaGameMatcherServer.Controllers
                 increments.Add(increment);
             }
             
-            Resource resource = new Resource
+           
+            Transaction transaction = new Transaction
             {
-                ResourceTypeId = ResourceTypeEnum.Lootbox,
+                AccountId = account.Id,
+                DateTime = DateTime.UtcNow,
+                TransactionTypeId = TransactionTypeEnum.Lootbox,
                 Decrements = new List<Decrement>
                 {
                     new Decrement
@@ -71,18 +74,7 @@ namespace AmoebaGameMatcherServer.Controllers
                         DecrementTypeId = DecrementTypeEnum.LootboxPoints
                     }
                 },
-                Increments = increments
-            };
-
-            Transaction transaction = new Transaction
-            {
-                AccountId = account.Id,
-                DateTime = DateTime.UtcNow,
-                TransactionTypeId = TransactionTypeEnum.Lootbox,
-                Resources = new List<Resource>
-                {
-                    resource
-                },
+                Increments = increments,
                 WasShown = false
             };
             

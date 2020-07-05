@@ -46,8 +46,8 @@ namespace AmoebaGameMatcherServer
                     },
                     new TransactionType
                     {
-                        Name = TransactionTypeEnum.Prize.ToString(),
-                        Id = TransactionTypeEnum.Prize
+                        Name = TransactionTypeEnum.DailyPrize.ToString(),
+                        Id = TransactionTypeEnum.DailyPrize
                     },
                     new TransactionType
                     {

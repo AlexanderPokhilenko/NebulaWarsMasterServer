@@ -43,7 +43,6 @@ namespace DataLayer
             modelBuilder.ApplyConfiguration(new MatchResultsConfiguration());
             modelBuilder.ApplyConfiguration(new WarshipTypesConfiguration());
             modelBuilder.ApplyConfiguration(new TransactionsConfiguration());
-            modelBuilder.ApplyConfiguration(new ResourcesConfiguration());
             modelBuilder.ApplyConfiguration(new DecrementsConfiguration());
             modelBuilder.ApplyConfiguration(new IncrementsConfiguration());
             

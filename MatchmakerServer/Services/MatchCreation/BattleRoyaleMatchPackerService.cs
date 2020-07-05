@@ -87,17 +87,14 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
         private static readonly Random random = new Random();
         private static string GetBotPrefabName()
         {
+            List<string> prefabNames = new List<string>()
+            {
+                "Hare", "Bird", "Smiley"
+            };
             lock (random)
             {
-                bool hare = random.Next() % 2 == 0;
-                if (hare)
-                {
-                    return "Hare";
-                }
-                else
-                {
-                    return "Bird";
-                }
+                int index = random.Next(3);
+                return prefabNames[index];
             }
         }
     }

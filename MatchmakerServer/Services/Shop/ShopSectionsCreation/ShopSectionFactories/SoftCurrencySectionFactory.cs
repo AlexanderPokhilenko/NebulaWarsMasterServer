@@ -1,3 +1,4 @@
+using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
 
 namespace Code.Scenes.LobbyScene.Scripts
@@ -18,23 +19,25 @@ namespace Code.Scenes.LobbyScene.Scripts
             {
                 new ProductModel
                 {
-                    ProductType = ProductType.SoftCurrency,
+                    TransactionType = TransactionTypeEnum.SoftCurrency,
                     CurrencyType = CurrencyType.HardCurrency,
                     ImagePreviewPath = "coins5",
                     Name = "150",
-                    Cost = 20.ToString(),
+                    CostString = 20.ToString(),
+                    Cost = 20,
                     ShopItemSize = ProductSizeEnum.Small,
-                    KitId = "5_1"
+                    Id = 14,
                 }, 
                 new ProductModel
                 {
-                    ProductType = ProductType.SoftCurrency,
+                    TransactionType = TransactionTypeEnum.SoftCurrency,
                     CurrencyType = CurrencyType.HardCurrency,
                     ImagePreviewPath = "coins10",
                     Name = "400",
-                    Cost = 50.ToString(),
+                    CostString = 50.ToString(),
+                    Cost = 50,
                     ShopItemSize = ProductSizeEnum.Small,
-                    KitId = "5_2"
+                    Id = 15,
                 }
             }; 
             
@@ -43,23 +46,25 @@ namespace Code.Scenes.LobbyScene.Scripts
             {
                 new ProductModel
                 {
-                    ProductType = ProductType.SoftCurrency,
+                    TransactionType = TransactionTypeEnum.SoftCurrency,
                     CurrencyType = CurrencyType.HardCurrency,
                     ImagePreviewPath = "coins25",
                     Name = "1200",
-                    Cost = 140.ToString(),
+                    CostString = 140.ToString(),
+                    Cost = 140,
                     ShopItemSize = ProductSizeEnum.Small,
-                    KitId = "5_3"
+                    Id = 16,
                 },
                 new ProductModel
                 {
-                    ProductType = ProductType.SoftCurrency,
+                    TransactionType = TransactionTypeEnum.SoftCurrency,
                     CurrencyType = CurrencyType.HardCurrency,
                     ImagePreviewPath = "coins30",
                     Name = "2600",
-                    Cost = 280.ToString(),
+                    CostString = 280.ToString(),
+                    Cost = 280,
                     ShopItemSize = ProductSizeEnum.Small,
-                    KitId = "5_4"
+                    Id = 17,
                 }
             };
             

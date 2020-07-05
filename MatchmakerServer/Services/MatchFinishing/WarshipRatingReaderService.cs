@@ -19,17 +19,13 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
         public async Task<int> ReadWarshipRatingAsync(int warshipId)
         {
             int currentWarshipRating = await dbContext.Transactions
-                .Include(transaction => transaction.Resources)
-                    .ThenInclude(resource => resource.Increments)
-                .SelectMany(transaction => transaction.Resources)
+                .Include(transaction => transaction.Increments)
                 .SelectMany(resource => resource.Increments)
                 .Where(increment => increment.WarshipId==warshipId)
                 .SumAsync(increment => increment.Amount);
             
             currentWarshipRating -= await dbContext.Transactions
-                .Include(transaction => transaction.Resources)
-                .ThenInclude(resource => resource.Decrements)
-                .SelectMany(transaction => transaction.Resources)
+                .Include(resource => resource.Decrements)
                 .SelectMany(resource => resource.Decrements)
                 .Where(decrement => decrement.WarshipId==warshipId)
                 .SumAsync(decrement => decrement.Amount);

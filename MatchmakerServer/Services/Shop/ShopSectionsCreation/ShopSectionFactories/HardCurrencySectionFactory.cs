@@ -1,3 +1,4 @@
+using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
 
 namespace Code.Scenes.LobbyScene.Scripts
@@ -21,7 +22,7 @@ namespace Code.Scenes.LobbyScene.Scripts
             {
                 new ProductModel
                 {
-                    ProductType = ProductType.HardСurrency,
+                    TransactionType = TransactionTypeEnum.HardCurrency,
                     CurrencyType = CurrencyType.RealCurrency,
                     ImagePreviewPath = "diamonds5",
                     ForeignServiceProduct = new ForeignServiceProduct
@@ -30,11 +31,11 @@ namespace Code.Scenes.LobbyScene.Scripts
                     },
                     Name = "30",
                     ShopItemSize = ProductSizeEnum.Small,
-                    KitId = "4_1"
+                    Id = 3,
                 }, 
                 new ProductModel
                 {
-                    ProductType = ProductType.HardСurrency,
+                    TransactionType = TransactionTypeEnum.HardCurrency,
                     CurrencyType = CurrencyType.RealCurrency,
                     ImagePreviewPath = "diamonds10",
                     ForeignServiceProduct = new ForeignServiceProduct
@@ -43,11 +44,11 @@ namespace Code.Scenes.LobbyScene.Scripts
                     },
                     Name = "80",
                     ShopItemSize = ProductSizeEnum.Small,
-                    KitId = "4_2"
+                    Id = 4,
                 },
                 new ProductModel
                 {
-                    ProductType = ProductType.HardСurrency,
+                    TransactionType = TransactionTypeEnum.HardCurrency,
                     CurrencyType = CurrencyType.RealCurrency,
                     ImagePreviewPath = "diamonds15",
                     ForeignServiceProduct = new ForeignServiceProduct
@@ -56,7 +57,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                     },
                     Name = "170",
                     ShopItemSize = ProductSizeEnum.Small,
-                    KitId = "4_3"
+                    Id = 5,
                 }
             }; 
             
@@ -65,7 +66,7 @@ namespace Code.Scenes.LobbyScene.Scripts
             {
                 new ProductModel
                 {
-                    ProductType = ProductType.HardСurrency,
+                    TransactionType = TransactionTypeEnum.HardCurrency,
                     CurrencyType = CurrencyType.RealCurrency,
                     ImagePreviewPath = "diamonds20",
                     ForeignServiceProduct = new ForeignServiceProduct
@@ -74,11 +75,11 @@ namespace Code.Scenes.LobbyScene.Scripts
                     },
                     Name = "360",
                     ShopItemSize = ProductSizeEnum.Small,
-                    KitId = "4_4"
+                    Id = 5,
                 },
                 new ProductModel
                 {
-                    ProductType = ProductType.HardСurrency,
+                    TransactionType = TransactionTypeEnum.HardCurrency,
                     CurrencyType = CurrencyType.RealCurrency,
                     ImagePreviewPath = "diamonds40",
                     ForeignServiceProduct = new ForeignServiceProduct
@@ -87,11 +88,11 @@ namespace Code.Scenes.LobbyScene.Scripts
                     },
                     Name = "950",
                     ShopItemSize = ProductSizeEnum.Small,
-                    KitId = "4_5"
+                    Id = 6,
                 },
                 new ProductModel
                 {
-                    ProductType = ProductType.HardСurrency,
+                    TransactionType = TransactionTypeEnum.HardCurrency,
                     CurrencyType = CurrencyType.RealCurrency,
                     ImagePreviewPath = "diamonds80",
                     ForeignServiceProduct = new ForeignServiceProduct
@@ -100,7 +101,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                     },
                     Name = "2000",
                     ShopItemSize = ProductSizeEnum.Small,
-                    KitId = "4_6"
+                    Id = 7,
                 }
             };
             

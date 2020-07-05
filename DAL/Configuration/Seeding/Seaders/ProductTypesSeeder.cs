@@ -36,8 +36,8 @@ namespace AmoebaGameMatcherServer
                     },
                     new ResourceType 
                     {
-                        Name = ResourceTypeEnum.Prize.ToString(),
-                        Id = ResourceTypeEnum.Prize
+                        Name = ResourceTypeEnum.DailyPrize.ToString(),
+                        Id = ResourceTypeEnum.DailyPrize
                     },
                     new ResourceType 
                     {

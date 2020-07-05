@@ -12,12 +12,12 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
     /// </summary>
     public class BattleRoyaleMatchCreatorService
     {
-        private readonly BattleRoyaleMatchPackerService battleRoyaleMatchPackerService;
-        private readonly IGameServerNegotiatorService gameServerNegotiatorService;
-        private readonly MatchRoutingDataService matchRoutingDataService;
-        private readonly BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService;
         private readonly MatchDbWriterService matchDbWriterService;
+        private readonly MatchRoutingDataService matchRoutingDataService;
         private readonly BattleRoyaleQueueSingletonService battleRoyaleQueue;
+        private readonly IGameServerNegotiatorService gameServerNegotiatorService;
+        private readonly BattleRoyaleMatchPackerService battleRoyaleMatchPackerService;
+        private readonly BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService;
 
         public BattleRoyaleMatchCreatorService(BattleRoyaleMatchPackerService battleRoyaleMatchPackerService, 
             IGameServerNegotiatorService gameServerNegotiatorService,

@@ -107,15 +107,8 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             {
                 WasShown = false,
                 DateTime = DateTime.UtcNow,
-                Resources = new List<Resource>
-                {
-                    new Resource
-                    {
-                        Increments = increments,
-                        Decrements = decrements,
-                        ResourceTypeId = ResourceTypeEnum.MatchReward
-                    }
-                },
+                Increments = increments,
+                Decrements = decrements,
                 TransactionTypeId = TransactionTypeEnum.MatchReward,
                 AccountId = accountId
             };
