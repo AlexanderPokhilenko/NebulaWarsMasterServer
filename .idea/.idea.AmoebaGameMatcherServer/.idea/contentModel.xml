@@ -26,6 +26,7 @@
             <e p="DecrementsConfiguration.cs" t="Include" />
             <e p="IncrementsConfiguration.cs" t="Include" />
             <e p="MatchResultsConfiguration.cs" t="Include" />
+            <e p="ProductModelDbConfiguration.cs" t="Include" />
             <e p="ResourcesConfiguration.cs" t="Include" />
             <e p="TransactionsConfiguration.cs" t="Include" />
             <e p="WarshipsConfiguration.cs" t="Include" />
@@ -76,12 +77,8 @@
               <e p="IncrementTypeEnum.cs" t="Include" />
               <e p="MatchRewardType.cs" t="Include" />
             </e>
-            <e p="Resource" t="Include">
-              <e p="Resource.cs" t="Include" />
-              <e p="ResourceType.cs" t="Include" />
-              <e p="ResourceTypeEnum.cs" t="Include" />
-            </e>
             <e p="Transaction" t="Include">
+              <e p="ProductModelDb.cs" t="Include" />
               <e p="Transaction.cs" t="Include" />
               <e p="TransactionType.cs" t="Include" />
             </e>
@@ -177,7 +174,6 @@
               <e p="LootboxController.cs" t="Include" />
               <e p="PurchasesController.cs" t="Include" />
               <e p="ShopController.cs" t="Include" />
-              <e p="ShopTransactionFactory.cs" t="Include" />
               <e p="WarshipImprovementPurchasingController.cs" t="Include" />
               <e p="WarshipLevelController.cs" t="Include" />
             </e>
@@ -319,10 +315,12 @@
             <e p="DailyDealsUiContainerService.cs" t="Include" />
             <e p="ListExtension.cs" t="Include" />
             <e p="PrizeFactoryService.cs" t="Include" />
+            <e p="SellerService.cs" t="Include" />
             <e p="ShopFactoryService.cs" t="Include" />
             <e p="ShopFreeGiftManagerService.cs" t="Include" />
             <e p="ShopGemsService.cs" t="Include" />
             <e p="ShopLootboxService.cs" t="Include" />
+            <e p="ShopModelDbReader.cs" t="Include" />
             <e p="ShopRegularCurrencyService.cs" t="Include" />
             <e p="ShopSectionsCreation" t="Include">
               <e p="ShopModelBuilder.cs.meta" t="Include" />
@@ -343,8 +341,11 @@
               </e>
               <e p="ShopSectionFactories.meta" t="Include" />
             </e>
+            <e p="ShopService.cs" t="Include" />
             <e p="ShopSkinsService.cs" t="Include" />
+            <e p="ShopTransactionFactory.cs" t="Include" />
             <e p="ShopWarshipPowerImprovementService.cs" t="Include" />
+            <e p="ShopWriterService.cs" t="Include" />
             <e p="WarshipPowerPointsProductsFactoryService.cs" t="Include" />
           </e>
         </e>
@@ -462,7 +463,6 @@
         <e p="Program.cs" t="Include" />
         <e p="SqlTesting.csproj" t="IncludeRecursive" />
         <e p="test.txt" t="Include" />
-        <e p="ссаный даппер.txt" t="Include" />
       </e>
       <e p="UnitTests" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />

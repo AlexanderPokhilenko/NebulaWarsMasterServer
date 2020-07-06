@@ -6,7 +6,7 @@ namespace DataLayer.Tables
     public class Decrement
     {
         [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
-        [Required] public int ResourceId { get; set; }
+        [Required] public int TransactionId { get; set; }
         [Required] public int Amount {get;set; }
         [Required] public DecrementTypeEnum DecrementTypeId { get; set; }
 

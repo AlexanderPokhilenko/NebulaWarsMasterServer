@@ -24,9 +24,6 @@ namespace DataLayer
         public DbSet<TransactionType> TransactionTypes { get; set; }
         
         
-        public DbSet<Resource> Resources { get; set; }
-        public DbSet<ResourceType> ResourceTypes { get; set; }
-        
         
         public DbSet<Increment> Increments { get; set; }
         public DbSet<IncrementType> IncrementTypes { get; set; }
@@ -35,6 +32,9 @@ namespace DataLayer
         
         public DbSet<Decrement> Decrements { get; set; }
         public DbSet<DecrementType> DecrementTypes { get; set; }
+        
+        
+        public DbSet<ShopModelDb> ShopModels { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -45,7 +45,7 @@ namespace DataLayer
             modelBuilder.ApplyConfiguration(new TransactionsConfiguration());
             modelBuilder.ApplyConfiguration(new DecrementsConfiguration());
             modelBuilder.ApplyConfiguration(new IncrementsConfiguration());
-            
+            modelBuilder.ApplyConfiguration(new ShopModelDbConfiguration());
         }
     }
 }

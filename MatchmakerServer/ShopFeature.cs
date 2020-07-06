@@ -7,10 +7,12 @@ namespace AmoebaGameMatcherServer
     {
         public override void Add(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<ShopFactoryService>();
+            serviceCollection.AddTransient<ShopService>();
             serviceCollection.AddTransient<DailyDealsSectionFactory>();
             serviceCollection.AddTransient<PrizeFactoryService>();
             serviceCollection.AddTransient<WarshipPowerPointsProductsFactoryService>();
+            serviceCollection.AddTransient<SellerService>();
+            serviceCollection.AddTransient<ShopTransactionFactory>();
         }
     }
 }

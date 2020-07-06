@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataLayer.Tables;
+using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Controllers
@@ -22,10 +23,10 @@ namespace AmoebaGameMatcherServer.Controllers
             this.wppProductsFactoryService = wppProductsFactoryService;
         }
 
-        public async Task<SectionModel> Create(AccountDbDto accountDbDto)
+        public async Task<SectionModel> Create([NotNull]AccountDbDto accountDbDto)
         {
-            var prizeProductModel = await prizeFactoryService.CreatePrizeProduct(accountDbDto.Id);
-            var warshipPowerPoints = wppProductsFactoryService
+            ProductModel prizeProductModel = await prizeFactoryService.CreatePrizeProduct(accountDbDto.Id);
+            List<ProductModel> warshipPowerPoints = wppProductsFactoryService
                 .CreateWarshipPowerPointProducts(accountDbDto);
 
             List<ProductModel> productModels = new List<ProductModel>();

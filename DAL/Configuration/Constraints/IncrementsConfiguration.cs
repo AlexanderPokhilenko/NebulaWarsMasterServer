@@ -11,7 +11,7 @@ namespace DataLayer.TablesConfiguration
             builder
                 .HasOne(inc => inc.Transaction)
                 .WithMany(tran => tran.Increments)
-                .HasForeignKey(inc => inc.ResourceId);
+                .HasForeignKey(inc => inc.TransactionId);
             
             builder
                 .HasOne(increment => increment.Warship)

@@ -19,16 +19,7 @@ namespace DataLayer.Tables
         public Account Account { get; set; }
         public TransactionType TransactionType { get; set; }
         public MatchResult MatchResult { get; set; }
-        public List<Increment> Increments { get; set; }=new List<Increment>();
-        public List<Decrement> Decrements { get; set; }=new List<Decrement>();
-    }
-    
-    public class ProductModelDb
-    {
-        [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
-        [Required] public int AccountId { get; set; }
-        [Required] public DateTime DateTime { get; set; }
-        [Required] public byte[] SerilizedProductModel { get; set; }
-        public Account Account { get; set; }
+        public List<Increment> Increments { get; set; } = new List<Increment>();
+        public List<Decrement> Decrements { get; set; } = new List<Decrement>();
     }
 }

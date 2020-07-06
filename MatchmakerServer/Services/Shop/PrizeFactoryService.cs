@@ -20,22 +20,6 @@ namespace AmoebaGameMatcherServer.Controllers
         public async Task<ProductModel> CreatePrizeProduct(int accountId)
         {
             bool isPlayerRecentlyPickedUpAGift = await IsPlayerRecentlyPickedUpAGift(accountId);
-
-            Transaction transaction = new Transaction()
-            {
-                AccountId = accountId,
-                TransactionTypeId = TransactionTypeEnum.DailyPrize,
-                DateTime = DateTime.UtcNow,
-                WasShown = false,
-                Increments = new List<Increment>
-                {
-                    new Increment
-                    {
-                        IncrementTypeId = IncrementTypeEnum.SoftCurrency,
-                        Amount = 15
-                    }
-                }
-            };
             return new ProductModel
             {
                 Id = 1,
@@ -50,7 +34,7 @@ namespace AmoebaGameMatcherServer.Controllers
         
         private async Task<bool> IsPlayerRecentlyPickedUpAGift(int accountId)
         {
-            var oneDayAgo = DateTime.UtcNow - TimeSpan.FromDays(1);
+            DateTime oneDayAgo = DateTime.UtcNow - TimeSpan.FromDays(1);
             return await dbContext.Transactions
                 .Include(transaction => transaction.Account)
                 .AnyAsync(transaction => transaction.AccountId== accountId 

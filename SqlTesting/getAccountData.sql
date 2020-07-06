@@ -55,9 +55,8 @@ select
 (
     coalesce((select sum(I."Amount") 
       from "Accounts" A
-        join "Transactions" O on A."Id" = O."AccountId"
-        join "Resources" P on O."Id" = P."TransactionId"
-        join "Increments"  I on P."Id" = I."ResourceId"
+        join "Transactions" T on A."Id" = T."AccountId"
+        join "Increments"  I on T."Id" = I."TransactionId"
         join "IncrementTypes" IT on I."IncrementTypeId" = IT."Id"    
         where A."ServiceId" = 'serviceId' and it."Name" = 'SoftCurrency'
         
@@ -66,9 +65,8 @@ select
     -
  coalesce((select sum(D."Amount")
     from "Accounts" A
-        join "Transactions" O on A."Id" = O."AccountId"
-        join "Resources" P on O."Id" = P."TransactionId"
-        join "Decrements"  D on P."Id" = D."ResourceId"
+        join "Transactions" T on A."Id" = T."AccountId"
+        join "Decrements"  D on T."Id" = D."TransactionId"
         join "DecrementTypes" DT on D."DecrementTypeId" = DT."Id"
            where A."ServiceId" = 'serviceId' and DT."Name" = 'SoftCurrency'
     ), 0)
@@ -79,8 +77,7 @@ select
 (coalesce((select sum(I."Amount")
     from "Accounts" A
         join "Transactions" T on A."Id" = T."AccountId"
-        join "Resources" R on T."Id" = R."TransactionId"
-        join "Increments"  I on R."Id" = I."ResourceId"
+        join "Increments"  I on T."Id" = I."TransactionId"
         join "IncrementTypes" IT on I."IncrementTypeId" = IT."Id"
            where A."ServiceId" = 'serviceId' and it."Name" = 'HardCurrency'
     ),0)
@@ -88,8 +85,7 @@ select
     coalesce((select sum(D."Amount")
     from "Accounts" A
          join "Transactions" T on A."Id" = T."AccountId"
-         join "Resources" R on T."Id" = R."TransactionId"
-        join "Decrements"  D on R."Id" = D."ResourceId"
+        join "Decrements"  D on T."Id" = D."TransactionId"
          join "DecrementTypes" DT on D."DecrementTypeId" = DT."Id"
               where A."ServiceId" = 'serviceId' and DT."Name" = 'HardCurrency'
     ),0)) as "HardCurrency",
@@ -99,8 +95,7 @@ select
          (select sum(I."Amount")
           from "Accounts" A
            join "Transactions" T on A."Id" = T."AccountId"
-           join "Resources" R on T."Id" = R."TransactionId"
-           join "Increments"  I on R."Id" = I."ResourceId"
+           join "Increments"  I on T."Id" = I."TransactionId"
            join "IncrementTypes" IT on I."IncrementTypeId" = IT."Id"
           where A."ServiceId" = 'serviceId' and it."Name" = 'LootboxPoints'
          )
@@ -110,8 +105,7 @@ select
           (select sum(D."Amount")
            from "Accounts" A
                 join "Transactions" T on A."Id" = T."AccountId"
-                join "Resources" R on T."Id" = R."TransactionId"
-                join "Decrements" D on R."Id" = D."ResourceId"
+                join "Decrements" D on T."Id" = D."TransactionId"
                 join "DecrementTypes" DT on D."DecrementTypeId" = DT."Id"
            where A."ServiceId" = 'serviceId' and DT."Name" = 'LootboxPoints'
         

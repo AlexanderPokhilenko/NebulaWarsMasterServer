@@ -9,11 +9,13 @@ namespace AmoebaGameMatcherServer.Controllers
     [ApiController]
     public class ShopController : ControllerBase
     {
-        private readonly ShopFactoryService shopFactoryService;
+        private readonly ShopService shopService;
+        private readonly SellerService sellerService;
 
-        public ShopController(ShopFactoryService shopFactoryService)
+        public ShopController(ShopService shopService, SellerService sellerService)
         {
-            this.shopFactoryService = shopFactoryService;
+            this.shopService = shopService;
+            this.sellerService = sellerService;
         }
         
         /// <summary>
@@ -28,7 +30,15 @@ namespace AmoebaGameMatcherServer.Controllers
                 return BadRequest();
             }
 
-            ShopModel shopModel = await shopFactoryService.GetShopModelAsync(playerId);
+            ShopModel shopModel=null;
+            try
+            {
+                shopModel = await shopService.GetShopModelAsync(playerId);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Брошено исключение "+e.Message+" "+e.StackTrace);
+            }
             if (shopModel == null)
             {
                 return StatusCode(500);
@@ -39,20 +49,15 @@ namespace AmoebaGameMatcherServer.Controllers
 
         [Route(nameof(BuyProduct))]
         [HttpPost]
-        public async Task<ActionResult<string>> BuyProduct([FromForm] string playerId, [FromForm] string productId)
+        public async Task<ActionResult<string>> BuyProduct([FromForm] string playerId, [FromForm] int productId)
         {
             if (string.IsNullOrEmpty(playerId))
             {
                 return BadRequest();
             }
-            //todo достать продукт по id из БД
-            // создать транзакцию по модели продукта
-
-            //записать транзакцию
-            //перезаписать модель продукта
-            
             Console.WriteLine($"{nameof(playerId)} {playerId} {nameof(productId)} {productId}");
-            
+
+            await sellerService.BuyProduct(playerId, productId);
             return Ok();
         }
     }

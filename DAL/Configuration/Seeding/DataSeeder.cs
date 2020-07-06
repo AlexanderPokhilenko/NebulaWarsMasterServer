@@ -10,7 +10,6 @@ namespace AmoebaGameMatcherServer
             new WarshipCombatRoleSeeder().Seed(dbContext);
             new WarshipTypesSeeder().Seed(dbContext);
             new TransactionTypesSeeder().Seed(dbContext);
-            new ProductTypesSeeder().Seed(dbContext);
             new IncrementTypeSeeder().Seed(dbContext);
             new MatchRewardTypeSeeder().Seed(dbContext);
             new DecrementTypeSeeder().Seed(dbContext);

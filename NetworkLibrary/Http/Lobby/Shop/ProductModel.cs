@@ -1,6 +1,6 @@
 using System;
-using System.Transactions;
 using DataLayer.Tables;
+using JetBrains.Annotations;
 using ZeroFormatter;
 
 namespace NetworkLibrary.NetworkLibrary.Http
@@ -22,10 +22,7 @@ namespace NetworkLibrary.NetworkLibrary.Http
         /// </summary>
         [Index(2)] public virtual string CostString { get; set; }
         [Index(3)] public virtual CurrencyType CurrencyType { get; set; }
-        /// <summary>
-        /// Id типа товара. В один товар может быть включено несколько других.
-        /// Например, набор коробок в n штук или корабль + скин
-        /// </summary>
+       
         [Index(4)] public virtual int Id { get; set; }
         [Index(5)] public virtual string Name { get; set; }
         /// <summary>
@@ -59,7 +56,9 @@ namespace NetworkLibrary.NetworkLibrary.Http
         [Index(12)] public virtual int? MagnificationRatio { get; set; }
         
         [Index(13)] public virtual WarshipModel WarshipModel { get; set; }
-        [Index(14)] public virtual decimal Cost { get; set; }
+        [Index(14)] public virtual int Cost { get; set; }
         [Index(15)] public virtual bool Disabled { get; set; }
+        [Index(16)] public virtual string SkinPrefabPath { get; set; }
+        [Index(17)] public virtual int Amount { get; set; }
     }
 }

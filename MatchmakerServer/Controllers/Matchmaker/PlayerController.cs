@@ -15,8 +15,8 @@ namespace AmoebaGameMatcherServer.Controllers
     [ApiController]
     public class PlayerController : ControllerBase
     {
-        private readonly BattleRoyaleQueueSingletonService queueSingletonService;
         private readonly MatchmakerFacadeService matchmakerFacadeService;
+        private readonly BattleRoyaleQueueSingletonService queueSingletonService;
 
         public PlayerController(BattleRoyaleQueueSingletonService queueSingletonService,
             MatchmakerFacadeService matchmakerFacadeService)
