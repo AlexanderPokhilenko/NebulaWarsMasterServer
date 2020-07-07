@@ -48,7 +48,7 @@ namespace AmoebaGameMatcherServer.Services.PlayerQueueing
                 Console.WriteLine("IsPlayerInMatch");
                 BattleRoyaleMatchModel matchModel = unfinishedMatchesService.GetMatchModel(playerId);
                 response.PlayerInBattle = true;
-                response.BattleRoyaleMatchModel = matchModel;
+                response.MatchModel = new BattleRoyaleClientMatchModel(matchModel, playerId);
                 return response;
             }
             //Добавить в очередь

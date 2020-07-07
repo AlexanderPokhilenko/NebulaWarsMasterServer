@@ -13,6 +13,7 @@ namespace NetworkLibrary.NetworkLibrary.Http
         [Index(4)] public virtual int BigLootboxPoints { get; set; }
         [Index(5)] public virtual int SmallLootboxPoints { get; set; }
         [Index(6)] public virtual List<WarshipDto> Warships { get; set; }
+        [Index(7)] public virtual int AccountId { get; set; }
     }
 
 }

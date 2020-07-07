@@ -28,7 +28,8 @@ namespace AmoebaGameMatcherServer.Controllers
                 HardCurrency = account.HardCurrency,
                 BigLootboxPoints = 0,
                 SmallLootboxPoints = account.LootboxPoints,
-                Warships = new List<WarshipDto>()
+                Warships = new List<WarshipDto>(),
+                AccountId = account.Id
             };
 
             foreach (WarshipDbDto warship in account.Warships)
