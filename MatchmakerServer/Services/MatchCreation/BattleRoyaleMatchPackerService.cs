@@ -73,7 +73,7 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
                 BotInfo botInfo = new BotInfo()
                 {
                     IsBot = true,
-                    BotName = "Игорь",
+                    BotName = "Bot " + i,
                     PrefabName = GetBotPrefabName(),
                     TemporaryId = BotTemporaryIdFactory.Create(),
                     WarshipPowerPoints = 1
