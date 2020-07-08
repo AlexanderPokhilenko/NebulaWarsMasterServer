@@ -27,4 +27,19 @@ namespace DataLayer.Tables
             return stringBuilder.ToString();
         }
     }
+
+    public enum SkinTypeEnum
+    {
+        Hare=1,
+        Bird=2,
+        Smiley=3,
+        HareDestroyer=4
+    }
+    
+    public class SkinType
+    {
+        [Key] public SkinTypeEnum Id { get; set; }
+        [Required] public string Name { get; set; }
+        [Required] public WarshipTypeEnum WarshipTypeId { get; set; }
+    }
 }

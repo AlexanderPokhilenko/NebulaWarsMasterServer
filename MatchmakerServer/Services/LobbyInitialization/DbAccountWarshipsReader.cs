@@ -17,7 +17,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
         private readonly NpgsqlConnection connection;
 
         private readonly string sql = @"
-                  --Достаёт всю информацию про корабли аккаунта
+ --информация про корабли аккаунта
 select a.*, w.*, wt.*, wcr.*,
 (
     select coalesce(
