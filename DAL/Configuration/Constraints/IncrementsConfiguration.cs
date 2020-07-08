@@ -29,6 +29,12 @@ namespace DataLayer.TablesConfiguration
                 .HasOne(increment => increment.IncrementType)
                 .WithMany(incrementType => incrementType.Increments)
                 .HasForeignKey(increment => increment.IncrementTypeId);
+            
+            builder
+                .HasOne(increment => increment.SkinType)
+                .WithMany(skinType => skinType.Increments)
+                .HasForeignKey(increment => increment.SkinTypeId)
+                .IsRequired(false);
         }
     }
 }

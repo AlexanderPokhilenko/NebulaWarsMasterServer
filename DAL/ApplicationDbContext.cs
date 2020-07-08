@@ -35,6 +35,7 @@ namespace DataLayer
         
         
         public DbSet<ShopModelDb> ShopModels { get; set; }
+        public DbSet<SkinType> SkinTypes { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -46,6 +47,7 @@ namespace DataLayer
             modelBuilder.ApplyConfiguration(new DecrementsConfiguration());
             modelBuilder.ApplyConfiguration(new IncrementsConfiguration());
             modelBuilder.ApplyConfiguration(new ShopModelDbConfiguration());
+            modelBuilder.ApplyConfiguration(new SkinTypeConfiguration());
         }
     }
 }

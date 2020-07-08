@@ -118,35 +118,37 @@ namespace AmoebaGameMatcherServer.Controllers
                 }
                 case TransactionTypeEnum.WarshipAndSkin:
                 {
-                    Increment incrementWarship = new Increment
-                    {
-                        IncrementTypeId = IncrementTypeEnum.Warship,
-                        Amount = 0,
-                        WarshipId = productModel.WarshipModel.WarshipId
-                    };
-                    Increment incrementSkin = new Increment
-                    {
-                        IncrementTypeId = IncrementTypeEnum.Skin,
-                        Amount = 0,
-                        WarshipId = productModel.WarshipModel.WarshipId,
-                        SkinPrefabPath = productModel.SkinPrefabPath
-                    };
-                    increments.Add(incrementWarship);
-                    increments.Add(incrementSkin);
-                    break;
+                    throw new NotImplementedException();
+                    // Increment incrementWarship = new Increment
+                    // {
+                    //     IncrementTypeId = IncrementTypeEnum.Warship,
+                    //     Amount = 0,
+                    //     WarshipId = productModel.WarshipModel.WarshipId
+                    // };
+                    // Increment incrementSkin = new Increment
+                    // {
+                    //     IncrementTypeId = IncrementTypeEnum.Skin,
+                    //     Amount = 0,
+                    //     WarshipId = productModel.WarshipModel.WarshipId,
+                    //     SkinPrefabPath = productModel.SkinPrefabPath
+                    // };
+                    // increments.Add(incrementWarship);
+                    // increments.Add(incrementSkin);
+                    // break;
                 }
                 case TransactionTypeEnum.Skin:
                 {
-                    Increment incrementSkin = new Increment
-                    {
-                        IncrementTypeId = IncrementTypeEnum.Skin,
-                        Amount = 0,
-                        WarshipId = productModel.WarshipModel.WarshipId,
-                        SkinPrefabPath = productModel.SkinPrefabPath
-                    };
-                    increments.Add(incrementSkin);
+                    throw new NotImplementedException();
+                    // Increment incrementSkin = new Increment
+                    // {
+                    //     IncrementTypeId = IncrementTypeEnum.Skin,
+                    //     Amount = 0,
+                    //     WarshipId = productModel.WarshipModel.WarshipId,
+                    //     SkinPrefabPath = productModel.SkinPrefabPath
+                    // };
+                    // increments.Add(incrementSkin);
+                    // break;
                 }
-                    break;
                 case TransactionTypeEnum.WarshipPowerPoints:
                 {
                     Increment increment = new Increment
@@ -156,8 +158,8 @@ namespace AmoebaGameMatcherServer.Controllers
                         WarshipId = productModel.WarshipModel.WarshipId
                     };
                     increments.Add(increment);
-                }
                     break;
+                }
                 case TransactionTypeEnum.DailyPrize:
                 {
                     throw new NotImplementedException();
@@ -175,8 +177,8 @@ namespace AmoebaGameMatcherServer.Controllers
                         WarshipId = productModel.WarshipModel.WarshipId
                     };
                     increments.Add(increment);
-                }
                     break;
+                }
                 case TransactionTypeEnum.HardCurrency:
                 {
                      throw new Exception("Покупка премиум валюты не должна осуществляться тут");
@@ -190,8 +192,8 @@ namespace AmoebaGameMatcherServer.Controllers
                         WarshipId = productModel.WarshipModel.WarshipId
                     };
                     increments.Add(increment);
-                }
                     break;
+                }
                 case TransactionTypeEnum.MatchReward:
                     throw new Exception("Награда за бой не должна тут обрабатываться");
                 default:

@@ -15,6 +15,7 @@ namespace DataLayer.Tables
         public WarshipCombatRole WarshipCombatRole { get; set; }
 
         public IEnumerable<Warship> Warships { get; set; }
+        public List<SkinType> SkinTypes { get; set; }
 
         public override string ToString()
         {
@@ -41,5 +42,7 @@ namespace DataLayer.Tables
         [Key] public SkinTypeEnum Id { get; set; }
         [Required] public string Name { get; set; }
         [Required] public WarshipTypeEnum WarshipTypeId { get; set; }
+        public WarshipType WarshipType { get; set; }
+        public List<Increment> Increments { get; set; }
     }
 }

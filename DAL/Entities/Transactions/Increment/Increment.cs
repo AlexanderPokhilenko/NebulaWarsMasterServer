@@ -19,6 +19,7 @@ namespace DataLayer.Tables
         public Warship Warship { get; set; }
         public MatchRewardTypeEnum? MatchRewardTypeId { get; set; } 
         public MatchRewardType MatchRewardType { get; set; }
-        public string SkinPrefabPath { get; set; }
+        public SkinTypeEnum? SkinTypeId { get; set; }
+        public SkinType SkinType { get; set; }
     }
 }
