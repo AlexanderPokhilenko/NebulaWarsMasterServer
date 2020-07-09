@@ -55,22 +55,19 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             
             int currentWarshipRating = await warshipRatingReaderService.ReadWarshipRatingAsync(matchResult.WarshipId);
             var lootboxPoints = new Dictionary<MatchRewardTypeEnum, int>();
-            var increments = matchResult.Transaction.Increments;
             
-            if (increments.Count == 0)
+            
+            if (matchResult.Transaction.Increments.Count == 0)
             {
                 throw new Exception("Игрок ничего не заработал за бой");
             }
             
-            foreach (var increment in increments)
+            foreach (Increment increment in matchResult.Transaction.Increments)
             {
-                Console.WriteLine(increment.IncrementTypeId+" "+increment.MatchRewardTypeId);
                 if (increment.IncrementTypeId == IncrementTypeEnum.LootboxPoints)
                 {
-                    Console.WriteLine("это лутбокс");
-                    if (increment.MatchRewardTypeId!=null)
+                    if (increment.MatchRewardTypeId != null)
                     {
-                        Console.WriteLine("добавление");
                         lootboxPoints.Add(increment.MatchRewardTypeId.Value, increment.Amount);
                     }
                 }
@@ -89,7 +86,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                 CurrentWarshipRating = currentWarshipRating,
                 MatchRatingDelta = matchRatingDelta,
                 LootboxPoints = lootboxPoints,
-                WarshipPrefabName = matchResult.Warship.WarshipType.Name
+                SkinName = matchResult.Warship.WarshipType.Name
             };
             
             return matchResultDto; 

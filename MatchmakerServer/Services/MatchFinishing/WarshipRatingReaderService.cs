@@ -1,10 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
 using DataLayer.Tables;
 using Microsoft.EntityFrameworkCore;
-using Remotion.Linq.Clauses;
 
 namespace AmoebaGameMatcherServer.Services.MatchFinishing
 {
@@ -18,16 +16,14 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
         }
         public async Task<int> ReadWarshipRatingAsync(int warshipId)
         {
-            int currentWarshipRating = await dbContext.Transactions
-                .Include(transaction => transaction.Increments)
-                .SelectMany(resource => resource.Increments)
-                .Where(increment => increment.WarshipId==warshipId)
+            int currentWarshipRating = await dbContext.Increments
+                .Where(increment => increment.WarshipId == warshipId 
+                                    && increment.IncrementTypeId == IncrementTypeEnum.WarshipRating)
                 .SumAsync(increment => increment.Amount);
             
-            currentWarshipRating -= await dbContext.Transactions
-                .Include(resource => resource.Decrements)
-                .SelectMany(resource => resource.Decrements)
-                .Where(decrement => decrement.WarshipId==warshipId)
+            currentWarshipRating -= await dbContext.Decrements
+                .Where(decrement => decrement.WarshipId == warshipId
+                                    && decrement.DecrementTypeId==DecrementTypeEnum.WarshipRating)
                 .SumAsync(decrement => decrement.Amount);
             
             return currentWarshipRating;
