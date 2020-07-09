@@ -358,10 +358,6 @@
       <e p="NetworkLibrary" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="Http" t="Include">
-          <e p="Experimental" t="Include">
-            <e p="ViewTypeId.cs" t="Include" />
-            <e p="ViewTypeId.cs.meta" t="Include" />
-          </e>
           <e p="Experimental.meta" t="Include" />
           <e p="Lobby" t="Include">
             <e p="AccountModel.cs" t="Include" />
@@ -418,8 +414,10 @@
             </e>
             <e p="Matchmker.meta" t="Include" />
             <e p="MatchModel" t="Include">
+              <e p="BattleRoyaleClientMatchModel.cs" t="Include" />
               <e p="BattleRoyaleMatchModel.cs" t="Include" />
               <e p="BattleRoyaleMatchModel.cs.meta" t="Include" />
+              <e p="BattleRoyalePlayerInfo.cs" t="Include" />
               <e p="BotInfo.cs" t="Include" />
               <e p="BotInfo.cs.meta" t="Include" />
               <e p="GameUnit.cs" t="Include" />

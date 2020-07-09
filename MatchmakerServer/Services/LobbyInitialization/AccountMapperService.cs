@@ -41,7 +41,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 warshipDto.WarshipName = warshipDbDto.WarshipType.Name;
                 warshipDto.PowerPoints = warshipDbDto.WarshipPowerPoints;
                 warshipDto.Id = warshipDbDto.Id;
-                warshipDto.ViewTypeId = GetViewTypeByName(warshipDto.WarshipName);
+                // warshipDto.ViewTypeId = GetViewTypeByName(warshipDto.WarshipName);
                 warshipDto.PowerLevel = warshipDbDto.WarshipPowerLevel;
                 warshipDto.WarshipCharacteristics = warshipsCharacteristicsService
                     .GetWarshipCharacteristics(warshipDbDto.WarshipType.Id);
@@ -53,19 +53,6 @@ namespace AmoebaGameMatcherServer.Controllers
             return result;
         }
 
-        private ViewTypeId GetViewTypeByName(string warshipDtoWarshipName)
-        {
-            switch (warshipDtoWarshipName)
-            {
-                case "hare":
-                    return ViewTypeId.HareShip;
-                case "bird":
-                    return ViewTypeId.BirdPlayer;
-                case "smiley":
-                    return ViewTypeId.SmileyPlayer;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(warshipDtoWarshipName));
-            }
-        }
+    
     }
 }

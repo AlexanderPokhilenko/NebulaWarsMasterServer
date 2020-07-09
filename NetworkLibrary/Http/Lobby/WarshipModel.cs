@@ -7,15 +7,14 @@ namespace NetworkLibrary.NetworkLibrary.Http
     public class WarshipDto
     {
         [Index(0)] public virtual int Id { get; set; }
-        [Index(1)] public virtual ViewTypeId ViewTypeId { get; set; }
-        [Index(2)] public virtual int Rating { get; set; }
-        [Index(3)] public virtual int PowerLevel { get; set; }
-        [Index(4)] public virtual int PowerPoints { get; set; }
-        [Index(5)] public virtual string Description { get; set; }
-        [Index(6)] public virtual string CombatRoleName { get; set; }
-        [Index(7)] public virtual string WarshipName { get; set; }
-        [Index(8)] public virtual WarshipCharacteristics WarshipCharacteristics { get; set; }
-        [Index(9)] public virtual List<string> SkinNames { get; set; }
+        [Index(1)] public virtual int Rating { get; set; }
+        [Index(2)] public virtual int PowerLevel { get; set; }
+        [Index(3)] public virtual int PowerPoints { get; set; }
+        [Index(4)] public virtual string Description { get; set; }
+        [Index(5)] public virtual string CombatRoleName { get; set; }
+        [Index(6)] public virtual string WarshipName { get; set; }
+        [Index(7)] public virtual WarshipCharacteristics WarshipCharacteristics { get; set; }
+        [Index(8)] public virtual List<string> SkinNames { get; set; }
     }
 
     [ZeroFormattable]

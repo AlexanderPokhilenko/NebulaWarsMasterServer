@@ -152,9 +152,9 @@ namespace IntegrationTests
                 Assert.IsNotNull(warshipDto.Description);
                 Assert.IsNotNull(warshipDto.WarshipName);
                 Assert.IsNotNull(warshipDto.CombatRoleName);
-                Assert.IsTrue(warshipDto.ViewTypeId==ViewTypeId.HareShip 
-                              || warshipDto.ViewTypeId==ViewTypeId.BirdPlayer
-                              ||warshipDto.ViewTypeId==ViewTypeId.SmileyPlayer);
+                // Assert.IsTrue(warshipDto.ViewTypeId==ViewTypeId.HareShip 
+                //               || warshipDto.ViewTypeId==ViewTypeId.BirdPlayer
+                //               ||warshipDto.ViewTypeId==ViewTypeId.SmileyPlayer);
             }
         }
     }
