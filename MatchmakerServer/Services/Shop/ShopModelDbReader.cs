@@ -28,6 +28,11 @@ namespace AmoebaGameMatcherServer.Controllers
                 .Where(shopModelDb => shopModelDb.AccountId == accountId && shopModelDb.DateTime > aDayAgo)
                 .SingleOrDefaultAsync();
 
+            if (shopModel == null)
+            {
+                return null;
+            }
+            
             return ZeroFormatterSerializer.Deserialize<ShopModel>(shopModel.SerializedModel);
         }
     }

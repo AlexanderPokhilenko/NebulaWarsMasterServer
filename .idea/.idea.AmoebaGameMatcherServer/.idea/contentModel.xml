@@ -43,6 +43,7 @@
               <e p="IncrementTypeSeeder.cs" t="Include" />
               <e p="MatchRewardTypeSeeder.cs" t="Include" />
               <e p="ProductTypesSeeder.cs" t="Include" />
+              <e p="SkinTypesSeeder.cs" t="Include" />
               <e p="TransactionTypesSeeder.cs" t="Include" />
               <e p="WarshipCombatRoleSeeder.cs" t="Include" />
               <e p="WarshipTypesSeeder.cs" t="Include" />

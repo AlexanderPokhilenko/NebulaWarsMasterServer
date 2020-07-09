@@ -1,4 +1,5 @@
-﻿﻿using ZeroFormatter;
+﻿﻿using System.Collections.Generic;
+ using ZeroFormatter;
 
 namespace NetworkLibrary.NetworkLibrary.Http
 {
@@ -14,6 +15,7 @@ namespace NetworkLibrary.NetworkLibrary.Http
         [Index(6)] public virtual string CombatRoleName { get; set; }
         [Index(7)] public virtual string WarshipName { get; set; }
         [Index(8)] public virtual WarshipCharacteristics WarshipCharacteristics { get; set; }
+        [Index(9)] public virtual List<string> SkinNames { get; set; }
     }
 
     [ZeroFormattable]

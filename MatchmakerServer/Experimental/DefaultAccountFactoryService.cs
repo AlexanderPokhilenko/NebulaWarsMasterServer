@@ -99,8 +99,49 @@ namespace AmoebaGameMatcherServer.Services
                     }
                 }
             };
-
+            
+            //Добавить кораблям скины
+            Transaction skinTransaction = new Transaction
+            {
+                AccountId = account.Id,
+                TransactionTypeId = TransactionTypeEnum.GameRegistration,
+                DateTime = DateTime.UtcNow,
+                WasShown = false,
+                Increments = new List<Increment>
+                {
+                    new Increment
+                    {
+                        IncrementTypeId = IncrementTypeEnum.Skin,
+                        Amount = 1,
+                        SkinTypeId = SkinTypeEnum.Hare,
+                        WarshipId = account.Warships[0].Id
+                    },   
+                    new Increment
+                    {
+                        IncrementTypeId = IncrementTypeEnum.Skin,
+                        Amount = 1,
+                        SkinTypeId = SkinTypeEnum.HareDestroyer,
+                        WarshipId = account.Warships[0].Id
+                    },
+                    new Increment
+                    {
+                        IncrementTypeId = IncrementTypeEnum.Skin,
+                        Amount = 1,
+                        SkinTypeId = SkinTypeEnum.Bird,
+                        WarshipId = account.Warships[1].Id
+                    },
+                    new Increment
+                    {
+                        IncrementTypeId = IncrementTypeEnum.Skin,
+                        Amount = 1,
+                        SkinTypeId = SkinTypeEnum.Smiley,
+                        WarshipId = account.Warships[2].Id
+                    }
+                }
+            };
+            
             await dbContext.Transactions.AddAsync(transaction);
+            await dbContext.Transactions.AddAsync(skinTransaction);
             await dbContext.SaveChangesAsync();
         }
     }

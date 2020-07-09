@@ -31,19 +31,20 @@ namespace AmoebaGameMatcherServer.Controllers
                 Warships = new List<WarshipDto>()
             };
 
-            foreach (WarshipDbDto warship in account.Warships)
+            foreach (WarshipDbDto warshipDbDto in account.Warships)
             {
                 WarshipDto warshipDto = new WarshipDto();
-                warshipDto.Rating = warship.WarshipRating;
-                warshipDto.CombatRoleName = warship.WarshipType.WarshipCombatRole.Name;
-                warshipDto.Description = warship.WarshipType.Description;
-                warshipDto.WarshipName = warship.WarshipType.Name;
-                warshipDto.PowerPoints = warship.WarshipPowerPoints;
-                warshipDto.Id = warship.Id;
+                warshipDto.Rating = warshipDbDto.WarshipRating;
+                warshipDto.CombatRoleName = warshipDbDto.WarshipType.WarshipCombatRole.Name;
+                warshipDto.Description = warshipDbDto.WarshipType.Description;
+                warshipDto.WarshipName = warshipDbDto.WarshipType.Name;
+                warshipDto.PowerPoints = warshipDbDto.WarshipPowerPoints;
+                warshipDto.Id = warshipDbDto.Id;
                 warshipDto.ViewTypeId = GetViewTypeByName(warshipDto.WarshipName);
-                warshipDto.PowerLevel = warship.WarshipPowerLevel;
+                warshipDto.PowerLevel = warshipDbDto.WarshipPowerLevel;
                 warshipDto.WarshipCharacteristics = warshipsCharacteristicsService
-                    .GetWarshipCharacteristics(warship.WarshipType.Id);
+                    .GetWarshipCharacteristics(warshipDbDto.WarshipType.Id);
+                warshipDto.SkinNames = warshipDbDto.Skins;
                 
                 result.Warships.Add(warshipDto);
             }

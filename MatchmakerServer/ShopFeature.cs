@@ -13,6 +13,9 @@ namespace AmoebaGameMatcherServer
             serviceCollection.AddTransient<WarshipPowerPointsProductsFactoryService>();
             serviceCollection.AddTransient<SellerService>();
             serviceCollection.AddTransient<ShopTransactionFactory>();
+            serviceCollection.AddTransient<ShopModelDbReader>();
+            serviceCollection.AddTransient<ShopFactoryService>();
+            serviceCollection.AddTransient<ShopWriterService>();
         }
     }
 }

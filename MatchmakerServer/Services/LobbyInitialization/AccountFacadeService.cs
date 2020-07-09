@@ -25,7 +25,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
         [NotNull]
         public async Task<AccountDbDto> ReadOrCreateAccountAsync([NotNull] string serviceId)
         {
-            var account = await accountDbReaderService.ReadAccountAsync(serviceId);
+            AccountDbDto account = await accountDbReaderService.ReadAccountAsync(serviceId);
             
             if (account == null)
             {
