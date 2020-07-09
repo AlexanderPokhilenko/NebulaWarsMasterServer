@@ -1,6 +1,6 @@
 ﻿namespace AmoebaGameMatcherServer.Services.LobbyInitialization
 {
-    public class DapperHelperAccountResources
+    public class AccountResources
     {
         public int SoftCurrency { get; set; }
         public int HardCurrency { get; set; }

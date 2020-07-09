@@ -28,6 +28,7 @@
             <e p="MatchResultsConfiguration.cs" t="Include" />
             <e p="ProductModelDbConfiguration.cs" t="Include" />
             <e p="ResourcesConfiguration.cs" t="Include" />
+            <e p="SkinTypeConfiguration.cs" t="Include" />
             <e p="TransactionsConfiguration.cs" t="Include" />
             <e p="WarshipsConfiguration.cs" t="Include" />
             <e p="WarshipTypesConfiguration.cs" t="Include" />
@@ -254,12 +255,13 @@
             <e p="AccountFacadeService.cs" t="Include" />
             <e p="AccountMapperService.cs" t="Include" />
             <e p="AccountRegistrationService.cs" t="Include" />
+            <e p="AccountResources.cs" t="Include" />
             <e p="AccountResourcesDbReader.cs" t="Include" />
-            <e p="DapperHelperAccountResources.cs" t="Include" />
             <e p="DapperHelperNotShownReward.cs" t="Include" />
             <e p="DbAccountWarshipsReader.cs" t="Include" />
             <e p="LobbyModelFacadeService.cs" t="Include" />
             <e p="NotShownRewardsReaderService.cs" t="Include" />
+            <e p="SkinsDbReaderService.cs" t="Include" />
             <e p="WarshipPowerScaleModelStorage.cs" t="Include" />
             <e p="WarshipRatingScale.cs" t="Include" />
             <e p="WarshipsCharacteristicsService.cs" t="Include" />

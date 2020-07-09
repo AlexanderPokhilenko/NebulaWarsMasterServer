@@ -80,7 +80,7 @@ group by a.""Id"", w.""Id"", wt.""Id"", wcr.""Id"";
             Dictionary<int, AccountDbDto> lookup = new Dictionary<int, AccountDbDto>();
             await connection
                 .QueryAsync<AccountDbDto, WarshipDbDto,WarshipType, WarshipCombatRole, WarshipStatistics, AccountDbDto>(sql,
-                    (accountDbDto, warshipDbDto, warshipTypeArg, warshipCombatRole, dapperHelper) =>
+                    (accountDbDto, warshipDbDto, warshipTypeArg, warshipCombatRole, warshipStatistics) =>
                     {
                         //Если такого аккаунта ещё не было
                         if (!lookup.TryGetValue(accountDbDto.Id, out AccountDbDto account))
@@ -96,11 +96,11 @@ group by a.""Id"", w.""Id"", wt.""Id"", wcr.""Id"";
                         {
                             warship = warshipDbDto;
                             warship.WarshipType = warshipTypeArg;
-                            warship.WarshipRating = dapperHelper.WarshipRating;
-                            warship.WarshipPowerPoints = dapperHelper.WarshipPowerPoints;
+                            warship.WarshipRating = warshipStatistics.WarshipRating;
+                            warship.WarshipPowerPoints = warshipStatistics.WarshipPowerPoints;
                             warship.WarshipType.WarshipCombatRole = warshipCombatRole;
                             warship.Id = warshipDbDto.Id;
-                            warship.WarshipPowerLevel = dapperHelper.WarshipLevel;
+                            warship.WarshipPowerLevel = warshipStatistics.WarshipLevel;
                             warship.WarshipTypeId = warshipDbDto.WarshipTypeId;
                             
                             account.Warships.Add(warship);
@@ -109,7 +109,7 @@ group by a.""Id"", w.""Id"", wt.""Id"", wcr.""Id"";
 
                         Console.WriteLine(" " + accountDbDto);
                         Console.WriteLine("\t\t " + warshipDbDto);
-                        Console.WriteLine("\t\t\t " + dapperHelper);
+                        Console.WriteLine("\t\t\t " + warshipStatistics);
                         return account;
                     }, parameters, splitOn:"Id,WarshipRating");
             

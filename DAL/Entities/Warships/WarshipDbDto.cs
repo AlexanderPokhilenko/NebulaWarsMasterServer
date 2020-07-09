@@ -1,4 +1,6 @@
-﻿namespace DataLayer.Tables
+﻿using System.Collections.Generic;
+
+namespace DataLayer.Tables
 {
     public class WarshipDbDto
     {
@@ -10,5 +12,6 @@
         public int WarshipRating { get; set; }
         public AccountDbDto Account { get; set; }
         public WarshipType WarshipType { get; set; }
+        public List<string> Skins { get; set; } = new List<string>();
     }
 }

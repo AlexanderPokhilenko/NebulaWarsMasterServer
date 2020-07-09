@@ -14,9 +14,9 @@ namespace AmoebaGameMatcherServer.Controllers
     {
         private readonly WarshipRatingScale warshipRatingScale;
         private readonly AccountFacadeService accountFacadeService;
+        private readonly AccountMapperService accountMapperService;
         private readonly NotShownRewardsReaderService notShownRewardsReaderService;
         private readonly WarshipPowerScaleModelStorage warshipPowerScaleModelStorage;
-        private readonly AccountMapperService accountMapperService;
 
         public LobbyModelFacadeService(AccountFacadeService accountFacadeService,
             NotShownRewardsReaderService notShownRewardsReaderService, AccountMapperService accountMapperService)

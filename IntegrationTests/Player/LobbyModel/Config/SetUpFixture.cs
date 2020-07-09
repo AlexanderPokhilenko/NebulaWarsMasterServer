@@ -22,8 +22,8 @@ namespace IntegrationTests
         internal static AccountDbReaderService AccountReaderService;
         internal static LobbyModelFacadeService LobbyModelFacadeService;
         internal static NotShownRewardsReaderService NotShownRewardsReaderService;
-        internal static WarshipImprovementFacadeService WarshipImprovementFacadeService;
         internal static WarshipImprovementCostChecker WarshipImprovementCostChecker;
+        internal static WarshipImprovementFacadeService WarshipImprovementFacadeService;
 
         [OneTimeSetUp]
         public void Initialize()
@@ -40,7 +40,8 @@ namespace IntegrationTests
             string connectionString = DbConnectionConfig.GetConnectionString(DatabaseName);
             //Создать сервисы
             NpgsqlConnection npgsqlConnection = new NpgsqlConnection(connectionString);
-            AccountReaderService = new AccountDbReaderService(npgsqlConnection, new DbAccountWarshipsReader(npgsqlConnection));
+            SkinsDbReaderService skinsDbReaderService = new SkinsDbReaderService(DbContext);
+            AccountReaderService = new AccountDbReaderService(npgsqlConnection, new DbAccountWarshipsReader(npgsqlConnection), skinsDbReaderService);
             NotShownRewardsReaderService = new NotShownRewardsReaderService(DbContext);
             DefaultAccountFactoryService defaultAccountFactoryService = new DefaultAccountFactoryService(DbContext);
             var accountRegistrationService = new AccountRegistrationService(defaultAccountFactoryService);
