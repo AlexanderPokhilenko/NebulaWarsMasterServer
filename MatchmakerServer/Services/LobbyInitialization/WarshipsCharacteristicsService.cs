@@ -8,10 +8,10 @@ namespace AmoebaGameMatcherServer.Controllers
     public class WarshipsCharacteristicsService
     {
         private readonly Dictionary<WarshipTypeEnum, WarshipCharacteristics> warshipParameters =
-            new Dictionary<WarshipTypeEnum, WarshipCharacteristics>()
+            new Dictionary<WarshipTypeEnum, WarshipCharacteristics>
             {
                 {
-                    WarshipTypeEnum.Bird, new WarshipCharacteristics()
+                    WarshipTypeEnum.Bird, new WarshipCharacteristics
                     {
                         DefenceParameters = new[]
                         {
@@ -93,7 +93,7 @@ namespace AmoebaGameMatcherServer.Controllers
                     }
                 },
                 {
-                    WarshipTypeEnum.Hare, new WarshipCharacteristics()
+                    WarshipTypeEnum.Hare, new WarshipCharacteristics
                     {
                         DefenceParameters = new[]
                         {
