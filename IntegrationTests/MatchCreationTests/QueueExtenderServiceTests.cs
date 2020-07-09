@@ -34,7 +34,7 @@
 //                     Assert.Fail();
 //                 }
 //             }
-//             int numberOfPlayersInQueue = battleRoyaleQueueSingletonService.GetNumberOfPlayersInQueue();
+//             int numberOfPlayersInQueue = battleRoyaleQueueSingletonService.GetNumberOfPlayers();
 //             
 //             //Assert
 //             Assert.AreEqual(Globals.NumbersOfPlayersInBattleRoyaleMatch, numberOfPlayersInQueue);

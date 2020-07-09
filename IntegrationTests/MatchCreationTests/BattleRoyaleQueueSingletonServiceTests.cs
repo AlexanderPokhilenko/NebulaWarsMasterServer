@@ -17,13 +17,13 @@
 //             //Arrange
 //             BattleRoyaleQueueSingletonService battleRoyaleQueue= new BattleRoyaleQueueSingletonService();
 //             string playerServiceId = UniqueStringFactory.Create();
-//             QueueInfoForPlayer queueInfoForPlayer = new QueueInfoForPlayer(playerServiceId, 0,
+//             MatchEntryRequest queueInfoForPlayer = new MatchEntryRequest(playerServiceId, 0,
 //                 null, 0, 0 , DateTime.Now);
 //
 //             //Act    
-//             bool success1 = battleRoyaleQueue.TryEnqueuePlayer(queueInfoForPlayer);
-//             bool success2 = battleRoyaleQueue.TryEnqueuePlayer(queueInfoForPlayer);
-//             int countOfPlayersInQueue = battleRoyaleQueue.GetNumberOfPlayersInQueue();
+//             bool success1 = battleRoyaleQueue.TryEnqueue(queueInfoForPlayer);
+//             bool success2 = battleRoyaleQueue.TryEnqueue(queueInfoForPlayer);
+//             int countOfPlayersInQueue = battleRoyaleQueue.GetNumberOfPlayers();
 //             
 //             //Assert
 //             Assert.IsTrue(success1);
@@ -42,20 +42,20 @@
 //             //Arrange
 //             BattleRoyaleQueueSingletonService battleRoyaleQueue= new BattleRoyaleQueueSingletonService();
 //             string playerServiceId = UniqueStringFactory.Create();
-//             QueueInfoForPlayer queueInfoForPlayer1 = new QueueInfoForPlayer(playerServiceId, 0,
+//             MatchEntryRequest queueInfoForPlayer1 = new MatchEntryRequest(playerServiceId, 0,
 //                 null, 0, 0 , DateTime.Now);
-//             QueueInfoForPlayer queueInfoForPlayer2 = new QueueInfoForPlayer(playerServiceId, 0,
+//             MatchEntryRequest queueInfoForPlayer2 = new MatchEntryRequest(playerServiceId, 0,
 //                 null, 0, 1 , DateTime.Now);
 //
 //             //Act    
-//             bool success1 = battleRoyaleQueue.TryEnqueuePlayer(queueInfoForPlayer1);
-//             bool success2 = battleRoyaleQueue.TryEnqueuePlayer(queueInfoForPlayer2);
+//             bool success1 = battleRoyaleQueue.TryEnqueue(queueInfoForPlayer1);
+//             bool success2 = battleRoyaleQueue.TryEnqueue(queueInfoForPlayer2);
 //
 //             
 //             //Assert
 //             Assert.IsTrue(success1);
 //             Assert.IsFalse(success2);
-//             int countOfPlayersInQueue = battleRoyaleQueue.GetNumberOfPlayersInQueue();
+//             int countOfPlayersInQueue = battleRoyaleQueue.GetNumberOfPlayers();
 //             Assert.AreEqual(1, countOfPlayersInQueue);
 //         }
 //         
@@ -71,19 +71,19 @@
 //             string playerServiceId1 = UniqueStringFactory.Create();
 //             string playerServiceId2 = UniqueStringFactory.Create();
 //             
-//             QueueInfoForPlayer queueInfoForPlayer1 = new QueueInfoForPlayer(playerServiceId1, 0,
+//             MatchEntryRequest queueInfoForPlayer1 = new MatchEntryRequest(playerServiceId1, 0,
 //                 null, 0, 0 , DateTime.Now);
-//             QueueInfoForPlayer queueInfoForPlayer2 = new QueueInfoForPlayer(playerServiceId2, 0,
+//             MatchEntryRequest queueInfoForPlayer2 = new MatchEntryRequest(playerServiceId2, 0,
 //                 null, 0, 1 , DateTime.Now);
 //
 //             //Act    
-//             bool success1 = battleRoyaleQueue.TryEnqueuePlayer(queueInfoForPlayer1);
-//             bool success2 = battleRoyaleQueue.TryEnqueuePlayer(queueInfoForPlayer2);
+//             bool success1 = battleRoyaleQueue.TryEnqueue(queueInfoForPlayer1);
+//             bool success2 = battleRoyaleQueue.TryEnqueue(queueInfoForPlayer2);
 //             
 //             //Assert
 //             Assert.IsTrue(success1);
 //             Assert.IsTrue(success2);
-//             int numberOfPlayersInQueue = battleRoyaleQueue.GetNumberOfPlayersInQueue();
+//             int numberOfPlayersInQueue = battleRoyaleQueue.GetNumberOfPlayers();
 //             Assert.AreEqual(2, numberOfPlayersInQueue);
 //             
 //         }
@@ -106,7 +106,7 @@
 //         //
 //         //     //Act    
 //         //     battleRoyaleQueue.TryEnqueuePlayerAsync(warship1.Account.ServiceId, warship1);
-//         //     bool success = battleRoyaleQueue.TryRemovePlayerFromQueue(str1);
+//         //     bool success = battleRoyaleQueue.TryRemove(str1);
 //         //     
 //         //     //Assert
 //         //     Assert.IsTrue(success);
@@ -122,7 +122,7 @@
 //         //
 //         //     //Act    
 //         //     battleRoyaleQueue.TryEnqueuePlayerAsync(str1, new Warship());
-//         //     bool success = battleRoyaleQueue.TryRemovePlayerFromQueue(str2);
+//         //     bool success = battleRoyaleQueue.TryRemove(str2);
 //         //     
 //         //     //Assert
 //         //     Assert.IsFalse(success);
@@ -137,7 +137,7 @@
 //         //
 //         //     //Act    
 //         //     battleRoyaleQueue.TryEnqueuePlayerAsync(str1, new Warship());
-//         //     bool success = battleRoyaleQueue.IsPlayerInQueue(str1);
+//         //     bool success = battleRoyaleQueue.Contains(str1);
 //         //     
 //         //     //Assert
 //         //     Assert.IsTrue(success);
@@ -153,7 +153,7 @@
 //         //     
 //         //     //Act    
 //         //     battleRoyaleQueue.TryEnqueuePlayerAsync(str1, new Warship());
-//         //     bool success = battleRoyaleQueue.IsPlayerInQueue(str2);
+//         //     bool success = battleRoyaleQueue.Contains(str2);
 //         //     
 //         //     //Assert
 //         //     Assert.IsFalse(success);
@@ -168,7 +168,7 @@
 //         //
 //         //     //Act    
 //         //     battleRoyaleQueue.TryEnqueuePlayerAsync(str1, new Warship());
-//         //     var playersInfo= battleRoyaleQueue.GetPlayersQueueInfo(5);
+//         //     var playersInfo= battleRoyaleQueue.TakeMatchEntryRequests(5);
 //         //     
 //         //     //Assert
 //         //     Assert.AreEqual(1, playersInfo.Count);
@@ -191,7 +191,7 @@
 //         //     battleRoyaleQueue.TryEnqueuePlayerAsync(str3, new Warship());
 //         //     battleRoyaleQueue.TryEnqueuePlayerAsync(str4, new Warship());
 //         //     battleRoyaleQueue.TryEnqueuePlayerAsync(str5, new Warship());
-//         //     var playersInfo= battleRoyaleQueue.GetPlayersQueueInfo(3);
+//         //     var playersInfo= battleRoyaleQueue.TakeMatchEntryRequests(3);
 //         //     
 //         //     //Assert
 //         //     Assert.AreEqual(3, playersInfo.Count);
@@ -211,8 +211,8 @@
 //         //     //Act    
 //         //     battleRoyaleQueue.TryEnqueuePlayerAsync(str1, new Warship());
 //         //     battleRoyaleQueue.TryEnqueuePlayerAsync(str2, new Warship());
-//         //     battleRoyaleQueue.TryRemovePlayerFromQueue(str1);
-//         //     int number = battleRoyaleQueue.GetNumberOfPlayersInQueue();
+//         //     battleRoyaleQueue.TryRemove(str1);
+//         //     int number = battleRoyaleQueue.GetNumberOfPlayers();
 //         //     
 //         //     //Assert
 //         //     Assert.AreEqual(1, number);
@@ -230,7 +230,7 @@
 //         //     battleRoyaleQueue.TryEnqueuePlayerAsync(str1, new Warship());
 //         //     battleRoyaleQueue.TryEnqueuePlayerAsync(str2, new Warship());
 //         //     DateTime? dateTime = battleRoyaleQueue.GetOldestRequestTime();
-//         //     var playerInfo = battleRoyaleQueue.GetPlayersQueueInfo(1);
+//         //     var playerInfo = battleRoyaleQueue.TakeMatchEntryRequests(1);
 //         //
 //         //     //Assert
 //         //     Assert.IsNotNull(dateTime);

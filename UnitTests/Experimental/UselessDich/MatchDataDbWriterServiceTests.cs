@@ -41,7 +41,7 @@
 //             var playersBattleInfo = PlayersQueueInfoFactory.CreateSinglePlayer(accountDb);
 //             
 //             //Act
-//             Match match = await matchDbWriterService.WriteMatchDataToDb(matchRoutingData, playersBattleInfo);
+//             Match match = await matchDbWriterService.Write(matchRoutingData, playersBattleInfo);
 //
 //             //Assert
 //             Assert.IsNotNull(match);
@@ -52,7 +52,7 @@
 //
 //     public class PlayersQueueInfoFactory
 //     {
-//         public static List<QueueInfoForPlayer> CreateSinglePlayer(Account accountDb)
+//         public static List<MatchEntryRequest> CreateSinglePlayer(Account accountDb)
 //         {
 //             throw new System.NotImplementedException();
 //         }

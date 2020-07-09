@@ -39,7 +39,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 return BadRequest();
             }
 
-            if (queueSingletonService.TryRemovePlayerFromQueue(playerId))
+            if (queueSingletonService.TryRemove(playerId))
             {
                 return Ok();
             }

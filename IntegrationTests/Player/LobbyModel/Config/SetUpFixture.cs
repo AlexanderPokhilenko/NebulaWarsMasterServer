@@ -41,7 +41,10 @@ namespace IntegrationTests
             //Создать сервисы
             NpgsqlConnection npgsqlConnection = new NpgsqlConnection(connectionString);
             SkinsDbReaderService skinsDbReaderService = new SkinsDbReaderService(DbContext);
-            AccountReaderService = new AccountDbReaderService(npgsqlConnection, new DbAccountWarshipsReader(npgsqlConnection), skinsDbReaderService);
+            DbWarshipsStatisticsReader dbWarshipsStatisticsReader = new DbWarshipsStatisticsReader(npgsqlConnection);
+            DbAccountWarshipReaderService dbAccountWarshipReaderService = new DbAccountWarshipReaderService(dbWarshipsStatisticsReader, skinsDbReaderService);
+            AccountResourcesDbReader accountResourcesDbReader = new AccountResourcesDbReader(npgsqlConnection);
+            AccountReaderService = new AccountDbReaderService(dbAccountWarshipReaderService, accountResourcesDbReader);
             NotShownRewardsReaderService = new NotShownRewardsReaderService(DbContext);
             DefaultAccountFactoryService defaultAccountFactoryService = new DefaultAccountFactoryService(DbContext);
             var accountRegistrationService = new AccountRegistrationService(defaultAccountFactoryService);

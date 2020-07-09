@@ -17,9 +17,9 @@
 //         public void Test1()
 //         {
 //             //Arrange
-//             GameUnitsForMatch gameUnitsForMatch = new GameUnitsForMatch();
+//             GameUnits gameUnits = new GameUnits();
 //             List<PlayerInfoForMatch> playerInfoForMatches = new List<PlayerInfoForMatch>();
-//             List<BotInfo> botInfos = new List<BotInfo>();
+//             List<BotModel> botInfos = new List<BotModel>();
 //             int countOfPlayers = 45;
 //             int countOfBots = 12;
 //
@@ -29,33 +29,33 @@
 //                 {
 //                     AccountId = i,
 //                     IsBot = false,
-//                     PrefabName = "dich",
+//                     WarshipName = "dich",
 //                     ServiceId = i.ToString(),
 //                     TemporaryId = 25,
-//                     WarshipPowerPoints = 5
+//                     WarshipPowerLevel = 5
 //                 };
 //                 playerInfoForMatches.Add(playerInfoForMatch);
 //             }
 //
 //             for (int i = 0; i < countOfBots; i++)
 //             {
-//                 BotInfo botInfo = new BotInfo()
+//                 BotModel botInfo = new BotModel()
 //                 {
 //                     IsBot = true,
-//                     PrefabName = "dich",
+//                     WarshipName = "dich",
 //                     TemporaryId = 25,
-//                     WarshipPowerPoints = 5
+//                     WarshipPowerLevel = 5
 //                 };
 //                 botInfos.Add(botInfo);
 //             }
 //
-//             gameUnitsForMatch.Players = playerInfoForMatches;
-//             gameUnitsForMatch.Bots = botInfos;
+//             gameUnits.Players = playerInfoForMatches;
+//             gameUnits.Bots = botInfos;
 //
 //             //Act
 //             for (int i = 0; i < countOfPlayers; i++)
 //             {
-//                 if (playerInfoForMatches[i] != gameUnitsForMatch[i])
+//                 if (playerInfoForMatches[i] != gameUnits[i])
 //                 {
 //                     Assert.Fail();
 //                 }
@@ -63,7 +63,7 @@
 //
 //             for (int i = countOfPlayers; i < countOfPlayers + countOfBots; i++)
 //             {
-//                 if (botInfos[i - countOfPlayers] != gameUnitsForMatch[i])
+//                 if (botInfos[i - countOfPlayers] != gameUnits[i])
 //                 {
 //                     Assert.Fail();
 //                 }
@@ -79,16 +79,16 @@
 //         public void Test2()
 //         {
 //             //Arrange
-//             GameUnitsForMatch gameUnitsForMatch = new GameUnitsForMatch()
+//             GameUnits gameUnits = new GameUnits()
 //             {
-//                 Bots = new List<BotInfo>
+//                 Bots = new List<BotModel>
 //                 {
-//                     new BotInfo()
+//                     new BotModel()
 //                     {
 //                         IsBot = true,
-//                         PrefabName = "dich",
+//                         WarshipName = "dich",
 //                         TemporaryId = 25,
-//                         WarshipPowerPoints = 5
+//                         WarshipPowerLevel = 5
 //                     }
 //                 },
 //                 Players = new List<PlayerInfoForMatch>
@@ -97,16 +97,16 @@
 //                     {
 //                         AccountId = 1,
 //                         IsBot = false,
-//                         PrefabName = "dich",
+//                         WarshipName = "dich",
 //                         ServiceId = 1.ToString(),
 //                         TemporaryId = 25,
-//                         WarshipPowerPoints = 5
+//                         WarshipPowerLevel = 5
 //                     }
 //                 }
 //             };
 //             //Act
-//             bool success1 = gameUnitsForMatch[0] == gameUnitsForMatch.Players[0];
-//             bool success2 = gameUnitsForMatch[1] == gameUnitsForMatch.Bots[0];
+//             bool success1 = gameUnits[0] == gameUnits.Players[0];
+//             bool success2 = gameUnits[1] == gameUnits.Bots[0];
 //             
 //             //Assert
 //             Assert.IsTrue(success1);
@@ -121,16 +121,16 @@
 //         public void Test3()
 //         {
 //             //Arrange
-//             GameUnitsForMatch gameUnitsForMatch = new GameUnitsForMatch()
+//             GameUnits gameUnits = new GameUnits()
 //             {
-//                 Bots = new List<BotInfo>
+//                 Bots = new List<BotModel>
 //                 {
-//                     new BotInfo()
+//                     new BotModel()
 //                     {
 //                         IsBot = true,
-//                         PrefabName = "dich",
+//                         WarshipName = "dich",
 //                         TemporaryId = 25,
-//                         WarshipPowerPoints = 5
+//                         WarshipPowerLevel = 5
 //                     }
 //                 },
 //                 Players = new List<PlayerInfoForMatch>
@@ -139,15 +139,15 @@
 //                     {
 //                         AccountId = 1,
 //                         IsBot = false,
-//                         PrefabName = "dich",
+//                         WarshipName = "dich",
 //                         ServiceId = 1.ToString(),
 //                         TemporaryId = 25,
-//                         WarshipPowerPoints = 5
+//                         WarshipPowerLevel = 5
 //                     }
 //                 }
 //             };
 //             //Act
-//             var dich = gameUnitsForMatch[2];
+//             var dich = gameUnits[2];
 //             
 //         }
 //         
@@ -158,7 +158,7 @@
 //         public void Test4()
 //         {
 //             //Arrange
-//             GameUnitsForMatch gameUnitsForMatch = new GameUnitsForMatch()
+//             GameUnits gameUnits = new GameUnits()
 //             {
 //                 Players = new List<PlayerInfoForMatch>
 //                 {
@@ -166,16 +166,16 @@
 //                     {
 //                         AccountId = 1,
 //                         IsBot = false,
-//                         PrefabName = "dich",
+//                         WarshipName = "dich",
 //                         ServiceId = 1.ToString(),
 //                         TemporaryId = 25,
-//                         WarshipPowerPoints = 5
+//                         WarshipPowerLevel = 5
 //                     }
 //                 }
 //             };
 //             
 //             //Act
-//             int count = gameUnitsForMatch.Count();
+//             int count = gameUnits.Count();
 //             
 //             //Assert
 //             Assert.AreEqual(1,count);
@@ -188,21 +188,21 @@
 //         public void Test5()
 //         {
 //             //Arrange
-//             GameUnitsForMatch gameUnitsForMatch = new GameUnitsForMatch()
+//             GameUnits gameUnits = new GameUnits()
 //             {
-//                 Bots = new List<BotInfo>
+//                 Bots = new List<BotModel>
 //                 {
-//                     new BotInfo()
+//                     new BotModel()
 //                     {
 //                         IsBot = true,
-//                         PrefabName = "dich",
+//                         WarshipName = "dich",
 //                         TemporaryId = 25,
-//                         WarshipPowerPoints = 5
+//                         WarshipPowerLevel = 5
 //                     }
 //                 }
 //             };
 //             //Act
-//             int count = gameUnitsForMatch.Count();
+//             int count = gameUnits.Count();
 //             
 //             //Assert
 //             Assert.AreEqual(1,count);
@@ -215,28 +215,28 @@
 //         public void Test6()
 //         {
 //             //Arrange
-//             GameUnitsForMatch gameUnitsForMatch = new GameUnitsForMatch()
+//             GameUnits gameUnits = new GameUnits()
 //             {
-//                 Bots = new List<BotInfo>
+//                 Bots = new List<BotModel>
 //                 {
-//                     new BotInfo()
+//                     new BotModel()
 //                     {
 //                         IsBot = true,
-//                         PrefabName = "dich",
+//                         WarshipName = "dich",
 //                         TemporaryId = 25,
-//                         WarshipPowerPoints = 5
+//                         WarshipPowerLevel = 5
 //                     },
-//                     new BotInfo()
+//                     new BotModel()
 //                     {
 //                         IsBot = true,
-//                         PrefabName = "dich",
+//                         WarshipName = "dich",
 //                         TemporaryId = 25,
-//                         WarshipPowerPoints = 5
+//                         WarshipPowerLevel = 5
 //                     }
 //                 }
 //             };
 //             //Act
-//             int count = gameUnitsForMatch.Count();
+//             int count = gameUnits.Count();
 //             
 //             //Assert
 //             Assert.AreEqual(2,count);
@@ -249,30 +249,30 @@
 //         public void Test7()
 //         {
 //             //Arrange
-//             GameUnitsForMatch gameUnitsForMatch = new GameUnitsForMatch()
+//             GameUnits gameUnits = new GameUnits()
 //             {
-//                 Bots = new List<BotInfo>
+//                 Bots = new List<BotModel>
 //                 {
-//                     new BotInfo()
+//                     new BotModel()
 //                     {
 //                         IsBot = true,
-//                         PrefabName = "dich",
+//                         WarshipName = "dich",
 //                         TemporaryId = 25,
-//                         WarshipPowerPoints = 5
+//                         WarshipPowerLevel = 5
 //                     },
-//                     new BotInfo()
+//                     new BotModel()
 //                     {
 //                         IsBot = true,
-//                         PrefabName = "dich",
+//                         WarshipName = "dich",
 //                         TemporaryId = 25,
-//                         WarshipPowerPoints = 5
+//                         WarshipPowerLevel = 5
 //                     }
 //                 }
 //             };
 //             
 //             //Act
 //             int counter = 0;
-//             foreach (GameUnit gameUnit in gameUnitsForMatch)
+//             foreach (GameUnit gameUnit in gameUnits)
 //             {
 //                 counter++;
 //             }

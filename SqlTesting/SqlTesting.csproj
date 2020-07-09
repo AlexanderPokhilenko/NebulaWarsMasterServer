@@ -6,12 +6,7 @@
         <RootNamespace>DeleteMe1</RootNamespace>
     </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\DAL\DAL.csproj" />
-      <ProjectReference Include="..\LibraryForTests\LibraryForTests.csproj" />
-      <ProjectReference Include="..\MatchmakerServer\MatchmakerServer.csproj" />
-    </ItemGroup>
-
+  
     <ItemGroup>
       <PackageReference Include="Dapper" Version="2.0.35" />
       <PackageReference Include="Dapper.Contrib" Version="2.0.35" />

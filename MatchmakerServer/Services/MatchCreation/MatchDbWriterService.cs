@@ -19,24 +19,22 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
         /// <summary>
         /// Возвращает id матча после успешной записи в БД
         /// </summary>
-        public async Task<Match> WriteMatchDataToDb(MatchRoutingData matchRoutingData, 
-            List<QueueInfoForPlayer> playersQueueInfo)
+        public async Task<Match> Write(MatchRoutingData matchRoutingData, List<int> warshipIds)
         {
             ApplicationDbContext dbContext = dbContextFactory.Create();
             
             //Создать объекты для результатов боя игроков
-            var playersResult = new List<MatchResult>();
-            foreach (var playerQueueInfo in playersQueueInfo)
+            List<MatchResult> matchResults = new List<MatchResult>();
+            foreach (int warshipId in warshipIds)
             {
-                MatchResult matchResultForPlayer = new MatchResult
+                MatchResult matchResult = new MatchResult
                 {
-                    WarshipId = playerQueueInfo.GetWarshipId(),
-                    IsFinished = false,
-                    
+                    WarshipId = warshipId,
+                    IsFinished = false
                 };
                 
-                Console.WriteLine($"{nameof(matchResultForPlayer.WarshipId)} {matchResultForPlayer.WarshipId}");
-                playersResult.Add(matchResultForPlayer);
+                Console.WriteLine($"{nameof(matchResult.WarshipId)} {matchResult.WarshipId}");
+                matchResults.Add(matchResult);
             }
 
             //Создать матч
@@ -45,7 +43,7 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
                 StartTime = DateTime.UtcNow,
                 GameServerIp = matchRoutingData.GameServerIp,
                 GameServerUdpPort = matchRoutingData.GameServerPort,
-                MatchResults = playersResult,
+                MatchResults = matchResults,
                 GameModeId = GameModeEnum.BattleRoyale
             };
 

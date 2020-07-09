@@ -95,7 +95,7 @@ namespace AmoebaGameMatcherServer.Services.Queues
             var matchModel = matches[matchId];
             
             //убрать их из коллекции игроков
-            foreach (var player in matchModel.GameUnitsForMatch.Players)
+            foreach (var player in matchModel.GameUnits.Players)
             {
                 playersInMatches.TryRemove(player.ServiceId, out _);
             }
@@ -114,7 +114,7 @@ namespace AmoebaGameMatcherServer.Services.Queues
         public void AddPlayersToMatch(BattleRoyaleMatchModel matchModel)
         {
             matches.TryAdd(matchModel.MatchId, matchModel);
-            foreach (var playerInfoForMatch in matchModel.GameUnitsForMatch.Players)
+            foreach (var playerInfoForMatch in matchModel.GameUnits.Players)
             {
                 playersInMatches.TryAdd(playerInfoForMatch.ServiceId, matchModel.MatchId);
             }

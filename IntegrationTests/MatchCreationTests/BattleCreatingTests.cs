@@ -31,7 +31,7 @@
 //         {
 //             //Arrange
 //             var battleRoyaleQueueSingletonService = new BattleRoyaleQueueSingletonService();
-//             var battleRoyaleMatchPackerService = new BattleRoyaleMatchPackerService(battleRoyaleQueueSingletonService);
+//             var battleRoyaleMatchPackerService = new BattleRoyaleBotFactoryService(battleRoyaleQueueSingletonService);
 //             var gameServersManagerService = new GameServersRoutingDataService();
 //             var matchmakerDichService = new MatchRoutingDataService(gameServersManagerService);
 //             var battleRoyaleUnfinishedMatchesSingletonService = new BattleRoyaleUnfinishedMatchesSingletonService();
@@ -93,7 +93,7 @@
 //             Assert.IsNull(result.FailureReason);
 //
 //             //Игроки были извлечены из очереди
-//             int numberOfPlayersInQueue=battleRoyaleQueueSingletonService.GetNumberOfPlayersInQueue();
+//             int numberOfPlayersInQueue=battleRoyaleQueueSingletonService.GetNumberOfPlayers();
 //             Assert.AreEqual(0, numberOfPlayersInQueue);
 //             
 //             //Вернул matchId
@@ -132,7 +132,7 @@
 //         {
 //             //Arrange
 //             var battleRoyaleQueueSingletonService = new BattleRoyaleQueueSingletonService();
-//             var battleRoyaleMatchPackerService = new BattleRoyaleMatchPackerService(battleRoyaleQueueSingletonService);
+//             var battleRoyaleMatchPackerService = new BattleRoyaleBotFactoryService(battleRoyaleQueueSingletonService);
 //             var gameServersManagerService = new GameServersRoutingDataService();
 //             var matchmakerDichService = new MatchRoutingDataService(gameServersManagerService);
 //             var battleRoyaleUnfinishedMatchesSingletonService = new BattleRoyaleUnfinishedMatchesSingletonService();
@@ -189,7 +189,7 @@
 //             //Assert
 //             
 //             //Игроки были извлечены из очереди
-//             int numberOfPlayersInQueue=battleRoyaleQueueSingletonService.GetNumberOfPlayersInQueue();
+//             int numberOfPlayersInQueue=battleRoyaleQueueSingletonService.GetNumberOfPlayers();
 //             Assert.AreEqual(0, numberOfPlayersInQueue);
 //
 //             //В базе появилось n новых матчей
@@ -213,7 +213,7 @@
 //         {
 //             //Arrange
 //             var battleRoyaleQueueSingletonService = new BattleRoyaleQueueSingletonService();
-//             var battleRoyaleMatchPackerService = new BattleRoyaleMatchPackerService(battleRoyaleQueueSingletonService);
+//             var battleRoyaleMatchPackerService = new BattleRoyaleBotFactoryService(battleRoyaleQueueSingletonService);
 //             var gameServersManagerService = new GameServersRoutingDataService();
 //             var matchmakerDichService = new MatchRoutingDataService(gameServersManagerService);
 //             var battleRoyaleUnfinishedMatchesSingletonService = new BattleRoyaleUnfinishedMatchesSingletonService();
@@ -274,7 +274,7 @@
 //             Assert.IsTrue(matchWasCreated); 
 //             
 //             //Игроки были извлечены из очереди
-//             int numberOfPlayersInQueue=battleRoyaleQueueSingletonService.GetNumberOfPlayersInQueue();
+//             int numberOfPlayersInQueue=battleRoyaleQueueSingletonService.GetNumberOfPlayers();
 //             Assert.AreEqual(0, numberOfPlayersInQueue);
 //
 //             //В матч зарегистрирован в БД

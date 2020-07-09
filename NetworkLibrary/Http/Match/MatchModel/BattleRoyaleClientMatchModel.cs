@@ -1,9 +1,33 @@
-﻿using System;
-using System.Linq;
+﻿using System.Collections.Generic;
 using ZeroFormatter;
 
 namespace NetworkLibrary.NetworkLibrary.Http
 {
+    /// <summary>
+    /// Извлекает из полной модели данных о матче данные для клиента.
+    /// </summary>
+    public class BattleRoyalePlayerModelFactory
+    {
+        public BattleRoyalePlayerModel[] Create(BattleRoyaleMatchModel fullModel)
+        {
+            List<BattleRoyalePlayerModel> result = new List<BattleRoyalePlayerModel>();
+            foreach (PlayerModel playerModel in fullModel.GameUnits.Players)
+            {
+                BattleRoyalePlayerModel battleRoyalePlayerModel = 
+                    new BattleRoyalePlayerModel(playerModel.AccountId, playerModel.Nickname, playerModel.WarshipPowerLevel );
+                result.Add(battleRoyalePlayerModel);
+            }
+
+            foreach (BotModel botModel in fullModel.GameUnits.Bots)
+            {
+                BattleRoyalePlayerModel battleRoyalePlayerModel = 
+                    new BattleRoyalePlayerModel(-botModel.TemporaryId, "Василь", botModel.WarshipPowerLevel);
+                result.Add(battleRoyalePlayerModel);
+            }
+
+            return result.ToArray();
+        }
+}
     /// <summary>
     /// Нужен для передачи данных о бое между матчером и клиентом.
     /// </summary>
@@ -14,29 +38,21 @@ namespace NetworkLibrary.NetworkLibrary.Http
         [Index(1)] public virtual int GameServerPort { get; set; }
         [Index(2)] public virtual int MatchId { get; set; }
         [Index(3)] public virtual ushort PlayerTemporaryId { get; set; }
-        [Index(4)] public virtual BattleRoyalePlayerInfo[] PlayerInfos { get; set; }
+        [Index(4)] public virtual BattleRoyalePlayerModel[] PlayerModels { get; set; }
 
         // Конструктор для ZeroFormatter'а
         public BattleRoyaleClientMatchModel()
-        { }
+        {
+        }
 
         public BattleRoyaleClientMatchModel(BattleRoyaleMatchModel fullModel, string playerServiceId)
         {
             GameServerIp = fullModel.GameServerIp;
             GameServerPort = fullModel.GameServerPort;
             MatchId = fullModel.MatchId;
-            PlayerTemporaryId = fullModel.GameUnitsForMatch.Players.Find(player => player.ServiceId == playerServiceId)
+            PlayerTemporaryId = fullModel.GameUnits.Players.Find(player => player.ServiceId == playerServiceId)
                 .TemporaryId;
-            PlayerInfos = fullModel.GameUnitsForMatch.Select(unit => unit is PlayerInfoForMatch player
-                    ? new BattleRoyalePlayerInfo(player.AccountId,
-                        "Acc_" + player.AccountId, // TODO: Получать ники игроков
-                        player.WarshipPowerPoints)
-                    : unit is BotInfo bot
-                        ? new BattleRoyalePlayerInfo(-bot.TemporaryId, // Обязательно должен быть отрицательным
-                            bot.BotName,
-                            bot.WarshipPowerPoints)
-                        : throw new NotSupportedException("Неизвестный тип игрового объекта."))
-                .ToArray();
+            PlayerModels = new BattleRoyalePlayerModelFactory().Create(fullModel);
         }
     }
 }

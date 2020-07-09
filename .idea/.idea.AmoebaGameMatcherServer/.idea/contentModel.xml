@@ -228,7 +228,6 @@
             <e p="GameServerNegotiatorService.cs" t="Include" />
             <e p="GameServerNegotiatorServiceStub.cs" t="Include" />
             <e p="IGameServerNegotiatorService.cs" t="Include" />
-            <e p="MatchCreationMessage.cs" t="Include" />
           </e>
           <e p="GoogleApi" t="Include">
             <e p="AccessTokenUtils" t="Include">
@@ -259,7 +258,8 @@
             <e p="AccountResources.cs" t="Include" />
             <e p="AccountResourcesDbReader.cs" t="Include" />
             <e p="DapperHelperNotShownReward.cs" t="Include" />
-            <e p="DbAccountWarshipsReader.cs" t="Include" />
+            <e p="DbAccountWarshipReaderService.cs" t="Include" />
+            <e p="DbWarshipsStatisticsReader.cs" t="Include" />
             <e p="LobbyModelFacadeService.cs" t="Include" />
             <e p="NotShownRewardsReaderService.cs" t="Include" />
             <e p="SkinsDbReaderService.cs" t="Include" />
@@ -276,9 +276,9 @@
             <e p="SmallLootboxPrizeFactory.cs" t="Include" />
           </e>
           <e p="MatchCreation" t="Include">
+            <e p="BattleRoyaleBotFactoryService.cs" t="Include" />
             <e p="BattleRoyaleMatchCreatorService.cs" t="Include" />
             <e p="BattleRoyaleMatchDataFactory.cs" t="Include" />
-            <e p="BattleRoyaleMatchPackerService.cs" t="Include" />
             <e p="BotTemporaryIdFactory.cs" t="Include" />
             <e p="MatchCreationFailureReason.cs" t="Include" />
             <e p="MatchDbWriterService.cs" t="Include" />
@@ -310,8 +310,8 @@
           <e p="Queues" t="Include">
             <e p="BattleRoyaleQueueSingletonService.cs" t="Include" />
             <e p="BattleRoyaleUnfinishedMatchesSingletonService.cs" t="Include" />
-            <e p="MyQueue.cs" t="Include" />
-            <e p="QueueInfoForPlayer.cs" t="Include" />
+            <e p="MatchEntryRequest.cs" t="Include" />
+            <e p="PlayersQueue.cs" t="Include" />
           </e>
           <e p="Shop" t="Include">
             <e p="DailyDealsSectionFactory.cs" t="Include" />
@@ -417,14 +417,13 @@
               <e p="BattleRoyaleClientMatchModel.cs" t="Include" />
               <e p="BattleRoyaleMatchModel.cs" t="Include" />
               <e p="BattleRoyaleMatchModel.cs.meta" t="Include" />
-              <e p="BattleRoyalePlayerInfo.cs" t="Include" />
-              <e p="BotInfo.cs" t="Include" />
+              <e p="BattleRoyalePlayerModel.cs" t="Include" />
               <e p="BotInfo.cs.meta" t="Include" />
+              <e p="BotModel.cs" t="Include" />
               <e p="GameUnit.cs" t="Include" />
               <e p="GameUnit.cs.meta" t="Include" />
-              <e p="GameUnitsEnum.cs" t="Include" />
+              <e p="GameUnits.cs" t="Include" />
               <e p="GameUnitsEnum.cs.meta" t="Include" />
-              <e p="GameUnitsForMatch.cs" t="Include" />
               <e p="GameUnitsForMatch.cs.meta" t="Include" />
               <e p="PlayerInfoForMatch.cs" t="Include" />
               <e p="PlayerInfoForMatch.cs.meta" t="Include" />
@@ -451,7 +450,6 @@
       <e p="packages" t="ExcludeRecursive" />
       <e p="SqlTesting" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
-        <e p="DbSeed.cs" t="Include" />
         <e p="getAccountData.sql" t="Include" />
         <e p="getNotShownRewards.sql" t="Include" />
         <e p="obj" t="ExcludeRecursive">

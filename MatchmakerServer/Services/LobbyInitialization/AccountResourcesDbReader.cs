@@ -85,7 +85,7 @@ select
             this.connection = connection;
         }
         
-        public async Task<AccountResources> GetAccountResourcesAsync([NotNull] string serviceId)
+        public async Task<AccountResources> ReadAsync([NotNull] string serviceId)
         {
             var parameters = new {serviceIdPar = serviceId};
             var accountResources = await connection

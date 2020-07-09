@@ -30,12 +30,11 @@ namespace AmoebaGameMatcherServer.Controllers
             }
             
             LobbyModel lobbyModel = await lobbyModelFacadeService.CreateAsync(playerServiceId);
-
             foreach (var warshipDto in lobbyModel.AccountDto.Warships)
             {
                 if (warshipDto.PowerLevel == 0)
                 {
-                    throw new Exception("Нулевой уровень на внешнем слое");
+                    throw new Exception("Нулевой уровень корабля");
                 }
             }
             

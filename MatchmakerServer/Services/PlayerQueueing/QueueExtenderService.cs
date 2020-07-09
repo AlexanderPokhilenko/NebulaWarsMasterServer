@@ -14,33 +14,24 @@ namespace AmoebaGameMatcherServer.Services.PlayerQueueing
     /// </summary>
     public class QueueExtenderService
     {
-        private readonly ApplicationDbContext dbContext;
-        private readonly DbAccountWarshipsReader dbAccountWarshipsReader;
+        private readonly DbWarshipsStatisticsReader dbWarshipsStatisticsReader;
         private readonly BattleRoyaleQueueSingletonService battleRoyaleQueueSingletonServiceService;
 
         public QueueExtenderService(BattleRoyaleQueueSingletonService battleRoyaleQueueSingletonServiceService,
-            ApplicationDbContext dbContext, DbAccountWarshipsReader dbAccountWarshipsReader)
+            DbWarshipsStatisticsReader dbWarshipsStatisticsReader)
         {
-            this.dbContext = dbContext;
-            this.dbAccountWarshipsReader = dbAccountWarshipsReader;
+        this.dbWarshipsStatisticsReader = dbWarshipsStatisticsReader;
             this.battleRoyaleQueueSingletonServiceService = battleRoyaleQueueSingletonServiceService;
         }
         
         /// <summary>
         /// Проверяет данные и добавляет игрока в очередь.
         /// </summary>
-        /// <param name="playerServiceId"></param>
-        /// <param name="warshipId"></param>
         /// <returns>Вернёт false если в БД нет таких данных или игрок уже в очереди.</returns>
         public async Task<bool> TryEnqueuePlayerAsync(string playerServiceId, int warshipId)
         {
-            //Достать информацию про корабль из БД. Нужно для балансировки по силе
-            //+ проверка того, что корабль принадлежит этому игроку
-
-            var accountDbDto = await dbAccountWarshipsReader.GetAccountWithWarshipsAsync(playerServiceId);
-
-            var warship = accountDbDto.Warships
-                .SingleOrDefault(dto => dto.Id == warshipId);
+            AccountDbDto accountDbDto = await dbWarshipsStatisticsReader.ReadAsync(playerServiceId);
+            WarshipDbDto warship = accountDbDto.Warships.SingleOrDefault(dto => dto.Id == warshipId);
 
             if (warship == null)
             {
@@ -48,9 +39,10 @@ namespace AmoebaGameMatcherServer.Services.PlayerQueueing
                 return false;
             }
 
-            QueueInfoForPlayer playerInfo = new QueueInfoForPlayer(playerServiceId, accountDbDto.Id, 
-                warship.WarshipType.Name, warship.WarshipPowerLevel, warshipId, DateTime.UtcNow);
-            return battleRoyaleQueueSingletonServiceService.TryEnqueuePlayer(playerInfo);
+            MatchEntryRequest matchEntryRequest = new MatchEntryRequest(playerServiceId, accountDbDto.Id, 
+                warship.WarshipType.Name, warship.WarshipPowerLevel, warshipId, DateTime.UtcNow, 
+                accountDbDto.Username);
+            return battleRoyaleQueueSingletonServiceService.TryEnqueue(matchEntryRequest);
         }
     }
     

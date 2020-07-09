@@ -12,7 +12,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
     /// <summary>
     /// Достаёт из БД данные про корабли аккаунта.
     /// </summary>
-    public class DbAccountWarshipsReader
+    public class DbWarshipsStatisticsReader
     {
         private readonly NpgsqlConnection connection;
 
@@ -43,10 +43,10 @@ select a.*, w.*, wt.*, wcr.*,
               select sum(I.""Amount"")
               from ""Increments"" I
                        inner join ""IncrementTypes"" IT on I.""IncrementTypeId"" = IT.""Id""
-              where I.""WarshipId"" = w.""Id"" and IT.""Name""='WarshipPowerPoints'
+              where I.""WarshipId"" = w.""Id"" and IT.""Name""='WarshipPowerLevel'
           )
           ,0
-    ) as ""WarshipPowerPoints"" 
+    ) as ""WarshipPowerLevel"" 
 ),
 (
     select coalesce(
@@ -68,12 +68,12 @@ where a.""ServiceId"" = @serviceIdPar
 group by a.""Id"", w.""Id"", wt.""Id"", wcr.""Id"";
             ";
 
-        public DbAccountWarshipsReader(NpgsqlConnection connection)
+        public DbWarshipsStatisticsReader(NpgsqlConnection connection)
         {
             this.connection = connection;
         }
         
-        public async Task<AccountDbDto> GetAccountWithWarshipsAsync([NotNull] string serviceId)
+        public async Task<AccountDbDto> ReadAsync([NotNull] string serviceId)
         {
             var parameters = new {serviceIdPar = serviceId};
             //accountId + account
