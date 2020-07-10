@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿﻿﻿using System.Collections.Generic;
 using ZeroFormatter;
 
 namespace NetworkLibrary.NetworkLibrary.Http
@@ -14,14 +14,14 @@ namespace NetworkLibrary.NetworkLibrary.Http
             foreach (PlayerModel playerModel in fullModel.GameUnits.Players)
             {
                 BattleRoyalePlayerModel battleRoyalePlayerModel = 
-                    new BattleRoyalePlayerModel(playerModel.AccountId, playerModel.Nickname, playerModel.WarshipPowerLevel );
+                    new BattleRoyalePlayerModel(playerModel.AccountId, playerModel.Nickname,  playerModel.WarshipName , playerModel.WarshipPowerLevel);
                 result.Add(battleRoyalePlayerModel);
             }
 
             foreach (BotModel botModel in fullModel.GameUnits.Bots)
             {
                 BattleRoyalePlayerModel battleRoyalePlayerModel = 
-                    new BattleRoyalePlayerModel(-botModel.TemporaryId, "Василь", botModel.WarshipPowerLevel);
+                    new BattleRoyalePlayerModel(-botModel.TemporaryId, "Василь",  botModel.WarshipName, botModel.WarshipPowerLevel);
                 result.Add(battleRoyalePlayerModel);
             }
 

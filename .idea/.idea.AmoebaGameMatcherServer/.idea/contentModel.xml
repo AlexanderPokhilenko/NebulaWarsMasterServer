@@ -358,7 +358,6 @@
       <e p="NetworkLibrary" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="Http" t="Include">
-          <e p="Experimental.meta" t="Include" />
           <e p="Lobby" t="Include">
             <e p="AccountModel.cs" t="Include" />
             <e p="AccountModel.cs.meta" t="Include" />
@@ -383,12 +382,12 @@
               <e p="ProductModel.cs.meta" t="Include" />
               <e p="ProductSizeEnum.cs" t="Include" />
               <e p="ProductSizeEnum.cs.meta" t="Include" />
-              <e p="ProductType.cs.meta" t="Include" />
               <e p="SectionModel.cs" t="Include" />
               <e p="SectionModel.cs.meta" t="Include" />
               <e p="ShopModel.cs" t="Include" />
               <e p="ShopModel.cs.meta" t="Include" />
               <e p="TransactionTypeEnum.cs" t="Include" />
+              <e p="TransactionTypeEnum.cs.meta" t="Include" />
               <e p="WarshipModel.cs" t="Include" />
               <e p="WarshipModel.cs.meta" t="Include" />
               <e p="WarshipPowerPointsProduct.cs" t="Include" />
@@ -415,16 +414,17 @@
             <e p="Matchmker.meta" t="Include" />
             <e p="MatchModel" t="Include">
               <e p="BattleRoyaleClientMatchModel.cs" t="Include" />
+              <e p="BattleRoyaleClientMatchModel.cs.meta" t="Include" />
               <e p="BattleRoyaleMatchModel.cs" t="Include" />
               <e p="BattleRoyaleMatchModel.cs.meta" t="Include" />
               <e p="BattleRoyalePlayerModel.cs" t="Include" />
-              <e p="BotInfo.cs.meta" t="Include" />
+              <e p="BattleRoyalePlayerModel.cs.meta" t="Include" />
               <e p="BotModel.cs" t="Include" />
+              <e p="BotModel.cs.meta" t="Include" />
               <e p="GameUnit.cs" t="Include" />
               <e p="GameUnit.cs.meta" t="Include" />
               <e p="GameUnits.cs" t="Include" />
-              <e p="GameUnitsEnum.cs.meta" t="Include" />
-              <e p="GameUnitsForMatch.cs.meta" t="Include" />
+              <e p="GameUnits.cs.meta" t="Include" />
               <e p="PlayerInfoForMatch.cs" t="Include" />
               <e p="PlayerInfoForMatch.cs.meta" t="Include" />
             </e>

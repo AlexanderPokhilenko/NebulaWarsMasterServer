@@ -1,4 +1,4 @@
-﻿using ZeroFormatter;
+﻿﻿using ZeroFormatter;
 
 namespace NetworkLibrary.NetworkLibrary.Http
 {
@@ -7,12 +7,14 @@ namespace NetworkLibrary.NetworkLibrary.Http
     {
         [Index(0)] public readonly int AccountId;
         [Index(1)] public readonly string Nickname;
-        [Index(2)] public readonly int WarshipPowerLevel;
+        [Index(2)] public readonly string WarshipName;
+        [Index(3)] public readonly int WarshipPowerLevel;
         
-        public BattleRoyalePlayerModel(int accountId, string nickname, int warshipPowerLevel)
+        public BattleRoyalePlayerModel(int accountId, string nickname, string warshipName, int warshipPowerLevel)
         {
-            AccountId = accountId;
             Nickname = nickname;
+            AccountId = accountId;
+            WarshipName = warshipName;
             WarshipPowerLevel = warshipPowerLevel;
         }
 
