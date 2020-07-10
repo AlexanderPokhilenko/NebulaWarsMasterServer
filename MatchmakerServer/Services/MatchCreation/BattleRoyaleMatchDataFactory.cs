@@ -10,7 +10,7 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
     {
         public static BattleRoyaleMatchModel Create(GameUnits gameUnits, Match match)
         {
-            var result = new BattleRoyaleMatchModel
+            BattleRoyaleMatchModel result = new BattleRoyaleMatchModel
             {
                 MatchId = match.Id,
                 GameServerIp = match.GameServerIp,

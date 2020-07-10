@@ -41,10 +41,14 @@ namespace AmoebaGameMatcherServer.Controllers
                 warshipDto.WarshipName = warshipDbDto.WarshipType.Name;
                 warshipDto.PowerPoints = warshipDbDto.WarshipPowerPoints;
                 warshipDto.Id = warshipDbDto.Id;
-                // warshipDto.ViewTypeId = GetViewTypeByName(warshipDto.WarshipName);
                 warshipDto.PowerLevel = warshipDbDto.WarshipPowerLevel;
                 warshipDto.WarshipCharacteristics = warshipsCharacteristicsService
                     .GetWarshipCharacteristics(warshipDbDto.WarshipType.Id);
+                warshipDto.CurrentSkinType = new SkinTypeDto()
+                {
+                    Id = warshipDbDto.CurrentSkinType.Id,
+                    Name = warshipDbDto.CurrentSkinType.Name
+                };
 
                 List<SkinTypeDto> skinTypeDtos = new List<SkinTypeDto>();
                 foreach (SkinType skinType in warshipDbDto.Skins)

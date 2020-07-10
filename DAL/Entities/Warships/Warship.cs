@@ -12,8 +12,8 @@ namespace DataLayer.Tables
         [Required] public int AccountId { get; set; }
         [Required] public WarshipTypeEnum WarshipTypeId { get; set; }
 
+        [Required] public SkinTypeEnum CurrentSkinTypeId { get; set; }
         public SkinType CurrentSkinType { get; set; }
-        public SkinTypeEnum? CurrentSkinTypeId { get; set; }
         public Account Account { get; set; }
         public WarshipType WarshipType { get; set; }
         

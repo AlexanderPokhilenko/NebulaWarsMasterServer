@@ -63,7 +63,7 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
         {
             GameUnits gameUnits = new GameUnits();
 
-            var requests = battleRoyaleQueueSingletonService
+            List<MatchEntryRequest> requests = battleRoyaleQueueSingletonService
                 .TakeMatchEntryRequests(numberOfPlayersInMatch);
             //Достать игроков из очереди без извлечения
             gameUnits.Players =requests

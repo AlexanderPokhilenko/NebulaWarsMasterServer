@@ -43,7 +43,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                 WarshipDbDto warship = accountDbDto.Warships.Single(warship1 => warship1.Id == warshipId);
                 warship.Skins.AddRange(list);
                 warship.CurrentSkinType = list
-                    .SingleOrDefault(skinType => skinType.Id == warship.CurrentSkinTypeId);
+                    .Single(skinType => skinType.Id == warship.CurrentSkinTypeId);
             }
 
             foreach (WarshipDbDto warshipDbDto in accountDbDto.Warships)
