@@ -3,6 +3,16 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace Code.Scenes.LobbyScene.Scripts
 {
+    public static class ForeignServiceProducts
+    {
+        public const string HardCurrency30 = "hard_currency_30";
+        public const string HardCurrency80 = "hard_currency_80";
+        public const string HardCurrency170 = "hard_currency_170";
+        public const string HardCurrency360 = "hard_currency_360";
+        public const string HardCurrency950 = "hard_currency_950";
+        public const string HardCurrency2000 = "hard_currency_2000";
+    }
+    
     /// <summary>
     /// Создаёт данные для раздела хард валюты в магазне.
     /// </summary>
@@ -27,11 +37,12 @@ namespace Code.Scenes.LobbyScene.Scripts
                     ImagePreviewPath = "diamonds5",
                     ForeignServiceProduct = new ForeignServiceProduct
                     {
-                        ProductGoogleId = "hard_currency_30"
+                        ProductGoogleId = ForeignServiceProducts.HardCurrency30,
+                        Consumable = true
                     },
                     Name = "30",
                     ShopItemSize = ProductSizeEnum.Small,
-                    Id = 3,
+                    Id = 3
                 }, 
                 new ProductModel
                 {
@@ -40,11 +51,12 @@ namespace Code.Scenes.LobbyScene.Scripts
                     ImagePreviewPath = "diamonds10",
                     ForeignServiceProduct = new ForeignServiceProduct
                     {
-                        ProductGoogleId = "hard_currency_80"
+                        ProductGoogleId = ForeignServiceProducts.HardCurrency80,
+                        Consumable = true
                     },
                     Name = "80",
                     ShopItemSize = ProductSizeEnum.Small,
-                    Id = 4,
+                    Id = 4
                 },
                 new ProductModel
                 {
@@ -53,11 +65,12 @@ namespace Code.Scenes.LobbyScene.Scripts
                     ImagePreviewPath = "diamonds15",
                     ForeignServiceProduct = new ForeignServiceProduct
                     {
-                        ProductGoogleId = "hard_currency_170"
+                        ProductGoogleId = ForeignServiceProducts.HardCurrency170,
+                        Consumable = true
                     },
                     Name = "170",
                     ShopItemSize = ProductSizeEnum.Small,
-                    Id = 5,
+                    Id = 5
                 }
             }; 
             
@@ -71,11 +84,12 @@ namespace Code.Scenes.LobbyScene.Scripts
                     ImagePreviewPath = "diamonds20",
                     ForeignServiceProduct = new ForeignServiceProduct
                     {
-                        ProductGoogleId = "hard_currency_360"
+                        ProductGoogleId = ForeignServiceProducts.HardCurrency360,
+                        Consumable = true
                     },
                     Name = "360",
                     ShopItemSize = ProductSizeEnum.Small,
-                    Id = 5,
+                    Id = 5
                 },
                 new ProductModel
                 {
@@ -84,11 +98,12 @@ namespace Code.Scenes.LobbyScene.Scripts
                     ImagePreviewPath = "diamonds40",
                     ForeignServiceProduct = new ForeignServiceProduct
                     {
-                        ProductGoogleId = "hard_currency_950"
+                        ProductGoogleId = ForeignServiceProducts.HardCurrency950,
+                        Consumable = true
                     },
                     Name = "950",
                     ShopItemSize = ProductSizeEnum.Small,
-                    Id = 6,
+                    Id = 6
                 },
                 new ProductModel
                 {
@@ -97,11 +112,12 @@ namespace Code.Scenes.LobbyScene.Scripts
                     ImagePreviewPath = "diamonds80",
                     ForeignServiceProduct = new ForeignServiceProduct
                     {
-                        ProductGoogleId = "hard_currency_2000"
+                        ProductGoogleId = ForeignServiceProducts.HardCurrency2000,
+                        Consumable = true
                     },
                     Name = "2000",
                     ShopItemSize = ProductSizeEnum.Small,
-                    Id = 7,
+                    Id = 7
                 }
             };
             

@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 [ApiController]
 public class PurchasesController : ControllerBase
 {
-    private readonly PurchasesValidatorService purchasesValidatorService;
     private readonly OrderConfirmationService orderConfirmationService;
+    private readonly PurchasesValidatorService purchasesValidatorService;
 
     public PurchasesController(PurchasesValidatorService purchasesValidatorService,
         OrderConfirmationService orderConfirmationService)

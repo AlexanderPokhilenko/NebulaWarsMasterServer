@@ -22,10 +22,10 @@ namespace AmoebaGameMatcherServer.Controllers
         public ShopService(ShopModelDbReader shopModelDbReader, ShopFactoryService shopFactoryService,
             ShopWriterService shopWriterService, ApplicationDbContext dbContext)
         {
-            this.shopModelDbReader = shopModelDbReader;
-            this.shopFactoryService = shopFactoryService;
-            this.shopWriterService = shopWriterService;
             this.dbContext = dbContext;
+            this.shopModelDbReader = shopModelDbReader;
+            this.shopWriterService = shopWriterService;
+            this.shopFactoryService = shopFactoryService;
         }
 
         public async Task<ShopModel> GetShopModelAsync([NotNull] string playerServiceId)
