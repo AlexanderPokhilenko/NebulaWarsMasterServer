@@ -1,7 +1,41 @@
-﻿﻿using ZeroFormatter;
+﻿﻿﻿﻿using ZeroFormatter;
 
 namespace NetworkLibrary.NetworkLibrary.Http
 {
+    public class GameUnitModel
+    {
+       public readonly int AccountId;
+       public readonly string Nickname;
+       public readonly string WarshipName;
+       public readonly ushort TemporaryId;
+       public readonly int WarshipPowerLevel;
+       
+       public GameUnitModel(PlayerModel playerModel)
+       {
+           AccountId = playerModel.AccountId;
+           Nickname = playerModel.Nickname;
+           WarshipName = playerModel.WarshipName;
+           TemporaryId = playerModel.TemporaryId;
+           WarshipPowerLevel = playerModel.WarshipPowerLevel;
+       }
+       
+       public GameUnitModel(BotModel botModel)
+       {
+           AccountId = -botModel.TemporaryId;
+           Nickname = botModel.BotName;
+           WarshipName = botModel.WarshipName;
+           TemporaryId = botModel.TemporaryId;
+           WarshipPowerLevel = botModel.WarshipPowerLevel;
+       }
+
+       public bool IsBot()
+       {
+           return AccountId < 0;
+       }
+    }
+    /// <summary>
+    /// Модель игрока для клиента
+    /// </summary>
     [ZeroFormattable]
     public struct BattleRoyalePlayerModel
     {

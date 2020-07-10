@@ -1,4 +1,5 @@
-﻿﻿﻿using System.Collections.Generic;
+﻿﻿﻿﻿﻿using System;
+   using System.Collections.Generic;
 using ZeroFormatter;
 
 namespace NetworkLibrary.NetworkLibrary.Http
@@ -27,7 +28,28 @@ namespace NetworkLibrary.NetworkLibrary.Http
 
             return result.ToArray();
         }
-}
+    }
+    
+    public class GameUnitsFactory
+    {
+        public List<GameUnitModel> Create(BattleRoyaleMatchModel fullModel)
+        {
+            List<GameUnitModel> result = new List<GameUnitModel>();
+            foreach (PlayerModel playerModel in fullModel.GameUnits.Players)
+            {
+                GameUnitModel gameUnitModel = new GameUnitModel(playerModel);
+                result.Add(gameUnitModel);
+            }
+
+            foreach (BotModel botModel in fullModel.GameUnits.Bots)
+            {
+                GameUnitModel gameUnitModel = new GameUnitModel(botModel);
+                result.Add(gameUnitModel);
+            }
+
+            return result;
+        }
+    }
     /// <summary>
     /// Нужен для передачи данных о бое между матчером и клиентом.
     /// </summary>

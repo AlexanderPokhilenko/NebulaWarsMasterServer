@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services.GameServerNegotiation;
 using AmoebaGameMatcherServer.Services.PlayerQueueing;
@@ -8,6 +10,24 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services.MatchCreation
 {
+    /// <summary>
+    /// Создаёт уникальные идентификаторы для игроков на время одного боя.
+    /// </summary>
+    public static class PlayerTemporaryIdsFactory
+    {
+        public static List<ushort> Create(int numberOfPlayers)
+        {
+            Random random = new Random();
+            HashSet<ushort> set = new HashSet<ushort>(numberOfPlayers);
+            while (set.Count!=numberOfPlayers)
+            {
+                ushort tmpId = (ushort) random.Next(ushort.MaxValue);
+                set.Add(tmpId);
+            }
+
+            return set.ToList();
+        }
+    }
     /// <summary>
     /// Пытается начать матч для батл рояль режима.
     /// </summary>
@@ -63,17 +83,25 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
             }
             
             //Достаточно игроков?
-            if (gameUnits.Players?.Count + gameUnits.Bots?.Count != numberOfPlayersInMatch)
+            if (gameUnits.Players.Count + gameUnits.Bots?.Count != numberOfPlayersInMatch)
             {
                 return false;
             }
+
+            //Присвоить временные id игрокам на один бой 
+            // List<ushort> playerTmpIds = PlayerTemporaryIdsFactory.Create(gameUnits.Players.Count);
+            // for(int i = 0; i < gameUnits.Players.Count; i++)
+            // {
+            //     PlayerModel playerModel = gameUnits.Players[i];
+            //     playerModel.TemporaryId = playerTmpIds[i];
+            // }
 
             //На каком сервере будет запускаться матч?
             MatchRoutingData matchRoutingData = matchRoutingDataService.GetMatchRoutingData();
 
             //Сделать запись об матче в БД
             Match match = await matchDbWriterService
-                .Write(matchRoutingData, requests.Select(request => request.GetWarshipId()).ToList());;
+                .Write(matchRoutingData, requests.Select(request => request.GetWarshipId()).ToList());
 
             //Создать объект с информацией про бой
             BattleRoyaleMatchModel matchModel = BattleRoyaleMatchDataFactory.Create(gameUnits, match);

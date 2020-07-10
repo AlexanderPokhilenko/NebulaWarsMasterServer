@@ -421,8 +421,6 @@
               <e p="BattleRoyalePlayerModel.cs.meta" t="Include" />
               <e p="BotModel.cs" t="Include" />
               <e p="BotModel.cs.meta" t="Include" />
-              <e p="GameUnit.cs" t="Include" />
-              <e p="GameUnit.cs.meta" t="Include" />
               <e p="GameUnits.cs" t="Include" />
               <e p="GameUnits.cs.meta" t="Include" />
               <e p="PlayerInfoForMatch.cs" t="Include" />
