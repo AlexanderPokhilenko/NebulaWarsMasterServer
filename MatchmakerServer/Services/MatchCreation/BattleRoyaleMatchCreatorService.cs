@@ -63,7 +63,7 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
             }
             
             //Достаточно игроков?
-            if (gameUnits.Players.Count + gameUnits.Bots.Count != numberOfPlayersInMatch)
+            if (gameUnits.Players?.Count + gameUnits.Bots?.Count != numberOfPlayersInMatch)
             {
                 return false;
             }

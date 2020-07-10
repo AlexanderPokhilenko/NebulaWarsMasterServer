@@ -23,7 +23,7 @@ namespace IntegrationTests
             //Arrange
             string serviceId = "someServiceId";
             //Act
-            ActionResult<string> resultObj = await LobbyModelController.Create(serviceId);
+            ActionResult<string> resultObj = await LobbyModelController.Create(serviceId, null);
             string base64String = resultObj.Value;
             byte[] data = Convert.FromBase64String(base64String);
             LobbyModel lobbyModel = ZeroFormatterSerializer.Deserialize<LobbyModel>(data);
