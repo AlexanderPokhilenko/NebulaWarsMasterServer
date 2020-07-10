@@ -3,9 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services.LobbyInitialization;
 using AmoebaGameMatcherServer.Services.Queues;
-using DataLayer;
 using DataLayer.Tables;
-using Microsoft.EntityFrameworkCore;
 
 namespace AmoebaGameMatcherServer.Services.PlayerQueueing
 {
@@ -14,14 +12,14 @@ namespace AmoebaGameMatcherServer.Services.PlayerQueueing
     /// </summary>
     public class QueueExtenderService
     {
-        private readonly DbWarshipsStatisticsReader dbWarshipsStatisticsReader;
+        private readonly DbAccountWarshipReaderService dbAccountWarshipReaderService;
         private readonly BattleRoyaleQueueSingletonService battleRoyaleQueueSingletonServiceService;
 
         public QueueExtenderService(BattleRoyaleQueueSingletonService battleRoyaleQueueSingletonServiceService,
-            DbWarshipsStatisticsReader dbWarshipsStatisticsReader)
+            DbAccountWarshipReaderService dbAccountWarshipReaderService)
         {
-        this.dbWarshipsStatisticsReader = dbWarshipsStatisticsReader;
             this.battleRoyaleQueueSingletonServiceService = battleRoyaleQueueSingletonServiceService;
+            this.dbAccountWarshipReaderService = dbAccountWarshipReaderService;
         }
         
         /// <summary>
@@ -30,18 +28,23 @@ namespace AmoebaGameMatcherServer.Services.PlayerQueueing
         /// <returns>Вернёт false если в БД нет таких данных или игрок уже в очереди.</returns>
         public async Task<bool> TryEnqueuePlayerAsync(string playerServiceId, int warshipId)
         {
-            AccountDbDto accountDbDto = await dbWarshipsStatisticsReader.ReadAsync(playerServiceId);
+            AccountDbDto accountDbDto = await dbAccountWarshipReaderService.ReadAsync(playerServiceId);
+            if (accountDbDto == null)
+            {
+                return false;
+            }
+            
             WarshipDbDto warship = accountDbDto.Warships.SingleOrDefault(dto => dto.Id == warshipId);
-
             if (warship == null)
             {
                 Console.WriteLine("Корабль не принадлежит этому игроку");
                 return false;
             }
 
+            string warshipSkinName = warship.CurrentSkinType.Name;
             MatchEntryRequest matchEntryRequest = new MatchEntryRequest(playerServiceId, accountDbDto.Id, 
                 warship.WarshipType.Name, warship.WarshipPowerLevel, warshipId, DateTime.UtcNow, 
-                accountDbDto.Username);
+                accountDbDto.Username, warshipSkinName);
             return battleRoyaleQueueSingletonServiceService.TryEnqueue(matchEntryRequest);
         }
     }

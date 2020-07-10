@@ -23,7 +23,7 @@ namespace AmoebaGameMatcherServer
             serviceCollection.AddTransient<WarshipImprovementCostChecker>();
             serviceCollection.AddTransient<SkinsDbReaderService>();
             serviceCollection.AddTransient<DbAccountWarshipReaderService>();
-            serviceCollection.AddTransient<StubLobbyModelDbWriteService>();
+            serviceCollection.AddTransient<StubUsernameDbWriterService>();
             serviceCollection.AddTransient<AccountResourcesDbReader>();
         }
     }

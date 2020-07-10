@@ -5,9 +5,12 @@ using System.Threading.Tasks;
 using DataLayer;
 using DataLayer.Tables;
 using Microsoft.EntityFrameworkCore;
+using ZeroFormatter;
 
 namespace AmoebaGameMatcherServer.Services.LobbyInitialization
 {
+   
+    
     public class SkinsDbReaderService
     {
         private readonly ApplicationDbContext dbContext;
@@ -17,7 +20,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
             this.dbContext = dbContext;
         }
 
-        public async Task<Dictionary<int, List<string>>> ReadAsync(int accountId)
+        public async Task<Dictionary<int, List<SkinType>>> ReadAsync(int accountId)
         {
             List<Increment> increments = await dbContext.Increments
                 .Include(increment => increment.SkinType)
@@ -29,7 +32,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
          
             
             //warshipId, skinNames
-            Dictionary<int, List<string>> dict = new Dictionary<int, List<string>>();
+            Dictionary<int, List<SkinType>> dict = new Dictionary<int, List<SkinType>>();
 
             foreach (Increment increment in increments)
             {
@@ -37,14 +40,14 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                 {
                     throw new NullReferenceException(nameof(increment.WarshipId));
                 }
-                
+              
                 if (dict.TryGetValue(increment.WarshipId.Value, out var list))
                 {
-                    list.Add(increment.SkinType.Name);
+                    list.Add(increment.SkinType);
                 }
                 else
                 {
-                    dict.Add(increment.WarshipId.Value, new List<string> {increment.SkinType.Name});
+                    dict.Add(increment.WarshipId.Value, new List<SkinType> {increment.SkinType});
                 }
             }
 

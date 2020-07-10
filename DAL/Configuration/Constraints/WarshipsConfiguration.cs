@@ -24,6 +24,8 @@ namespace DataLayer.TablesConfiguration
                 .HasOne(warship => warship.WarshipType)
                 .WithMany(warshipType => warshipType.Warships)
                 .HasForeignKey(warship => warship.WarshipTypeId);
+            
+            //todo добавить опциональный внешний ключ 
         }
     }
 }

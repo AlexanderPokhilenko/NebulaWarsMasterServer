@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DataLayer;
-using DataLayer.Tables;
 using Microsoft.AspNetCore.Mvc;
 using NetworkLibrary.NetworkLibrary.Http;
 
@@ -15,13 +13,13 @@ namespace AmoebaGameMatcherServer.Controllers
     public class LobbyModelController : ControllerBase
     {
         private readonly LobbyModelFacadeService lobbyModelFacadeService;
-        private readonly StubLobbyModelDbWriteService stubLobbyModelDbWriteService;
+        private readonly StubUsernameDbWriterService stubUsernameDbWriterService;
         
         public LobbyModelController(LobbyModelFacadeService lobbyModelFacadeService, 
-            StubLobbyModelDbWriteService stubLobbyModelDbWriteService)
+            StubUsernameDbWriterService stubUsernameDbWriterService)
         {
             this.lobbyModelFacadeService = lobbyModelFacadeService;
-            this.stubLobbyModelDbWriteService = stubLobbyModelDbWriteService;
+            this.stubUsernameDbWriterService = stubUsernameDbWriterService;
         }
         
         [Route(nameof(Create))]
@@ -47,28 +45,11 @@ namespace AmoebaGameMatcherServer.Controllers
             if (lobbyModel.AccountDto.Username != username && username != null && username.Length < 20)
             {
                 lobbyModel.AccountDto.Username = username;
-                await stubLobbyModelDbWriteService
+                await stubUsernameDbWriterService
                     .WriteAsync(lobbyModel.AccountDto.AccountId, username);
             }
 
             return lobbyModel.SerializeToBase64String();
-        }
-    }
-
-    public class StubLobbyModelDbWriteService
-    {
-        private readonly ApplicationDbContext dbContext;
-
-        public StubLobbyModelDbWriteService(ApplicationDbContext dbContext)
-        {
-            this.dbContext = dbContext;
-        }
-
-        public async Task WriteAsync(int accountId, string username)
-        {
-            Account account = await dbContext.Accounts.FindAsync(accountId);
-            account.Username = username;
-            await dbContext.SaveChangesAsync();
         }
     }
 }

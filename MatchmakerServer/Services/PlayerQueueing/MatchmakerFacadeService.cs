@@ -15,7 +15,8 @@ namespace AmoebaGameMatcherServer.Services.PlayerQueueing
         private readonly BattleRoyaleQueueSingletonService queueSingletonService;
         private readonly BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService;
 
-        public MatchmakerFacadeService(QueueExtenderService queueExtenderService, 
+        public MatchmakerFacadeService(
+            QueueExtenderService queueExtenderService, 
             BattleRoyaleQueueSingletonService queueSingletonService,
             BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService)
         {
@@ -33,7 +34,6 @@ namespace AmoebaGameMatcherServer.Services.PlayerQueueing
                 NumberOfPlayersInQueue = queueSingletonService.GetNumberOfPlayers(),
                 NumberOfPlayersInBattles = unfinishedMatchesService.GetNumberOfPlayersInBattles()
             };
-            
             //Игрок в очереди?
             if (queueSingletonService.Contains(playerServiceId))
             {

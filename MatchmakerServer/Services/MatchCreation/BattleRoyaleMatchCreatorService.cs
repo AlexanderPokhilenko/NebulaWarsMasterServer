@@ -88,13 +88,13 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
                 return false;
             }
 
-            //Присвоить временные id игрокам на один бой 
-            // List<ushort> playerTmpIds = PlayerTemporaryIdsFactory.Create(gameUnits.Players.Count);
-            // for(int i = 0; i < gameUnits.Players.Count; i++)
-            // {
-            //     PlayerModel playerModel = gameUnits.Players[i];
-            //     playerModel.TemporaryId = playerTmpIds[i];
-            // }
+            // Присвоить временные id игрокам на один бой 
+             List<ushort> playerTmpIds = PlayerTemporaryIdsFactory.Create(gameUnits.Players.Count);
+             for(int i = 0; i < gameUnits.Players.Count; i++)
+             {
+                 PlayerModel playerModel = gameUnits.Players[i];
+                 playerModel.TemporaryId = playerTmpIds[i];
+             }
 
             //На каком сервере будет запускаться матч?
             MatchRoutingData matchRoutingData = matchRoutingDataService.GetMatchRoutingData();

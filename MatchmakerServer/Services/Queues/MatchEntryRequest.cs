@@ -14,7 +14,7 @@ namespace AmoebaGameMatcherServer.Services.Queues
         private readonly PlayerModel playerModel;
 
         public MatchEntryRequest(string playerServiceId, int accountId, string warshipPrefabName,
-            int warshipPowerLevel, int warshipId,  DateTime dictionaryEntryTime, string nickname)
+            int warshipPowerLevel, int warshipId,  DateTime dictionaryEntryTime, string nickname, string skinName)
         {
             ushort temporaryId;
             unchecked
@@ -29,7 +29,8 @@ namespace AmoebaGameMatcherServer.Services.Queues
                 ServiceId = playerServiceId,
                 AccountId = accountId,
                 TemporaryId = temporaryId,
-                Nickname = nickname
+                Nickname = nickname,
+                SkinName = skinName
             };
 
             this.warshipId = warshipId;

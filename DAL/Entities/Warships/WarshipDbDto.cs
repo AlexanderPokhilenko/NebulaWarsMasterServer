@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NetworkLibrary.NetworkLibrary.Http;
 
 namespace DataLayer.Tables
 {
@@ -12,6 +13,8 @@ namespace DataLayer.Tables
         public int WarshipRating { get; set; }
         public AccountDbDto Account { get; set; }
         public WarshipType WarshipType { get; set; }
-        public List<string> Skins { get; set; } = new List<string>();
+        public List<SkinType> Skins { get; set; } = new List<SkinType>();
+        public SkinType CurrentSkinType { get; set; }
+        public SkinTypeEnum? CurrentSkinTypeId { get; set; }
     }
 }

@@ -3,6 +3,21 @@
 
 namespace NetworkLibrary.NetworkLibrary.Http
 {
+    public enum SkinTypeEnum
+    {
+        Hare=1,
+        Bird=2,
+        Smiley=3,
+        HareDestroyer=4
+    }
+    
+    [ZeroFormattable]
+    public class SkinTypeDto
+    {
+        [Index(0)] public virtual SkinTypeEnum Id { get; set; }
+        [Index(1)] public virtual string Name { get; set; }
+    }
+    
     [ZeroFormattable]
     public class WarshipDto
     {
@@ -14,7 +29,7 @@ namespace NetworkLibrary.NetworkLibrary.Http
         [Index(5)] public virtual string CombatRoleName { get; set; }
         [Index(6)] public virtual string WarshipName { get; set; }
         [Index(7)] public virtual WarshipCharacteristics WarshipCharacteristics { get; set; }
-        [Index(8)] public virtual List<string> SkinNames { get; set; }
+        [Index(8)] public virtual List<SkinTypeDto> Skins { get; set; }
     }
 
     [ZeroFormattable]

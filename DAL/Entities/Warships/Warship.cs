@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+using NetworkLibrary.NetworkLibrary.Http;
 
 namespace DataLayer.Tables
 {
@@ -12,6 +12,8 @@ namespace DataLayer.Tables
         [Required] public int AccountId { get; set; }
         [Required] public WarshipTypeEnum WarshipTypeId { get; set; }
 
+        public SkinType CurrentSkinType { get; set; }
+        public SkinTypeEnum? CurrentSkinTypeId { get; set; }
         public Account Account { get; set; }
         public WarshipType WarshipType { get; set; }
         
@@ -25,9 +27,6 @@ namespace DataLayer.Tables
             stringBuilder.Append($"{GetType().Name} ");
             stringBuilder.Append($"{nameof(Id)} {Id} ");
             stringBuilder.Append($"{nameof(WarshipTypeId)} {WarshipTypeId} ");
-            // stringBuilder.Append($"{nameof(WarshipPowerLevel)} {WarshipPowerLevel} ");
-            // stringBuilder.Append($"{nameof(PowerPointsCost)} {PowerPointsCost} ");
-            // stringBuilder.Append($"{nameof(Amount)} {Amount} ");
             stringBuilder.Append($"{nameof(MatchResults)} {MatchResults?.Count} ");
             return stringBuilder.ToString();
         }

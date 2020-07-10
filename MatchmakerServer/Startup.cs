@@ -1,4 +1,5 @@
 ﻿using System;
+using AmoebaGameMatcherServer.Controllers;
 using AmoebaGameMatcherServer.Services.GoogleApi;
 using AmoebaGameMatcherServer.Services.MatchCreationInitiation;
 using AmoebaGameMatcherServer.Services.Queues;
@@ -36,6 +37,8 @@ namespace AmoebaGameMatcherServer
             services.AddFeature(new PurchasingFeature());
             services.AddFeature(new WarshipUpgradeFeature());
             services.AddFeature(new ShopFeature());
+            
+            services.AddTransient<CurrentSkinChangingService>();
             
             //Общие очереди игроков
             services.AddSingleton<BattleRoyaleQueueSingletonService>();

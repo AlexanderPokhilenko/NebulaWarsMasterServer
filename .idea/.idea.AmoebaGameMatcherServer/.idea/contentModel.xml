@@ -86,6 +86,8 @@
             </e>
           </e>
           <e p="Warships" t="Include">
+            <e p="SkinType.cs" t="Include" />
+            <e p="SkinTypeEnum.cs" t="Include" />
             <e p="Warship.cs" t="Include" />
             <e p="WarshipCombatRole.cs" t="Include" />
             <e p="WarshipCombatRoleEnum.cs" t="Include" />
@@ -172,10 +174,13 @@
           </e>
           <e p="ProfileServer" t="Include">
             <e p="Lobby" t="Include">
+              <e p="CurrentSkinChangingService.cs" t="Include" />
               <e p="LobbyModelController.cs" t="Include" />
               <e p="LootboxController.cs" t="Include" />
               <e p="PurchasesController.cs" t="Include" />
               <e p="ShopController.cs" t="Include" />
+              <e p="SkinController.cs" t="Include" />
+              <e p="StubUsernameDbWriterService.cs" t="Include" />
               <e p="WarshipImprovementPurchasingController.cs" t="Include" />
               <e p="WarshipLevelController.cs" t="Include" />
             </e>

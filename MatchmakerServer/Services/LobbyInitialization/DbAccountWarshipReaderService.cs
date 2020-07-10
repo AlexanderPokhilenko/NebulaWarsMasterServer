@@ -18,8 +18,8 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
         public DbAccountWarshipReaderService(DbWarshipsStatisticsReader dbWarshipsStatisticsReader,
             SkinsDbReaderService skinsDbReaderService)
         {
-            this.dbWarshipsStatisticsReader = dbWarshipsStatisticsReader;
             this.skinsDbReaderService = skinsDbReaderService;
+            this.dbWarshipsStatisticsReader = dbWarshipsStatisticsReader;
         }
         
         [ItemCanBeNull]
@@ -31,21 +31,22 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                 return null;
             }
 
-            //заполнить скины для всех кораблей
-            Dictionary<int, List<string>> skinsDict = await skinsDbReaderService.ReadAsync(accountDbDto.Id);
+            //заполнить список скинов для всех типов кораблей
+            Dictionary<int, List<SkinType>> skinsDict = await skinsDbReaderService.ReadAsync(accountDbDto.Id);
             if (skinsDict == null || skinsDict.Count == 0)
             {
                 throw new Exception("warship has no skin");
             }
             
-            foreach (var (warshipId, list) in skinsDict)
+            foreach ((int warshipId, List<SkinType> list) in skinsDict)
             {
-                accountDbDto.Warships
-                    .Single(warship => warship.Id == warshipId)
-                    .Skins.AddRange(list);
+                WarshipDbDto warship = accountDbDto.Warships.Single(warship1 => warship1.Id == warshipId);
+                warship.Skins.AddRange(list);
+                warship.CurrentSkinType = list
+                    .SingleOrDefault(skinType => skinType.Id == warship.CurrentSkinTypeId);
             }
 
-            foreach (var warshipDbDto in accountDbDto.Warships)
+            foreach (WarshipDbDto warshipDbDto in accountDbDto.Warships)
             {
                 if (warshipDbDto.WarshipPowerLevel == 0)
                 {

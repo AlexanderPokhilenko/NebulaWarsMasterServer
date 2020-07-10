@@ -14,5 +14,6 @@ namespace NetworkLibrary.NetworkLibrary.Http
         [Index(3)] public virtual string ServiceId { get; set; }
         [Index(4)] public virtual int AccountId { get; set; }
         [Index(5)] public virtual string Nickname { get; set; }
+        [Index(6)] public virtual string SkinName { get; set; }
     }
 }
