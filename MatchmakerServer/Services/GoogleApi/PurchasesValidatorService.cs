@@ -30,13 +30,12 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
         [ItemCanBeNull]
         public async Task<string[]> ValidateAsync([NotNull] string sku, [NotNull] string token)
         {
-            throw new NotImplementedException();
             string googleResponseJson = await googleApiPurchasesWrapperService.ValidateAsync(sku, token);
             bool responseIsOk = googleResponseJson != null;
             if (responseIsOk)
             {
                 Console.WriteLine($"{nameof(googleResponseJson)} {googleResponseJson}");
-                string developerPayload = new GoogleResponceConverter().GetDeveloperPayload(googleResponseJson);
+                string developerPayload = new GoogleResponseConverter().GetDeveloperPayload(googleResponseJson);
                 
                 Console.WriteLine($"{nameof(developerPayload)} "+developerPayload);
                 Account account = await dbContext.Accounts
@@ -77,7 +76,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
         }
     }
 
-    public class GoogleResponceConverter
+    public class GoogleResponseConverter
     {
         public string GetDeveloperPayload(string googleResponseJson)
         {
