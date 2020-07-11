@@ -42,6 +42,7 @@ namespace AmoebaGameMatcherServer.Services.PlayerQueueing
             }
 
             string warshipSkinName = warship.CurrentSkinType.Name;
+            Console.WriteLine(warshipSkinName);
             MatchEntryRequest matchEntryRequest = new MatchEntryRequest(playerServiceId, accountDbDto.Id, 
                 warship.WarshipType.Name, warship.WarshipPowerLevel, warshipId, DateTime.UtcNow, 
                 accountDbDto.Username, warshipSkinName);

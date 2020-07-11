@@ -119,19 +119,19 @@ namespace AmoebaGameMatcherServer.Services
                         Amount = 1,
                         SkinTypeId = SkinTypeEnum.Hare,
                         WarshipId = account.Warships[0].Id
-                    },   
-                    new Increment
-                    {
-                        IncrementTypeId = IncrementTypeEnum.Skin,
-                        Amount = 1,
-                        SkinTypeId = SkinTypeEnum.HareDestroyer,
-                        WarshipId = account.Warships[0].Id
                     },
                     new Increment
                     {
                         IncrementTypeId = IncrementTypeEnum.Skin,
                         Amount = 1,
                         SkinTypeId = SkinTypeEnum.Bird,
+                        WarshipId = account.Warships[1].Id
+                    },   
+                    new Increment
+                    {
+                        IncrementTypeId = IncrementTypeEnum.Skin,
+                        Amount = 1,
+                        SkinTypeId = SkinTypeEnum.Raven,
                         WarshipId = account.Warships[1].Id
                     },
                     new Increment
