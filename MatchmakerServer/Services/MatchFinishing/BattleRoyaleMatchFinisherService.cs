@@ -36,6 +36,11 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
         public async Task<bool> UpdatePlayerMatchResultInDbAsync(int accountId, int placeInMatch, int matchId)
         {
             Account account = await dbContext.Accounts.FindAsync(accountId);
+            if (account == null)
+            {
+                throw new Exception("Аккаунта не существует");
+            }
+                
             bool isPlayerInMatch = unfinishedMatchesSingletonService.IsPlayerInMatch(account.ServiceId, matchId);
             if (!isPlayerInMatch)
             {

@@ -285,7 +285,6 @@
             <e p="BattleRoyaleMatchCreatorService.cs" t="Include" />
             <e p="BattleRoyaleMatchDataFactory.cs" t="Include" />
             <e p="BotTemporaryIdFactory.cs" t="Include" />
-            <e p="MatchCreationFailureReason.cs" t="Include" />
             <e p="MatchDbWriterService.cs" t="Include" />
           </e>
           <e p="MatchCreationInitiation" t="Include">
