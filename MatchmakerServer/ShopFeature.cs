@@ -1,4 +1,5 @@
 ﻿using AmoebaGameMatcherServer.Controllers;
+using Code.Scenes.LobbyScene.Scripts;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AmoebaGameMatcherServer
@@ -18,6 +19,7 @@ namespace AmoebaGameMatcherServer
             serviceCollection.AddTransient<ShopWriterService>();
             serviceCollection.AddTransient<IncrementFactoriesService>();
             serviceCollection.AddTransient<DecrementFactoriesService>();
+            serviceCollection.AddTransient<HardCurrencySectionFactory>();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AmoebaGameMatcherServer.Controllers;
+using AmoebaGameMatcherServer.Services;
 using AmoebaGameMatcherServer.Services.LobbyInitialization;
 using DataLayer;
 using NUnit.Framework;
@@ -18,6 +19,7 @@ namespace IntegrationTests
         protected LobbyModelController LobbyModelController => SetUpFixture.LobbyModelController;
         protected WarshipImprovementFacadeService WarshipImprovementFacadeService => SetUpFixture.WarshipImprovementFacadeService;
         protected WarshipImprovementCostChecker WarshipImprovementCostChecker => SetUpFixture.WarshipImprovementCostChecker;
+        protected DefaultAccountFactoryService DefaultAccountFactoryService => SetUpFixture.DefaultAccountFactoryService;
         
         [SetUp]
         public void ResetChangeTracker()

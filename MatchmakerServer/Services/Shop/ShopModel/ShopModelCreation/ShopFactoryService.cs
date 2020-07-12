@@ -21,12 +21,14 @@ namespace AmoebaGameMatcherServer.Controllers
     {
         private readonly AccountDbReaderService accountDbReaderService;
         private readonly DailyDealsSectionFactory dailyDealsSectionFactory;
+        private readonly HardCurrencySectionFactory hardCurrencySectionFactory;
 
         public ShopFactoryService(AccountDbReaderService accountDbReaderService, 
-            DailyDealsSectionFactory dailyDealsSectionFactory)
+            DailyDealsSectionFactory dailyDealsSectionFactory, HardCurrencySectionFactory hardCurrencySectionFactory)
         {
             this.accountDbReaderService = accountDbReaderService;
             this.dailyDealsSectionFactory = dailyDealsSectionFactory;
+            this.hardCurrencySectionFactory = hardCurrencySectionFactory;
         }
 
         public async Task<ShopModel> Create([NotNull] string playerServiceId)
@@ -42,7 +44,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 UiSections = new List<SectionModel>()
             };
             shopModel.UiSections.Add(await dailyDealsSectionFactory.Create(accountDbDto));
-            shopModel.UiSections.Add(new HardCurrencySectionFactory().Create());
+            shopModel.UiSections.Add(hardCurrencySectionFactory.Create());
             
                  
             // shopModel.UiSections.Add(new SkinsSectionFactory().Create());

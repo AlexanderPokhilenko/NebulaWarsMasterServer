@@ -16,13 +16,13 @@ namespace AmoebaGameMatcherServer.Services
             this.dbContext = dbContext;
         }
 
-        public async Task CreateDefaultAccountAsync(string playerId)
+        public async Task<Account> CreateDefaultAccountAsync(string playerServiceId)
         {
             //сохранить аккаунт с кораблями
             Account account = new Account
             {
-                ServiceId = playerId,
-                Username = playerId,
+                ServiceId = playerServiceId,
+                Username = playerServiceId,
                 RegistrationDateTime = DateTime.UtcNow,
                 Warships = new List<Warship>
                 {
@@ -147,6 +147,8 @@ namespace AmoebaGameMatcherServer.Services
             await dbContext.Transactions.AddAsync(transaction);
             await dbContext.Transactions.AddAsync(skinTransaction);
             await dbContext.SaveChangesAsync();
+
+            return account;
         }
     }
 }

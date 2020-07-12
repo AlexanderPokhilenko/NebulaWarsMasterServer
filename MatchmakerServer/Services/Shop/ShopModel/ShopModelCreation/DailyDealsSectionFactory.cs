@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using DataLayer.Tables;
 using JetBrains.Annotations;
@@ -29,6 +30,23 @@ namespace AmoebaGameMatcherServer.Controllers
             List<ProductModel> warshipPowerPoints = wppProductsFactoryService
                 .CreateWarshipPowerPointProducts(accountDbDto);
 
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            foreach (ProductModel warshipPowerPoint in warshipPowerPoints)
+            {
+                Console.WriteLine(warshipPowerPoint.WarshipPowerPointsProduct.WarshipId);
+            }
+            
+            
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            
             List<ProductModel> productModels = new List<ProductModel>();
             productModels.Add(prizeProductModel);
             productModels.AddRange(warshipPowerPoints);

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using AmoebaGameMatcherServer.Services;
 using DataLayer.Tables;
 using LibraryForTests;
 using NUnit.Framework;
@@ -13,10 +14,8 @@ namespace IntegrationTests
         public async Task SmallAccount()
         {
             //Arrange
-            AccountBuilder accountBuilder = new AccountBuilder(2);
-            AccountDirector accountDirector = new SmallAccountDirector(accountBuilder, Context);
-            accountDirector.WriteToDatabase();
-            Account originalAccount = accountDirector.GetAccount();
+            string serviceId = "serviceId";
+            Account originalAccount = await DefaultAccountFactoryService.CreateDefaultAccountAsync(serviceId);
             int originalAccountRating = accountDirector.GetAccountRating();
             int originalAccountSoftCurrency = accountDirector.GetAccountSoftCurrency();
             int originalAccountHardCurrency = accountDirector.GetAccountHardCurrency();

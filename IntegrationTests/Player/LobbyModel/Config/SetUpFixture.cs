@@ -16,7 +16,7 @@ namespace IntegrationTests
     internal sealed class SetUpFixture
     {
         internal static ApplicationDbContext DbContext;
-        private const string DatabaseName = "DevelopmentDb102";
+        private const string DatabaseName = "DevelopmentDb500";
         internal static AccountFacadeService AccountFacadeService;
         internal static LobbyModelController LobbyModelController;
         internal static AccountDbReaderService AccountReaderService;
@@ -25,6 +25,7 @@ namespace IntegrationTests
         internal static NotShownRewardsReaderService NotShownRewardsReaderService;
         internal static WarshipImprovementCostChecker WarshipImprovementCostChecker;
         internal static WarshipImprovementFacadeService WarshipImprovementFacadeService;
+        internal static DefaultAccountFactoryService DefaultAccountFactoryService;
 
         [OneTimeSetUp]
         public void Initialize()
@@ -47,8 +48,8 @@ namespace IntegrationTests
             AccountResourcesDbReader accountResourcesDbReader = new AccountResourcesDbReader(npgsqlConnection);
             AccountReaderService = new AccountDbReaderService(dbAccountWarshipReaderService, accountResourcesDbReader);
             NotShownRewardsReaderService = new NotShownRewardsReaderService(DbContext);
-            DefaultAccountFactoryService defaultAccountFactoryService = new DefaultAccountFactoryService(DbContext);
-            var accountRegistrationService = new AccountRegistrationService(defaultAccountFactoryService);
+            DefaultAccountFactoryService = new DefaultAccountFactoryService(DbContext);
+            var accountRegistrationService = new AccountRegistrationService(DefaultAccountFactoryService);
             var warshipsCharacteristicsService = new WarshipsCharacteristicsService();
             AccountMapperService accountMapperService = new AccountMapperService(warshipsCharacteristicsService);
             AccountFacadeService = new AccountFacadeService(AccountReaderService, accountRegistrationService);
@@ -59,6 +60,7 @@ namespace IntegrationTests
             var warshipPowerScaleModelStorage = new WarshipPowerScaleModelStorage();
             WarshipImprovementCostChecker = new WarshipImprovementCostChecker(warshipPowerScaleModelStorage);
             WarshipImprovementFacadeService = new WarshipImprovementFacadeService(AccountReaderService, DbContext, WarshipImprovementCostChecker);
+            
         }
 
         public static void SetUp()

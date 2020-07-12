@@ -17,7 +17,7 @@ namespace AmoebaGameMatcherServer.Controllers
             Increment increment = new Increment
             {
                 IncrementTypeId = IncrementTypeEnum.WarshipPowerPoints,
-                Amount = productModel.Amount,
+                Amount = productModel.WarshipPowerPointsProduct.PowerPointsIncrement,
                 WarshipId = productModel.WarshipPowerPointsProduct.WarshipId
             };
             increments.Add(increment);

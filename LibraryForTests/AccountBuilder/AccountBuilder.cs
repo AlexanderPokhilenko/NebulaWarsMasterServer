@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DataLayer.Tables;
+using NetworkLibrary.NetworkLibrary.Http;
 
 namespace LibraryForTests
 {
@@ -30,7 +31,8 @@ namespace LibraryForTests
         {
             Warship warship = new Warship
             {
-                WarshipTypeId = (WarshipTypeEnum) account.Warships.Count+1
+                WarshipTypeId = (WarshipTypeEnum) account.Warships.Count+1,
+                CurrentSkinTypeId = (SkinTypeEnum) account.Warships.Count+1
             };
             
             account.Warships.Add(warship);
