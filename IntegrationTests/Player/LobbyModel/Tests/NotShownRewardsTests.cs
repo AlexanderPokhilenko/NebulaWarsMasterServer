@@ -18,14 +18,12 @@ namespace IntegrationTests
         public async Task CorrectReadingTest(int randomSeed)
         {
             //Arrange
-            AccountBuilder accountBuilder = new AccountBuilder(randomSeed);
-            AccountDirector accountDirector = new BigAccountDirector(accountBuilder, Context);
-            accountDirector.WriteToDatabase();
-            Account originalAccount = accountDirector.GetAccount();
-            int notShownSoftCurrencyDelta = accountDirector.GetNotShownSoftCurrencyDelta();
-            int notShownHardCurrencyDelta = accountDirector.GetNotShownHardCurrencyDelta();
-            int notShownAccountRatingDelta = accountDirector.GetNotShownAccountRatingDelta();
-            int notShownLootboxPointsDelta = accountDirector.GetNotShownLootboxPointsDelta();
+            string serviceId = "serviceId";
+            Account originalAccount = await DefaultAccountFactoryService.CreateDefaultAccountAsync(serviceId);
+            int notShownSoftCurrencyDelta = originalAccount.GetNotShownSoftCurrencyDelta();
+            int notShownHardCurrencyDelta = originalAccount.GetNotShownHardCurrencyDelta();
+            int notShownAccountRatingDelta = originalAccount.GetNotShownAccountRatingDelta();
+            int notShownLootboxPointsDelta = originalAccount.GetNotShownLootboxPointsDelta();
             
             //Act
             RewardsThatHaveNotBeenShown result = await NotShownRewardsReaderService
@@ -55,10 +53,8 @@ namespace IntegrationTests
         public async Task CorrectMarkingTest(int randomSeed)
         {
             //Arrange
-            AccountBuilder accountBuilder = new AccountBuilder(randomSeed);
-            AccountDirector accountDirector = new BigAccountDirector(accountBuilder, Context);
-            accountDirector.WriteToDatabase();
-            Account originalAccount = accountDirector.GetAccount();
+            string serviceId = "serviceId";
+            Account originalAccount = await DefaultAccountFactoryService.CreateDefaultAccountAsync(serviceId);
                         
             //Act
             RewardsThatHaveNotBeenShown result1 =await NotShownRewardsReaderService

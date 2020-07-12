@@ -16,9 +16,9 @@ namespace IntegrationTests
             //Arrange
             string serviceId = "serviceId";
             Account originalAccount = await DefaultAccountFactoryService.CreateDefaultAccountAsync(serviceId);
-            int originalAccountRating = accountDirector.GetAccountRating();
-            int originalAccountSoftCurrency = accountDirector.GetAccountSoftCurrency();
-            int originalAccountHardCurrency = accountDirector.GetAccountHardCurrency();
+            int originalAccountRating = originalAccount.GetAccountRating();
+            int originalAccountSoftCurrency = originalAccount.GetAccountSoftCurrency();
+            int originalAccountHardCurrency = originalAccount.GetAccountHardCurrency();
             
             //Act
             AccountDbDto accountDbDto = await AccountDbReaderService.ReadAccountAsync(originalAccount.ServiceId);
@@ -34,8 +34,8 @@ namespace IntegrationTests
             foreach (var warship in originalAccount.Warships)
             {
                 WarshipDbDto warshipDbDto = accountDbDto.Warships.Single(w => w.Id == warship.Id);
-                int originalWarshipRating = accountDirector.GetWarshipRating(warship.Id);
-                int originalWarshipPowerPoints = accountDirector.GetWarshipPowerPoints(warship.Id);
+                int originalWarshipRating = originalAccount.GetWarshipRating(warship.Id);
+                int originalWarshipPowerPoints = originalAccount.GetWarshipPowerPoints(warship.Id);
                 Assert.AreEqual(originalWarshipRating, warshipDbDto.WarshipRating);
                 Assert.AreEqual(originalWarshipPowerPoints, warshipDbDto.WarshipPowerPoints);
             }
@@ -52,13 +52,11 @@ namespace IntegrationTests
         public async Task MediumAccount(int seedForRandom)
         {
             //Arrange
-            AccountBuilder accountBuilder = new AccountBuilder(seedForRandom);
-            AccountDirector accountDirector = new MediumAccountDirector(accountBuilder, Context);
-            accountDirector.WriteToDatabase();
-            Account originalAccount = accountDirector.GetAccount();
-            int originalAccountRating = accountDirector.GetAccountRating();
-            int originalAccountSoftCurrency = accountDirector.GetAccountSoftCurrency();
-            int originalAccountHardCurrency = accountDirector.GetAccountHardCurrency();
+            string serviceId = "serviceId";
+            Account originalAccount = await DefaultAccountFactoryService.CreateDefaultAccountAsync(serviceId);
+            int originalAccountRating = originalAccount.GetAccountRating();
+            int originalAccountSoftCurrency = originalAccount.GetAccountSoftCurrency();
+            int originalAccountHardCurrency = originalAccount.GetAccountHardCurrency();
             
             //Act
             AccountDbDto accountDbDto = await AccountDbReaderService.ReadAccountAsync(originalAccount.ServiceId);
@@ -74,8 +72,8 @@ namespace IntegrationTests
             foreach (var warship in originalAccount.Warships)
             {
                 WarshipDbDto warshipDbDto = accountDbDto.Warships.Single(w => w.Id == warship.Id);
-                int originalWarshipRating = accountDirector.GetWarshipRating(warship.Id);
-                int originalWarshipPowerPoints = accountDirector.GetWarshipPowerPoints(warship.Id);
+                int originalWarshipRating = originalAccount.GetWarshipRating(warship.Id);
+                int originalWarshipPowerPoints = originalAccount.GetWarshipPowerPoints(warship.Id);
                 Assert.AreEqual(originalWarshipRating, warshipDbDto.WarshipRating);
                 Assert.AreEqual(originalWarshipPowerPoints, warshipDbDto.WarshipPowerPoints);
             }
@@ -92,13 +90,11 @@ namespace IntegrationTests
         public async Task BigAccounts(int seedForRandom)
         {
             //Arrange
-            AccountBuilder accountBuilder = new AccountBuilder(seedForRandom);
-            AccountDirector accountDirector = new BigAccountDirector(accountBuilder, Context);
-            accountDirector.WriteToDatabase();
-            Account originalAccount = accountDirector.GetAccount();
-            int originalAccountRating = accountDirector.GetAccountRating();
-            int originalAccountSoftCurrency = accountDirector.GetAccountSoftCurrency();
-            int originalAccountHardCurrency = accountDirector.GetAccountHardCurrency();
+            string serviceId = "serviceId";
+            Account originalAccount = await DefaultAccountFactoryService.CreateDefaultAccountAsync(serviceId);
+            int originalAccountRating = originalAccount.GetAccountRating();
+            int originalAccountSoftCurrency = originalAccount.GetAccountSoftCurrency();
+            int originalAccountHardCurrency = originalAccount.GetAccountHardCurrency();
             
             //Act
             AccountDbDto accountDbDto = await AccountDbReaderService.ReadAccountAsync(originalAccount.ServiceId);
@@ -114,8 +110,8 @@ namespace IntegrationTests
             foreach (var warship in originalAccount.Warships)
             {
                 WarshipDbDto warshipDbDto = accountDbDto.Warships.Single(w => w.Id == warship.Id);
-                int originalWarshipRating = accountDirector.GetWarshipRating(warship.Id);
-                int originalWarshipPowerPoints = accountDirector.GetWarshipPowerPoints(warship.Id);
+                int originalWarshipRating = originalAccount.GetWarshipRating(warship.Id);
+                int originalWarshipPowerPoints = originalAccount.GetWarshipPowerPoints(warship.Id);
                 Assert.AreEqual(originalWarshipRating, warshipDbDto.WarshipRating);
                 Assert.AreEqual(originalWarshipPowerPoints, warshipDbDto.WarshipPowerPoints);
             }

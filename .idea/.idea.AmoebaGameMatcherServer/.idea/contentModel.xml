@@ -149,6 +149,7 @@
         <e p="AccountBuilder" t="Include">
           <e p="AccountBuilder.cs" t="Include" />
           <e p="AccountDirector.cs" t="Include" />
+          <e p="AccountExtensions.cs" t="Include" />
           <e p="BigAccountDirector.cs" t="Include" />
           <e p="MediumAccountDirector.cs" t="Include" />
           <e p="SmallAccountDirector.cs" t="Include" />

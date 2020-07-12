@@ -38,10 +38,8 @@ namespace IntegrationTests
         public async Task ServiceReadsAccountIfOneExists()
         {
             //Arrange
-            AccountBuilder accountBuilder = new AccountBuilder(2);
-            AccountDirector accountDirector = new SmallAccountDirector(accountBuilder, Context);
-            accountDirector.WriteToDatabase();
-            Account originalAccount = accountBuilder.GetAccount(); 
+            string serviceId = "serviceId";
+            Account originalAccount = await DefaultAccountFactoryService.CreateDefaultAccountAsync(serviceId); 
             
             //Act
             var account = await AccountFacadeService.ReadOrCreateAccountAsync(originalAccount.ServiceId);

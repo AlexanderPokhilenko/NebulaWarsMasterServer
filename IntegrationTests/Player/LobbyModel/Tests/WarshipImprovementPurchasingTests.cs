@@ -13,14 +13,12 @@ namespace IntegrationTests
         public async Task SmallAccount()
         {
             //Arrange
-            AccountBuilder accountBuilder = new AccountBuilder(2);
-            AccountDirector accountDirector = new SmallAccountDirector(accountBuilder, Context);
-            accountDirector.WriteToDatabase();
-            Account originalAccount = accountDirector.GetAccount();
-            int originalAccountSoftCurrency = accountDirector.GetAccountSoftCurrency();
+            string serviceId = "serviceId";
+            Account originalAccount = await DefaultAccountFactoryService.CreateDefaultAccountAsync(serviceId);
+            int originalAccountSoftCurrency = originalAccount.GetAccountSoftCurrency();
             int warshipId = originalAccount.Warships.First().Id;
-            var warshipPowerPoints = accountDirector.GetWarshipPowerPoints(warshipId);
-            var warshipPowerLevel = accountDirector.GetWarshipPowerLevel(warshipId);
+            var warshipPowerPoints = originalAccount.GetWarshipPowerPoints(warshipId);
+            var warshipPowerLevel = originalAccount.GetWarshipPowerLevel(warshipId);
 
             //Act
             WarshipImprovementCostChecker.CanAPurchaseBeMade(originalAccountSoftCurrency, warshipPowerPoints,

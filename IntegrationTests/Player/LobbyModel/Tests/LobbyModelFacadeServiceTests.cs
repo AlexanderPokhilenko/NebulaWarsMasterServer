@@ -53,13 +53,11 @@ namespace IntegrationTests
         public async Task ServiceReadsAccountIfOneExists()
         {
             //Arrange
-            AccountBuilder accountBuilder = new AccountBuilder(65184);
-            AccountDirector accountDirector = new BigAccountDirector(accountBuilder, Context);
-            accountDirector.WriteToDatabase();
-            Account originalAccount = accountDirector.GetAccount();
-            int originalAccountRating = accountDirector.GetAccountRating();
-            int accountSoftCurrency = accountDirector.GetAccountSoftCurrency();
-            int accountHardCurrency = accountDirector.GetAccountHardCurrency();
+            string serviceId = "serviceId";
+            Account originalAccount = await DefaultAccountFactoryService.CreateDefaultAccountAsync(serviceId);
+            int originalAccountRating = originalAccount.GetAccountRating();
+            int accountSoftCurrency = originalAccount.GetAccountSoftCurrency();
+            int accountHardCurrency = originalAccount.GetAccountHardCurrency();
             //Act
             LobbyModel lobbyModel = await LobbyModelFacadeService.CreateAsync(originalAccount.ServiceId);
             
@@ -125,13 +123,11 @@ namespace IntegrationTests
         public async Task ServiceReadsAccountIfOneExists()
         {
             //Arrange
-            AccountBuilder accountBuilder = new AccountBuilder(65184);
-            AccountDirector accountDirector = new BigAccountDirector(accountBuilder, Context);
-            accountDirector.WriteToDatabase();
-            Account originalAccount = accountDirector.GetAccount();
-            int originalAccountRating = accountDirector.GetAccountRating();
-            int accountSoftCurrency = accountDirector.GetAccountSoftCurrency();
-            int accountHardCurrency = accountDirector.GetAccountHardCurrency();
+            string serviceId = "serviceId";
+            Account originalAccount = await DefaultAccountFactoryService.CreateDefaultAccountAsync(serviceId);
+            int originalAccountRating = originalAccount.GetAccountRating();
+            int accountSoftCurrency = originalAccount.GetAccountSoftCurrency();
+            int accountHardCurrency = originalAccount.GetAccountHardCurrency();
             //Act
             LobbyModel lobbyModel = await LobbyModelFacadeService.CreateAsync(originalAccount.ServiceId);
             
