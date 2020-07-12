@@ -17,7 +17,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
         private readonly NpgsqlConnection connection;
 
         private readonly string sql = @"
- --информация про корабли аккаунта
+--информация про корабли аккаунта
 select a.*, w.*, wt.*, wcr.*,
 (
     select coalesce(
@@ -43,10 +43,10 @@ select a.*, w.*, wt.*, wcr.*,
               select sum(I.""Amount"")
               from ""Increments"" I
                        inner join ""IncrementTypes"" IT on I.""IncrementTypeId"" = IT.""Id""
-              where I.""WarshipId"" = w.""Id"" and IT.""Name""='WarshipPowerLevel'
+              where I.""WarshipId"" = w.""Id"" and IT.""Name""='WarshipPowerPoints'
           )
           ,0
-    ) as ""WarshipPowerLevel"" 
+    ) as ""WarshipPowerPoints"" 
 ),
 (
     select coalesce(
@@ -66,6 +66,7 @@ from ""Accounts"" A
          join ""WarshipCombatRoles"" wcr on wt.""WarshipCombatRoleId"" = wcr.""Id""
 where a.""ServiceId"" = @serviceIdPar
 group by a.""Id"", w.""Id"", wt.""Id"", wcr.""Id"";
+
             ";
 
         public DbWarshipsStatisticsReader(NpgsqlConnection connection)
@@ -82,32 +83,6 @@ group by a.""Id"", w.""Id"", wt.""Id"", wcr.""Id"";
                 .QueryAsync<AccountDbDto, WarshipDbDto,WarshipType, WarshipCombatRole, WarshipStatistics, AccountDbDto>(sql,
                     (accountDbDto, warshipDbDto, warshipTypeArg, warshipCombatRole, warshipStatistics) =>
                     {
-                        Console.WriteLine(accountDbDto.Id);
-                        Console.WriteLine(accountDbDto.Rating);
-                        Console.WriteLine(accountDbDto.Username);
-                        Console.WriteLine(accountDbDto.HardCurrency);
-                        Console.WriteLine(accountDbDto.LootboxPoints);
-                        Console.WriteLine(accountDbDto.ServiceId);
-                        Console.WriteLine(accountDbDto.SoftCurrency);
-                        Console.WriteLine(accountDbDto.RegistrationDateTime);
-                        Console.WriteLine(warshipDbDto.Id);
-                        Console.WriteLine(warshipDbDto.AccountId);
-                        Console.WriteLine(warshipDbDto.WarshipRating);
-                        Console.WriteLine(warshipDbDto.WarshipPowerLevel);
-                        Console.WriteLine(warshipDbDto.WarshipPowerPoints);
-                        Console.WriteLine(warshipDbDto.CurrentSkinTypeId); ;
-                        Console.WriteLine(warshipTypeArg.Id);
-                        Console.WriteLine(warshipTypeArg.Name);
-                        Console.WriteLine(warshipTypeArg.WarshipCombatRoleId);
-                        Console.WriteLine(warshipDbDto.Id);
-                        Console.WriteLine(warshipCombatRole.Id);
-                        Console.WriteLine(warshipCombatRole.Name);
-                        Console.WriteLine(warshipStatistics.WarshipLevel);
-                        Console.WriteLine(warshipStatistics.WarshipRating);
-                        Console.WriteLine(warshipStatistics.WarshipPowerPoints);
-                        
-                        
-                        
                         //Если такого аккаунта ещё не было
                         if (!lookup.TryGetValue(accountDbDto.Id, out AccountDbDto account))
                         {
@@ -125,7 +100,6 @@ group by a.""Id"", w.""Id"", wt.""Id"", wcr.""Id"";
                             warship.WarshipType = warshipTypeArg;
                             warship.WarshipRating = warshipStatistics.WarshipRating;
                             warship.WarshipPowerPoints = warshipStatistics.WarshipPowerPoints;
-                            Console.WriteLine("очки силы при чтении "+warshipStatistics.WarshipPowerPoints);
                             warship.WarshipType.WarshipCombatRole = warshipCombatRole;
                             warship.Id = warshipDbDto.Id;
                             warship.WarshipPowerLevel = warshipStatistics.WarshipLevel;
