@@ -30,6 +30,7 @@ namespace AmoebaGameMatcherServer.Controllers
             await dbContext.ShopModels.AddAsync(shopModelDb);
             await dbContext.SaveChangesAsync();
             
+            //Эта хрень нужна для того, чтобы id у модели магазина всегда был уникальным
             shopModel.Id = shopModelDb.Id;
             shopModelDb.SerializedModel = ZeroFormatterSerializer.Serialize(shopModel);
             await dbContext.SaveChangesAsync();

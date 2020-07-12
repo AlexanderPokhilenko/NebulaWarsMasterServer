@@ -4,7 +4,7 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace Code.Scenes.LobbyScene.Scripts
 {
-    public class DiscountsSectionFactory
+    public class iscountsSectionFactory
     {
         public SectionModel Create()
         {

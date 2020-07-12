@@ -12,7 +12,7 @@ using ZeroFormatter;
 namespace AmoebaGameMatcherServer.Controllers
 {
     /// <summary>
-    /// Отвечает за создание и запись модели магазиан в БД
+    /// Отвечает за создание и запись модели магазина в БД
     /// </summary>
     public class ShopService
     {

@@ -32,7 +32,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 throw new Exception("Это тип транзакции не может быть обработан " +productModel.TransactionType);
             }
 
-            if (decrementFactories.ContainsKey(productModel.CurrencyTypeEnum))
+            if (!decrementFactories.ContainsKey(productModel.CurrencyTypeEnum))
             {
                 throw new Exception("Этот тип валюты не может быть обработан "+productModel.CurrencyTypeEnum);
             }

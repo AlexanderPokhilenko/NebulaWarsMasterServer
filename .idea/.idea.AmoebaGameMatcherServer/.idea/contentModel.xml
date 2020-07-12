@@ -192,6 +192,7 @@
           <e p="DichExtensions.cs" t="Include" />
           <e p="Globals.cs" t="Include" />
           <e p="GooglePurchasesValidationController.cs" t="Include" />
+          <e p="ListExtension.cs" t="Include" />
           <e p="PeriodicTaskExecutor.cs" t="Include" />
         </e>
         <e p="Features" t="Include">
@@ -318,10 +319,6 @@
             <e p="PlayersQueue.cs" t="Include" />
           </e>
           <e p="Shop" t="Include">
-            <e p="DailyDealsSectionFactory.cs" t="Include" />
-            <e p="DailyDealsUiContainerService.cs" t="Include" />
-            <e p="ListExtension.cs" t="Include" />
-            <e p="PrizeFactoryService.cs" t="Include" />
             <e p="SellerService.cs" t="Include" />
             <e p="ShopFactoryService.cs" t="Include" />
             <e p="ShopFreeGiftManagerService.cs" t="Include" />
@@ -330,30 +327,37 @@
             <e p="ShopModelDbReader.cs" t="Include" />
             <e p="ShopRegularCurrencyService.cs" t="Include" />
             <e p="ShopSectionsCreation" t="Include">
-              <e p="ShopModelBuilder.cs.meta" t="Include" />
-              <e p="ShopSectionFactories" t="Include">
-                <e p="DailyDealsSectionFactory.cs" t="Include" />
+              <e p="DailyDealsSectionFactory.cs" t="Include" />
+              <e p="DailyDealsUiContainerService.cs" t="Include" />
+              <e p="DeleteMeShopSectionFactories" t="Include">
                 <e p="DiscountsSectionFactory.cs" t="Include" />
-                <e p="DiscountsSectionFactory.cs.meta" t="Include" />
                 <e p="HardCurrencySectionFactory.cs" t="Include" />
-                <e p="HardCurrencySectionFactory.cs.meta" t="Include" />
                 <e p="LootboxSectionFactory.cs" t="Include" />
-                <e p="LootboxSectionFactory.cs.meta" t="Include" />
                 <e p="SkinsSectionFactory.cs" t="Include" />
-                <e p="SkinsSectionFactory.cs.meta" t="Include" />
                 <e p="SoftCurrencySectionFactory.cs" t="Include" />
-                <e p="SoftCurrencySectionFactory.cs.meta" t="Include" />
                 <e p="WarshipsSectionFactory.cs" t="Include" />
-                <e p="WarshipsSectionFactory.cs.meta" t="Include" />
               </e>
-              <e p="ShopSectionFactories.meta" t="Include" />
+              <e p="PrizeFactoryService.cs" t="Include" />
+              <e p="WarshipPowerPointsProductsFactoryService.cs" t="Include" />
             </e>
             <e p="ShopService.cs" t="Include" />
             <e p="ShopSkinsService.cs" t="Include" />
             <e p="ShopTransactionFactory.cs" t="Include" />
             <e p="ShopWarshipPowerImprovementService.cs" t="Include" />
             <e p="ShopWriterService.cs" t="Include" />
-            <e p="WarshipPowerPointsProductsFactoryService.cs" t="Include" />
+            <e p="SoftCurrencyDecrementType.cs" t="Include" />
+            <e p="TransactionCreation" t="Include">
+              <e p="DecrementFactoriesService.cs" t="Include" />
+              <e p="FreeDecrementType.cs" t="Include" />
+              <e p="HardCurrencyDecrementType.cs" t="Include" />
+              <e p="IDecrementFactory.cs" t="Include" />
+              <e p="IIncrementsFactory.cs" t="Include" />
+              <e p="IncrementFactoriesService.cs" t="Include" />
+              <e p="LootboxIncrementsFactory.cs" t="Include" />
+              <e p="LootboxSetIncrementsFactory.cs" t="Include" />
+            </e>
+            <e p="WarshipIncrementFactory.cs" t="Include" />
+            <e p="WarshipPowerPointsIncrementsFactory.cs" t="Include" />
           </e>
         </e>
         <e p="ShopFeature.cs" t="Include" />
@@ -372,8 +376,8 @@
             <e p="RewardsThatHaveNotBeenShown.cs" t="Include" />
             <e p="RewardsThatHaveNotBeenShown.cs.meta" t="Include" />
             <e p="Shop" t="Include">
-              <e p="CurrencyType.cs" t="Include" />
               <e p="CurrencyType.cs.meta" t="Include" />
+              <e p="CurrencyTypeEnum.cs" t="Include" />
               <e p="DiscountPrice.cs" t="Include" />
               <e p="DiscountPrice.cs.meta" t="Include" />
               <e p="ForeignServiceProduct.cs" t="Include" />
