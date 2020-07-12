@@ -45,7 +45,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
             //         dbContext.Purchases.Add(new TestPurchase
             //         {
             //             Data = googleResponseJson,
-            //             DateTime = dateTimeOffset.DateTime,
+            //             CreationDateTime = dateTimeOffset.CreationDateTime,
             //             AcknowledgementState = acknowledgementState,
             //             ConsumptionState = consumptionState,
             //             DeveloperPayload = developerPayload,

@@ -71,8 +71,8 @@
 //                             {
 //                                 Match = new Match
 //                                 {
-//                                     StartTime = DateTime.Now,
-//                                     FinishTime = DateTime.Now + TimeSpan.FromMinutes(5),
+//                                     StartTime = CreationDateTime.Now,
+//                                     FinishTime = CreationDateTime.Now + TimeSpan.FromMinutes(5),
 //                                     GameServerIp = "someIp",
 //                                     GameServerUdpPort = 668
 //                                 },
@@ -89,8 +89,8 @@
 //                             {
 //                                 Match = new Match
 //                                 {
-//                                     StartTime = DateTime.Now,
-//                                     FinishTime = DateTime.Now + TimeSpan.FromMinutes(5),
+//                                     StartTime = CreationDateTime.Now,
+//                                     FinishTime = CreationDateTime.Now + TimeSpan.FromMinutes(5),
 //                                     GameServerIp = "someIp",
 //                                     GameServerUdpPort = 668
 //                                 },
@@ -106,7 +106,7 @@
 //                             {
 //                                 Match = new Match
 //                                 {
-//                                     StartTime = DateTime.Now,
+//                                     StartTime = CreationDateTime.Now,
 //                                     FinishTime = null,
 //                                     GameServerIp = "someIp",
 //                                     GameServerUdpPort = 668

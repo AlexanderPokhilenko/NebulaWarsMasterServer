@@ -20,7 +20,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                 new ProductModel
                 {
                     TransactionType = TransactionTypeEnum.SoftCurrency,
-                    CurrencyType = CurrencyType.HardCurrency,
+                    CurrencyTypeEnum = CurrencyTypeEnum.HardCurrency,
                     ImagePreviewPath = "coins5",
                     Name = "150",
                     CostString = 20.ToString(),
@@ -31,7 +31,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                 new ProductModel
                 {
                     TransactionType = TransactionTypeEnum.SoftCurrency,
-                    CurrencyType = CurrencyType.HardCurrency,
+                    CurrencyTypeEnum = CurrencyTypeEnum.HardCurrency,
                     ImagePreviewPath = "coins10",
                     Name = "400",
                     CostString = 50.ToString(),
@@ -47,7 +47,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                 new ProductModel
                 {
                     TransactionType = TransactionTypeEnum.SoftCurrency,
-                    CurrencyType = CurrencyType.HardCurrency,
+                    CurrencyTypeEnum = CurrencyTypeEnum.HardCurrency,
                     ImagePreviewPath = "coins25",
                     Name = "1200",
                     CostString = 140.ToString(),
@@ -58,7 +58,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                 new ProductModel
                 {
                     TransactionType = TransactionTypeEnum.SoftCurrency,
-                    CurrencyType = CurrencyType.HardCurrency,
+                    CurrencyTypeEnum = CurrencyTypeEnum.HardCurrency,
                     ImagePreviewPath = "coins30",
                     Name = "2600",
                     CostString = 280.ToString(),

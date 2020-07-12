@@ -21,7 +21,7 @@ namespace NetworkLibrary.NetworkLibrary.Http
         /// или числом + типом валюты за настоящую валюту.
         /// </summary>
         [Index(2)] public virtual string CostString { get; set; }
-        [Index(3)] public virtual CurrencyType CurrencyType { get; set; }
+        [Index(3)] public virtual CurrencyTypeEnum CurrencyTypeEnum { get; set; }
        
         [Index(4)] public virtual int Id { get; set; }
         [Index(5)] public virtual string Name { get; set; }

@@ -24,7 +24,7 @@ namespace AmoebaGameMatcherServer.Controllers
             {
                 Id = 1,
                 TransactionType = TransactionTypeEnum.SoftCurrency,
-                CurrencyType = CurrencyType.Free,
+                CurrencyTypeEnum = CurrencyTypeEnum.Free,
                 ImagePreviewPath = "coins5",
                 ShopItemSize = ProductSizeEnum.Small,
                 Name = "15",

@@ -7,7 +7,7 @@ using JetBrains.Annotations;
 namespace DataLayer.Tables
 {
     /// <summary>
-    /// Заказ может содержать несколько ресурсов (комплект).
+    /// Хранит информацию про всё, что меняет ресурсы аккаунта. 
     /// </summary>
     public class Transaction
     {

@@ -13,7 +13,7 @@
 //         [Column("regularCurrencyCost")] [Required] public int RegularCurrencyCost { get; set; }
 //         [Column("spentPowerPoints")] [Required] public int SpentPowerPoints { get; set; }
 //         [Column("obtainedPowerLevel")] [Required] public int ObtainedPowerLevel { get; set; }
-//         [Column("dateTime")] [Required] public DateTime DateTime { get; set; }
+//         [Column("dateTime")] [Required] public CreationDateTime CreationDateTime { get; set; }
 //         
 //         [ForeignKey("WarshipId")] public virtual Warship Warship { get; set; }
 //     }

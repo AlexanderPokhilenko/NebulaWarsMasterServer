@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿namespace Libraries.NetworkLibrary.Experimental
+﻿﻿﻿﻿﻿﻿﻿﻿﻿namespace Libraries.NetworkLibrary.Experimental
 {
     public enum MatchRewardTypeEnum
     {

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
@@ -11,6 +10,9 @@ using ZeroFormatter;
 
 namespace AmoebaGameMatcherServer.Controllers
 {
+    /// <summary>
+    /// Читает последнюю модель магазина для игрока
+    /// </summary>
     public class ShopModelDbReader
     {
         private readonly ApplicationDbContext dbContext;
@@ -23,17 +25,21 @@ namespace AmoebaGameMatcherServer.Controllers
         [ItemCanBeNull]
         public async Task<ShopModel> ReadShopModel(int accountId)
         {
-            DateTime aDayAgo = DateTime.UtcNow - TimeSpan.FromDays(1);
-            ShopModelDb shopModel = await dbContext.ShopModels
-                .Where(shopModelDb => shopModelDb.AccountId == accountId && shopModelDb.DateTime > aDayAgo)
-                .SingleOrDefaultAsync();
-
-            if (shopModel == null)
+            ShopModelDb shopModelDb = await dbContext.ShopModels
+                .Where(shopModel1 => shopModel1.AccountId == accountId)
+                .OrderBy(shopModel1 => shopModel1.CreationDateTime)
+                .FirstOrDefaultAsync();
+            if (shopModelDb == null)
             {
                 return null;
             }
-            
-            return ZeroFormatterSerializer.Deserialize<ShopModel>(shopModel.SerializedModel);
+
+            if (shopModelDb.SerializedModel == null)
+            {
+                Console.WriteLine("warning Модель магазина из БД пуста");
+                return null;
+            }
+            return ZeroFormatterSerializer.Deserialize<ShopModel>(shopModelDb.SerializedModel);
         }
     }
 }

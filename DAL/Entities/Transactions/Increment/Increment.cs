@@ -6,7 +6,7 @@ using NetworkLibrary.NetworkLibrary.Http;
 namespace DataLayer.Tables
 {
     /// <summary>
-    /// Все значения положительны.
+    /// Описывает, что было добавлено в ходе транзакции. В транзакции модет быть много инкрементов.
     /// </summary>
     public class Increment
     {

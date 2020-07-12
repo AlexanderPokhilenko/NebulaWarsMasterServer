@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿namespace DataLayer.Tables
+﻿﻿﻿﻿﻿﻿namespace DataLayer.Tables
 {
     public enum TransactionTypeEnum
     {

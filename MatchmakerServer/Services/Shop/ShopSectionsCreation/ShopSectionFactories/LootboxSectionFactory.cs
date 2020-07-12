@@ -18,7 +18,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                 new ProductModel
                 {
                     TransactionType = TransactionTypeEnum.Lootbox,
-                    CurrencyType = CurrencyType.HardCurrency,
+                    CurrencyTypeEnum = CurrencyTypeEnum.HardCurrency,
                     CostString = 30.ToString(),
                     Cost = 30,
                     ImagePreviewPath = "BigLootbox",
@@ -32,7 +32,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                 new ProductModel
                 {
                     TransactionType = TransactionTypeEnum.Lootbox,
-                    CurrencyType = CurrencyType.HardCurrency,
+                    CurrencyTypeEnum = CurrencyTypeEnum.HardCurrency,
                     CostString = 80.ToString(),
                     Cost = 80,
                     ImagePreviewPath = "BigLootbox",

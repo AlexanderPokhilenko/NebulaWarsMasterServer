@@ -30,7 +30,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 return BadRequest();
             }
 
-            ShopModel shopModel=null;
+            ShopModel shopModel = null;
             try
             {
                 shopModel = await shopService.GetShopModelAsync(playerId);
@@ -49,15 +49,21 @@ namespace AmoebaGameMatcherServer.Controllers
 
         [Route(nameof(BuyProduct))]
         [HttpPost]
-        public async Task<ActionResult<string>> BuyProduct([FromForm] string playerId, [FromForm] int productId)
+        public async Task<ActionResult<string>> BuyProduct([FromForm] string playerId, [FromForm] int productId,
+            [FromForm] string base64ProductModel, [FromForm] int shopModelId)
         {
             if (string.IsNullOrEmpty(playerId))
             {
                 return BadRequest();
             }
+            
+            if (string.IsNullOrEmpty(base64ProductModel))
+            {
+                return BadRequest();
+            }
             Console.WriteLine($"{nameof(playerId)} {playerId} {nameof(productId)} {productId}");
 
-            await sellerService.BuyProduct(playerId, productId);
+            await sellerService.BuyProduct(playerId, productId, base64ProductModel, shopModelId);
             return Ok();
         }
     }

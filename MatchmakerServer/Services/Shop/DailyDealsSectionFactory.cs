@@ -9,7 +9,7 @@ using NetworkLibrary.NetworkLibrary.Http;
 namespace AmoebaGameMatcherServer.Controllers
 {
     /// <summary>
-    /// Создаёт модель для секции ежедныевных предложений
+    /// Создаёт модель для секции ежедневных предложений
     /// </summary>
     public class DailyDealsSectionFactory
     {

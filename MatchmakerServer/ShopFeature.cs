@@ -16,6 +16,8 @@ namespace AmoebaGameMatcherServer
             serviceCollection.AddTransient<ShopModelDbReader>();
             serviceCollection.AddTransient<ShopFactoryService>();
             serviceCollection.AddTransient<ShopWriterService>();
+            serviceCollection.AddTransient<IncrementFactoriesService>();
+            serviceCollection.AddTransient<DecrementFactoriesService>();
         }
     }
 }

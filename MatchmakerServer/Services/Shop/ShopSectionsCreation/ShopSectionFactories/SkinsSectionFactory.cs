@@ -20,7 +20,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                 new ProductModel
                 {
                     TransactionType = TransactionTypeEnum.Skin,
-                    CurrencyType = CurrencyType.HardCurrency,
+                    CurrencyTypeEnum = CurrencyTypeEnum.HardCurrency,
                     Name = "HARE DESTROYER",
                     CostString = 200.ToString(),
                     Cost = 200,
@@ -41,7 +41,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                 new ProductModel
                 {
                     TransactionType = TransactionTypeEnum.Skin,
-                    CurrencyType = CurrencyType.HardCurrency,
+                    CurrencyTypeEnum = CurrencyTypeEnum.HardCurrency,
                     Name = "BIRD DESTROYER",
                     CostString = 50.ToString(),
                     Cost = 50,

@@ -20,7 +20,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                 new ProductModel
                 {
                     TransactionType = TransactionTypeEnum.Warship,
-                    CurrencyType = CurrencyType.HardCurrency,
+                    CurrencyTypeEnum = CurrencyTypeEnum.HardCurrency,
                     Name = "HARE",
                     CostString = 200.ToString(),
                     Cost = 200,

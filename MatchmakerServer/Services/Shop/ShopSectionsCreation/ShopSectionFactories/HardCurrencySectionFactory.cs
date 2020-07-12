@@ -33,7 +33,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                 new ProductModel
                 {
                     TransactionType = TransactionTypeEnum.HardCurrency,
-                    CurrencyType = CurrencyType.RealCurrency,
+                    CurrencyTypeEnum = CurrencyTypeEnum.RealCurrency,
                     ImagePreviewPath = "diamonds5",
                     ForeignServiceProduct = new ForeignServiceProduct
                     {
@@ -47,7 +47,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                 new ProductModel
                 {
                     TransactionType = TransactionTypeEnum.HardCurrency,
-                    CurrencyType = CurrencyType.RealCurrency,
+                    CurrencyTypeEnum = CurrencyTypeEnum.RealCurrency,
                     ImagePreviewPath = "diamonds10",
                     ForeignServiceProduct = new ForeignServiceProduct
                     {
@@ -61,7 +61,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                 new ProductModel
                 {
                     TransactionType = TransactionTypeEnum.HardCurrency,
-                    CurrencyType = CurrencyType.RealCurrency,
+                    CurrencyTypeEnum = CurrencyTypeEnum.RealCurrency,
                     ImagePreviewPath = "diamonds15",
                     ForeignServiceProduct = new ForeignServiceProduct
                     {
@@ -80,7 +80,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                 new ProductModel
                 {
                     TransactionType = TransactionTypeEnum.HardCurrency,
-                    CurrencyType = CurrencyType.RealCurrency,
+                    CurrencyTypeEnum = CurrencyTypeEnum.RealCurrency,
                     ImagePreviewPath = "diamonds20",
                     ForeignServiceProduct = new ForeignServiceProduct
                     {
@@ -94,7 +94,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                 new ProductModel
                 {
                     TransactionType = TransactionTypeEnum.HardCurrency,
-                    CurrencyType = CurrencyType.RealCurrency,
+                    CurrencyTypeEnum = CurrencyTypeEnum.RealCurrency,
                     ImagePreviewPath = "diamonds40",
                     ForeignServiceProduct = new ForeignServiceProduct
                     {
@@ -108,7 +108,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                 new ProductModel
                 {
                     TransactionType = TransactionTypeEnum.HardCurrency,
-                    CurrencyType = CurrencyType.RealCurrency,
+                    CurrencyTypeEnum = CurrencyTypeEnum.RealCurrency,
                     ImagePreviewPath = "diamonds80",
                     ForeignServiceProduct = new ForeignServiceProduct
                     {

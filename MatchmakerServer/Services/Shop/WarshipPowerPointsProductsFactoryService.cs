@@ -24,10 +24,10 @@ namespace AmoebaGameMatcherServer.Controllers
                 int currentWarshipId = warshipIds[index];
                 WarshipDbDto warshipDbDto = accountDbDto.Warships
                     .Single(dto => dto.Id == currentWarshipId);
-                var wpp = new ProductModel
+                ProductModel wpp = new ProductModel
                 {
                     TransactionType = TransactionTypeEnum.WarshipPowerPoints,
-                    CurrencyType = CurrencyType.SoftCurrency,
+                    CurrencyTypeEnum = CurrencyTypeEnum.SoftCurrency,
                     ImagePreviewPath = warshipDbDto.WarshipType.Name.ToLower(),
                     CostString = 140.ToString(),
                     Cost = 140,

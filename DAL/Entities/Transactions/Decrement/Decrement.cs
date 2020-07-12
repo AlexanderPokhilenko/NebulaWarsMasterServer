@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataLayer.Tables
 {
+    /// <summary>
+    /// Описывает цену покупки.
+    /// </summary>
     public class Decrement
     {
         [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }

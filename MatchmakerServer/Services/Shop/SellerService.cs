@@ -3,13 +3,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
 using DataLayer.Tables;
-using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using NetworkLibrary.NetworkLibrary.Http;
 using ZeroFormatter;
 
 namespace AmoebaGameMatcherServer.Controllers
 {
+    /// <summary>
+    /// Отвечает за создание транзакций при покупке товаров. 
+    /// </summary>
     public class SellerService
     {
         private readonly ApplicationDbContext dbContext;
@@ -21,8 +23,9 @@ namespace AmoebaGameMatcherServer.Controllers
             this.shopTransactionFactory = shopTransactionFactory;
         }
 
-        public async Task BuyProduct([NotNull] string playerServiceId, int productId)
+        public async Task BuyProduct(string playerServiceId, int productId, string base64ProductModel, int shopModelId)
         {
+            //Аккаунт существует?
             Account account = await dbContext.Accounts
                 .Where(account1 => account1.ServiceId == playerServiceId)
                 .SingleOrDefaultAsync();
@@ -31,31 +34,38 @@ namespace AmoebaGameMatcherServer.Controllers
                 throw new Exception("Такого аккаунта не существует");
             }
             
-            //Достать последнюю модель магазина
+            //Модель магазина существует?
             ShopModelDb shopModelDb = await dbContext
                 .ShopModels
-                .Include(shopModelDb1 => shopModelDb1.Account)
-                .Where(shopModelDb1 => shopModelDb1.Account.ServiceId == playerServiceId)
-                .OrderByDescending(shopModelDb1 => shopModelDb1.DateTime)
-                .Take(1)
+                .Where(shopModelDb1 => shopModelDb1.Id == shopModelId)
                 .SingleOrDefaultAsync();
-                
-
             if (shopModelDb == null)
             {
-                throw new Exception("У аккаунта не сохранено ни одной модели магазина");
+                throw new Exception("Такой модели магазина не существует");
             }
 
+            //Эта модель создана для этого аккаунта?
+            if (account.Id != shopModelDb.AccountId)
+            {
+                throw new Exception("Модель магазина не относится к этому аккаунту");
+            }
+            
+            //Эта модель не просрочена?
+            if (DateTime.UtcNow - shopModelDb.CreationDateTime > TimeSpan.FromDays(3))
+            {
+                throw new Exception("Модель магазина просрочена");
+            }
+
+            //В модели магазина из БД есть продукт с таким же id?
             ShopModel shopModel;
             try
             {
                 shopModel = ZeroFormatterSerializer.Deserialize<ShopModel>(shopModelDb.SerializedModel);
             }
-            catch (Exception e)
+            catch
             {
                 throw new Exception("Не удалось десериализовать модель продукта при чтении из БД");
             }
-
             if (shopModel == null)
             {
                 throw new Exception("Не удалось достать модель магазина для игрока");
@@ -65,17 +75,23 @@ namespace AmoebaGameMatcherServer.Controllers
                 .SelectMany(uiSection => uiSection.UiItems)
                 .SelectMany(arr => arr)
                 .SingleOrDefault(productModel1 => productModel1.Id == productId);
-
             if (productModel == null)
             {
-                throw new Exception("В последней версии магазина этого продукта нет");
+                throw new Exception("В модели магазина такого продукта нет.");
             }
             
-            // создать транзакцию по модели продукта
+            //Продукт из БД полностью совпадает с присланным с клиента?
+            byte[] productModelFromClient = Convert.FromBase64String(base64ProductModel);
+            byte[] productModelFromDb = ZeroFormatterSerializer.Serialize(productModel);
+            if (!productModelFromClient.SequenceEqual(productModelFromDb))
+            {
+                throw new Exception("Модели продуктов не совпадают");
+            }
+
+            //создать транзакцию по модели продукта
             Transaction transaction = shopTransactionFactory.Create(productModel, account.Id);
             
             //todo проверить транзакцию на адекватность
-            
             
             //записать транзакцию
             await dbContext.Transactions.AddAsync(transaction);

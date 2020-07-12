@@ -18,7 +18,7 @@
 //             BattleRoyaleQueueSingletonService battleRoyaleQueue= new BattleRoyaleQueueSingletonService();
 //             string playerServiceId = UniqueStringFactory.Create();
 //             MatchEntryRequest queueInfoForPlayer = new MatchEntryRequest(playerServiceId, 0,
-//                 null, 0, 0 , DateTime.Now);
+//                 null, 0, 0 , CreationDateTime.Now);
 //
 //             //Act    
 //             bool success1 = battleRoyaleQueue.TryEnqueue(queueInfoForPlayer);
@@ -43,9 +43,9 @@
 //             BattleRoyaleQueueSingletonService battleRoyaleQueue= new BattleRoyaleQueueSingletonService();
 //             string playerServiceId = UniqueStringFactory.Create();
 //             MatchEntryRequest queueInfoForPlayer1 = new MatchEntryRequest(playerServiceId, 0,
-//                 null, 0, 0 , DateTime.Now);
+//                 null, 0, 0 , CreationDateTime.Now);
 //             MatchEntryRequest queueInfoForPlayer2 = new MatchEntryRequest(playerServiceId, 0,
-//                 null, 0, 1 , DateTime.Now);
+//                 null, 0, 1 , CreationDateTime.Now);
 //
 //             //Act    
 //             bool success1 = battleRoyaleQueue.TryEnqueue(queueInfoForPlayer1);
@@ -72,9 +72,9 @@
 //             string playerServiceId2 = UniqueStringFactory.Create();
 //             
 //             MatchEntryRequest queueInfoForPlayer1 = new MatchEntryRequest(playerServiceId1, 0,
-//                 null, 0, 0 , DateTime.Now);
+//                 null, 0, 0 , CreationDateTime.Now);
 //             MatchEntryRequest queueInfoForPlayer2 = new MatchEntryRequest(playerServiceId2, 0,
-//                 null, 0, 1 , DateTime.Now);
+//                 null, 0, 1 , CreationDateTime.Now);
 //
 //             //Act    
 //             bool success1 = battleRoyaleQueue.TryEnqueue(queueInfoForPlayer1);
@@ -229,7 +229,7 @@
 //         //     //Act    
 //         //     battleRoyaleQueue.TryEnqueuePlayerAsync(str1, new Warship());
 //         //     battleRoyaleQueue.TryEnqueuePlayerAsync(str2, new Warship());
-//         //     DateTime? dateTime = battleRoyaleQueue.GetOldestRequestTime();
+//         //     CreationDateTime? dateTime = battleRoyaleQueue.GetOldestRequestTime();
 //         //     var playerInfo = battleRoyaleQueue.TakeMatchEntryRequests(1);
 //         //
 //         //     //Assert

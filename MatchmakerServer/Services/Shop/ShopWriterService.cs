@@ -7,6 +7,9 @@ using ZeroFormatter;
 
 namespace AmoebaGameMatcherServer.Controllers
 {
+    /// <summary>
+    /// Отвечает за сохранение новой модели магазина в БД
+    /// </summary>
     public class ShopWriterService
     {
         private readonly ApplicationDbContext dbContext;
@@ -16,17 +19,22 @@ namespace AmoebaGameMatcherServer.Controllers
             this.dbContext = dbContext;
         }
 
-        public async Task Write(ShopModel shopModel, int accountId)
+        public async Task<ShopModel> Write(ShopModel shopModel, int accountId)
         {
-            ShopModelDb shopModelDb = new ShopModelDb()
+            ShopModelDb shopModelDb = new ShopModelDb
             {
-                DateTime = DateTime.UtcNow,
-                SerializedModel = ZeroFormatterSerializer.Serialize(shopModel),
+                CreationDateTime = DateTime.UtcNow,
                 AccountId = accountId
             };
            
             await dbContext.ShopModels.AddAsync(shopModelDb);
             await dbContext.SaveChangesAsync();
+            
+            shopModel.Id = shopModelDb.Id;
+            shopModelDb.SerializedModel = ZeroFormatterSerializer.Serialize(shopModel);
+            await dbContext.SaveChangesAsync();
+
+            return shopModel;
         }
     }
 }

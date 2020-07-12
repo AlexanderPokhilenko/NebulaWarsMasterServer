@@ -8,8 +8,8 @@ namespace DataLayer.Tables
     {
         [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int Id { get; set; }
         [Required] public int AccountId { get; set; }
-        [Required] public DateTime DateTime { get; set; }
-        [Required] public byte[] SerializedModel { get; set; }
+        [Required] public DateTime CreationDateTime { get; set; }
+        public byte[] SerializedModel { get; set; }
         public Account Account { get; set; }
     }
 }

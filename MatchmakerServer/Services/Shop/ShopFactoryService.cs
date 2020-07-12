@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services.LobbyInitialization;
 using Code.Scenes.LobbyScene.Scripts;
@@ -9,12 +10,20 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Controllers
 {
+    /// <summary>
+    /// Отвечает за создание модели магазина.
+    /// Модель зависит от:
+    /// 1) Набора кораблей игрока, их прокачки
+    /// 2) От того, на каких кораблях игрок играет чаще всего.
+    /// 3) От предыдущих покупок игрока.
+    /// </summary>
     public class ShopFactoryService
     {
         private readonly AccountDbReaderService accountDbReaderService;
         private readonly DailyDealsSectionFactory dailyDealsSectionFactory;
 
-        public ShopFactoryService(AccountDbReaderService accountDbReaderService, DailyDealsSectionFactory dailyDealsSectionFactory)
+        public ShopFactoryService(AccountDbReaderService accountDbReaderService, 
+            DailyDealsSectionFactory dailyDealsSectionFactory)
         {
             this.accountDbReaderService = accountDbReaderService;
             this.dailyDealsSectionFactory = dailyDealsSectionFactory;
@@ -40,6 +49,17 @@ namespace AmoebaGameMatcherServer.Controllers
             // shopModel.UiSections.Add(new WarshipsSectionFactory().Create());
             // shopModel.UiSections.Add(new LootboxSectionFactory().Create());
             // shopModel.UiSections.Add(new SoftCurrencySectionFactory().Create());
+            
+            //Присвоить продуктам уникальные id
+            int startIndex = 1;
+            foreach (ProductModel productModel in shopModel.UiSections
+                .SelectMany(section=>section.UiItems)
+                .SelectMany(item=>item))
+            {
+                productModel.Id = startIndex++;
+            }
+            
+            
             return shopModel;
         }
     }

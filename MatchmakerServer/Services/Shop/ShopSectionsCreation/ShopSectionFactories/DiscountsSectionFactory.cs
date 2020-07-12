@@ -22,7 +22,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                 {
                     Id = 2,
                     TransactionType = TransactionTypeEnum.Lootbox,
-                    CurrencyType = CurrencyType.HardCurrency,
+                    CurrencyTypeEnum = CurrencyTypeEnum.HardCurrency,
                     ImagePreviewPath = "BigLootbox",
                     Name = "MEGA BOX",
                     CostString = 139.ToString(),

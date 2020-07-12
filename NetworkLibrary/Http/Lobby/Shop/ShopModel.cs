@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿using System.Collections.Generic;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System.Collections.Generic;
   using ZeroFormatter;
 
 namespace NetworkLibrary.NetworkLibrary.Http
@@ -9,6 +9,7 @@ namespace NetworkLibrary.NetworkLibrary.Http
     [ZeroFormattable]
     public class ShopModel
     {
-        [Index(0)] public virtual List<SectionModel> UiSections { get; set; }
+        [Index(0)] public virtual int Id { get; set; }
+        [Index(1)] public virtual List<SectionModel> UiSections { get; set; }
     }
 }
