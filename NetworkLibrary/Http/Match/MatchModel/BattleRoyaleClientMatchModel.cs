@@ -22,7 +22,7 @@ namespace NetworkLibrary.NetworkLibrary.Http
             foreach (BotModel botModel in fullModel.GameUnits.Bots)
             {
                 BattleRoyalePlayerModel battleRoyalePlayerModel = 
-                    new BattleRoyalePlayerModel(-botModel.TemporaryId, "Василь",  botModel.WarshipName, botModel.WarshipPowerLevel);
+                    new BattleRoyalePlayerModel(-botModel.TemporaryId, botModel.BotName,  botModel.WarshipName, botModel.WarshipPowerLevel);
                 result.Add(battleRoyalePlayerModel);
             }
 
