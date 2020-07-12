@@ -344,6 +344,7 @@
             </e>
             <e p="ShopModel" t="Include">
               <e p="DeleteMeShopSectionFactories" t="Include">
+                <e p="DailyDealsSectionFactory.cs.meta" t="Include" />
                 <e p="DiscountsSectionFactory.cs" t="Include" />
                 <e p="HardCurrencySectionFactory.cs" t="Include" />
                 <e p="LootboxSectionFactory.cs" t="Include" />

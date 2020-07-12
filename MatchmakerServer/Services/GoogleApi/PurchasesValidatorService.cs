@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 namespace AmoebaGameMatcherServer.Services.GoogleApi
 {
     /// <summary>
-    /// Отвечает за начисление предметов после совершения покупки в google play store
+    /// Отвечает за начисление товаров после совершения покупки в google play store
     /// </summary>
     public class PurchasesValidatorService
     {
@@ -55,18 +55,18 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                 //внести данные про покупку в БД
                 await purchaseRegistrationService.TryEnterPurchaseIntoDbAsync(googleResponseJson, sku, token, account.Id);
             
-                // //прочитать из БД и вернуть список названий подтверждённых продуктов
-                // var result = dbContext.Purchases
-                //     .Where(purchase => purchase.AccountId == account.Id && !purchase.IsConfirmed)
-                //     .Select(purchase => purchase.Sku)
-                //     .ToArray();
-                //
-                // Console.WriteLine("result start");
-                // foreach (var s in result)
-                // {
-                //     Console.WriteLine(s);
-                // }
-                // Console.WriteLine("result end");
+                //прочитать из БД и вернуть список названий подтверждённых продуктов
+                var result = dbContext.Purchases
+                    .Where(purchase => purchase.AccountId == account.Id && !purchase.IsConfirmed)
+                    .Select(purchase => purchase.Sku)
+                    .ToArray();
+                
+                Console.WriteLine("result start");
+                foreach (var s in result)
+                {
+                    Console.WriteLine(s);
+                }
+                Console.WriteLine("result end");
                 return null;
             }
             else
