@@ -13,8 +13,9 @@ namespace AmoebaGameMatcherServer
             new IncrementTypeSeeder().Seed(dbContext);
             new MatchRewardTypeSeeder().Seed(dbContext);
             new DecrementTypeSeeder().Seed(dbContext);
-            // new AccountSeeder().Seed(dbContext);
             new SkinTypesSeeder().Seed(dbContext);
+            
+            new AccountSeeder().Seed(dbContext);
         }
     }
 }

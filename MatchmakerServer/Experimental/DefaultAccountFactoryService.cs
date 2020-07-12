@@ -75,7 +75,7 @@ namespace AmoebaGameMatcherServer.Services
             await dbContext.SaveChangesAsync();
             
             //Присвоить кораблям первый уровень
-            Transaction transaction = new Transaction
+            Transaction warshipsLevelTransaction = new Transaction
             {
                 AccountId = account.Id,
                 TransactionTypeId = TransactionTypeEnum.DailyPrize,
@@ -144,8 +144,39 @@ namespace AmoebaGameMatcherServer.Services
                 }
             };
             
-            await dbContext.Transactions.AddAsync(transaction);
+            //Добавить кораблям очки силы
+            Transaction wppTransaction = new Transaction()
+            {
+                TransactionTypeId = TransactionTypeEnum.GameRegistration,
+                AccountId = account.Id,
+                DateTime = DateTime.UtcNow,
+                WasShown = false,
+                Increments = new List<Increment>()
+                {
+                    new Increment
+                    {
+                        IncrementTypeId = IncrementTypeEnum.WarshipPowerPoints,
+                        WarshipId = account.Warships[0].Id,
+                        Amount = 15
+                    },
+                    new Increment
+                    {
+                        IncrementTypeId = IncrementTypeEnum.WarshipPowerPoints,
+                        WarshipId = account.Warships[1].Id,
+                        Amount = 15
+                    },
+                    new Increment
+                    {
+                        IncrementTypeId = IncrementTypeEnum.WarshipPowerPoints,
+                        WarshipId = account.Warships[2].Id,
+                        Amount = 15
+                    },
+                }
+            };
+            
+            await dbContext.Transactions.AddAsync(warshipsLevelTransaction);
             await dbContext.Transactions.AddAsync(skinTransaction);
+            await dbContext.Transactions.AddAsync(wppTransaction);
             await dbContext.SaveChangesAsync();
 
             return account;

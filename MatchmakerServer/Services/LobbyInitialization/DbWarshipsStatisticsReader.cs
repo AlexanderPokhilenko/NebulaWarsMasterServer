@@ -82,6 +82,32 @@ group by a.""Id"", w.""Id"", wt.""Id"", wcr.""Id"";
                 .QueryAsync<AccountDbDto, WarshipDbDto,WarshipType, WarshipCombatRole, WarshipStatistics, AccountDbDto>(sql,
                     (accountDbDto, warshipDbDto, warshipTypeArg, warshipCombatRole, warshipStatistics) =>
                     {
+                        Console.WriteLine(accountDbDto.Id);
+                        Console.WriteLine(accountDbDto.Rating);
+                        Console.WriteLine(accountDbDto.Username);
+                        Console.WriteLine(accountDbDto.HardCurrency);
+                        Console.WriteLine(accountDbDto.LootboxPoints);
+                        Console.WriteLine(accountDbDto.ServiceId);
+                        Console.WriteLine(accountDbDto.SoftCurrency);
+                        Console.WriteLine(accountDbDto.RegistrationDateTime);
+                        Console.WriteLine(warshipDbDto.Id);
+                        Console.WriteLine(warshipDbDto.AccountId);
+                        Console.WriteLine(warshipDbDto.WarshipRating);
+                        Console.WriteLine(warshipDbDto.WarshipPowerLevel);
+                        Console.WriteLine(warshipDbDto.WarshipPowerPoints);
+                        Console.WriteLine(warshipDbDto.CurrentSkinTypeId); ;
+                        Console.WriteLine(warshipTypeArg.Id);
+                        Console.WriteLine(warshipTypeArg.Name);
+                        Console.WriteLine(warshipTypeArg.WarshipCombatRoleId);
+                        Console.WriteLine(warshipDbDto.Id);
+                        Console.WriteLine(warshipCombatRole.Id);
+                        Console.WriteLine(warshipCombatRole.Name);
+                        Console.WriteLine(warshipStatistics.WarshipLevel);
+                        Console.WriteLine(warshipStatistics.WarshipRating);
+                        Console.WriteLine(warshipStatistics.WarshipPowerPoints);
+                        
+                        
+                        
                         //Если такого аккаунта ещё не было
                         if (!lookup.TryGetValue(accountDbDto.Id, out AccountDbDto account))
                         {
@@ -90,7 +116,8 @@ group by a.""Id"", w.""Id"", wt.""Id"", wcr.""Id"";
                         }
 
                         //Попытаться достать корабль c таким id из коллекции
-                        var warship = account.Warships.Find(wArg => wArg.Id == warshipDbDto.Id);
+                        WarshipDbDto warship = account.Warships
+                            .Find(wArg => wArg.Id == warshipDbDto.Id);
                         //Этот корабль уже есть в коллекции?
                         if (warship == null)
                         {
@@ -98,6 +125,7 @@ group by a.""Id"", w.""Id"", wt.""Id"", wcr.""Id"";
                             warship.WarshipType = warshipTypeArg;
                             warship.WarshipRating = warshipStatistics.WarshipRating;
                             warship.WarshipPowerPoints = warshipStatistics.WarshipPowerPoints;
+                            Console.WriteLine("очки силы при чтении "+warshipStatistics.WarshipPowerPoints);
                             warship.WarshipType.WarshipCombatRole = warshipCombatRole;
                             warship.Id = warshipDbDto.Id;
                             warship.WarshipPowerLevel = warshipStatistics.WarshipLevel;

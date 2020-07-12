@@ -31,6 +31,11 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                 return null;
             }
 
+            foreach (var warshipDbDto in accountDbDto.Warships)
+            {
+                Console.WriteLine("очки силы корабля "+warshipDbDto.WarshipPowerPoints);
+            }
+
             //заполнить список скинов для всех типов кораблей
             Dictionary<int, List<SkinType>> skinsDict = await skinsDbReaderService.ReadAsync(accountDbDto.Id);
             if (skinsDict == null || skinsDict.Count == 0)

@@ -21,10 +21,10 @@ namespace AmoebaGameMatcherServer.Controllers
         public LobbyModelFacadeService(AccountFacadeService accountFacadeService,
             NotShownRewardsReaderService notShownRewardsReaderService, AccountMapperService accountMapperService)
         {
-            this.accountFacadeService = accountFacadeService;
-            this.notShownRewardsReaderService = notShownRewardsReaderService;
-            this.accountMapperService = accountMapperService;
             warshipRatingScale = new WarshipRatingScale();
+            this.accountFacadeService = accountFacadeService;
+            this.accountMapperService = accountMapperService;
+            this.notShownRewardsReaderService = notShownRewardsReaderService;
             warshipPowerScaleModelStorage = new WarshipPowerScaleModelStorage();
         }
 

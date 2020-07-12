@@ -34,21 +34,6 @@
             <e p="WarshipTypesConfiguration.cs" t="Include" />
           </e>
           <e p="DbConnectionConfig.cs" t="Include" />
-          <e p="Seeding" t="Include">
-            <e p="DataSeeder.cs" t="Include" />
-            <e p="Seaders" t="Include">
-              <e p="AccountSeeder.cs" t="Include" />
-              <e p="DecrementTypeSeeder.cs" t="Include" />
-              <e p="GameModeSeeder.cs" t="Include" />
-              <e p="IncrementTypeSeeder.cs" t="Include" />
-              <e p="MatchRewardTypeSeeder.cs" t="Include" />
-              <e p="ProductTypesSeeder.cs" t="Include" />
-              <e p="SkinTypesSeeder.cs" t="Include" />
-              <e p="TransactionTypesSeeder.cs" t="Include" />
-              <e p="WarshipCombatRoleSeeder.cs" t="Include" />
-              <e p="WarshipTypesSeeder.cs" t="Include" />
-            </e>
-          </e>
         </e>
         <e p="DAL.csproj" t="IncludeRecursive" />
         <e p="DbContextFactories" t="Include">
@@ -227,6 +212,23 @@
         </e>
         <e p="readme.txt" t="Include" />
         <e p="Services" t="Include">
+          <e p="Database" t="Include">
+            <e p="Seeding" t="Include">
+              <e p="DataSeeder.cs" t="Include" />
+              <e p="Seaders" t="Include">
+                <e p="AccountSeeder.cs" t="Include" />
+                <e p="DecrementTypeSeeder.cs" t="Include" />
+                <e p="GameModeSeeder.cs" t="Include" />
+                <e p="IncrementTypeSeeder.cs" t="Include" />
+                <e p="MatchRewardTypeSeeder.cs" t="Include" />
+                <e p="ProductTypesSeeder.cs" t="Include" />
+                <e p="SkinTypesSeeder.cs" t="Include" />
+                <e p="TransactionTypesSeeder.cs" t="Include" />
+                <e p="WarshipCombatRoleSeeder.cs" t="Include" />
+                <e p="WarshipTypesSeeder.cs" t="Include" />
+              </e>
+            </e>
+          </e>
           <e p="Experimental" t="Include">
             <e p="WarshipImprovementCostChecker.cs" t="Include" />
             <e p="WarshipImprovementFacadeService.cs" t="Include" />
