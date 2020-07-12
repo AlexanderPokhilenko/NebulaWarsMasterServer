@@ -6,6 +6,7 @@ using AmoebaGameMatcherServer.Services.LobbyInitialization;
 using DataLayer;
 using DataLayer.Tables;
 using JetBrains.Annotations;
+using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Controllers
 {
@@ -26,14 +27,14 @@ namespace AmoebaGameMatcherServer.Controllers
         public async Task<bool> TryBuyLevel([NotNull] string serviceId, int warshipId)
         {
             //Аккаунт существует?
-            var accountDbDto = await accountDbReaderService.ReadAccountAsync(serviceId);
+            AccountDbDto accountDbDto = await accountDbReaderService.ReadAccountAsync(serviceId);
             if (accountDbDto == null)
             {
                 throw new Exception("Такого аккаунта не существует");
             }
             
             //Корабль существует?
-            var warshipDbDto = accountDbDto.Warships.SingleOrDefault(dto => dto.Id == warshipId);
+            WarshipDbDto warshipDbDto = accountDbDto.Warships.SingleOrDefault(dto => dto.Id == warshipId);
             if (warshipDbDto == null)
             {
                 throw new Exception("Этому аккаунту не принаждлежит этот корабль");
@@ -46,7 +47,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 throw new Exception("Невозможно осуществить покупку улучшения для корабля по причине "+faultReason);
             }
 
-            var improvementModel = warshipImprovementCostChecker.GetImprovementModel(warshipDbDto.WarshipPowerLevel); 
+            WarshipImprovementModel improvementModel = warshipImprovementCostChecker.GetImprovementModel(warshipDbDto.WarshipPowerLevel); 
             
             //Записать транзакцию
             Transaction transaction = new Transaction

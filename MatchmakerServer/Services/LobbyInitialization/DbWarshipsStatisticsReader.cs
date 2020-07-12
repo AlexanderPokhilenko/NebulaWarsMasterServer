@@ -45,6 +45,14 @@ select a.*, w.*, wt.*, wcr.*,
                        inner join ""IncrementTypes"" IT on I.""IncrementTypeId"" = IT.""Id""
               where I.""WarshipId"" = w.""Id"" and IT.""Name""='WarshipPowerPoints'
           )
+        
+          -
+              (
+                  select coalesce(sum(D.""Amount""),0)
+                  from ""Decrements"" D
+                           inner join ""DecrementTypes"" DT on D.""DecrementTypeId"" = DT.""Id""
+                  where D.""WarshipId"" = w.""Id"" and DT.""Name""='WarshipPowerPoints'
+              )
           ,0
     ) as ""WarshipPowerPoints"" 
 ),
@@ -66,6 +74,8 @@ from ""Accounts"" A
          join ""WarshipCombatRoles"" wcr on wt.""WarshipCombatRoleId"" = wcr.""Id""
 where a.""ServiceId"" = @serviceIdPar
 group by a.""Id"", w.""Id"", wt.""Id"", wcr.""Id"";
+
+
 
             ";
 
