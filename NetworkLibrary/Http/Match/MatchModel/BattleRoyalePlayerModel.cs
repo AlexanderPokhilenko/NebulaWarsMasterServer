@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿using ZeroFormatter;
+﻿﻿﻿﻿using ZeroFormatter;
 
 namespace NetworkLibrary.NetworkLibrary.Http
 {
@@ -6,10 +6,11 @@ namespace NetworkLibrary.NetworkLibrary.Http
     {
        public readonly int AccountId;
        public readonly string Nickname;
+       public readonly string SkinName;
        public readonly string WarshipName;
        public readonly ushort TemporaryId;
        public readonly int WarshipPowerLevel;
-       
+
        public GameUnitModel(PlayerModel playerModel)
        {
            AccountId = playerModel.AccountId;
@@ -17,6 +18,7 @@ namespace NetworkLibrary.NetworkLibrary.Http
            WarshipName = playerModel.WarshipName;
            TemporaryId = playerModel.TemporaryId;
            WarshipPowerLevel = playerModel.WarshipPowerLevel;
+           SkinName = playerModel.SkinName;
        }
        
        public GameUnitModel(BotModel botModel)
@@ -26,6 +28,7 @@ namespace NetworkLibrary.NetworkLibrary.Http
            WarshipName = botModel.WarshipName;
            TemporaryId = botModel.TemporaryId;
            WarshipPowerLevel = botModel.WarshipPowerLevel;
+           SkinName = botModel.WarshipName;
        }
 
        public bool IsBot()
