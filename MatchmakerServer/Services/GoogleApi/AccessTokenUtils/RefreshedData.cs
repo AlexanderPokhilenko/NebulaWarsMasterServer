@@ -1,4 +1,4 @@
-﻿namespace AmoebaGameMatcherServer.Services.GoogleApi
+﻿namespace AmoebaGameMatcherServer.Services.GoogleApi.AccessTokenUtils
 {
     public class RefreshedData
     {

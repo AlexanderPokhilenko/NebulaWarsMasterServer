@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using DataLayer;
 
-namespace AmoebaGameMatcherServer.Services.GoogleApi
+namespace AmoebaGameMatcherServer.Services.GoogleApi.AccessTokenUtils
 {
     /// <summary>
     /// Отвечает за обновление accessToken-а и сохранение данных в файл на случай перезагрузки.

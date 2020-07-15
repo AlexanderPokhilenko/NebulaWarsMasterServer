@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace AmoebaGameMatcherServer
+namespace AmoebaGameMatcherServer.Features
 {
     public abstract class ServiceFeature
     {

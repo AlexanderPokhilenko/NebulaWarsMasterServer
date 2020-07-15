@@ -1,5 +1,14 @@
 ﻿using AmoebaGameMatcherServer.Controllers;
-using Code.Scenes.LobbyScene.Scripts;
+using AmoebaGameMatcherServer.Features;
+using AmoebaGameMatcherServer.Services.Shop.Sales;
+using AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation;
+using AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation.DecrementCreation;
+using AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation.IncrementCreation;
+using AmoebaGameMatcherServer.Services.Shop.ShopModel;
+using AmoebaGameMatcherServer.Services.Shop.ShopModel.DeleteMeShopSectionFactories;
+using AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelCreation;
+using AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelDbReading;
+using AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelDbWriting;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AmoebaGameMatcherServer

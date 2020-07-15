@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AmoebaGameMatcherServer.Experimental;
+using AmoebaGameMatcherServer.Services.Shop.Sales;
+using AmoebaGameMatcherServer.Services.Shop.ShopModel;
 using Microsoft.AspNetCore.Mvc;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Controllers.ProfileServer.Lobby
 {
     [Route("[controller]")]
     [ApiController]
@@ -57,10 +60,21 @@ namespace AmoebaGameMatcherServer.Controllers
                 return BadRequest();
             }
             
+            if (productId == default)
+            {
+                return BadRequest();
+            }
+            
             if (string.IsNullOrEmpty(base64ProductModel))
             {
                 return BadRequest();
             }
+            
+            if (shopModelId == default)
+            {
+                return BadRequest();
+            }
+            
             Console.WriteLine($"{nameof(playerId)} {playerId} {nameof(productId)} {productId}");
 
             await sellerService.BuyProduct(playerId, productId, base64ProductModel, shopModelId);

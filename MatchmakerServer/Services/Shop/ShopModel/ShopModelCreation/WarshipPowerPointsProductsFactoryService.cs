@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AmoebaGameMatcherServer.Experimental;
 using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelCreation
 {
     public class WarshipPowerPointsProductsFactoryService
     {

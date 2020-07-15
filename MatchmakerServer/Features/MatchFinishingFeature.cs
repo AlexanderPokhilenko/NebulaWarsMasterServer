@@ -1,8 +1,7 @@
-﻿using AmoebaGameMatcherServer.Services;
-using AmoebaGameMatcherServer.Services.MatchFinishing;
+﻿using AmoebaGameMatcherServer.Services.MatchFinishing;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AmoebaGameMatcherServer
+namespace AmoebaGameMatcherServer.Features
 {
     public class MatchFinishingFeature:ServiceFeature
     {

@@ -1,7 +1,7 @@
 ﻿using AmoebaGameMatcherServer.Services.PlayerQueueing;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AmoebaGameMatcherServer
+namespace AmoebaGameMatcherServer.Features
 {
     public class PlayerQueueingFeature:ServiceFeature
     {

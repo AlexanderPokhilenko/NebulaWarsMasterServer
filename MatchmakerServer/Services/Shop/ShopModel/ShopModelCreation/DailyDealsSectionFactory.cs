@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Channels;
 using System.Threading.Tasks;
 using DataLayer.Tables;
 using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelCreation
 {
     /// <summary>
     /// Создаёт модель для секции ежедневных предложений
@@ -30,22 +29,11 @@ namespace AmoebaGameMatcherServer.Controllers
             List<ProductModel> warshipPowerPoints = wppProductsFactoryService
                 .CreateWarshipPowerPointProducts(accountDbDto);
 
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            foreach (ProductModel warshipPowerPoint in warshipPowerPoints)
-            {
-                Console.WriteLine(warshipPowerPoint.WarshipPowerPointsProduct.WarshipId);
-            }
-            
-            
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
+          
+            // foreach (ProductModel warshipPowerPoint in warshipPowerPoints)
+            // {
+            //     Console.WriteLine(warshipPowerPoint.WarshipPowerPointsProduct.WarshipId);
+            // }
             
             List<ProductModel> productModels = new List<ProductModel>();
             productModels.Add(prizeProductModel);

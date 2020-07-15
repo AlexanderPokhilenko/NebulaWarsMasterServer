@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace AmoebaGameMatcherServer.Services.GoogleApi
+namespace AmoebaGameMatcherServer.Services.GoogleApi.AccessTokenUtils
 {
     public static class CustomGoogleApiInitializer
     {

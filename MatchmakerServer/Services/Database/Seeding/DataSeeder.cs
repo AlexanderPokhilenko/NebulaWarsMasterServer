@@ -1,6 +1,7 @@
-﻿using DataLayer;
+﻿using AmoebaGameMatcherServer.Services.Database.Seeding.Seaders;
+using DataLayer;
 
-namespace AmoebaGameMatcherServer
+namespace AmoebaGameMatcherServer.Services.Database.Seeding
 {
     public class DataSeeder
     {

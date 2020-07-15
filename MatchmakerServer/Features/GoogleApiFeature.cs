@@ -1,7 +1,8 @@
 ﻿using AmoebaGameMatcherServer.Services.GoogleApi;
+using AmoebaGameMatcherServer.Services.GoogleApi.AccessTokenUtils;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AmoebaGameMatcherServer
+namespace AmoebaGameMatcherServer.Features
 {
     public class GoogleApiFeature:ServiceFeature
     {

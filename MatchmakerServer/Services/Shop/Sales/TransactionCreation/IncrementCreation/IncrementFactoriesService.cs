@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation.IncrementCreation
 {
     /// <summary>
     /// Отвечает за создание фабрик, которые по модели продукта создают инкременты для транзакции

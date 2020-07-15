@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.Lootbox
 {
     /// <summary>
     /// Случайно создёт приз для маленьгоко лутбокса.

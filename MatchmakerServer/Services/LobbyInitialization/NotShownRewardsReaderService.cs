@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Dapper;
 using DataLayer;
 using DataLayer.Tables;
-using Google.Apis.Upload;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using NetworkLibrary.NetworkLibrary.Http;
-using Npgsql;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.LobbyInitialization
 {
     /// <summary>
     /// Читает из БД список наград, начисление которых не было показано и сразу помечает их как показанные.

@@ -1,4 +1,4 @@
-﻿using AmoebaGameMatcherServer.Utils;
+﻿using AmoebaGameMatcherServer.Experimental;
 
 namespace AmoebaGameMatcherServer.Services.PlayerQueueing
 {

@@ -7,7 +7,7 @@ using DataLayer.Tables;
 using Microsoft.EntityFrameworkCore;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.Lootbox
 {
     /// <summary>
     /// Снимает со счёта игрока стоимость лутбокса. Сохраняет награды.

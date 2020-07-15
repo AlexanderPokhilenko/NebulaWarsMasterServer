@@ -1,7 +1,7 @@
 ﻿using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation.DecrementCreation
 {
     public class HardCurrencyDecrementType:IDecrementFactory
     {

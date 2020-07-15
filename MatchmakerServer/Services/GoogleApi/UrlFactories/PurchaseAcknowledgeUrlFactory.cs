@@ -1,6 +1,6 @@
 ﻿using DataLayer;
 
-namespace AmoebaGameMatcherServer.Services.GoogleApi
+namespace AmoebaGameMatcherServer.Services.GoogleApi.UrlFactories
 {
     public class PurchaseAcknowledgeUrlFactory
     {

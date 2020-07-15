@@ -2,7 +2,7 @@
 using DataLayer;
 using DataLayer.Tables;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Controllers.ProfileServer.Lobby
 {
     public class StubUsernameDbWriterService
     {

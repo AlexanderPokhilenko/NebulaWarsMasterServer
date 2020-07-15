@@ -1,7 +1,7 @@
 using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.DeleteMeShopSectionFactories
 {
     public class SoftCurrencySectionFactory
     {

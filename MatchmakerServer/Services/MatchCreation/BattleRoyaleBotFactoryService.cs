@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using AmoebaGameMatcherServer.Services.Queues;
-using AmoebaGameMatcherServer.Utils;
 using DataLayer;
 using NetworkLibrary.NetworkLibrary.Http;
 

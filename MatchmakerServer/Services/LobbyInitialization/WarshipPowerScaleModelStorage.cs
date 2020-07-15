@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.LobbyInitialization
 {
     /// <summary>
     /// Хранит цену для перехода на новый уровень для всех уровней

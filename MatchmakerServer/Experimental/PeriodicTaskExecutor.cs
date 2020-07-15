@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AmoebaGameMatcherServer.Services
+namespace AmoebaGameMatcherServer.Experimental
 {
     /// <summary>
     /// Отвечает за периодический вызов callback-a

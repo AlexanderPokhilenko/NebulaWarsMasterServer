@@ -4,7 +4,7 @@ using System.Linq;
 using DataLayer;
 using DataLayer.Tables;
 
-namespace AmoebaGameMatcherServer
+namespace AmoebaGameMatcherServer.Services.Database.Seeding.Seaders
 {
     public class DecrementTypeSeeder
     {

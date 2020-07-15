@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AmoebaGameMatcherServer.Services.GoogleApi
+namespace AmoebaGameMatcherServer.Services.GoogleApi.AccessTokenUtils
 {
     public static class Extension
     {

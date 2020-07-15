@@ -1,8 +1,7 @@
-﻿using AmoebaGameMatcherServer.Services;
-using AmoebaGameMatcherServer.Services.MatchCreationInitiation;
+﻿using AmoebaGameMatcherServer.Services.MatchCreationInitiation;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AmoebaGameMatcherServer
+namespace AmoebaGameMatcherServer.Features
 {
     public class MatchCreationInitiationFeature:ServiceFeature
     {

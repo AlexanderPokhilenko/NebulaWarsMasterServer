@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AmoebaGameMatcherServer.Services.LobbyInitialization;
 using DataLayer.Tables;
 using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.LobbyInitialization
 {
     /// <summary>
     /// Нужен для получения всей информации о аккаунте при входе в лобби.

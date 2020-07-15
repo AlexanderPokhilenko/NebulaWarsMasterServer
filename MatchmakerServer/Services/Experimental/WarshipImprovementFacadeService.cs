@@ -8,7 +8,7 @@ using DataLayer.Tables;
 using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.Experimental
 {
     public class WarshipImprovementFacadeService
     {

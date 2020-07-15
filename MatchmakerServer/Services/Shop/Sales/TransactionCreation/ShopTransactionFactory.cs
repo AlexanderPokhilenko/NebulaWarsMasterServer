@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation.DecrementCreation;
+using AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation.IncrementCreation;
 using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation
 {
     /// <summary>
     /// Создаёт транзакцию по модели продукта
