@@ -383,6 +383,7 @@
               <e p="ProductMark.cs" t="Include" />
               <e p="ProductModel.cs" t="Include" />
               <e p="ProductSizeEnum.cs" t="Include" />
+              <e p="PurchaseDeveloperPayload.cs" t="Include" />
               <e p="SectionModel.cs" t="Include" />
               <e p="ShopModel.cs" t="Include" />
               <e p="TransactionTypeEnum.cs" t="Include" />

@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 
 namespace AmoebaGameMatcherServer.Services.GoogleApi
 {
+   
     /// <summary>
     /// Отвечает за начисление товаров после совершения покупки в google play store
     /// </summary>

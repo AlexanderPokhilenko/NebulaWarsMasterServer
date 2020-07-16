@@ -22,14 +22,14 @@ namespace AmoebaGameMatcherServer.Controllers.ProfileServer.Lobby
 
         [Route(nameof(Validate))]
         [HttpPost]
-        public async Task<ActionResult<string>> Validate([FromForm]string productId, [FromForm]string token)
+        public async Task<ActionResult<string>> Validate([FromForm]string sku, [FromForm]string token)
         {
-            Console.WriteLine($"{nameof(productId)} {productId}");
+            Console.WriteLine($"{nameof(sku)} {sku}");
             Console.WriteLine($"{nameof(token)} {token}");
         
-            if (string.IsNullOrEmpty(productId))
+            if (string.IsNullOrEmpty(sku))
             {
-                Console.WriteLine($"{nameof(productId)} was null");
+                Console.WriteLine($"{nameof(sku)} was null");
                 return BadRequest();
             }
         
@@ -39,7 +39,7 @@ namespace AmoebaGameMatcherServer.Controllers.ProfileServer.Lobby
                 return BadRequest();
             }
         
-            string[] productIdsToConfirm = await purchasesValidatorService.ValidateAsync(productId, token);
+            string[] productIdsToConfirm = await purchasesValidatorService.ValidateAsync(sku, token);
             if (productIdsToConfirm == null)
             {
                 return Ok();
