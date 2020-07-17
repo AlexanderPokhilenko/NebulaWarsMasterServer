@@ -24,27 +24,28 @@ namespace AmoebaGameMatcherServer.Controllers.ProfileServer.Lobby
         [HttpPost]
         public async Task<ActionResult<string>> Validate([FromForm]string sku, [FromForm]string token)
         {
-            Console.WriteLine($"{nameof(sku)} {sku}");
-            Console.WriteLine($"{nameof(token)} {token}");
-        
-            if (string.IsNullOrEmpty(sku))
-            {
-                Console.WriteLine($"{nameof(sku)} was null");
-                return BadRequest();
-            }
-        
-            if (string.IsNullOrEmpty(token))
-            {
-                Console.WriteLine($"{nameof(token)} was null");
-                return BadRequest();
-            }
-        
-            string[] productIdsToConfirm = await purchasesValidatorService.ValidateAsync(sku, token);
-            if (productIdsToConfirm == null)
-            {
-                return Ok();
-            }
-            return Ok(productIdsToConfirm.SerializeToBase64String());
+            return Ok();
+            // Console.WriteLine($"{nameof(sku)} {sku}");
+            // Console.WriteLine($"{nameof(token)} {token}");
+            //
+            // if (string.IsNullOrEmpty(sku))
+            // {
+            //     Console.WriteLine($"{nameof(sku)} was null");
+            //     return BadRequest();
+            // }
+            //
+            // if (string.IsNullOrEmpty(token))
+            // {
+            //     Console.WriteLine($"{nameof(token)} was null");
+            //     return BadRequest();
+            // }
+            //
+            // string[] productIdsToConfirm = await purchasesValidatorService.ValidateAsync(sku, token);
+            // if (productIdsToConfirm == null)
+            // {
+            //     return Ok();
+            // }
+            // return Ok(productIdsToConfirm.SerializeToBase64String());
         }
 
         [Route(nameof(MarkOrderAsCompleted))]
