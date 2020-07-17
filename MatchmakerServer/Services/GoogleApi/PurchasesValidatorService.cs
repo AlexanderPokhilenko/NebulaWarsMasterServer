@@ -29,50 +29,44 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
         }
 
         [ItemCanBeNull]
-        public async Task<string[]> ValidateAsync([NotNull] string sku, [NotNull] string token)
+        public async Task<bool> ValidateAsync([NotNull] string sku, [NotNull] string token)
         {
-            string googleResponseJson = await googleApiPurchasesWrapperService.ValidateAsync(sku, token);
-            bool responseIsOk = googleResponseJson != null;
-            if (responseIsOk)
+            try
             {
-                Console.WriteLine($"{nameof(googleResponseJson)} {googleResponseJson}");
-                string developerPayload = new GoogleResponseConverter().GetDeveloperPayload(googleResponseJson);
+                string googleResponseJson = await googleApiPurchasesWrapperService.ValidateAsync(sku, token);
+                bool responseIsOk = googleResponseJson != null;
+                if (responseIsOk)
+                {
+                    Console.WriteLine($"{nameof(googleResponseJson)} {googleResponseJson}");
+                    string developerPayload = new GoogleResponseConverter().GetDeveloperPayload(googleResponseJson);
                 
-                Console.WriteLine($"{nameof(developerPayload)} "+developerPayload);
-                Account account = await dbContext.Accounts
-                    .Where(account1 => account1.ServiceId == developerPayload)
-                    .SingleOrDefaultAsync();
+                    Console.WriteLine($"{nameof(developerPayload)} "+developerPayload);
+                    Account account = await dbContext.Accounts
+                        .Where(account1 => account1.ServiceId == developerPayload)
+                        .SingleOrDefaultAsync();
             
-                if (account == null)
-                {
-                    throw new Exception("Не удалось найти аккаунт который был указан в полезной нагрузке." +
-                                        $"{nameof(developerPayload)} {developerPayload}");
-                }
-                else
-                {
-                    Console.WriteLine("аккаунт найден");
-                }
+                    if (account == null)
+                    {
+                        throw new Exception("Не удалось найти аккаунт который был указан в полезной нагрузке." +
+                                            $"{nameof(developerPayload)} {developerPayload}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("аккаунт найден");
+                    }
             
-                //внести данные про покупку в БД
-                await purchaseRegistrationService.TryEnterPurchaseIntoDbAsync(googleResponseJson, sku, token, account.Id);
-            
-                //прочитать из БД и вернуть список названий подтверждённых продуктов
-                var result = dbContext.Purchases
-                    .Where(purchase => purchase.AccountId == account.Id && !purchase.IsConfirmed)
-                    .Select(purchase => purchase.Sku)
-                    .ToArray();
-                
-                Console.WriteLine("result start");
-                foreach (var s in result)
-                {
-                    Console.WriteLine(s);
+                    //внести данные про покупку в БД
+                    await purchaseRegistrationService.TryEnterPurchaseIntoDbAsync(googleResponseJson, sku, token, account.Id);
+
+                    return true;
                 }
-                Console.WriteLine("result end");
-                return null;
+
+                return false;
             }
-            else
+            catch (Exception e)
             {
-                return null;
+                Console.WriteLine(e.Message+" "+e.StackTrace);
+                return false;
             }
         }
     }

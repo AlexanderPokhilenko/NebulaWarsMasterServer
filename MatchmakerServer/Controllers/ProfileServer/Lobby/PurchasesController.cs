@@ -22,30 +22,25 @@ namespace AmoebaGameMatcherServer.Controllers.ProfileServer.Lobby
 
         [Route(nameof(Validate))]
         [HttpPost]
-        public async Task<ActionResult<string>> Validate([FromForm]string sku, [FromForm]string token)
+        public async Task<ActionResult> Validate([FromForm]string sku, [FromForm]string token)
         {
-            return Ok();
-            // Console.WriteLine($"{nameof(sku)} {sku}");
-            // Console.WriteLine($"{nameof(token)} {token}");
-            //
-            // if (string.IsNullOrEmpty(sku))
-            // {
-            //     Console.WriteLine($"{nameof(sku)} was null");
-            //     return BadRequest();
-            // }
-            //
-            // if (string.IsNullOrEmpty(token))
-            // {
-            //     Console.WriteLine($"{nameof(token)} was null");
-            //     return BadRequest();
-            // }
-            //
-            // string[] productIdsToConfirm = await purchasesValidatorService.ValidateAsync(sku, token);
-            // if (productIdsToConfirm == null)
-            // {
-            //     return Ok();
-            // }
-            // return Ok(productIdsToConfirm.SerializeToBase64String());
+            Console.WriteLine($"{nameof(sku)} {sku}");
+            Console.WriteLine($"{nameof(token)} {token}");
+            
+            if (string.IsNullOrEmpty(sku))
+            {
+                Console.WriteLine($"{nameof(sku)} was null");
+                return BadRequest();
+            }
+            
+            if (string.IsNullOrEmpty(token))
+            {
+                Console.WriteLine($"{nameof(token)} was null");
+                return BadRequest();
+            }
+            
+            bool success = await purchasesValidatorService.ValidateAsync(sku, token);
+            return success ? Ok() : StatusCode(500);
         }
 
         [Route(nameof(MarkOrderAsCompleted))]
