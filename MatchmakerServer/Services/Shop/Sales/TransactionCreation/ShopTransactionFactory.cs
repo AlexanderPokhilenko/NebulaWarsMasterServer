@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation.DecrementCreation;
 using AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation.IncrementCreation;
+using DataLayer.Entities.Transactions.Decrement;
 using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
 

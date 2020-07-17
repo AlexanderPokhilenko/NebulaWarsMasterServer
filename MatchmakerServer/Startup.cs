@@ -9,6 +9,7 @@ using AmoebaGameMatcherServer.Services.MatchCreationInitiation;
 using AmoebaGameMatcherServer.Services.Queues;
 using Dapper;
 using DataLayer;
+using DataLayer.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;

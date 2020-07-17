@@ -1,4 +1,5 @@
-﻿using DataLayer.Tables;
+﻿using DataLayer.Entities.Transactions.Decrement;
+using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation.DecrementCreation

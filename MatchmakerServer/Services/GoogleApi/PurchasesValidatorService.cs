@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using DataLayer;
 using DataLayer.Tables;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
+using NetworkLibrary.Http.Utils;
 using Newtonsoft.Json;
 
 namespace AmoebaGameMatcherServer.Services.GoogleApi
 {
-   
     /// <summary>
     /// Отвечает за начисление товаров после совершения покупки в google play store
     /// </summary>
@@ -19,11 +18,14 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
         private readonly ApplicationDbContext dbContext;
         private readonly PurchaseRegistrationService purchaseRegistrationService;
         private readonly GoogleApiPurchasesWrapperService googleApiPurchasesWrapperService;
+        private readonly RealPurchaseTransactionFactoryService realPurchaseTransactionFactory;
 
         public PurchasesValidatorService(GoogleApiPurchasesWrapperService googleApiPurchasesWrapperService,
-            PurchaseRegistrationService purchaseRegistrationService, ApplicationDbContext dbContext)
+            PurchaseRegistrationService purchaseRegistrationService, ApplicationDbContext dbContext, 
+            RealPurchaseTransactionFactoryService realPurchaseTransactionFactory)
         {
             this.dbContext = dbContext;
+            this.realPurchaseTransactionFactory = realPurchaseTransactionFactory;
             this.purchaseRegistrationService = purchaseRegistrationService;
             this.googleApiPurchasesWrapperService = googleApiPurchasesWrapperService;
         }
@@ -38,26 +40,31 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                 if (responseIsOk)
                 {
                     Console.WriteLine($"{nameof(googleResponseJson)} {googleResponseJson}");
-                    // string developerPayload = new GoogleResponseConverter().GetDeveloperPayload(googleResponseJson);
-                    //
-                    // Console.WriteLine($"{nameof(developerPayload)} "+developerPayload);
-                    // Account account = await dbContext.Accounts
-                    //     .Where(account1 => account1.ServiceId == developerPayload)
-                    //     .SingleOrDefaultAsync();
-                    //
-                    // if (account == null)
-                    // {
-                    //     throw new Exception("Не удалось найти аккаунт который был указан в полезной нагрузке." +
-                    //                         $"{nameof(developerPayload)} {developerPayload}");
-                    // }
-                    // else
-                    // {
-                    //     Console.WriteLine("аккаунт найден");
-                    // }
-                    //
-                    // //внести данные про покупку в БД
-                    // await purchaseRegistrationService.TryEnterPurchaseIntoDbAsync(googleResponseJson, sku, token, account.Id);
+                    GoogleResponse googleResponse = JsonConvert.DeserializeObject<GoogleResponse>(googleResponseJson);
 
+                    string accountServiceId = googleResponse.ObfuscatedExternalAccountId.Caesar(-10);
+                    Account account = await dbContext.Accounts
+                        .Where(account1 => account1.ServiceId == accountServiceId)
+                        .SingleOrDefaultAsync();
+                    if (account == null)
+                    {
+                        throw new Exception("Не удалось найти аккаунт который был указан в полезной нагрузке." +
+                                            $"{nameof(accountServiceId)} {accountServiceId}");
+                    }
+
+                    Console.WriteLine("аккаунт найден");
+
+                    // внести данные про покупку в БД
+                    int realPurchaseModelId = await purchaseRegistrationService
+                        .WriteAndGetId(account.Id, sku, googleResponseJson);
+
+                    //записать транзакцию
+                    Transaction transaction = realPurchaseTransactionFactory.Create(account.Id, sku, realPurchaseModelId);
+                    
+                    //todo проверить транзакцию на адекватность
+                    await dbContext.Transactions.AddAsync(transaction);
+                    await dbContext.SaveChangesAsync();
+                    
                     return true;
                 }
 
@@ -70,17 +77,4 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
             }
         }
     }
-
-    // public class GoogleResponseConverter
-    // {
-    //     public string GetDeveloperPayload(string googleResponseJson)
-    //     {
-    //         dynamic googleResponseObj = JsonConvert.DeserializeObject(googleResponseJson);
-    //         string developerPayloadWrapper = googleResponseObj["developerPayload"];
-    //         dynamic jsonObj2 = JsonConvert.DeserializeObject(developerPayloadWrapper);
-    //         string serviceId1 = jsonObj2["developerPayload"];
-    //         string developerPayload = Encoding.UTF8.GetString(Convert.FromBase64String(serviceId1));
-    //         return developerPayload;
-    //     }
-    // }
 }

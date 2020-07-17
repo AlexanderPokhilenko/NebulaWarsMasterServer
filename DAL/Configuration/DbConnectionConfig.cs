@@ -1,7 +1,7 @@
 ﻿using System.Data.Common;
 using System.Runtime.InteropServices;
 
-namespace DataLayer
+namespace DataLayer.Configuration
 {
     public static class DbConnectionConfig
     {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DataLayer.Entities.Transactions.Decrement;
 using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
 

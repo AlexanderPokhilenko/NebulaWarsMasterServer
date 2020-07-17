@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataLayer.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer
 {

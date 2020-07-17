@@ -24,6 +24,7 @@
             <e p="IncrementsConfiguration.cs" t="Include" />
             <e p="MatchResultsConfiguration.cs" t="Include" />
             <e p="ProductModelDbConfiguration.cs" t="Include" />
+            <e p="RealPurchaseModelConfiguration.cs" t="Include" />
             <e p="ResourcesConfiguration.cs" t="Include" />
             <e p="SkinTypeConfiguration.cs" t="Include" />
             <e p="TransactionsConfiguration.cs" t="Include" />
@@ -54,6 +55,7 @@
               <e p="Decrement.cs" t="Include" />
               <e p="DecrementType.cs" t="Include" />
               <e p="DecrementTypeEnum.cs" t="Include" />
+              <e p="RealPurchaseModel.cs" t="Include" />
             </e>
             <e p="Increment" t="Include">
               <e p="Increment.cs" t="Include" />
@@ -246,6 +248,7 @@
             </e>
             <e p="GoogleApiPurchaseAcknowledgeService.cs" t="Include" />
             <e p="GoogleApiPurchasesWrapperService.cs" t="Include" />
+            <e p="GoogleResponse.cs" t="Include" />
             <e p="InAppProductsService.cs" t="Include" />
             <e p="OrderConfirmationService.cs" t="Include" />
             <e p="PurchaseRegistrationService.cs" t="Include" />
@@ -411,6 +414,9 @@
             <e p="MatchResultDto.cs" t="Include" />
             <e p="MatchRewardTypeEnum.cs" t="Include" />
             <e p="MatchType.cs" t="Include" />
+          </e>
+          <e p="Utils" t="Include">
+            <e p="ac.cs" t="Include" />
           </e>
         </e>
         <e p="NetworkLibrary.csproj" t="IncludeRecursive" />

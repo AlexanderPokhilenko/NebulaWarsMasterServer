@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DataLayer.TablesConfiguration
+namespace DataLayer.Configuration.Constraints
 {
     public class MatchResultsConfiguration:IEntityTypeConfiguration<MatchResult>
     {

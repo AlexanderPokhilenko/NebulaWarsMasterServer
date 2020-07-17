@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using DataLayer.Entities.Transactions.Decrement;
 
 namespace DataLayer.Tables
 {
@@ -16,6 +17,7 @@ namespace DataLayer.Tables
         public List<Warship> Warships { get; set; } = new List<Warship>();
         public List<Transaction> Transactions { get; set; } = new List<Transaction>();
         public List<ShopModelDb> ShopModels { get; set; } = new List<ShopModelDb>();
+        public List<RealPurchaseModel> RealPurchaseModels { get; set; } = new List<RealPurchaseModel>();
         
         public override string ToString()
         {

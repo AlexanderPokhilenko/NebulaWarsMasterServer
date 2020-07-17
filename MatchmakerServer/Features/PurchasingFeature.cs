@@ -7,7 +7,9 @@ namespace AmoebaGameMatcherServer.Features
     {
         public override void Add(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<OrderConfirmationService>();
+            serviceCollection.AddTransient<RealPurchaseTransactionFactoryService>();
+            serviceCollection.AddTransient<HardCurrencyTransactionFactory>();
+            serviceCollection.AddTransient<PurchasesValidatorService>();
         }
     }
 }
