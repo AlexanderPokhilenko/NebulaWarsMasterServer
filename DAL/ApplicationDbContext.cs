@@ -37,7 +37,6 @@ namespace DataLayer
         
         public DbSet<ShopModelDb> ShopModels { get; set; }
         public DbSet<SkinType> SkinTypes { get; set; }
-        public DbSet<TestPurchase> Purchases { get; set; }
         public DbSet<RealPurchaseModel> RealPurchaseModels { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
