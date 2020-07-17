@@ -38,25 +38,25 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                 if (responseIsOk)
                 {
                     Console.WriteLine($"{nameof(googleResponseJson)} {googleResponseJson}");
-                    string developerPayload = new GoogleResponseConverter().GetDeveloperPayload(googleResponseJson);
-                
-                    Console.WriteLine($"{nameof(developerPayload)} "+developerPayload);
-                    Account account = await dbContext.Accounts
-                        .Where(account1 => account1.ServiceId == developerPayload)
-                        .SingleOrDefaultAsync();
-            
-                    if (account == null)
-                    {
-                        throw new Exception("Не удалось найти аккаунт который был указан в полезной нагрузке." +
-                                            $"{nameof(developerPayload)} {developerPayload}");
-                    }
-                    else
-                    {
-                        Console.WriteLine("аккаунт найден");
-                    }
-            
-                    //внести данные про покупку в БД
-                    await purchaseRegistrationService.TryEnterPurchaseIntoDbAsync(googleResponseJson, sku, token, account.Id);
+                    // string developerPayload = new GoogleResponseConverter().GetDeveloperPayload(googleResponseJson);
+                    //
+                    // Console.WriteLine($"{nameof(developerPayload)} "+developerPayload);
+                    // Account account = await dbContext.Accounts
+                    //     .Where(account1 => account1.ServiceId == developerPayload)
+                    //     .SingleOrDefaultAsync();
+                    //
+                    // if (account == null)
+                    // {
+                    //     throw new Exception("Не удалось найти аккаунт который был указан в полезной нагрузке." +
+                    //                         $"{nameof(developerPayload)} {developerPayload}");
+                    // }
+                    // else
+                    // {
+                    //     Console.WriteLine("аккаунт найден");
+                    // }
+                    //
+                    // //внести данные про покупку в БД
+                    // await purchaseRegistrationService.TryEnterPurchaseIntoDbAsync(googleResponseJson, sku, token, account.Id);
 
                     return true;
                 }
@@ -71,16 +71,16 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
         }
     }
 
-    public class GoogleResponseConverter
-    {
-        public string GetDeveloperPayload(string googleResponseJson)
-        {
-            dynamic googleResponseObj = JsonConvert.DeserializeObject(googleResponseJson);
-            string developerPayloadWrapper = googleResponseObj["developerPayload"];
-            dynamic jsonObj2 = JsonConvert.DeserializeObject(developerPayloadWrapper);
-            string serviceId1 = jsonObj2["developerPayload"];
-            string developerPayload = Encoding.UTF8.GetString(Convert.FromBase64String(serviceId1));
-            return developerPayload;
-        }
-    }
+    // public class GoogleResponseConverter
+    // {
+    //     public string GetDeveloperPayload(string googleResponseJson)
+    //     {
+    //         dynamic googleResponseObj = JsonConvert.DeserializeObject(googleResponseJson);
+    //         string developerPayloadWrapper = googleResponseObj["developerPayload"];
+    //         dynamic jsonObj2 = JsonConvert.DeserializeObject(developerPayloadWrapper);
+    //         string serviceId1 = jsonObj2["developerPayload"];
+    //         string developerPayload = Encoding.UTF8.GetString(Convert.FromBase64String(serviceId1));
+    //         return developerPayload;
+    //     }
+    // }
 }

@@ -26,7 +26,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
             string accessToken = accessTokenService.GetAccessToken();
             string url = purchaseValidateUrlFactory.Create(sku, token, accessToken);
             HttpClient httpClient = new HttpClient();
-            var result = await httpClient.GetAsync(url);
+            HttpResponseMessage result = await httpClient.GetAsync(url);
             
             if (result.IsSuccessStatusCode)
             {
