@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿namespace NetworkLibrary.NetworkLibrary.Http
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿namespace NetworkLibrary.NetworkLibrary.Http
 {
     public enum MatchType
     {

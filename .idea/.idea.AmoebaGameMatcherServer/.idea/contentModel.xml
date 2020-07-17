@@ -249,10 +249,12 @@
             <e p="GoogleApiPurchaseAcknowledgeService.cs" t="Include" />
             <e p="GoogleApiPurchasesWrapperService.cs" t="Include" />
             <e p="GoogleResponse.cs" t="Include" />
+            <e p="HardCurrencyTransactionFactory.cs" t="Include" />
             <e p="InAppProductsService.cs" t="Include" />
             <e p="OrderConfirmationService.cs" t="Include" />
             <e p="PurchaseRegistrationService.cs" t="Include" />
             <e p="PurchasesValidatorService.cs" t="Include" />
+            <e p="RealPurchaseTransactionFactoryService.cs" t="Include" />
             <e p="UrlFactories" t="Include">
               <e p="AllProductsUrlFactory.cs" t="Include" />
               <e p="PurchaseAcknowledgeUrlFactory.cs" t="Include" />
@@ -416,7 +418,7 @@
             <e p="MatchType.cs" t="Include" />
           </e>
           <e p="Utils" t="Include">
-            <e p="ac.cs" t="Include" />
+            <e p="CaesarExtension.cs" t="Include" />
           </e>
         </e>
         <e p="NetworkLibrary.csproj" t="IncludeRecursive" />

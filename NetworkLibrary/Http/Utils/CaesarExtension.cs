@@ -1,9 +1,14 @@
-﻿using System;
+﻿﻿﻿using System;
 
 namespace NetworkLibrary.Http.Utils
 {
-    public static class StringExtensions
+    public static class CaesarExtension
     {
+        public static string Caesar(this string source)
+        {
+            return source.Caesar(10);
+        }
+
         public static string Caesar(this string source, Int16 shift)
         {
             int maxChar = Convert.ToInt32(char.MaxValue);
@@ -12,7 +17,6 @@ namespace NetworkLibrary.Http.Utils
             for (var i = 0; i < buffer.Length; i++)
             {
                 int shifted = Convert.ToInt32(buffer[i]) + shift;
-                
                 if (shifted > maxChar)
                 {
                     shifted -= maxChar;
