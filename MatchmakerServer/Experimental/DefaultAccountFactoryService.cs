@@ -40,6 +40,11 @@ namespace AmoebaGameMatcherServer.Services
                     {
                         WarshipTypeId = WarshipTypeEnum.Smiley,
                         CurrentSkinTypeId = SkinTypeEnum.Smiley
+                    },
+                    new Warship
+                    {
+                        WarshipTypeId = WarshipTypeEnum.Sage,
+                        CurrentSkinTypeId = SkinTypeEnum.Sage
                     }
                 },
                 Transactions = new List<Transaction>
@@ -100,6 +105,12 @@ namespace AmoebaGameMatcherServer.Services
                         IncrementTypeId = IncrementTypeEnum.WarshipLevel,
                         Amount = 1,
                         WarshipId = account.Warships[2].Id
+                    },
+                    new Increment
+                    {
+                        IncrementTypeId = IncrementTypeEnum.WarshipLevel,
+                        Amount = 1,
+                        WarshipId = account.Warships[3].Id
                     }
                 }
             };
@@ -140,6 +151,13 @@ namespace AmoebaGameMatcherServer.Services
                         Amount = 1,
                         SkinTypeId = SkinTypeEnum.Smiley,
                         WarshipId = account.Warships[2].Id
+                    },
+                    new Increment
+                    {
+                        IncrementTypeId = IncrementTypeEnum.Skin,
+                        Amount = 1,
+                        SkinTypeId = SkinTypeEnum.Sage,
+                        WarshipId = account.Warships[3].Id
                     }
                 }
             };
@@ -171,6 +189,12 @@ namespace AmoebaGameMatcherServer.Services
                         WarshipId = account.Warships[2].Id,
                         Amount = 15
                     },
+                    new Increment
+                    {
+                        IncrementTypeId = IncrementTypeEnum.WarshipPowerPoints,
+                        WarshipId = account.Warships[3].Id,
+                        Amount = 15
+                    }
                 }
             };
             

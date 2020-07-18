@@ -8,7 +8,8 @@ namespace NetworkLibrary.NetworkLibrary.Http
         Hare=1,
         Bird=2,
         Smiley=3,
-        Raven=4
+        Raven=4,
+        Sage=5
     }
     
     [ZeroFormattable]

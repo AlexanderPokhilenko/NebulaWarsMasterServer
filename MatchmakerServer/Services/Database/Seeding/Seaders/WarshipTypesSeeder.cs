@@ -18,21 +18,27 @@ namespace AmoebaGameMatcherServer
                     {
                         Id = WarshipTypeEnum.Hare,
                         Name = "hare",
-                        Description = "The hare attacks the enemies with four cannons. It is great for suppression fire. His ability is a shot with a huge charge of plasma.",
+                        Description = "Hare attacks enemies with 4 Gatling guns and medium plasma cannon. It is great for suppression fire. His ability is a shot with a huge charge of plasma.",
                         WarshipCombatRoleId = WarshipCombatRoleEnum.Tank
                     },
                     new WarshipType
                     {
                         Id = WarshipTypeEnum.Bird,
                         Name = "bird", 
-                        Description = "The bird attacks the enemies with plasma charges and a laser. The laser breaks through any obstacles. Bird is the fastest ship.",
+                        Description = "Bird attacks enemies with 2 plasmaguns and a laser. The laser breaks through any obstacles.",
                         WarshipCombatRoleId = WarshipCombatRoleEnum.DamageDealer
                     },new WarshipType
                     {
                         Id = WarshipTypeEnum.Smiley,
                         Name = "smiley",
-                        Description = "The smiley attacks the enemies with eight cannons. This ship has more HP, than hare and bird, but slower.",
+                        Description = "Smiley attacks enemies with 8 cannons (4 at the same time). This ship has more HP, than hare and bird, but slower.",
                         WarshipCombatRoleId = WarshipCombatRoleEnum.Tank
+                    },new WarshipType
+                    {
+                        Id = WarshipTypeEnum.Sage,
+                        Name = "sage",
+                        Description = "Sage attacks enemies with 2 blasters. This ship has least of all HP, but it is the fastest warship. It can summon interceptors for help.",
+                        WarshipCombatRoleId = WarshipCombatRoleEnum.DamageDealer
                     }
                 };
                 

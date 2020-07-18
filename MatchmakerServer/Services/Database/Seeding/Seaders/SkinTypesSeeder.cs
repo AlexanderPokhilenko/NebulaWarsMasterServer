@@ -39,6 +39,12 @@ namespace AmoebaGameMatcherServer
                         Id = SkinTypeEnum.Raven,
                         WarshipTypeId = WarshipTypeEnum.Bird
                     },
+                    new SkinType
+                    {
+                        Name = SkinTypeEnum.Sage.ToString(),
+                        Id = SkinTypeEnum.Sage,
+                        WarshipTypeId = WarshipTypeEnum.Sage
+                    }
                 };
                 dbContext.SkinTypes.AddRange(skinTypes);
                 dbContext.SaveChanges();

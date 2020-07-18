@@ -4,6 +4,7 @@
     {
         Hare=1,
         Bird=2,
-        Smiley=3
+        Smiley=3,
+        Sage=4
     }
 }
