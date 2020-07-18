@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
+using DataLayer.Entities.Transactions.Decrement;
 using DataLayer.Tables;
 using Microsoft.EntityFrameworkCore;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.Lootbox
 {
     /// <summary>
     /// Снимает со счёта игрока стоимость лутбокса. Сохраняет награды.

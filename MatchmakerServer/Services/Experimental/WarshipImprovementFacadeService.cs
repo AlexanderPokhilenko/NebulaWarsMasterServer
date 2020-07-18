@@ -4,11 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services.LobbyInitialization;
 using DataLayer;
+using DataLayer.Entities.Transactions.Decrement;
 using DataLayer.Tables;
 using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.Experimental
 {
     public class WarshipImprovementFacadeService
     {

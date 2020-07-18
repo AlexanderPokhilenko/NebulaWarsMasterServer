@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using DataLayer.Entities.Transactions.Decrement;
 using JetBrains.Annotations;
 
 namespace DataLayer.Tables

@@ -1,7 +1,8 @@
 ﻿using System;
+using AmoebaGameMatcherServer.Services.LobbyInitialization;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.Experimental
 {
     public enum FaultReason
     {

@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataLayer;
 using DataLayer.Tables;
 using Microsoft.EntityFrameworkCore;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelCreation
 {
     public class PrizeFactoryService
     {

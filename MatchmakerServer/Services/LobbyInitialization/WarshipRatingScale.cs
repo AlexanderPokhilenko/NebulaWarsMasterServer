@@ -1,6 +1,6 @@
 ﻿using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.LobbyInitialization
 {
     /// <summary>
     /// Отвечает за хранение информации о шкале рейтинга для кораблей.

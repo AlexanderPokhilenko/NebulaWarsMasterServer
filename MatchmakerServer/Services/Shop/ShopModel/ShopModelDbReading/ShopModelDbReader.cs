@@ -5,10 +5,9 @@ using DataLayer;
 using DataLayer.Tables;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
-using NetworkLibrary.NetworkLibrary.Http;
 using ZeroFormatter;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelDbReading
 {
     /// <summary>
     /// Читает последнюю модель магазина для игрока
@@ -23,7 +22,7 @@ namespace AmoebaGameMatcherServer.Controllers
         }
 
         [ItemCanBeNull]
-        public async Task<ShopModel> ReadShopModel(int accountId)
+        public async Task<NetworkLibrary.NetworkLibrary.Http.ShopModel> ReadShopModel(int accountId)
         {
             ShopModelDb shopModelDb = await dbContext.ShopModels
                 .Where(shopModel1 => shopModel1.AccountId == accountId)
@@ -39,7 +38,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 Console.WriteLine("warning Модель магазина из БД пуста");
                 return null;
             }
-            return ZeroFormatterSerializer.Deserialize<ShopModel>(shopModelDb.SerializedModel);
+            return ZeroFormatterSerializer.Deserialize<NetworkLibrary.NetworkLibrary.Http.ShopModel>(shopModelDb.SerializedModel);
         }
     }
 }

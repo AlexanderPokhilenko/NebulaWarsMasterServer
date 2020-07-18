@@ -1,4 +1,4 @@
-﻿namespace AmoebaGameMatcherServer.Utils
+﻿namespace AmoebaGameMatcherServer.Experimental
 {
     //TODO доставать из ресурсов
     public static class Globals

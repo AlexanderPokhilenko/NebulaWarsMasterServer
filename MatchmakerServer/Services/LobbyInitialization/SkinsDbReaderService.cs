@@ -8,9 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ZeroFormatter;
 
 namespace AmoebaGameMatcherServer.Services.LobbyInitialization
-{
-   
-    
+{     
     public class SkinsDbReaderService
     {
         private readonly ApplicationDbContext dbContext;

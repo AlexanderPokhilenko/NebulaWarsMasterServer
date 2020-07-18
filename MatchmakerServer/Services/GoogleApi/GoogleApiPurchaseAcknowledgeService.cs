@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using AmoebaGameMatcherServer.Services.GoogleApi.AccessTokenUtils;
+using AmoebaGameMatcherServer.Services.GoogleApi.UrlFactories;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

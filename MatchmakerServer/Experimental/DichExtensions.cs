@@ -1,7 +1,7 @@
 ﻿using System;
 using ZeroFormatter;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Experimental
 {
     public static class DichExtensions
     {

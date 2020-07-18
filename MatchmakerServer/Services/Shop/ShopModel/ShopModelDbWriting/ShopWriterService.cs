@@ -2,10 +2,9 @@
 using System.Threading.Tasks;
 using DataLayer;
 using DataLayer.Tables;
-using NetworkLibrary.NetworkLibrary.Http;
 using ZeroFormatter;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelDbWriting
 {
     /// <summary>
     /// Отвечает за сохранение новой модели магазина в БД
@@ -19,7 +18,7 @@ namespace AmoebaGameMatcherServer.Controllers
             this.dbContext = dbContext;
         }
 
-        public async Task<ShopModel> Write(ShopModel shopModel, int accountId)
+        public async Task<NetworkLibrary.NetworkLibrary.Http.ShopModel> Write(NetworkLibrary.NetworkLibrary.Http.ShopModel shopModel, int accountId)
         {
             ShopModelDb shopModelDb = new ShopModelDb
             {

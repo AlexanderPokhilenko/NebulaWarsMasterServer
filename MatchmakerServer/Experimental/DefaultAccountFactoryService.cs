@@ -5,7 +5,7 @@ using DataLayer;
 using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Services
+namespace AmoebaGameMatcherServer.Experimental
 {
     public class DefaultAccountFactoryService
     {

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation;
 using DataLayer;
 using DataLayer.Tables;
 using Microsoft.EntityFrameworkCore;
 using NetworkLibrary.NetworkLibrary.Http;
 using ZeroFormatter;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.Shop.Sales
 {
     /// <summary>
     /// Отвечает за создание транзакций при покупке товаров. 
@@ -31,7 +32,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 .SingleOrDefaultAsync();
             if (account == null)
             {
-                throw new Exception("Такого аккаунта не существует");
+                throw new Exception($"Такого аккаунта не существует {nameof(playerServiceId)} {playerServiceId}");
             }
             
             //Модель магазина существует?
@@ -41,7 +42,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 .SingleOrDefaultAsync();
             if (shopModelDb == null)
             {
-                throw new Exception("Такой модели магазина не существует");
+                throw new Exception($"Такой модели магазина не существует {nameof(shopModelId)} {shopModelId}");
             }
 
             //Эта модель создана для этого аккаунта?
@@ -57,10 +58,10 @@ namespace AmoebaGameMatcherServer.Controllers
             }
 
             //В модели магазина из БД есть продукт с таким же id?
-            ShopModel shopModel;
+            NetworkLibrary.NetworkLibrary.Http.ShopModel shopModel;
             try
             {
-                shopModel = ZeroFormatterSerializer.Deserialize<ShopModel>(shopModelDb.SerializedModel);
+                shopModel = ZeroFormatterSerializer.Deserialize<NetworkLibrary.NetworkLibrary.Http.ShopModel>(shopModelDb.SerializedModel);
             }
             catch
             {

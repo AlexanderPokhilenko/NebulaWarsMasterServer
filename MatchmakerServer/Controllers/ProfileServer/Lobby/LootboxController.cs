@@ -1,9 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using AmoebaGameMatcherServer.Experimental;
+using AmoebaGameMatcherServer.Services.Lootbox;
 using Microsoft.AspNetCore.Mvc;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Controllers.ProfileServer.Lobby
 {
     [Route("[controller]")]
     [ApiController]

@@ -1,10 +1,11 @@
 ﻿using System.Threading.Tasks;
+using AmoebaGameMatcherServer.Experimental;
 using AmoebaGameMatcherServer.Services.PlayerQueueing;
 using AmoebaGameMatcherServer.Services.Queues;
 using Microsoft.AspNetCore.Mvc;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Controllers.Matchmaker
 {
     /// <summary>
     /// Принимает заявки на вход/выход из очереди в бой.

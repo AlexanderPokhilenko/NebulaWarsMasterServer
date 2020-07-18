@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using DataLayer.Tables;
 
-namespace DataLayer.Tables
+namespace DataLayer.Entities.Transactions.Decrement
 {
     /// <summary>
     /// Описывает цену покупки.
@@ -14,8 +15,9 @@ namespace DataLayer.Tables
         [Required] public DecrementTypeEnum DecrementTypeId { get; set; }
 
         public int? WarshipId {get;set;}
-        public string RealPurchaseData { get; set;}
         public Warship Warship { get; set; }
+        public int? RealPurchaseModelId { get; set; }
+        public RealPurchaseModel RealPurchaseModel { get; set; }
         
         public Transaction Transaction { get; set; }
         public DecrementType DecrementType { get; set; }

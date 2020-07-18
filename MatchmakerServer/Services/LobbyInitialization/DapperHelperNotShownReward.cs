@@ -1,4 +1,4 @@
-﻿namespace AmoebaGameMatcherServer.Controllers
+﻿namespace AmoebaGameMatcherServer.Services.LobbyInitialization
 {
     /// <summary>
     /// Нужно для чтения данных аккаунта из БД

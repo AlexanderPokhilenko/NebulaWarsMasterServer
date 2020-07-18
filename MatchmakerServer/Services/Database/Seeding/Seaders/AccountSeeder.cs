@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AmoebaGameMatcherServer.Services;
+﻿using System.Linq;
+using AmoebaGameMatcherServer.Experimental;
 using DataLayer;
-using DataLayer.Tables;
 
-namespace AmoebaGameMatcherServer
+namespace AmoebaGameMatcherServer.Services.Database.Seeding.Seaders
 {
     public class AccountSeeder
     {

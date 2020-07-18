@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation.IncrementCreation
 {
     public class LootboxSetIncrementsFactory:IIncrementsFactory
     {

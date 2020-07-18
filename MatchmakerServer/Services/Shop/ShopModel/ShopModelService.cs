@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelCreation;
+using AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelDbReading;
+using AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelDbWriting;
 using DataLayer;
 using DataLayer.Tables;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.Internal;
-using NetworkLibrary.NetworkLibrary.Http;
 using ZeroFormatter;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.Shop.ShopModel
 {
     /// <summary>
     /// Отвечает за создание и запись модели магазина в БД
@@ -30,7 +31,7 @@ namespace AmoebaGameMatcherServer.Controllers
             this.shopFactoryService = shopFactoryService;
         }
 
-        public async Task<ShopModel> GetShopModelAsync([NotNull] string playerServiceId)
+        public async Task<NetworkLibrary.NetworkLibrary.Http.ShopModel> GetShopModelAsync([NotNull] string playerServiceId)
         {
             //Такой аккаунт существует?
             Account account = await dbContext.Accounts
@@ -42,11 +43,11 @@ namespace AmoebaGameMatcherServer.Controllers
             }
             
             //Прочитать самую новую модель магазина из БД
-            ShopModel shopModelFromDb = await shopModelDbReader.ReadShopModel(account.Id);
+            NetworkLibrary.NetworkLibrary.Http.ShopModel shopModelFromDb = await shopModelDbReader.ReadShopModel(account.Id);
             //Создать новую модель магазина
-            ShopModel shopModel = await shopFactoryService.Create(playerServiceId);
+            NetworkLibrary.NetworkLibrary.Http.ShopModel shopModel = await shopFactoryService.Create(playerServiceId);
 
-            ShopModel shopModelWithId;
+            NetworkLibrary.NetworkLibrary.Http.ShopModel shopModelWithId;
             //Если модель не сохранена, то записать новую
             if (shopModelFromDb == null)
             {

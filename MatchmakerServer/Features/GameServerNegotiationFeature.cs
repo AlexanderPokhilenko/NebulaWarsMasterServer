@@ -1,7 +1,7 @@
 ﻿using AmoebaGameMatcherServer.Services.GameServerNegotiation;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AmoebaGameMatcherServer
+namespace AmoebaGameMatcherServer.Features
 {
     public class GameServerNegotiationFeature:ServiceFeature
     {

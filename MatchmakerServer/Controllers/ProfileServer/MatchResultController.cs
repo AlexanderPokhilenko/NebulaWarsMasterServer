@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AmoebaGameMatcherServer.Experimental;
 using AmoebaGameMatcherServer.Services.MatchFinishing;
 using Libraries.NetworkLibrary.Experimental;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Controllers.ProfileServer
 {
     /// <summary>
     /// Принимает запросы на результат конкретного боя.

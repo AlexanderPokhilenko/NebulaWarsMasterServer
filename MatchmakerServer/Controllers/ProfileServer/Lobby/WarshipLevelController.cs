@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AmoebaGameMatcherServer.Services.Experimental;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Controllers.ProfileServer.Lobby
 {
     /// <summary>
     /// Нужен для получения данных о кораблях, статистике аккаунта.

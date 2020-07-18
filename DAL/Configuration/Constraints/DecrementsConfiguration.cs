@@ -1,8 +1,8 @@
-﻿using DataLayer.Tables;
+﻿using DataLayer.Entities.Transactions.Decrement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DataLayer.TablesConfiguration
+namespace DataLayer.Configuration.Constraints
 {
     public class DecrementsConfiguration:IEntityTypeConfiguration<Decrement>
     {

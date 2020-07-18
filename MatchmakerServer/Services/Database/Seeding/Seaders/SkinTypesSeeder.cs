@@ -5,7 +5,7 @@ using DataLayer;
 using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer
+namespace AmoebaGameMatcherServer.Services.Database.Seeding.Seaders
 {
     public class SkinTypesSeeder
     {

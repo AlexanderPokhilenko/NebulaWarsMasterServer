@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.Lootbox
 {
     /// <summary>
     /// Случайно создаёт маленький лутбокс с NumberOfPrizes призами.

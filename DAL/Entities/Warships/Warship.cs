@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using DataLayer.Entities.Transactions.Decrement;
 using NetworkLibrary.NetworkLibrary.Http;
 
 namespace DataLayer.Tables

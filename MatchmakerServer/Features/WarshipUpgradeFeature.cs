@@ -1,7 +1,7 @@
-﻿using AmoebaGameMatcherServer.Controllers;
+﻿using AmoebaGameMatcherServer.Services.Experimental;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AmoebaGameMatcherServer
+namespace AmoebaGameMatcherServer.Features
 {
     public class WarshipUpgradeFeature:ServiceFeature
     {

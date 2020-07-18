@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using DataLayer;
 using Newtonsoft.Json;
 
-namespace AmoebaGameMatcherServer.Services.GoogleApi
+namespace AmoebaGameMatcherServer.Services.GoogleApi.AccessTokenUtils
 {
     public static class GoogleApiFileManager
     {

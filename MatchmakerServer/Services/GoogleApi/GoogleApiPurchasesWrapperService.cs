@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using AmoebaGameMatcherServer.Services.GoogleApi.AccessTokenUtils;
+using AmoebaGameMatcherServer.Services.GoogleApi.UrlFactories;
 using JetBrains.Annotations;
 
 namespace AmoebaGameMatcherServer.Services.GoogleApi
@@ -24,7 +26,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
             string accessToken = accessTokenService.GetAccessToken();
             string url = purchaseValidateUrlFactory.Create(sku, token, accessToken);
             HttpClient httpClient = new HttpClient();
-            var result = await httpClient.GetAsync(url);
+            HttpResponseMessage result = await httpClient.GetAsync(url);
             
             if (result.IsSuccessStatusCode)
             {

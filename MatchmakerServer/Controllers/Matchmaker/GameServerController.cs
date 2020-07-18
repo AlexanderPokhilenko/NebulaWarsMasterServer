@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Threading.Channels;
 using System.Threading.Tasks;
-using AmoebaGameMatcherServer.Services;
+using AmoebaGameMatcherServer.Experimental;
 using AmoebaGameMatcherServer.Services.MatchFinishing;
-using AmoebaGameMatcherServer.Utils;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Controllers.Matchmaker
 {
     [Route("[controller]")]
     [ApiController]

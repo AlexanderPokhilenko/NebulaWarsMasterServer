@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services.Queues;
 using DataLayer;
+using DataLayer.Entities.Transactions.Decrement;
 using DataLayer.Tables;
 using Libraries.NetworkLibrary.Experimental;
 using Microsoft.EntityFrameworkCore;

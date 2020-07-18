@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Permissions;
+﻿using System.Collections.Generic;
 using DataLayer.Tables;
-using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.LobbyInitialization
 {
     /// <summary>
     /// Превращает AccountDbDto, в сериализуемый AccountDto

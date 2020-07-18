@@ -1,5 +1,6 @@
-﻿using DataLayer.Tables;
-using DataLayer.TablesConfiguration;
+﻿using DataLayer.Configuration.Constraints;
+using DataLayer.Entities.Transactions.Decrement;
+using DataLayer.Tables;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer
@@ -36,7 +37,7 @@ namespace DataLayer
         
         public DbSet<ShopModelDb> ShopModels { get; set; }
         public DbSet<SkinType> SkinTypes { get; set; }
-        public DbSet<TestPurchase> Purchases { get; set; }
+        public DbSet<RealPurchaseModel> RealPurchaseModels { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -49,6 +50,7 @@ namespace DataLayer
             modelBuilder.ApplyConfiguration(new IncrementsConfiguration());
             modelBuilder.ApplyConfiguration(new ShopModelDbConfiguration());
             modelBuilder.ApplyConfiguration(new SkinTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new RealPurchaseModelConfiguration());
         }
     }
 }

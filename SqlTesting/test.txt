@@ -1,58 +1,11 @@
-﻿--информация про корабли аккаунта
-select a.*, w.*, wt.*, wcr.*,
-(
-    select coalesce(
-       (
-            select coalesce(sum(I.""Amount""),0)
-            from ""Increments"" I
-                 inner join ""IncrementTypes"" IT on I.""IncrementTypeId"" = IT.""Id""
-            where I.""WarshipId"" = w.""Id"" and IT.""Name""='WarshipRating'
-       )
-   -
-       (
-            select coalesce(sum(D.""Amount""),0)
-            from ""Decrements"" D
-                inner join ""DecrementTypes"" DT on D.""DecrementTypeId"" = DT.""Id""
-            where D.""WarshipId"" = w.""Id"" and DT.""Name""='WarshipRating'
-       )
-        ,0
-    ) as ""WarshipRating""
-),
-(
-    select coalesce(
-          (
-              select sum(I.""Amount"")
-              from ""Increments"" I
-                       inner join ""IncrementTypes"" IT on I.""IncrementTypeId"" = IT.""Id""
-              where I.""WarshipId"" = w.""Id"" and IT.""Name""='WarshipPowerPoints'
-          )
-        
-          -
-              (
-                  select coalesce(sum(D.""Amount""),0)
-                  from ""Decrements"" D
-                           inner join ""DecrementTypes"" DT on D.""DecrementTypeId"" = DT.""Id""
-                  where D.""WarshipId"" = w.""Id"" and DT.""Name""='WarshipPowerPoints'
-              )
-          ,0
-    ) as ""WarshipPowerPoints"" 
-),
-(
-    select coalesce(
-          (
-              select count(I.""Amount"")
-              from ""Increments"" I
-                       inner join ""IncrementTypes"" IT on I.""IncrementTypeId"" = IT.""Id""
-              where I.""WarshipId"" = w.""Id"" and IT.""Name""='WarshipLevel'
-          )
-          ,0
-    ) as ""WarshipLevel"" 
-)
-
-from ""Accounts"" A
-         join ""Warships"" w on a.""Id"" = w.""AccountId""
-         join ""WarshipTypes"" wt on w.""WarshipTypeId"" = wt.""Id""
-         join ""WarshipCombatRoles"" wcr on wt.""WarshipCombatRoleId"" = wcr.""Id""
-where a.""ServiceId"" = 'devAccount1616786816'
-group by a.""Id"", w.""Id"", wt.""Id"", wcr.""Id"";
-
+﻿ {
+  ""purchaseTimeMillis"": ""1595000674505"",
+  ""purchaseState"": 0,
+  ""consumptionState"": 0,
+  ""developerPayload"": """",
+  ""orderId"": ""GPA.3347-1869-0815-86288"",
+  ""purchaseType"": 0,
+  ""acknowledgementState"": 0,
+  ""kind"": ""androidpublisher#productPurchase"",
+  ""obfuscatedExternalAccountId"": ""test""
+}

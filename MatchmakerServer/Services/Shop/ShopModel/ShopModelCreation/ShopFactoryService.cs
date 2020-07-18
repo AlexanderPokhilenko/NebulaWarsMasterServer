@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services.LobbyInitialization;
-using Code.Scenes.LobbyScene.Scripts;
+using AmoebaGameMatcherServer.Services.Shop.ShopModel.DeleteMeShopSectionFactories;
 using DataLayer.Tables;
 using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelCreation
 {
     /// <summary>
     /// Отвечает за создание модели магазина.
@@ -31,7 +31,7 @@ namespace AmoebaGameMatcherServer.Controllers
             this.hardCurrencySectionFactory = hardCurrencySectionFactory;
         }
 
-        public async Task<ShopModel> Create([NotNull] string playerServiceId)
+        public async Task<NetworkLibrary.NetworkLibrary.Http.ShopModel> Create([NotNull] string playerServiceId)
         {
             AccountDbDto accountDbDto = await accountDbReaderService.ReadAccountAsync(playerServiceId);
             if (accountDbDto == null)
@@ -39,7 +39,7 @@ namespace AmoebaGameMatcherServer.Controllers
                 throw new Exception("Игрок ещё не зарегистрирован");
             }
 
-            ShopModel shopModel = new ShopModel
+            NetworkLibrary.NetworkLibrary.Http.ShopModel shopModel = new NetworkLibrary.NetworkLibrary.Http.ShopModel
             {
                 UiSections = new List<SectionModel>()
             };

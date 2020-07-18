@@ -4,7 +4,7 @@ using DataLayer;
 using DataLayer.Tables;
 using Microsoft.EntityFrameworkCore;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.Lootbox
 {
     /// <summary>
     /// Проверяет, что у игрока достаточно баллов для открытия маленьгоко лутбокса.

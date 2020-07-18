@@ -4,9 +4,8 @@ using System.Linq;
 using DataLayer;
 using DataLayer.Tables;
 using Libraries.NetworkLibrary.Experimental;
-using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer
+namespace AmoebaGameMatcherServer.Services.Database.Seeding.Seaders
 {
     public class MatchRewardTypeSeeder
     {

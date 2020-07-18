@@ -1,7 +1,7 @@
 ﻿using System.Data.Common;
 using System.Runtime.InteropServices;
 
-namespace DataLayer
+namespace DataLayer.Configuration
 {
     public static class DbConnectionConfig
     {
@@ -21,12 +21,12 @@ namespace DataLayer
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                conStrBuilder.Add("Database", "ProductionDb"+name);
+                conStrBuilder.Add("Database", "Prod"+name);
                 conStrBuilder.Add("Server", "127.0.0.1");
             }
             else
             {
-                conStrBuilder.Add("Database", "DevelopmentDb"+name);
+                conStrBuilder.Add("Database", "Dev"+name);
                 conStrBuilder.Add("Server", "65.52.151.136");
             }
         }
