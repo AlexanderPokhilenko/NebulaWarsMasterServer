@@ -25,7 +25,7 @@ namespace AmoebaGameMatcherServer.Controllers
                             new WarshipParameter
                             {
                                 Name = "Movement speed",
-                                Values = new []{"NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL"},
+                                Values = new []{ "HIGH", "HIGH", "HIGH", "HIGH", "HIGH", "HIGH", "HIGH", "HIGH", "HIGH", "HIGH", "HIGH"},
                                 Increments = null,
                                 UiIncrementTypeEnum = UiIncrementTypeEnum.None
                             }
@@ -49,8 +49,8 @@ namespace AmoebaGameMatcherServer.Controllers
                                 Increments = null
                             }
                         },
-                        UltimateName = "DRONE SUPPORTER",
-                        UltimateDescription = "The bird is creating a drone behind itself. The drone automatically hits the target and attacks it.",
+                        UltimateName = "INCINERATOR",
+                        UltimateDescription = "The bird shoots a super powerful beam with huge damage for 2 seconds.",
                         UltimateParameters = new[]
                         {
                             new WarshipParameter
