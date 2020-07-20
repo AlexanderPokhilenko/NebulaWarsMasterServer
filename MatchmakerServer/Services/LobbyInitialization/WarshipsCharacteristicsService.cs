@@ -11,88 +11,6 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
             new Dictionary<WarshipTypeEnum, WarshipCharacteristics>
             {
                 {
-                    WarshipTypeEnum.Bird, new WarshipCharacteristics
-                    {
-                        DefenceParameters = new[]
-                        {
-                            new WarshipParameter
-                            {
-                                Name = "Health",
-                                Values = new []{null, "2000", "2200", "2600", "2900", "3000", "3300", "3900", "3900", "3900", "3900", "3900", "3900", "3900", },
-                                Increments = new []{null, "200","400","300","100","300","600","600","600","600","600","600","600","600","600","600"},
-                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
-                            }  ,
-                            new WarshipParameter
-                            {
-                                Name = "Movement speed",
-                                Values = new []{ "HIGH", "HIGH", "HIGH", "HIGH", "HIGH", "HIGH", "HIGH", "HIGH", "HIGH", "HIGH", "HIGH"},
-                                Increments = null,
-                                UiIncrementTypeEnum = UiIncrementTypeEnum.None
-                            }
-                        },
-                        AttackName = "Laser",
-                        AttackDescription = "The bird shoots a laser that ignores all obstacles. Shields and asteroids can't protect against hitting.",
-                        AttackParameters = new[]
-                        {
-                            new WarshipParameter
-                            {
-                                Name = "Damage per second",
-                                Values = new []{null,"200","250","350","350","350","350","350","350"},
-                                Increments = new []{null, "50", "100", "100", "100", "100", "100", "100"},
-                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
-                            }, 
-                            new WarshipParameter
-                            {
-                                Name = "Range",
-                                Values = new[]{"Big","Big","Big","Big","Big","Big","Big","Big","Big","Big","Big","Big","Big"},
-                                UiIncrementTypeEnum = UiIncrementTypeEnum.None,
-                                Increments = null
-                            }
-                        },
-                        UltimateName = "INCINERATOR",
-                        UltimateDescription = "The bird shoots a super powerful beam with huge damage for 2 seconds.",
-                        UltimateParameters = new[]
-                        {
-                            new WarshipParameter
-                            {
-                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus,
-                                Name = "Damage",
-                                Values = new[]
-                                {
-                                    null,
-                                    "5 x 650",
-                                    "5 x 665",
-                                    "5 x 675",
-                                    "5 x 690",
-                                    "5 x 700",
-                                    "5 x 720",
-                                    "5 x 720",
-                                    "5 x 720",
-                                    "5 x 720",
-                                    "5 x 720",
-                                },
-                                Increments = new[]
-                                {
-                                    null,
-                                    "15",
-                                    "10",
-                                    "15",
-                                    "10",
-                                    "10",
-                                    "10",
-                                    "10",
-                                    "10",
-                                    "10",
-                                    "10",
-                                    "10",
-                                    "20"
-                                }
-                                
-                            }
-                        }
-                    }
-                },
-                {
                     WarshipTypeEnum.Hare, new WarshipCharacteristics
                     {
                         DefenceParameters = new[]
@@ -100,74 +18,191 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                             new WarshipParameter
                             {
                                 Name = "Health",
-                                Values = new []{null, "2000", "2200", "2600", "2900", "3000", "3300", "3900", "3900", "3900", "3900"},
-                                Increments = new []{null, "200","400","300","100","300","600","600","600","600","600","600"},
+                                BaseValue = 1500,
+                                Increment = IncrementCoefficient.HealthPoints,
                                 UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
-                            }  ,
+                            },
                             new WarshipParameter
                             {
                                 Name = "Movement speed",
-                                Values = new []{"NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL","NORMAL"},
-                                Increments = null,
+                                BaseValue = 3,
+                                Increment = IncrementCoefficient.LinearVelocity,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Rotation speed",
+                                BaseValue = 135,
+                                Increment = IncrementCoefficient.AngularVelocity,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Mass",
+                                BaseValue = 100,
+                                Increment = IncrementCoefficient.None,
                                 UiIncrementTypeEnum = UiIncrementTypeEnum.None
                             }
                         },
-                        AttackName = "Machine gun",
-                        AttackDescription = "The bunny shoots four guns continuously.",
+                        AttackName = "Machine gun and plasma",
+                        AttackDescription = "Two twin machine guns and slow powerful plasma gun cause great damage to enemies.",
                         AttackParameters = new[]
                         {
                             new WarshipParameter
                             {
-                                Name = "Damage per second",
-                                Values = new []{null,"200","250","350","350","350","350","350","350","350","350","350","350","350"},
-                                Increments = new []{null, "50", "100", "100", "100", "100", "100", "100", "100", "100", "100"},
+                                Name = "Shoot damage (hit) x2",
+                                BaseValue = 50,
+                                Increment = IncrementCoefficient.Attack,
                                 UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
-                            }, 
+                            },
                             new WarshipParameter
                             {
-                                Name = "RANGE",
-                                Values = new[]{"BIG","BIG","BIG","BIG","BIG","BIG","BIG","BIG","BIG","BIG","BIG","BIG","BIG"},
-                                UiIncrementTypeEnum = UiIncrementTypeEnum.None,
-                                Increments = null
+                                Name = "Shoot cooldown (sec)",
+                                BaseValue = 0.125f,
+                                Increment = IncrementCoefficient.None,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.None
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Plasma damage (hit)",
+                                BaseValue = 150,
+                                Increment = IncrementCoefficient.Attack,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Plasma cooldown (sec)",
+                                BaseValue = 1.5f,
+                                Increment = IncrementCoefficient.None,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.None
                             }
                         },
-                        UltimateName = "large plasma shot",
-                        UltimateDescription = "The hare fires a large projectile from the plasma. This projectile ignores any obstacles.",
+                        UltimateName = "Energy ball",
+                        UltimateDescription = "Huge slow energy ball ignores any obstacles and shields, causing enormous damage.",
                         UltimateParameters = new[]
                         {
                             new WarshipParameter
                             {
-                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus,
-                                Name = "Damage",
-                                Values = new[]
-                                {
-                                    null,
-                                    "5 x 650",
-                                    "5 x 665",
-                                    "5 x 675",
-                                    "5 x 690",
-                                    "5 x 700",
-                                    "5 x 720",
-                                    "5 x 720",
-                                    "5 x 720",
-                                    "5 x 720",
-                                    "5 x 720",
-                                },
-                                Increments = new[]
-                                {
-                                    null,
-                                    "15",
-                                    "10",
-                                    "15",
-                                    "10",
-                                    "10",
-                                    "10",
-                                    "10",
-                                    "10",
-                                    "10",
-                                    "20"
-                                }
-                                
+                                Name = "Cooldown (sec)",
+                                BaseValue = 10,
+                                Increment = IncrementCoefficient.None,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.None
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Damage (per second)",
+                                BaseValue = 750,
+                                Increment = IncrementCoefficient.Attack,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Lifetime (sec)",
+                                BaseValue = 5,
+                                Increment = IncrementCoefficient.None,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.None
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Speed (relative)",
+                                BaseValue = 3,
+                                Increment = IncrementCoefficient.None,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.None
+                            }
+                        }
+                    }
+                },
+                {
+                    WarshipTypeEnum.Bird, new WarshipCharacteristics
+                    {
+                        DefenceParameters = new[]
+                        {
+                            new WarshipParameter
+                            {
+                                Name = "Health",
+                                BaseValue = 1750,
+                                Increment = IncrementCoefficient.HealthPoints,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Movement speed",
+                                BaseValue = 4,
+                                Increment = IncrementCoefficient.LinearVelocity,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Rotation speed",
+                                BaseValue = 180,
+                                Increment = IncrementCoefficient.AngularVelocity,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Mass",
+                                BaseValue = 100,
+                                Increment = IncrementCoefficient.None,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.None
+                            }
+                        },
+                        AttackName = "Plasma and laser",
+                        AttackDescription = "Two triple plasma guns cause huge damage to enemies. Weak laser ignores shields and obstacles.",
+                        AttackParameters = new[]
+                        {
+                            new WarshipParameter
+                            {
+                                Name = "Plasma damage (hit) x2",
+                                BaseValue = 100,
+                                Increment = IncrementCoefficient.Attack,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Plasma cooldown (sec)",
+                                BaseValue = 0.25f,
+                                Increment = IncrementCoefficient.None,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.None
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Laser damage (per second)",
+                                BaseValue = 75,
+                                Increment = IncrementCoefficient.Attack,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Laser cooldown (sec)",
+                                BaseValue = 1f,
+                                Increment = IncrementCoefficient.None,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.None
+                            }
+                        },
+                        UltimateName = "Incinerating beam",
+                        UltimateDescription = "Overloaded laser creates powerful beam that ignores obstacles and shields, incinerating enemies.",
+                        UltimateParameters = new[]
+                        {
+                            new WarshipParameter
+                            {
+                                Name = "Cooldown (sec)",
+                                BaseValue = 10,
+                                Increment = IncrementCoefficient.None,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.None
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Damage (per second)",
+                                BaseValue = 750,
+                                Increment = IncrementCoefficient.Attack,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Lifetime (sec)",
+                                BaseValue = 2,
+                                Increment = IncrementCoefficient.None,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.None
                             }
                         }
                     }
@@ -180,71 +215,82 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                             new WarshipParameter
                             {
                                 Name = "Health",
-                                Values = new []{null, "2000", "2200", "2600", "2900", "3000", "3300", "3900", "3900", "3900", "3900", "3900", "3900"},
-                                Increments = new []{null, "200","400","300","100","300","600","600","600","600","600","600"},
+                                BaseValue = 2000,
+                                Increment = IncrementCoefficient.HealthPoints,
                                 UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
-                            }  ,
+                            },
                             new WarshipParameter
                             {
                                 Name = "Movement speed",
-                                Values = new []{"LOW","LOW","LOW","LOW","LOW","LOW","LOW","LOW","LOW","LOW" },
-                                Increments = null,
+                                BaseValue = 2.75f,
+                                Increment = IncrementCoefficient.LinearVelocity,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Rotation speed",
+                                BaseValue = 135,
+                                Increment = IncrementCoefficient.AngularVelocity,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Mass",
+                                BaseValue = 150,
+                                Increment = IncrementCoefficient.None,
                                 UiIncrementTypeEnum = UiIncrementTypeEnum.None
                             }
                         },
-                        AttackName = "Название атаки для улыбаки",
-                        AttackDescription = "Описание атаки для улыбаки",
+                        AttackName = "Synchronous machine guns",
+                        AttackDescription = "Four twin machine guns use sequential shooting and cause significant damage to enemies. Of the eight guns, only 4 fire at the same time.",
                         AttackParameters = new[]
                         {
                             new WarshipParameter
                             {
-                                Name = "Damage per second",
-                                Values = new []{null,"200","250","350","350","350","350","350","350","350"},
-                                Increments = new []{null, "50", "100", "100", "100", "100", "100", "100"},
+                                Name = "Shoot damage (hit) x4",
+                                BaseValue = 50,
+                                Increment = IncrementCoefficient.Attack,
                                 UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
-                            }, 
+                            },
                             new WarshipParameter
                             {
-                                Name = "Range",
-                                Values = new[]{"BIG","BIG","BIG","BIG","BIG","BIG","BIG","BIG","BIG"},
-                                UiIncrementTypeEnum = UiIncrementTypeEnum.None,
-                                Increments = null
+                                Name = "Shoot cooldown (sec)",
+                                BaseValue = 0.25f,
+                                Increment = IncrementCoefficient.None,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.None
                             }
                         },
-                        UltimateName = "НАЗВАНИЕ УЛЬТЫ ДЛЯ ПТИЦЫ",
-                        UltimateDescription = "ОПИСАНИЕ УЛЬТЫ ДЛЯ ПТИЦЫ",
+                        UltimateName = "Spider missile",
+                        UltimateDescription = "The torpedo follows the target, turning into a spider bot on impact. Both objects can be shot down.",
                         UltimateParameters = new[]
                         {
                             new WarshipParameter
                             {
-                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus,
-                                Name = "Damage",
-                                Values = new[]
-                                {
-                                    null,
-                                    "5 x 650",
-                                    "5 x 665",
-                                    "5 x 675",
-                                    "5 x 690",
-                                    "5 x 700",
-                                    "5 x 720",
-                                    "5 x 720",
-                                    "5 x 720",
-                                    "5 x 720",
-                                },
-                                Increments = new[]
-                                {
-                                    null,
-                                    "15",
-                                    "10",
-                                    "15",
-                                    "10",
-                                    "10",
-                                    "10",
-                                    "10",
-                                    "10",
-                                    "20"
-                                }
+                                Name = "Cooldown (sec)",
+                                BaseValue = 10,
+                                Increment = IncrementCoefficient.None,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.None
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Missile damage (hit)",
+                                BaseValue = 200,
+                                Increment = IncrementCoefficient.Attack,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Both lifetime (sec)",
+                                BaseValue = 10,
+                                Increment = IncrementCoefficient.None,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.None
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Bot damage (per second)",
+                                BaseValue = 100,
+                                Increment = IncrementCoefficient.Attack,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
                             }
                         }
                     }
@@ -257,47 +303,75 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                             new WarshipParameter
                             {
                                 Name = "Health",
-                                Values = new []{null, "1450", "1558.75", "1667.5", "1776.25", "1885", "1993.75", "2102.5", "2211.25", "2320", "2428.75", "2537.5", "2646.25"},
-                                Increments = new []{null, "108.75","400","300", "108.75", "108.75", "108.75", "108.75", "108.75", "108.75", "108.75", "108.75"},
-                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
-                            }  ,
-                            new WarshipParameter
-                            {
-                                Name = "Movement speed",
-                                Values = new []{"HIGH", "HIGH", "HIGH", "HIGH", "HIGH", "HIGH", "HIGH", "HIGH", "HIGH", "HIGH" },
-                                Increments = null,
-                                UiIncrementTypeEnum = UiIncrementTypeEnum.None
-                            }
-                        },
-                        AttackName = "Blaster",
-                        AttackDescription = "Two fast blasters will destroy your enemies.",
-                        AttackParameters = new[]
-                        {
-                            new WarshipParameter
-                            {
-                                Name = "Damage per second",
-                                Values = new []{null,"600", "630", "660", "690", "720", "750", "780", "810", "840"},
-                                Increments = new []{null, "30", "30", "30", "30", "30", "30", "30"},
+                                BaseValue = 1450,
+                                Increment = IncrementCoefficient.HealthPoints,
                                 UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
                             },
                             new WarshipParameter
                             {
-                                Name = "Range",
-                                Values = new[]{"BIG","BIG","BIG","BIG","BIG","BIG","BIG","BIG","BIG"},
-                                UiIncrementTypeEnum = UiIncrementTypeEnum.None,
-                                Increments = null
+                                Name = "Movement speed",
+                                BaseValue = 5,
+                                Increment = IncrementCoefficient.LinearVelocity,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Rotation speed",
+                                BaseValue = 270,
+                                Increment = IncrementCoefficient.AngularVelocity,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Mass",
+                                BaseValue = 90,
+                                Increment = IncrementCoefficient.None,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.None
+                            }
+                        },
+                        AttackName = "Blasters",
+                        AttackDescription = "This ship has only one twin blaster. The minor main damage is compensated by the strength of his interceptors.",
+                        AttackParameters = new[]
+                        {
+                            new WarshipParameter
+                            {
+                                Name = "Blaster damage (hit)",
+                                BaseValue = 75,
+                                Increment = IncrementCoefficient.Attack,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Blaster cooldown (sec)",
+                                BaseValue = 0.125f,
+                                Increment = IncrementCoefficient.None,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.None
                             }
                         },
                         UltimateName = "Interceptor",
-                        UltimateDescription = "Warship summons interceptor behind itself. It has 10 seconds lifetime and 5 seconds ability cooldown.",
+                        UltimateDescription = "Warship summons fast interceptor drone. It is very powerful, but has low health points.",
                         UltimateParameters = new[]
                         {
                             new WarshipParameter
                             {
-                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus,
-                                Name = "Damage per second",
-                                Values = new []{null,"600", "630", "660", "690", "720", "750", "780", "810", "840"},
-                                Increments = new []{null, "30", "30", "30", "30", "30", "30", "30"}
+                                Name = "Cooldown (sec)",
+                                BaseValue = 5,
+                                Increment = IncrementCoefficient.None,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.None
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Lifetime (sec)",
+                                BaseValue = 10,
+                                Increment = IncrementCoefficient.None,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.None
+                            },
+                            new WarshipParameter
+                            {
+                                Name = "Average damage (per second)",
+                                BaseValue = 500,
+                                Increment = IncrementCoefficient.Attack,
+                                UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
                             }
                         }
                     }

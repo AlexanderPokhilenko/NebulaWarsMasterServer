@@ -50,12 +50,27 @@ namespace NetworkLibrary.NetworkLibrary.Http
     public class WarshipParameter
     {
         [Index(0)] public virtual string Name { get; set; }
-        /// <summary>
-        /// Позиция в массиве - уровень.
-        /// </summary>
-        [Index(1)] public virtual string[] Values { get; set; }
-        [Index(2)] public virtual string[] Increments { get; set; }
+        [Index(1)] public virtual float BaseValue { get; set; }
+        [Index(2)] public virtual IncrementCoefficient Increment { get; set; }
         [Index(3)] public virtual UiIncrementTypeEnum UiIncrementTypeEnum { get; set; }
+
+#if UNITY_2017_1_OR_NEWER
+        public float GetCurrentValue(int powerLevel)
+        {
+            powerLevel--; // Потому что считаем с 1, а не с 0
+            if (Increment == IncrementCoefficient.None) return BaseValue;
+            return BaseValue * (1f + powerLevel * WarshipImprovementConstants.GetCoefficient(Increment));
+        }
+#endif
+    }
+
+    public enum IncrementCoefficient
+    {
+        None,
+        HealthPoints,
+        LinearVelocity,
+        AngularVelocity,
+        Attack
     }
 
     public enum UiIncrementTypeEnum
