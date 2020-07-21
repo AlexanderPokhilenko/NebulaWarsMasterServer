@@ -15,11 +15,9 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
     {
         private readonly int numberOfPrizeTypes;
         private readonly Random random = new Random();
-        private readonly WarshipPowerScaleModelStorage warshipPowerScaleModelStorage;
 
-        public SmallLootboxPrizeFactory(WarshipPowerScaleModelStorage warshipPowerScaleModelStorage)
+        public SmallLootboxPrizeFactory()
         {
-            this.warshipPowerScaleModelStorage = warshipPowerScaleModelStorage;
             numberOfPrizeTypes = Enum.GetNames(typeof(LootboxPrizeType)).Length;
         }
         
@@ -51,8 +49,7 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
 
                     warship.WarshipPowerPoints += amount;
                     var model = new LootboxWarshipPowerPointsModel();
-                    var test = warshipPowerScaleModelStorage
-                        .GetWarshipImprovementModel(warship.WarshipPowerLevel);
+                    var test = WarshipPowerScale.GetModel(warship.WarshipPowerLevel);
                     if (test == null)
                     {
                         return null;

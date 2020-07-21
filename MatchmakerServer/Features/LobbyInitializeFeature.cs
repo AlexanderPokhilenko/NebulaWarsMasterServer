@@ -20,7 +20,6 @@ namespace AmoebaGameMatcherServer.Features
             serviceCollection.AddTransient<DbWarshipsStatisticsReader>();
             serviceCollection.AddTransient<WarshipsCharacteristicsService>();
             serviceCollection.AddTransient<AccountMapperService>();
-            serviceCollection.AddTransient<WarshipPowerScaleModelStorage>();
             serviceCollection.AddTransient<WarshipImprovementCostChecker>();
             serviceCollection.AddTransient<SkinsDbReaderService>();
             serviceCollection.AddTransient<DbAccountWarshipReaderService>();

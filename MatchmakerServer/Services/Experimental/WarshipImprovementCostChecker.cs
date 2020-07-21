@@ -12,20 +12,12 @@ namespace AmoebaGameMatcherServer.Services.Experimental
     }
     public class WarshipImprovementCostChecker
     {
-        private readonly WarshipPowerScaleModelStorage warshipPowerScaleModelStorage;
-
-        public WarshipImprovementCostChecker(WarshipPowerScaleModelStorage warshipPowerScaleModelStorage)
-        {
-            this.warshipPowerScaleModelStorage = warshipPowerScaleModelStorage;
-        }
-
         public bool CanAPurchaseBeMade(int softCurrency, int warshipPowerLevel,  int warshipPowerPoints,
             out FaultReason? faultReason)
         {
             Console.WriteLine($"{nameof(warshipPowerLevel)} {warshipPowerLevel} {nameof(warshipPowerPoints)} {warshipPowerPoints}");
             //Достать цену улучшения
-            WarshipImprovementModel improvementModel = warshipPowerScaleModelStorage
-                .GetWarshipImprovementModel(warshipPowerLevel);
+            WarshipImprovementModel improvementModel = WarshipPowerScale.GetModel(warshipPowerLevel);
 
             if (improvementModel == null)
             {
@@ -53,8 +45,7 @@ namespace AmoebaGameMatcherServer.Services.Experimental
 
         public WarshipImprovementModel GetImprovementModel(int warshipPowerLevel)
         {
-            WarshipImprovementModel improvementModel = warshipPowerScaleModelStorage
-                .GetWarshipImprovementModel(warshipPowerLevel);
+            WarshipImprovementModel improvementModel = WarshipPowerScale.GetModel(warshipPowerLevel);
             return improvementModel;
         }
     }

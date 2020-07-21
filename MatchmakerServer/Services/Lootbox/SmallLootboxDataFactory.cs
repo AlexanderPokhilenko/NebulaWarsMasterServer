@@ -13,9 +13,9 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
         private const int NumberOfPrizes = 3;
         private readonly SmallLootboxPrizeFactory lootboxPrizeFactory;
 
-        public SmallLootboxDataFactory(WarshipPowerScaleModelStorage warshipPowerScaleModelStorage)
+        public SmallLootboxDataFactory()
         {
-            lootboxPrizeFactory = new SmallLootboxPrizeFactory(warshipPowerScaleModelStorage);
+            lootboxPrizeFactory = new SmallLootboxPrizeFactory();
         }
         
         public LootboxModel Create(List<WarshipDbDto> warships)

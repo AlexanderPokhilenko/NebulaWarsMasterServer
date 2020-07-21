@@ -62,8 +62,7 @@ namespace IntegrationTests
             StubUsernameDbWriterService = new StubUsernameDbWriterService(DbContext);
             
             LobbyModelController = new LobbyModelController(LobbyModelFacadeService, StubUsernameDbWriterService);
-            var warshipPowerScaleModelStorage = new WarshipPowerScaleModelStorage();
-            WarshipImprovementCostChecker = new WarshipImprovementCostChecker(warshipPowerScaleModelStorage);
+            WarshipImprovementCostChecker = new WarshipImprovementCostChecker();
             WarshipImprovementFacadeService = new WarshipImprovementFacadeService(AccountReaderService, DbContext, WarshipImprovementCostChecker);
             
         }
