@@ -48,10 +48,22 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
                 ApplicationDbContext sukaContext = new DbContextFactory().Create(); 
                 warshipNames = sukaContext.WarshipTypes.Select(warshipType => warshipType.Name).ToList();
             }
-
+            
+            
             if (warshipNames.Count == 0)
             {
-                throw new Exception("Список типов кораблей пуст");
+                warshipNames = new List<string>()
+                {
+                    "hare",
+                    "bird",
+                    "smiley",
+                    "sage"
+                };
+            }
+            
+            if (warshipNames.Count == 0)
+            {
+                throw new Exception("Список типов кораблей пуст после всех костылей");
             }
         }
         
