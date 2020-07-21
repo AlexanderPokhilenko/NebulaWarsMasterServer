@@ -369,7 +369,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                             new WarshipParameter
                             {
                                 Name = "Average damage (per second)",
-                                BaseValue = 500,
+                                BaseValue = 300,
                                 Increment = IncrementCoefficient.Attack,
                                 UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
                             }
