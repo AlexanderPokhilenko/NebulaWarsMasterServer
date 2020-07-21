@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using AmoebaGameMatcherServer.Controllers;
 using AmoebaGameMatcherServer.Controllers.ProfileServer.Lobby;
 using AmoebaGameMatcherServer.Features;
@@ -61,7 +62,8 @@ namespace AmoebaGameMatcherServer
             
             //Заполнение данными
             new DataSeeder().Seed(dbContext);
-
+            
+            
             app.UseMvc();
         }
     }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AmoebaGameMatcherServer.Services.Queues;
 using DataLayer;
 using NetworkLibrary.NetworkLibrary.Http;
 
@@ -15,6 +14,45 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
         public BattleRoyaleBotFactoryService(ApplicationDbContext dbContext)
         {
             warshipNames = dbContext.WarshipTypes.Select(warshipType => warshipType.Name).ToList();
+            if (warshipNames.Count == 0)
+            {
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Контекст не содержит названия кораблей");
+                Console.WriteLine("Error. Создание нового контекста");
+                ApplicationDbContext sukaContext = new DbContextFactory().Create(); 
+                warshipNames = sukaContext.WarshipTypes.Select(warshipType => warshipType.Name).ToList();
+            }
+
+            if (warshipNames.Count == 0)
+            {
+                throw new Exception("Список типов кораблей пуст");
+            }
         }
         
         public List<BotModel> CreateBotModels(int numberOdBots)
