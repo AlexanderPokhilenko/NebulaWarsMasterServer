@@ -7,6 +7,7 @@ using DataLayer.Entities.Transactions.Decrement;
 using DataLayer.Tables;
 using Microsoft.EntityFrameworkCore;
 using NetworkLibrary.NetworkLibrary.Http;
+using ZeroFormatter;
 
 namespace AmoebaGameMatcherServer.Services.Lootbox
 {
@@ -35,25 +36,38 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
                 switch (prize.LootboxPrizeType)
                 {
                     case LootboxPrizeType.SoftCurrency:
+                    {
+                        
                         increment.IncrementTypeId = IncrementTypeEnum.SoftCurrency;
-                        increment.Amount = prize.Quantity;
+                        int amount = ZeroFormatterSerializer
+                            .Deserialize<LootboxSoftCurrencyModel>(prize.SerializedModel).Amount;
+                        increment.Amount = amount; 
                         break;
-                    case LootboxPrizeType.LootboxPoints:
-                        increment.IncrementTypeId = IncrementTypeEnum.LootboxPoints;
-                        increment.Amount = prize.Quantity;
+                    }
+                    case LootboxPrizeType.HardCurrency:
+                    {
+                        increment.IncrementTypeId = IncrementTypeEnum.HardCurrency;
+                        int amount = ZeroFormatterSerializer
+                            .Deserialize<LootboxHardCurrencyModel>(prize.SerializedModel).Amount;
+                        increment.Amount = amount; 
                         break;
+                    }
                     case LootboxPrizeType.WarshipPowerPoints:
-                        if (prize.WarshipId != null)
+                    {
+                        var model = ZeroFormatterSerializer
+                            .Deserialize<LootboxWarshipPowerPointsModel>(prize.SerializedModel);
+                        if (model.WarshipId != null)
                         {
                             increment.IncrementTypeId = IncrementTypeEnum.WarshipPowerPoints;
-                            increment.Amount = prize.Quantity;
-                            increment.WarshipId = prize.WarshipId;
+                            increment.Amount = model.FinishValue-model.StartValue;
+                            increment.WarshipId = model.WarshipId;
                         }
                         else
                         {
-                            throw new NullReferenceException(nameof(prize.WarshipId));
+                            throw new NullReferenceException("warshipId");
                         }
                         break;
+                    }
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

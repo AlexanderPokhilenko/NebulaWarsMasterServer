@@ -10,7 +10,7 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
     public class BattleRoyaleBotFactoryService
     {
         private readonly List<string> warshipNames;
-        private static readonly Random random = new Random();
+        private static readonly Random Random = new Random();
 
         public BattleRoyaleBotFactoryService(ApplicationDbContext dbContext)
         {
@@ -22,8 +22,11 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
             List<BotModel> bots = new List<BotModel>();
             for (int i = 0; i < numberOdBots; i++)
             {
-                string warshipName = warshipNames[random.Next(warshipNames.Count)];
-                var id = BotTemporaryIdFactory.Create();
+                int randomIndex = Random.Next(warshipNames.Count);
+                Console.WriteLine(randomIndex);
+                Console.WriteLine(warshipNames.Count);
+                string warshipName = warshipNames[randomIndex];
+                ushort id = BotTemporaryIdFactory.Create();
                 BotModel botModel = new BotModel
                 {
                     BotName = GenerateNicknameFromId(id),
@@ -43,7 +46,7 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
             var firstIndex = (byte)id;
             var secondIndex = (byte)(id >> 8 + firstIndex);
 
-            var rnd = random.Next(3);
+            var rnd = Random.Next(3);
             switch (rnd)
             {
                 case 0:

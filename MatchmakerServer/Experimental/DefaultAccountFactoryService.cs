@@ -69,7 +69,7 @@ namespace AmoebaGameMatcherServer.Experimental
                             new Increment
                             {
                                 IncrementTypeId = IncrementTypeEnum.LootboxPoints,
-                                Amount = 1505
+                                Amount = 100500
                             }
                         }
                     }

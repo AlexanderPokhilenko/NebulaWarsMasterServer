@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using AmoebaGameMatcherServer.Services.LobbyInitialization;
 using DataLayer;
+using DataLayer.Tables;
 using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
 
@@ -15,16 +17,19 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
         private readonly LootboxDbWriterService lootboxDbWriterService;
         private readonly SmallLootboxOpenAllowingService allowingService;
         private readonly SmallLootboxDataFactory smallLootboxModelFactory;
+        private readonly AccountDbReaderService accountDbReaderService;
+
 
         public LootboxFacadeService(SmallLootboxOpenAllowingService allowingService,
             SmallLootboxDataFactory smallLootboxModelFactory,
             LootboxDbWriterService lootboxDbWriterService,
-            ApplicationDbContext dbContext)
+            ApplicationDbContext dbContext, AccountDbReaderService accountDbReaderService)
         {
             this.allowingService = allowingService;
             this.smallLootboxModelFactory = smallLootboxModelFactory;
             this.lootboxDbWriterService = lootboxDbWriterService;
             this.dbContext = dbContext;
+            this.accountDbReaderService = accountDbReaderService;
         }
         
         [ItemCanBeNull]
@@ -36,13 +41,11 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
                 return null;
             }
 
-            int[] warshipIds = dbContext.Warships
-                .Where(warship => warship.Account.ServiceId == playerServiceId)
-                .Select(warship => warship.Id)
-                .ToArray();
+            AccountDbDto accountDbDto = await accountDbReaderService.ReadAccountAsync(playerServiceId);
+            
 
             //Создать лутбокс
-            LootboxModel lootboxModel = smallLootboxModelFactory.Create(warshipIds);
+            LootboxModel lootboxModel = smallLootboxModelFactory.Create(accountDbDto.Warships);
             
             //Сохранить лутбокс 
             await lootboxDbWriterService.WriteAsync(playerServiceId, lootboxModel);
