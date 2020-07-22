@@ -32,6 +32,11 @@ namespace NetworkLibrary.NetworkLibrary.Http
         [Index(7)] public virtual WarshipCharacteristics WarshipCharacteristics { get; set; }
         [Index(8)] public virtual List<SkinTypeDto> Skins { get; set; }
         [Index(9)] public virtual int CurrentSkinIndex { get; set; }
+        
+        public string GetCurrentSkinName()
+        {
+            return Skins[CurrentSkinIndex].Name;
+        }
     }
 
     [ZeroFormattable]

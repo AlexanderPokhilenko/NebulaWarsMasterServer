@@ -3,6 +3,7 @@ using System.Linq;
 using AmoebaGameMatcherServer.Controllers;
 using AmoebaGameMatcherServer.Controllers.ProfileServer.Lobby;
 using AmoebaGameMatcherServer.Features;
+using AmoebaGameMatcherServer.Services;
 using AmoebaGameMatcherServer.Services.Database.Seeding;
 using AmoebaGameMatcherServer.Services.GoogleApi;
 using AmoebaGameMatcherServer.Services.GoogleApi.AccessTokenUtils;
@@ -45,6 +46,9 @@ namespace AmoebaGameMatcherServer
             services.AddFeature(new ShopFeature());
             
             services.AddTransient<CurrentSkinChangingService>();
+            
+            
+            services.AddTransient<BundleVersionService>();
             
             //Общие очереди игроков
             services.AddSingleton<BattleRoyaleQueueSingletonService>();

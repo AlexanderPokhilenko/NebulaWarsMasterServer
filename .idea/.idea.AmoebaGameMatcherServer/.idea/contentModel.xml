@@ -212,6 +212,7 @@
         </e>
         <e p="readme.txt" t="Include" />
         <e p="Services" t="Include">
+          <e p="BundleVersionService.cs" t="Include" />
           <e p="Database" t="Include">
             <e p="Seeding" t="Include">
               <e p="DataSeeder.cs" t="Include" />

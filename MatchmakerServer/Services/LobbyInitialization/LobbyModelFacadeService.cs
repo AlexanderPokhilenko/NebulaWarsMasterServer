@@ -14,14 +14,17 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
         private readonly WarshipRatingScale warshipRatingScale;
         private readonly AccountFacadeService accountFacadeService;
         private readonly AccountMapperService accountMapperService;
+        private readonly BundleVersionService bundleVersionService;
         private readonly NotShownRewardsReaderService notShownRewardsReaderService;
 
         public LobbyModelFacadeService(AccountFacadeService accountFacadeService,
-            NotShownRewardsReaderService notShownRewardsReaderService, AccountMapperService accountMapperService)
+            NotShownRewardsReaderService notShownRewardsReaderService, AccountMapperService accountMapperService,
+            BundleVersionService bundleVersionService)
         {
             warshipRatingScale = new WarshipRatingScale();
             this.accountFacadeService = accountFacadeService;
             this.accountMapperService = accountMapperService;
+            this.bundleVersionService = bundleVersionService;
             this.notShownRewardsReaderService = notShownRewardsReaderService;
         }
 
@@ -49,6 +52,8 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                 RewardsThatHaveNotBeenShown = rewardsThatHaveNotBeenShown,
                 WarshipRatingScaleModel = warshipRatingScaleModel
             };
+
+            lobbyModel.BundleVersion = bundleVersionService.GetBundleVersion();
             
             return lobbyModel;
         }

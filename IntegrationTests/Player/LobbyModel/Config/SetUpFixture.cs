@@ -58,7 +58,10 @@ namespace IntegrationTests
             var warshipsCharacteristicsService = new WarshipsCharacteristicsService();
             AccountMapperService accountMapperService = new AccountMapperService(warshipsCharacteristicsService);
             AccountFacadeService = new AccountFacadeService(AccountReaderService, accountRegistrationService);
-            LobbyModelFacadeService = new LobbyModelFacadeService(AccountFacadeService, NotShownRewardsReaderService, accountMapperService);
+            var bundleVersionService = new BundleVersionService();
+            
+            LobbyModelFacadeService = new LobbyModelFacadeService(AccountFacadeService, NotShownRewardsReaderService,
+                accountMapperService, bundleVersionService);
             StubUsernameDbWriterService = new StubUsernameDbWriterService(DbContext);
             
             LobbyModelController = new LobbyModelController(LobbyModelFacadeService, StubUsernameDbWriterService);
