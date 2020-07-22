@@ -27,22 +27,20 @@
             return result;
         }
             
+        private int GetWarshipRatingDelta(int placeInMatch, int currentWarshipRating)
+        {
+            int warshipRatingDelta = warshipRatingCalculator.GetWarshipRatingDelta(currentWarshipRating, placeInMatch);
+            return warshipRatingDelta;
+        }
+        
         private int GetPointsForSmallLootbox(int placeInMatch, int currentWarshipRating)
         {
             if (placeInMatch < 5)
             {
                 return 10;
             }
-            else
-            {
-                return 20;
-            }
-        }
-        
-        private int GetWarshipRatingDelta(int placeInMatch, int currentWarshipRating)
-        {
-            int warshipRatingDelta = warshipRatingCalculator.GetWarshipRatingDelta(currentWarshipRating, placeInMatch);
-            return warshipRatingDelta;
+
+            return 20;
         }
     }
 }

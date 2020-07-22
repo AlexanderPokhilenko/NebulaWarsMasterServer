@@ -49,7 +49,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                 return false;
             }
             
-            //Достать результат боя из БД
+            //Достать пустой результат боя из БД
             MatchResult matchResult = await dbContext.MatchResults
                 .Where(matchResult1 => matchResult1.MatchId == matchId && matchResult1.Warship.AccountId == accountId)
                 .SingleAsync();
