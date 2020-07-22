@@ -37,6 +37,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
             // }
 
             //заполнить список скинов для всех типов кораблей
+            //warshipId, список скинов
             Dictionary<int, List<SkinType>> skinsDict = await skinsDbReaderService.ReadAsync(accountDbDto.Id);
             if (skinsDict == null || skinsDict.Count == 0)
             {

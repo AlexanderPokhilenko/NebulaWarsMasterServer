@@ -33,7 +33,7 @@ namespace IntegrationTests
             Assert.IsNotNull(lobbyModel.AccountDto);
             Assert.IsNotNull(lobbyModel.AccountDto.Warships);
             Assert.IsTrue(lobbyModel.AccountDto.Warships.Count>1);
-            Assert.IsNotNull(lobbyModel.WarshipPowerScaleModel);
+            // Assert.IsNotNull(lobbyModel.WarshipPowerScaleModel);
             Assert.IsNotNull(lobbyModel.WarshipRatingScaleModel);
             Assert.IsNotNull(lobbyModel.RewardsThatHaveNotBeenShown);
 
@@ -69,7 +69,7 @@ namespace IntegrationTests
             Assert.IsNotNull(lobbyModel.AccountDto);
             Assert.IsNotNull(lobbyModel.AccountDto.Warships);
             Assert.IsTrue(lobbyModel.AccountDto.Warships.Count>1);
-            Assert.IsNotNull(lobbyModel.WarshipPowerScaleModel);
+            // Assert.IsNotNull(lobbyModel.WarshipPowerScaleModel);
             Assert.IsNotNull(lobbyModel.WarshipRatingScaleModel);
             Assert.IsNotNull(lobbyModel.RewardsThatHaveNotBeenShown);
 
@@ -103,7 +103,7 @@ namespace IntegrationTests
             Assert.IsNotNull(lobbyModel.AccountDto);
             Assert.IsNotNull(lobbyModel.AccountDto.Warships);
             Assert.IsTrue(lobbyModel.AccountDto.Warships.Count>1);
-            Assert.IsNotNull(lobbyModel.WarshipPowerScaleModel);
+            // Assert.IsNotNull(lobbyModel.WarshipPowerScaleModel);
             Assert.IsNotNull(lobbyModel.WarshipRatingScaleModel);
             Assert.IsNotNull(lobbyModel.RewardsThatHaveNotBeenShown);
 
@@ -139,7 +139,7 @@ namespace IntegrationTests
             Assert.IsNotNull(lobbyModel.AccountDto);
             Assert.IsNotNull(lobbyModel.AccountDto.Warships);
             Assert.IsTrue(lobbyModel.AccountDto.Warships.Count>1);
-            Assert.IsNotNull(lobbyModel.WarshipPowerScaleModel);
+            // Assert.IsNotNull(lobbyModel.WarshipPowerScaleModel);
             Assert.IsNotNull(lobbyModel.WarshipRatingScaleModel);
             Assert.IsNotNull(lobbyModel.RewardsThatHaveNotBeenShown);
 

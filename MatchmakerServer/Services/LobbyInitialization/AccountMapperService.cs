@@ -41,11 +41,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                 warshipDto.PowerLevel = warshipDbDto.WarshipPowerLevel;
                 warshipDto.WarshipCharacteristics = warshipsCharacteristicsService
                     .GetWarshipCharacteristics(warshipDbDto.WarshipType.Id);
-                warshipDto.CurrentSkinType = new SkinTypeDto()
-                {
-                    Id = warshipDbDto.CurrentSkinType.Id,
-                    Name = warshipDbDto.CurrentSkinType.Name
-                };
+               
 
                 List<SkinTypeDto> skinTypeDtos = new List<SkinTypeDto>();
                 foreach (SkinType skinType in warshipDbDto.Skins)
@@ -58,7 +54,11 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                     skinTypeDtos.Add(skinTypeDto);
                 }
                 warshipDto.Skins = skinTypeDtos;
+
+                warshipDto.CurrentSkinIndex = warshipDto.Skins
+                    .FindIndex((skin) => skin.Id == warshipDbDto.CurrentSkinTypeId);
                 
+               
                 result.Warships.Add(warshipDto);
             }
 
