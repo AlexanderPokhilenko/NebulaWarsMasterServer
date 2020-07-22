@@ -94,7 +94,7 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
         {
             // разбиваем 2 байта (ushort) на 2 переменные по 1 байту
             var firstIndex = (byte)id;
-            var secondIndex = (byte)(id >> 8 + firstIndex);
+            var secondIndex = (byte)((id >> 8) + firstIndex);
 
             var rnd = Random.Next(3);
             switch (rnd)
