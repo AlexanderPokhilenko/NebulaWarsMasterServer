@@ -32,7 +32,8 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
             //warshipId, skinNames
             Dictionary<int, List<SkinType>> dict = new Dictionary<int, List<SkinType>>();
 
-            foreach (Increment increment in increments)
+            foreach (Increment increment in increments
+                .OrderBy(increment=>increment.Transaction.DateTime))
             {
                 if (increment.WarshipId == null)
                 {

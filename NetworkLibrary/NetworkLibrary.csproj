@@ -11,4 +11,15 @@
       <PackageReference Include="ZeroFormatter.Interfaces" Version="1.6.4" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Http\Lobby\WarshipParameter.cs" />
+      <Compile Remove="Http\Lobby\WarshipDto.cs" />
+      <Compile Remove="Http\Lobby\SkinTypeDto.cs" />
+      <Compile Remove="Http\Lobby\LootboxWarshipPowerPointsModel.cs" />
+      <Compile Remove="Http\Lobby\LootboxSoftCurrencyModel.cs" />
+      <Compile Remove="Http\Lobby\LootboxPrizeType.cs" />
+      <Compile Remove="Http\Lobby\LootboxPrizeModel.cs" />
+      <Compile Remove="Http\Lobby\LootboxHardCurrencyModel.cs" />
+    </ItemGroup>
+
 </Project>
