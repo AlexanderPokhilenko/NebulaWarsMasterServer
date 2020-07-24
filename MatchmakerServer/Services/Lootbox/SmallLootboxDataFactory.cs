@@ -22,11 +22,11 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
         {
             LootboxModel result = new LootboxModel
             {
-                Prizes = new List<LootboxPrizeModel>(NumberOfPrizes)
+                Prizes = new List<ResourceModel>(NumberOfPrizes)
             };
             for (int i = 0; i < NumberOfPrizes; i++)
             {
-                LootboxPrizeModel prize = lootboxPrizeFactory.Create(warships);
+                ResourceModel prize = lootboxPrizeFactory.Create(warships);
                 if (prize != null)
                 {
                     result.Prizes.Add(prize);

@@ -30,32 +30,32 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
                 .SingleOrDefaultAsync();
 
             List<Increment> increments = new List<Increment>();
-            foreach (LootboxPrizeModel prize in lootboxModel.Prizes)
+            foreach (ResourceModel prize in lootboxModel.Prizes)
             {
                 Increment increment = new Increment();
-                switch (prize.LootboxPrizeType)
+                switch (prize.ResourceTypeEnum)
                 {
-                    case LootboxPrizeType.SoftCurrency:
+                    case ResourceTypeEnum.SoftCurrency:
                     {
                         
                         increment.IncrementTypeId = IncrementTypeEnum.SoftCurrency;
                         int amount = ZeroFormatterSerializer
-                            .Deserialize<LootboxSoftCurrencyModel>(prize.SerializedModel).Amount;
+                            .Deserialize<SoftCurrencyResourceModel>(prize.SerializedModel).Amount;
                         increment.Amount = amount; 
                         break;
                     }
-                    case LootboxPrizeType.HardCurrency:
+                    case ResourceTypeEnum.HardCurrency:
                     {
                         increment.IncrementTypeId = IncrementTypeEnum.HardCurrency;
                         int amount = ZeroFormatterSerializer
-                            .Deserialize<LootboxHardCurrencyModel>(prize.SerializedModel).Amount;
+                            .Deserialize<HardCurrencyResourceModel>(prize.SerializedModel).Amount;
                         increment.Amount = amount; 
                         break;
                     }
-                    case LootboxPrizeType.WarshipPowerPoints:
+                    case ResourceTypeEnum.WarshipPowerPoints:
                     {
                         var model = ZeroFormatterSerializer
-                            .Deserialize<LootboxWarshipPowerPointsModel>(prize.SerializedModel);
+                            .Deserialize<WarshipPowerPointsResourceModel>(prize.SerializedModel);
                         if (model.WarshipId != null)
                         {
                             increment.IncrementTypeId = IncrementTypeEnum.WarshipPowerPoints;

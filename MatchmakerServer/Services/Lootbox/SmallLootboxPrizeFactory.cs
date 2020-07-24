@@ -18,29 +18,29 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
 
         public SmallLootboxPrizeFactory()
         {
-            numberOfPrizeTypes = Enum.GetNames(typeof(LootboxPrizeType)).Length;
+            numberOfPrizeTypes = Enum.GetNames(typeof(ResourceTypeEnum)).Length;
         }
         
         [CanBeNull]
-        public LootboxPrizeModel Create(List<WarshipDbDto> warships)
+        public ResourceModel Create(List<WarshipDbDto> warships)
         {
-            LootboxPrizeType prizeType = (LootboxPrizeType) random.Next(numberOfPrizeTypes);
-            switch (prizeType)
+            ResourceTypeEnum resourceTypeEnum = (ResourceTypeEnum) random.Next(numberOfPrizeTypes);
+            switch (resourceTypeEnum)
             {
-                case LootboxPrizeType.SoftCurrency:
+                case ResourceTypeEnum.SoftCurrency:
                 {
                     int amount = random.Next(15, 100);
-                    var model = new LootboxSoftCurrencyModel()
+                    var model = new SoftCurrencyResourceModel()
                     {
                         Amount = amount
                     };
-                    return new LootboxPrizeModel
+                    return new ResourceModel
                     {
                         SerializedModel = ZeroFormatterSerializer.Serialize(model),
-                        LootboxPrizeType = LootboxPrizeType.SoftCurrency
+                        ResourceTypeEnum = ResourceTypeEnum.SoftCurrency
                     };
                 }
-                case LootboxPrizeType.WarshipPowerPoints:
+                case ResourceTypeEnum.WarshipPowerPoints:
                 {
                     int warshipIndex = random.Next(warships.Count);
                     var warship = warships[warshipIndex];
@@ -48,7 +48,7 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
                     int amount = random.Next(2, 15);
 
                     warship.WarshipPowerPoints += amount;
-                    var model = new LootboxWarshipPowerPointsModel();
+                    var model = new WarshipPowerPointsResourceModel();
                     var test = WarshipPowerScale.GetModel(warship.WarshipPowerLevel);
                     if (test == null)
                     {
@@ -60,26 +60,26 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
                     model.StartValue = warship.WarshipPowerPoints;
                     model.WarshipId = warship.Id;
 
-                    return new LootboxPrizeModel
+                    return new ResourceModel
                     {
                         SerializedModel = ZeroFormatterSerializer.Serialize(model),
-                        LootboxPrizeType = LootboxPrizeType.WarshipPowerPoints
+                        ResourceTypeEnum = ResourceTypeEnum.WarshipPowerPoints
                     };
                 }
-                case LootboxPrizeType.HardCurrency:
+                case ResourceTypeEnum.HardCurrency:
                 {
-                    var model = new LootboxHardCurrencyModel()
+                    var model = new HardCurrencyResourceModel()
                     {
                         Amount = random.Next(2, 15)
                     };
-                    return new LootboxPrizeModel
+                    return new ResourceModel
                     {
                         SerializedModel = ZeroFormatterSerializer.Serialize(model),
-                        LootboxPrizeType = LootboxPrizeType.HardCurrency
+                        ResourceTypeEnum = ResourceTypeEnum.HardCurrency
                     };
                 }
                 default:
-                    throw new Exception("Неизвестный тип подарка "+prizeType);
+                    throw new Exception("Неизвестный тип подарка "+resourceTypeEnum);
             }
         }
     }
