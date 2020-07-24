@@ -340,6 +340,7 @@
                   <e p="IncrementFactoriesService.cs" t="Include" />
                   <e p="LootboxIncrementsFactory.cs" t="Include" />
                   <e p="LootboxSetIncrementsFactory.cs" t="Include" />
+                  <e p="SoftCurrencyIncrementsFactory.cs" t="Include" />
                   <e p="WarshipPowerPointsIncrementsFactory.cs" t="Include" />
                 </e>
                 <e p="ShopTransactionFactory.cs" t="Include" />
@@ -348,6 +349,7 @@
             <e p="ShopModel" t="Include">
               <e p="DeleteMeShopSectionFactories" t="Include">
                 <e p="DiscountsSectionFactory.cs" t="Include" />
+                <e p="ForeignServiceProducts.cs" t="Include" />
                 <e p="HardCurrencySectionFactory.cs" t="Include" />
                 <e p="LootboxSectionFactory.cs" t="Include" />
                 <e p="SkinsSectionFactory.cs" t="Include" />
@@ -417,7 +419,7 @@
             <e p="WarshipModel.cs" t="Include" />
             <e p="WarshipModel.cs.meta" t="Include" />
             <e p="WarshipPowerScale.cs" t="Include" />
-            <e p="WarshipPowerScaleModel.cs.meta" t="Include" />
+            <e p="WarshipPowerScale.cs.meta" t="Include" />
             <e p="WarshipRatingScaleModel.cs" t="Include" />
             <e p="WarshipRatingScaleModel.cs.meta" t="Include" />
           </e>

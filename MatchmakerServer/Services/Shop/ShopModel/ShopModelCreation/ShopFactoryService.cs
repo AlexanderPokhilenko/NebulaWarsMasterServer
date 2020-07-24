@@ -22,13 +22,16 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelCreation
         private readonly AccountDbReaderService accountDbReaderService;
         private readonly DailyDealsSectionFactory dailyDealsSectionFactory;
         private readonly HardCurrencySectionFactory hardCurrencySectionFactory;
+        private readonly SoftCurrencySectionFactory softCurrencySectionFactory;
 
         public ShopFactoryService(AccountDbReaderService accountDbReaderService, 
-            DailyDealsSectionFactory dailyDealsSectionFactory, HardCurrencySectionFactory hardCurrencySectionFactory)
+            DailyDealsSectionFactory dailyDealsSectionFactory, HardCurrencySectionFactory hardCurrencySectionFactory,
+            SoftCurrencySectionFactory softCurrencySectionFactory)
         {
             this.accountDbReaderService = accountDbReaderService;
             this.dailyDealsSectionFactory = dailyDealsSectionFactory;
             this.hardCurrencySectionFactory = hardCurrencySectionFactory;
+            this.softCurrencySectionFactory = softCurrencySectionFactory;
         }
 
         public async Task<NetworkLibrary.NetworkLibrary.Http.ShopModel> Create([NotNull] string playerServiceId)
@@ -45,6 +48,7 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelCreation
             };
             shopModel.UiSections.Add(await dailyDealsSectionFactory.Create(accountDbDto));
             shopModel.UiSections.Add(hardCurrencySectionFactory.Create());
+            shopModel.UiSections.Add(softCurrencySectionFactory.Create());
             
                  
             // shopModel.UiSections.Add(new SkinsSectionFactory().Create());

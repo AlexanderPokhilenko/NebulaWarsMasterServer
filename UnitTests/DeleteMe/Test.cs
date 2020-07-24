@@ -28,7 +28,23 @@ namespace MatchmakerTest.DeleteMe
                65,19,861,654
            };
            var test1  = test.Take(10).ToList();
+        }     
+        
+        [TestMethod]
+        public void Test51()
+        {
+            byte[] arr1 = new byte[] {12, 198, 16, 168, 54};
+            byte[] arr2 = null;
+            if (arr1.SequenceEqual(arr2))
+            {
+                Console.WriteLine("equal");
+            }
+            else
+            {
+                Console.WriteLine("not equal");
+            }
         }
+        
         [TestMethod]
         public void Test3()
         {

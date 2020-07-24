@@ -59,12 +59,12 @@ namespace AmoebaGameMatcherServer.Experimental
                             new Increment
                             {
                                 IncrementTypeId = IncrementTypeEnum.SoftCurrency,
-                                Amount = 500
+                                Amount = 1
                             },
                             new Increment
                             {
                                 IncrementTypeId = IncrementTypeEnum.HardCurrency,
-                                Amount = 300
+                                Amount = 1
                             },
                             new Increment
                             {

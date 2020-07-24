@@ -15,9 +15,11 @@ namespace AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation.Increm
             Dictionary<TransactionTypeEnum, Func<ProductModel, List<Increment>>> dict = 
                 new Dictionary<TransactionTypeEnum, Func<ProductModel, List<Increment>>>();
             List<IIncrementsFactory> tmpIncrements = new List<IIncrementsFactory>();
+            
             tmpIncrements.Add(new WarshipPowerPointsIncrementsFactory());
             tmpIncrements.Add(new LootboxIncrementsFactory());
             tmpIncrements.Add(new LootboxSetIncrementsFactory());
+            tmpIncrements.Add(new SoftCurrencyIncrementsFactory());
 
             foreach (IIncrementsFactory incrementsFactory in tmpIncrements)
             {

@@ -9,8 +9,9 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.DeleteMeShopSectionFac
         {
             SectionModel sectionModel = new SectionModel
             {
-                NeedFooterPointer = false,
-                HeaderName = "COIN PACKS"
+                NeedFooterPointer = true,
+                HeaderName = "COIN PACKS",
+                SectionTypeEnum = SectionTypeEnum.SoftCurrency
             };
             sectionModel.UiItems = new ProductModel[2][];
             
@@ -26,6 +27,7 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.DeleteMeShopSectionFac
                     CostString = 20.ToString(),
                     Cost = 20,
                     ShopItemSize = ProductSizeEnum.Small,
+                    Amount = 150,
                     Id = 14,
                 }, 
                 new ProductModel
@@ -36,6 +38,7 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.DeleteMeShopSectionFac
                     Name = "400",
                     CostString = 50.ToString(),
                     Cost = 50,
+                    Amount = 400,
                     ShopItemSize = ProductSizeEnum.Small,
                     Id = 15,
                 }
@@ -54,6 +57,7 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.DeleteMeShopSectionFac
                     Cost = 140,
                     ShopItemSize = ProductSizeEnum.Small,
                     Id = 16,
+                    Amount = 1200,
                 },
                 new ProductModel
                 {
@@ -65,6 +69,7 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.DeleteMeShopSectionFac
                     Cost = 280,
                     ShopItemSize = ProductSizeEnum.Small,
                     Id = 17,
+                    Amount = 2600,
                 }
             };
             

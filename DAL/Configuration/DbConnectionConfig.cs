@@ -5,12 +5,12 @@ namespace DataLayer.Configuration
 {
     public static class DbConnectionConfig
     {
-        private static readonly DbConnectionStringBuilder conStrBuilder;
+        private static readonly DbConnectionStringBuilder ConStrBuilder;
         
         static DbConnectionConfig()
         {
-            string name = "R18";
-            conStrBuilder = new DbConnectionStringBuilder
+            string name = "R22";
+            ConStrBuilder = new DbConnectionStringBuilder
             {
                 {"User ID", "postgres"},
                 {"Password",  DbPassIgnore.DbPass},
@@ -21,13 +21,13 @@ namespace DataLayer.Configuration
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                conStrBuilder.Add("Database", "Prod"+name);
-                conStrBuilder.Add("Server", "127.0.0.1");
+                ConStrBuilder.Add("Database", "Prod"+name);
+                ConStrBuilder.Add("Server", "127.0.0.1");
             }
             else
             {
-                conStrBuilder.Add("Database", "Dev"+name);
-                conStrBuilder.Add("Server", "65.52.151.136");
+                ConStrBuilder.Add("Database", "Dev"+name);
+                ConStrBuilder.Add("Server", "65.52.151.136");
             }
         }
         
@@ -35,11 +35,11 @@ namespace DataLayer.Configuration
         {
             if (databaseName != null)
             {
-                conStrBuilder.Remove("Database");
-                conStrBuilder.Add("Database", databaseName);
+                ConStrBuilder.Remove("Database");
+                ConStrBuilder.Add("Database", databaseName);
             }
             
-            return conStrBuilder.ConnectionString;
+            return ConStrBuilder.ConnectionString;
         }
     }
 }

@@ -29,6 +29,7 @@ namespace AmoebaGameMatcherServer
             serviceCollection.AddTransient<IncrementFactoriesService>();
             serviceCollection.AddTransient<DecrementFactoriesService>();
             serviceCollection.AddTransient<HardCurrencySectionFactory>();
+            serviceCollection.AddTransient<SoftCurrencySectionFactory>();
         }
     }
 }

@@ -1,8 +1,14 @@
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using ZeroFormatter;
 
 namespace NetworkLibrary.NetworkLibrary.Http
 {
+    public enum SectionTypeEnum
+    {
+        SoftCurrency,
+        HardCurrency
+    }
     /// <summary>
     /// Описывает раздел в магазине.
     /// </summary>
@@ -21,5 +27,6 @@ namespace NetworkLibrary.NetworkLibrary.Http
         /// Название раздела магазина.
         /// </summary>
         [Index(2)] public virtual string HeaderName { get; set; }
+        [Index(3)] public virtual SectionTypeEnum? SectionTypeEnum { get; set; }
     }
 }
