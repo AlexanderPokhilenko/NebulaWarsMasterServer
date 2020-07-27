@@ -38,7 +38,9 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelDbReading
                 Console.WriteLine("warning Модель магазина из БД пуста");
                 return null;
             }
-            return ZeroFormatterSerializer.Deserialize<NetworkLibrary.NetworkLibrary.Http.ShopModel>(shopModelDb.SerializedModel);
+            
+            return ZeroFormatterSerializer
+                .Deserialize<NetworkLibrary.NetworkLibrary.Http.ShopModel>(shopModelDb.SerializedModel);
         }
     }
 }

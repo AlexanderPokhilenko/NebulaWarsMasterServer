@@ -1,4 +1,5 @@
-﻿using NetworkLibrary.NetworkLibrary.Http;
+﻿using System;
+using NetworkLibrary.NetworkLibrary.Http;
 using ZeroFormatter;
 
 namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelCreation
@@ -7,6 +8,11 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelCreation
     {
         public ProductModel Create(int cost, string previewImagePath, int increment, int warshipId, int maxValueForLevel, int currentAmount)
         {
+            if (warshipId == 0)
+            {
+                throw new Exception("warshipId is empty");
+            }
+            
             return new ProductModel
             {
                 ResourceTypeEnum = ResourceTypeEnum.WarshipPowerPoints,
@@ -20,12 +26,13 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelCreation
                         })
                 },
                 PreviewImagePath = previewImagePath,
-                SerializedModel = ZeroFormatterSerializer.Serialize(new WarshipPowerPointsProduct()
+                SerializedModel = ZeroFormatterSerializer.Serialize(new WarshipPowerPointsProductModel()
                 {
                     WarshipId = warshipId,
-                    CurrentMaxPowerPointsAmount = maxValueForLevel,
-                    PowerPointsIncrement = increment,
-                    CurrentPowerPointsAmount = currentAmount
+                    MaxValueForLevel = maxValueForLevel,
+                    StartValue = currentAmount,
+                    FinishValue = currentAmount+ increment,
+                    WarshipSkinName = null
                 }),
                 ProductSizeEnum = ProductSizeEnum.Small
             };

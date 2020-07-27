@@ -4,7 +4,9 @@ using System.Linq;
 using AmoebaGameMatcherServer.Services.GoogleApi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NetworkLibrary.Http.Utils;
+using NetworkLibrary.NetworkLibrary.Http;
 using Newtonsoft.Json;
+using ZeroFormatter;
 
 namespace MatchmakerTest.DeleteMe
 {
@@ -18,6 +20,38 @@ namespace MatchmakerTest.DeleteMe
             long.TryParse(millis, out long unixTime);
             DateTimeOffset dateTimeOffset = DateTimeOffset.FromUnixTimeMilliseconds(unixTime);
             Console.WriteLine(dateTimeOffset.DateTime);
+        }
+        
+        [TestMethod]
+        public void Test1232()
+        {
+            ProductModel productModel = new ProductModel()
+            {
+                Id = 54,
+                CostModel = new CostModel()
+                {
+                    CostTypeEnum = CostTypeEnum.HardCurrency,
+                    SerializedCostModel = ZeroFormatterSerializer.Serialize(new InGameCurrencyCostModel()
+                    {
+                        Cost = 45
+                    })
+                },
+                IsDisabled = false,
+                PreviewImagePath = "suka",
+                SerializedModel = ZeroFormatterSerializer.Serialize(new SoftCurrencyProductModel()
+                {
+                    Amount = 156
+                }),
+                ResourceTypeEnum = ResourceTypeEnum.SoftCurrency,
+                ProductSizeEnum = ProductSizeEnum.Small,
+                ProductMark = null
+            };
+
+            var arr1 = ZeroFormatterSerializer.Serialize(productModel);
+            var base64String = Convert.ToBase64String(arr1);
+            var arr2 = Convert.FromBase64String(base64String);
+            
+            Assert.AreEqual(arr1.Length, arr2.Length);
         }
         
         [TestMethod]
