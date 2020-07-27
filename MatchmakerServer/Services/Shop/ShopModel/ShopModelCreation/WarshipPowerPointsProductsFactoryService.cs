@@ -9,7 +9,13 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelCreation
 {
     public class WarshipPowerPointsProductsFactoryService
     {
-        private const int NumberOfProducts = 5;
+        private const int NumberOfProducts = 6;
+        private readonly WarshipPowerPointProductFactory factory;
+
+        public WarshipPowerPointsProductsFactoryService()
+        {
+            factory = new WarshipPowerPointProductFactory();
+        }
         
         /// <summary>
         /// Создаёт продукты, которые содержат улучшения для кораблей, которые есть в наличии у аккаунта
@@ -25,24 +31,8 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelCreation
                 int currentWarshipId = warshipIds[index];
                 WarshipDbDto warshipDbDto = accountDbDto.Warships
                     .Single(dto => dto.Id == currentWarshipId);
-                ProductModel wpp = new ProductModel
-                {
-                    TransactionType = TransactionTypeEnum.WarshipPowerPoints,
-                    CurrencyTypeEnum = CurrencyTypeEnum.SoftCurrency,
-                    ImagePreviewPath = warshipDbDto.WarshipType.Name.ToLower(),
-                    CostString = 140.ToString(),
-                    Cost = 140,
-                    WarshipPowerPointsProduct = new WarshipPowerPointsProduct()
-                    {
-                        WarshipId = currentWarshipId,
-                        CurrentMaxPowerPointsAmount = 300,
-                        PowerPointsIncrement = 42,
-                        CurrentPowerPointsAmount = 95
-                    },
-                    ShopItemSize = ProductSizeEnum.Small,
-                    Id = 1654,
-                };
-                
+                string previewPath = warshipDbDto.WarshipType.Name.ToLower();
+                ProductModel wpp = factory.Create(140, previewPath, 42, currentWarshipId, 120,51);
                 warshipPowerPoints.Add(wpp);
             }
 

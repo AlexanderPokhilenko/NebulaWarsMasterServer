@@ -55,7 +55,7 @@ namespace AmoebaGameMatcherServer.Services.Experimental
             {
                 AccountId = accountDbDto.Id,
                 DateTime = DateTime.UtcNow,
-                TransactionTypeId = TransactionTypeEnum.WarshipLevel,
+                TransactionTypeId = TransactionTypeEnum.WarshipImprovement,
                 WasShown = false,
                 Increments = new List<Increment>
                 {

@@ -16,33 +16,8 @@ namespace AmoebaGameMatcherServer.Services.Database.Seeding.Seaders
                 {
                     new TransactionType
                     {
-                        Name = TransactionTypeEnum.Lootbox.ToString(), 
-                        Id = TransactionTypeEnum.Lootbox
-                    },
-                    new TransactionType
-                    {
-                        Name = TransactionTypeEnum.LootboxSet.ToString(),
-                        Id = TransactionTypeEnum.LootboxSet
-                    },
-                    new TransactionType
-                    {
-                        Name = TransactionTypeEnum.Warship.ToString(),
-                        Id = TransactionTypeEnum.Warship
-                    },
-                    new TransactionType
-                    {
-                        Name = TransactionTypeEnum.WarshipAndSkin.ToString(),
-                        Id = TransactionTypeEnum.WarshipAndSkin
-                    },
-                    new TransactionType
-                    {
-                        Name = TransactionTypeEnum.Skin.ToString(),
-                        Id = TransactionTypeEnum.Skin
-                    },
-                    new TransactionType
-                    {
-                        Name = TransactionTypeEnum.WarshipPowerPoints.ToString(), 
-                        Id = TransactionTypeEnum.WarshipPowerPoints
+                        Name = TransactionTypeEnum.LootboxOpening.ToString(), 
+                        Id = TransactionTypeEnum.LootboxOpening
                     },
                     new TransactionType
                     {
@@ -56,24 +31,18 @@ namespace AmoebaGameMatcherServer.Services.Database.Seeding.Seaders
                     },
                     new TransactionType
                     {
-                        Name = TransactionTypeEnum.SoftCurrency.ToString(),
-                        Id = TransactionTypeEnum.SoftCurrency
-                    },
-                    new TransactionType
-                    {
-                        Name = TransactionTypeEnum.HardCurrency.ToString(), 
-                        Id = TransactionTypeEnum.HardCurrency
-                    },
-                    new TransactionType
-                    {
-                        Name = TransactionTypeEnum.WarshipLevel.ToString(),
-                        Id = TransactionTypeEnum.WarshipLevel
-                    },
-                    
-                    new TransactionType
-                    {
                         Name = TransactionTypeEnum.MatchReward.ToString(),
                         Id = TransactionTypeEnum.MatchReward
+                    },
+                    new TransactionType
+                    {
+                        Name = TransactionTypeEnum.ShopPurchase.ToString(),
+                        Id = TransactionTypeEnum.ShopPurchase
+                    },
+                    new TransactionType
+                    {
+                        Name = TransactionTypeEnum.WarshipImprovement.ToString(),
+                        Id = TransactionTypeEnum.WarshipImprovement
                     }
                 };
                 dbContext.TransactionTypes.AddRange(transactionTypes);
@@ -82,7 +51,9 @@ namespace AmoebaGameMatcherServer.Services.Database.Seeding.Seaders
             
             if (dbContext.TransactionTypes.Count() != Enum.GetNames(typeof(TransactionTypeEnum)).Length)
             {
-                throw new ArgumentOutOfRangeException();
+                int dbCount = dbContext.TransactionTypes.Count();
+                int enumCount = Enum.GetNames(typeof(TransactionTypeEnum)).Length;
+                throw new ArgumentOutOfRangeException($"{nameof(dbCount)} {dbCount} {nameof(enumCount)} {enumCount}");
             }
         }
     }

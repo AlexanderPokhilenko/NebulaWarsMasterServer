@@ -6,17 +6,18 @@ namespace AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation.Decrem
 {
     public class HardCurrencyDecrementType:IDecrementFactory
     {
-        public CurrencyTypeEnum GetCurrencyTypeEnum()
+        public CostTypeEnum GetCurrencyTypeEnum()
         {
-            return CurrencyTypeEnum.HardCurrency;
+            return CostTypeEnum.HardCurrency;
         }
 
         public Decrement Create(ProductModel productModel)
         {
+            HardCurrencyProductModel hardCurrencyProductModel = productModel;
             return new Decrement
             {
                 DecrementTypeId = DecrementTypeEnum.HardCurrency,
-                Amount = productModel.Cost
+                Amount = hardCurrencyProductModel.Amount
             };
         }
     }

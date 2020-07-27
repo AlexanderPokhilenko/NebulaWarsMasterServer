@@ -9,7 +9,7 @@ using NetworkLibrary.NetworkLibrary.Http;
 using ZeroFormatter;
 
 namespace AmoebaGameMatcherServer.Services.Shop.Sales
-{
+{ 
     /// <summary>
     /// Отвечает за создание транзакций при покупке товаров. 
     /// </summary>
@@ -24,7 +24,8 @@ namespace AmoebaGameMatcherServer.Services.Shop.Sales
             this.shopTransactionFactory = shopTransactionFactory;
         }
 
-        public async Task BuyProduct(string playerServiceId, int productId, string base64ProductModel, int shopModelId)
+        public async Task BuyProduct(string playerServiceId, int productId, string base64ProductModelFromClient,
+            int shopModelId)
         {
             //Аккаунт существует?
             Account account = await dbContext.Accounts
@@ -72,25 +73,32 @@ namespace AmoebaGameMatcherServer.Services.Shop.Sales
                 throw new Exception("Не удалось достать модель магазина для игрока");
             }
 
-            ProductModel productModel = shopModel.UiSections
+            ProductModel productModelFromDb = shopModel.UiSections
                 .SelectMany(uiSection => uiSection.UiItems)
                 .SelectMany(arr => arr)
                 .SingleOrDefault(productModel1 => productModel1.Id == productId);
-            if (productModel == null)
+            if (productModelFromDb == null)
             {
                 throw new Exception("В модели магазина такого продукта нет.");
             }
             
             //Продукт из БД полностью совпадает с присланным с клиента?
-            byte[] productModelFromClient = Convert.FromBase64String(base64ProductModel);
-            byte[] productModelFromDb = ZeroFormatterSerializer.Serialize(productModel);
-            if (!productModelFromClient.SequenceEqual(productModelFromDb))
+            byte[] serializedProductModelFromClient = Convert.FromBase64String(base64ProductModelFromClient);
+            byte[] serializedProductModelFromDb = ZeroFormatterSerializer.Serialize(productModelFromDb);
+            if (!serializedProductModelFromClient.SequenceEqual(serializedProductModelFromDb))
             {
+                Console.WriteLine("клиент");
+                ProductModel productModelFromClient =
+                    ZeroFormatterSerializer.Deserialize<ProductModel>(serializedProductModelFromClient);
+               
+
+                Console.WriteLine(productModelFromClient.ToString());
+                Console.WriteLine(productModelFromDb.ToString());
                 throw new Exception("Модели продуктов не совпадают");
             }
 
             //создать транзакцию по модели продукта
-            Transaction transaction = shopTransactionFactory.Create(productModel, account.Id);
+            Transaction transaction = shopTransactionFactory.Create(productModelFromDb, account.Id);
             
             //todo проверить транзакцию на адекватность
             
@@ -98,7 +106,7 @@ namespace AmoebaGameMatcherServer.Services.Shop.Sales
             await dbContext.Transactions.AddAsync(transaction);
             
             //перезаписать модель продукта
-            productModel.Disabled = true;
+            productModelFromDb.IsDisabled = true;
             byte[] newShopModel = ZeroFormatterSerializer.Serialize(shopModel);
             shopModelDb.SerializedModel = newShopModel;
             

@@ -6,7 +6,7 @@ namespace AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation.Increm
 {
     public interface IIncrementsFactory
     {
-        TransactionTypeEnum GetTransactionType();
         List<Increment> Create(ProductModel productModel);
+        ResourceTypeEnum GetResourceTypeEnum();
     }
 }

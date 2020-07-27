@@ -13,19 +13,20 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelCreation
     /// </summary>
     public class DailyDealsSectionFactory
     {
-        private readonly PrizeFactoryService prizeFactoryService;
+        // private readonly PrizeFactoryService prizeFactoryService;
         private readonly WarshipPowerPointsProductsFactoryService wppProductsFactoryService;
 
-        public DailyDealsSectionFactory(PrizeFactoryService prizeFactoryService,
+        public DailyDealsSectionFactory(
+            // PrizeFactoryService prizeFactoryService,
             WarshipPowerPointsProductsFactoryService wppProductsFactoryService)
         {
-            this.prizeFactoryService = prizeFactoryService;
+            //this.prizeFactoryService = prizeFactoryService;
             this.wppProductsFactoryService = wppProductsFactoryService;
         }
 
         public async Task<SectionModel> Create([NotNull]AccountDbDto accountDbDto)
         {
-            ProductModel prizeProductModel = await prizeFactoryService.CreatePrizeProduct(accountDbDto.Id);
+            // ProductModel prizeProductModel = await prizeFactoryService.CreatePrizeProduct(accountDbDto.Id);
             List<ProductModel> warshipPowerPoints = wppProductsFactoryService
                 .CreateWarshipPowerPointProducts(accountDbDto);
 
@@ -36,7 +37,7 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelCreation
             // }
             
             List<ProductModel> productModels = new List<ProductModel>();
-            productModels.Add(prizeProductModel);
+            // productModels.Add(prizeProductModel);
             productModels.AddRange(warshipPowerPoints);
             if (productModels.Count % 2 != 0)
             {

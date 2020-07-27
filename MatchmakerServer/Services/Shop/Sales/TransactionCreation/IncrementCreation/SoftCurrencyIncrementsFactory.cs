@@ -6,21 +6,22 @@ namespace AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation.Increm
 {
     public class SoftCurrencyIncrementsFactory:IIncrementsFactory
     {
-        public TransactionTypeEnum GetTransactionType()
-        {
-            return TransactionTypeEnum.SoftCurrency;
-        }
-        
         public List<Increment> Create(ProductModel productModel)
         {
             List<Increment> increments = new List<Increment>();
+            SoftCurrencyProductModel model = productModel;
             Increment increment = new Increment()
             {
                 IncrementTypeId = IncrementTypeEnum.SoftCurrency,
-                Amount = productModel.Amount
+                Amount = model.Amount
             };
             increments.Add(increment);
             return increments;
+        }
+
+        public ResourceTypeEnum GetResourceTypeEnum()
+        {
+            return ResourceTypeEnum.SoftCurrency;
         }
     }
 }

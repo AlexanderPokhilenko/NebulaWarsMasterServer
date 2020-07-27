@@ -18,7 +18,13 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
 
         public SmallLootboxPrizeFactory()
         {
-            numberOfPrizeTypes = Enum.GetNames(typeof(ResourceTypeEnum)).Length;
+            var resources =  new List<ResourceTypeEnum>
+            {
+                ResourceTypeEnum.SoftCurrency,
+                ResourceTypeEnum.HardCurrency,
+                ResourceTypeEnum.WarshipPowerPoints
+            };
+            numberOfPrizeTypes = resources.Count;
         }
         
         [CanBeNull]

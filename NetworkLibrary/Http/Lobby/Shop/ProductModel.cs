@@ -1,64 +1,126 @@
 using System;
-using DataLayer.Tables;
-using JetBrains.Annotations;
 using ZeroFormatter;
 
 namespace NetworkLibrary.NetworkLibrary.Http
 {
+    public enum ProductMarkTypeEnum
+    {
+        New,
+        Popular,
+        Sale,
+        Timer
+    }
+
+    [ZeroFormattable]
+    public class TimerProductMarkModel
+    {
+        [Index(0)] public virtual DateTime UtcDeadline { get; set; }
+    }
+    
+    [ZeroFormattable]
+    public class SaleProductMarkModel
+    {
+        [Index(0)] public virtual int PercentageDiscount { get; set; }
+    }
+    
+    /// <summary>
+    /// Хранит информацию про пометки на продукте.
+    /// </summary>
+    [ZeroFormattable]
+    public class ProductMark
+    {
+        [Index(0)] public virtual ProductMarkTypeEnum ProductMarkTypeEnum { get; set; }
+        [Index(1)] public virtual byte[] SerializedProductMark { get; set; }
+    }
+    
+
+    [ZeroFormattable]
+    public class InGameCurrencyCostModel
+    {
+        [Index(0)] public virtual decimal Cost { get; set; }
+    }
+    
+    [ZeroFormattable]
+    public class RealCurrencyCostModel
+    {
+        [Index(0)] public virtual bool IsConsumable { get; set; }
+        [Index(1)] public virtual string GoogleProductId { get; set; }
+        [Index(2)] public virtual string AppleProductId { get; set; }
+        [Index(3)] public virtual string CostString { get; set; }
+    }
+    
+    [ZeroFormattable]
+    public class CostModel
+    {
+        [Index(0)] public virtual CostTypeEnum CostTypeEnum { get; set; }
+        [Index(1)] public virtual byte[] SerializedCostModel { get; set; }
+    }
+
+    [ZeroFormattable]
+    public class HardCurrencyProductModel
+    {
+        [Index(0)] public virtual int Amount { get; set; }
+    }
+    [ZeroFormattable]
+    public class SoftCurrencyProductModel
+    {
+        [Index(0)] public virtual int Amount { get; set; }
+    }
+    
+    [ZeroFormattable]
+    public class LootboxPointsProductModel
+    {
+        [Index(0)] public virtual int AmountOfLootboxPoints { get; set; }
+    } 
+    
+    [ZeroFormattable]
+    public class WarshipPowerPointsProductModel
+    {
+        [Index(1)] public virtual int StartValue { get; set; }
+        [Index(2)] public virtual int FinishValue { get; set; }
+        [Index(3)] public virtual int MaxValueForLevel { get; set; }
+        [Index(0)] public virtual string WarshipSkinName { get; set; }
+        [Index(4)] public virtual int WarshipId { get; set; }
+    }
+    
     /// <summary>
     /// Описывает товар в разделе.
     /// </summary>
     [ZeroFormattable]
     public class ProductModel
     {
-        [Index(0)] public virtual TransactionTypeEnum TransactionType { get; set; }
-        /// <summary>
-        /// Путь к картинке, которую нужно использовать в разделе магазина.
-        /// </summary>
-        [Index(1)] public virtual string ImagePreviewPath { get; set; }
-        /// <summary>
-        /// Стоимость может быть представлена числом для покупок за внутриигровую валюту
-        /// или числом + типом валюты за настоящую валюту.
-        /// </summary>
-        [Index(2)] public virtual string CostString { get; set; }
-        [Index(3)] public virtual CurrencyTypeEnum CurrencyTypeEnum { get; set; }
-       
-        [Index(4)] public virtual int Id { get; set; }
-        [Index(5)] public virtual string Name { get; set; }
-        /// <summary>
-        /// Пометка для красоты. Например, "Новое", "Акция", "Популярно"
-        /// </summary>
+        [Index(0)] public virtual int Id { get; set; }
+        [Index(1)] public virtual ResourceTypeEnum ResourceTypeEnum { get; set; }
+        [Index(2)] public virtual byte[] SerializedModel { get; set; }
+        [Index(3)] public virtual CostModel CostModel { get; set; }
+        [Index(4)] public virtual ProductSizeEnum ProductSizeEnum { get; set; }
+        [Index(5)] public virtual bool IsDisabled { get; set; }
         [Index(6)] public virtual ProductMark ProductMark { get; set; }
-        /// <summary>
-        /// Если товар покупается за реальнаые деньги в Google или Apple
-        /// </summary>
-        [Index(7)] public virtual ForeignServiceProduct ForeignServiceProduct { get; set; }
-        /// <summary>
-        /// Если на товар действует скидка
-        /// </summary>
-        [Index(8)] public virtual DiscountPrice DiscountPrice { get; set; }
-        /// <summary>
-        /// Если товар является усилением корабля
-        /// </summary>
-        [Index(9)] public virtual WarshipPowerPointsProduct WarshipPowerPointsProduct { get; set; }
-        /// <summary>
-        /// Вертикальный размер товара в секции
-        /// </summary>
-        [Index(10)] public virtual ProductSizeEnum? ShopItemSize { get; set; }
-        /// <summary>
-        /// Если товар имеет срок годности. Например, ежедневные акции.
-        /// </summary>
-        [Index(11)] public virtual DateTime? UtcDeadline { get; set; }
+        [Index(7)] public virtual string PreviewImagePath { get; set; }
+
+        public static implicit operator HardCurrencyProductModel(ProductModel productModel)
+        {
+            var model = ZeroFormatterSerializer.Deserialize<HardCurrencyProductModel>(productModel.SerializedModel);
+            return model;
+        } 
         
-        /// <summary>
-        /// Если по акции продаётся 5 мега сундуков, то модификатор будет 5
-        /// </summary>
-        [Index(12)] public virtual int? MagnificationRatio { get; set; }
+        public static implicit operator SoftCurrencyProductModel(ProductModel productModel)
+        {
+            var model = ZeroFormatterSerializer.Deserialize<SoftCurrencyProductModel>(productModel.SerializedModel);
+            return model;
+        } 
         
-        [Index(13)] public virtual WarshipModel WarshipModel { get; set; }
-        [Index(14)] public virtual int Cost { get; set; }
-        [Index(15)] public virtual bool Disabled { get; set; }
-        [Index(16)] public virtual string SkinPrefabPath { get; set; }
-        [Index(17)] public virtual int Amount { get; set; }
+        public static implicit operator LootboxPointsProductModel(ProductModel productModel)
+        {
+            var model = ZeroFormatterSerializer.Deserialize<LootboxPointsProductModel>(productModel.SerializedModel);
+            return model;
+        }
+        
+        public static implicit operator WarshipPowerPointsProductModel(ProductModel productModel)
+        {
+            var model =
+                ZeroFormatterSerializer.Deserialize<WarshipPowerPointsProductModel>(productModel.SerializedModel);
+            return model;
+        }
     }
 }

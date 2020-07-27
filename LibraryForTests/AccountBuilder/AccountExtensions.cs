@@ -135,7 +135,7 @@ namespace LibraryForTests
         {
             Transaction transaction = new Transaction()
             {
-                TransactionTypeId = TransactionTypeEnum.Lootbox,
+                TransactionTypeId = TransactionTypeEnum.LootboxOpening,
                 Increments = new List<Increment>()
                 {
                     new Increment()

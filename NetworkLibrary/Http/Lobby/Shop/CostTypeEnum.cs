@@ -1,6 +1,6 @@
 namespace NetworkLibrary.NetworkLibrary.Http
 {
-    public enum CurrencyTypeEnum
+    public enum CostTypeEnum
     {
         SoftCurrency = 1,
         HardCurrency = 2,

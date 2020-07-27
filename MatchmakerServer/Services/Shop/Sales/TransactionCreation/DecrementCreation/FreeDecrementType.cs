@@ -6,9 +6,9 @@ namespace AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation.Decrem
 {
     public class FreeDecrementType:IDecrementFactory
     {
-        public CurrencyTypeEnum GetCurrencyTypeEnum()
+        public CostTypeEnum GetCurrencyTypeEnum()
         {
-            return CurrencyTypeEnum.Free;
+            return CostTypeEnum.Free;
         }
 
         public Decrement Create(ProductModel productModel)

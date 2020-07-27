@@ -80,7 +80,7 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
             {
                 AccountId = account.Id,
                 DateTime = DateTime.UtcNow,
-                TransactionTypeId = TransactionTypeEnum.Lootbox,
+                TransactionTypeId = TransactionTypeEnum.LootboxOpening,
                 Decrements = new List<Decrement>
                 {
                     new Decrement
@@ -90,7 +90,8 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
                     }
                 },
                 Increments = increments,
-                WasShown = false
+                //награды из лутбокса обновляются на клиенте сразу
+                WasShown = true
             };
             
             await dbContext.Transactions.AddAsync(transaction);

@@ -14,7 +14,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
                 DateTime = DateTime.UtcNow,
                 WasShown = true,
                 AccountId = accountId,
-                TransactionTypeId = TransactionTypeEnum.HardCurrency,
+                TransactionTypeId = TransactionTypeEnum.ShopPurchase,
                 Increments = new List<Increment>()
                 {
                     new Increment()

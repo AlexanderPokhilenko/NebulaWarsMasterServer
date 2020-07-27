@@ -8,6 +8,13 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.DeleteMeShopSectionFac
     /// </summary>
     public class HardCurrencySectionFactory
     {
+        private readonly SmallHardCurrencyFactory factory;
+
+        public HardCurrencySectionFactory()
+        {
+            factory = new SmallHardCurrencyFactory();
+        }
+        
         public SectionModel Create()
         {
             SectionModel sectionModel = new SectionModel
@@ -21,95 +28,17 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.DeleteMeShopSectionFac
             //верхняя строка
             sectionModel.UiItems[0] = new[]
             {
-                new ProductModel
-                {
-                    TransactionType = TransactionTypeEnum.HardCurrency,
-                    CurrencyTypeEnum = CurrencyTypeEnum.RealCurrency,
-                    ImagePreviewPath = "diamonds5",
-                    ForeignServiceProduct = new ForeignServiceProduct
-                    {
-                        ProductGoogleId = ForeignServiceProducts.HardCurrency30,
-                        Consumable = true
-                    },
-                    Name = "30",
-                    ShopItemSize = ProductSizeEnum.Small,
-                    Id = 3
-                }, 
-                new ProductModel
-                {
-                    TransactionType = TransactionTypeEnum.HardCurrency,
-                    CurrencyTypeEnum = CurrencyTypeEnum.RealCurrency,
-                    ImagePreviewPath = "diamonds10",
-                    ForeignServiceProduct = new ForeignServiceProduct
-                    {
-                        ProductGoogleId = ForeignServiceProducts.HardCurrency80,
-                        Consumable = true
-                    },
-                    Name = "80",
-                    ShopItemSize = ProductSizeEnum.Small,
-                    Id = 4
-                },
-                new ProductModel
-                {
-                    TransactionType = TransactionTypeEnum.HardCurrency,
-                    CurrencyTypeEnum = CurrencyTypeEnum.RealCurrency,
-                    ImagePreviewPath = "diamonds15",
-                    ForeignServiceProduct = new ForeignServiceProduct
-                    {
-                        ProductGoogleId = ForeignServiceProducts.HardCurrency170,
-                        Consumable = true
-                    },
-                    Name = "170",
-                    ShopItemSize = ProductSizeEnum.Small,
-                    Id = 5
-                }
+                factory.Create(30, "diamonds5", ForeignServiceProducts.HardCurrency30),
+                factory.Create(80, "diamonds10", ForeignServiceProducts.HardCurrency80),
+                factory.Create(170, "diamonds15", ForeignServiceProducts.HardCurrency170)
             }; 
             
             //нижняя строка
             sectionModel.UiItems[1] = new[]
             {
-                new ProductModel
-                {
-                    TransactionType = TransactionTypeEnum.HardCurrency,
-                    CurrencyTypeEnum = CurrencyTypeEnum.RealCurrency,
-                    ImagePreviewPath = "diamonds20",
-                    ForeignServiceProduct = new ForeignServiceProduct
-                    {
-                        ProductGoogleId = ForeignServiceProducts.HardCurrency360,
-                        Consumable = true
-                    },
-                    Name = "360",
-                    ShopItemSize = ProductSizeEnum.Small,
-                    Id = 5
-                },
-                new ProductModel
-                {
-                    TransactionType = TransactionTypeEnum.HardCurrency,
-                    CurrencyTypeEnum = CurrencyTypeEnum.RealCurrency,
-                    ImagePreviewPath = "diamonds40",
-                    ForeignServiceProduct = new ForeignServiceProduct
-                    {
-                        ProductGoogleId = ForeignServiceProducts.HardCurrency950,
-                        Consumable = true
-                    },
-                    Name = "950",
-                    ShopItemSize = ProductSizeEnum.Small,
-                    Id = 6
-                },
-                new ProductModel
-                {
-                    TransactionType = TransactionTypeEnum.HardCurrency,
-                    CurrencyTypeEnum = CurrencyTypeEnum.RealCurrency,
-                    ImagePreviewPath = "diamonds80",
-                    ForeignServiceProduct = new ForeignServiceProduct
-                    {
-                        ProductGoogleId = ForeignServiceProducts.HardCurrency2000,
-                        Consumable = true
-                    },
-                    Name = "2000",
-                    ShopItemSize = ProductSizeEnum.Small,
-                    Id = 7
-                }
+                factory.Create(360, "diamonds20", ForeignServiceProducts.HardCurrency360),
+                factory.Create(950, "diamonds40", ForeignServiceProducts.HardCurrency950),
+                factory.Create(2000, "diamonds80", ForeignServiceProducts.HardCurrency2000),
             };
             
             return sectionModel;

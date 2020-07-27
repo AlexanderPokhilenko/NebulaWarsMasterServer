@@ -329,7 +329,7 @@
               <e p="SellerService.cs" t="Include" />
               <e p="TransactionCreation" t="Include">
                 <e p="DecrementCreation" t="Include">
-                  <e p="DecrementFactoriesService.cs" t="Include" />
+                  <e p="DecrementFactoryService.cs" t="Include" />
                   <e p="FreeDecrementType.cs" t="Include" />
                   <e p="HardCurrencyDecrementType.cs" t="Include" />
                   <e p="IDecrementFactory.cs" t="Include" />
@@ -337,7 +337,7 @@
                 </e>
                 <e p="IncrementCreation" t="Include">
                   <e p="IIncrementsFactory.cs" t="Include" />
-                  <e p="IncrementFactoriesService.cs" t="Include" />
+                  <e p="IncrementFactoryService.cs" t="Include" />
                   <e p="LootboxIncrementsFactory.cs" t="Include" />
                   <e p="LootboxSetIncrementsFactory.cs" t="Include" />
                   <e p="SoftCurrencyIncrementsFactory.cs" t="Include" />
@@ -353,6 +353,8 @@
                 <e p="HardCurrencySectionFactory.cs" t="Include" />
                 <e p="LootboxSectionFactory.cs" t="Include" />
                 <e p="SkinsSectionFactory.cs" t="Include" />
+                <e p="SmallHardCurrencyFactory.cs" t="Include" />
+                <e p="SmallSoftCurrencyProductModelFactory.cs" t="Include" />
                 <e p="SoftCurrencySectionFactory.cs" t="Include" />
                 <e p="WarshipsSectionFactory.cs" t="Include" />
               </e>
@@ -360,6 +362,7 @@
                 <e p="DailyDealsSectionFactory.cs" t="Include" />
                 <e p="PrizeFactoryService.cs" t="Include" />
                 <e p="ShopFactoryService.cs" t="Include" />
+                <e p="WarshipPowerPointProductFactory.cs" t="Include" />
                 <e p="WarshipPowerPointsProductsFactoryService.cs" t="Include" />
               </e>
               <e p="ShopModelDbReading" t="Include">
@@ -388,8 +391,8 @@
             <e p="RewardsThatHaveNotBeenShown.cs" t="Include" />
             <e p="RewardsThatHaveNotBeenShown.cs.meta" t="Include" />
             <e p="Shop" t="Include">
-              <e p="CurrencyTypeEnum.cs" t="Include" />
-              <e p="CurrencyTypeEnum.cs.meta" t="Include" />
+              <e p="CostTypeEnum.cs" t="Include" />
+              <e p="CostTypeEnum.cs.meta" t="Include" />
               <e p="DiscountPrice.cs" t="Include" />
               <e p="DiscountPrice.cs.meta" t="Include" />
               <e p="ForeignServiceProduct.cs" t="Include" />

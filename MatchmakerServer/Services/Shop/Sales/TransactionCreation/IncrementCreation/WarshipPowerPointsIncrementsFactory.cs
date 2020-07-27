@@ -6,22 +6,23 @@ namespace AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation.Increm
 {
     public class WarshipPowerPointsIncrementsFactory:IIncrementsFactory
     {
-        public TransactionTypeEnum GetTransactionType()
-        {
-            return TransactionTypeEnum.WarshipPowerPoints;
-        }
-        
         public List<Increment> Create(ProductModel productModel)
         {
             List<Increment> increments = new List<Increment>();
+            WarshipPowerPointsProductModel model = productModel;
             Increment increment = new Increment
             {
                 IncrementTypeId = IncrementTypeEnum.WarshipPowerPoints,
-                Amount = productModel.WarshipPowerPointsProduct.PowerPointsIncrement,
-                WarshipId = productModel.WarshipPowerPointsProduct.WarshipId
+                Amount = model.FinishValue-model.StartValue,
+                WarshipId = model.WarshipId
             };
             increments.Add(increment);
             return increments;
+        }
+
+        public ResourceTypeEnum GetResourceTypeEnum()
+        {
+            return ResourceTypeEnum.WarshipPowerPoints;
         }
     }
 }

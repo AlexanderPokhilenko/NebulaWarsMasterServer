@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System.Collections.Generic;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System.Collections.Generic;
 using ZeroFormatter;
 
 namespace NetworkLibrary.NetworkLibrary.Http
@@ -42,6 +42,8 @@ namespace NetworkLibrary.NetworkLibrary.Http
     {
         SoftCurrency,
         WarshipPowerPoints,
-        HardCurrency
+        HardCurrency,
+        LootboxPoints,
+        LootboxSet
     }
 }

@@ -19,15 +19,15 @@ namespace AmoebaGameMatcherServer
         {
             serviceCollection.AddTransient<ShopService>();
             serviceCollection.AddTransient<DailyDealsSectionFactory>();
-            serviceCollection.AddTransient<PrizeFactoryService>();
+            // serviceCollection.AddTransient<PrizeFactoryService>();
             serviceCollection.AddTransient<WarshipPowerPointsProductsFactoryService>();
             serviceCollection.AddTransient<SellerService>();
             serviceCollection.AddTransient<ShopTransactionFactory>();
             serviceCollection.AddTransient<ShopModelDbReader>();
             serviceCollection.AddTransient<ShopFactoryService>();
             serviceCollection.AddTransient<ShopWriterService>();
-            serviceCollection.AddTransient<IncrementFactoriesService>();
-            serviceCollection.AddTransient<DecrementFactoriesService>();
+            serviceCollection.AddTransient<IncrementFactoryService>();
+            serviceCollection.AddTransient<DecrementFactoryService>();
             serviceCollection.AddTransient<HardCurrencySectionFactory>();
             serviceCollection.AddTransient<SoftCurrencySectionFactory>();
         }
