@@ -27,7 +27,7 @@ namespace DataLayer.Configuration
             else
             {
                 ConStrBuilder.Add("Database", "Dev"+name);
-                ConStrBuilder.Add("Server", "65.52.151.136");
+                ConStrBuilder.Add("Server", "tikaytech.games");
             }
         }
         
