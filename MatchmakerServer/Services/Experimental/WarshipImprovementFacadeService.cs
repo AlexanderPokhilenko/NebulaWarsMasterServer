@@ -48,8 +48,9 @@ namespace AmoebaGameMatcherServer.Services.Experimental
                 throw new Exception("Невозможно осуществить покупку улучшения для корабля по причине "+faultReason);
             }
 
-            WarshipImprovementModel improvementModel = warshipImprovementCostChecker.GetImprovementModel(warshipDbDto.WarshipPowerLevel); 
-            
+            WarshipImprovementModel improvementModel = warshipImprovementCostChecker.GetImprovementModel(warshipDbDto.WarshipPowerLevel);
+
+            Console.WriteLine("текущий  wpp "+warshipDbDto.WarshipPowerLevel);
             //Записать транзакцию
             Transaction transaction = new Transaction
             {
@@ -62,7 +63,7 @@ namespace AmoebaGameMatcherServer.Services.Experimental
                     new Increment
                     {
                         IncrementTypeId = IncrementTypeEnum.WarshipLevel,
-                        Amount = 1,
+                        Amount = warshipDbDto.WarshipPowerLevel+1,
                         WarshipId = warshipId
                     }
                 },

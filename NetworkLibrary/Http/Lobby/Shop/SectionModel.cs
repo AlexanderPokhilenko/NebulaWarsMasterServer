@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using ZeroFormatter;
 
@@ -15,6 +16,7 @@ namespace NetworkLibrary.NetworkLibrary.Http
     [ZeroFormattable]
     public class SectionModel
     {
+        //todo заменить на список
         /// <summary>
         /// Таблица товаров
         /// </summary>
@@ -28,5 +30,19 @@ namespace NetworkLibrary.NetworkLibrary.Http
         /// </summary>
         [Index(2)] public virtual string HeaderName { get; set; }
         [Index(3)] public virtual SectionTypeEnum? SectionTypeEnum { get; set; }
+
+        public int ProductsCount()
+        {
+            return UiItems.SelectMany(item => item).Count();
+        }
+
+        public List<ProductModel> GetProducts()
+        {
+            return UiItems.SelectMany(item => item).ToList();
+        } 
+        public ProductModel GetProduct(int index)
+        {
+            return UiItems.SelectMany(item => item).ToList()[index];
+        }
     }
 }

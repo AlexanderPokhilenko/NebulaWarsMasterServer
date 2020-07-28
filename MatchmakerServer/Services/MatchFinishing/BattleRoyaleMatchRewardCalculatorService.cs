@@ -21,7 +21,6 @@
             MatchReward result = new MatchReward
             {
                 WarshipRatingDelta = GetWarshipRatingDelta(placeInMatch, currentWarshipRating),
-                SoftCurrency = 0,
                 LootboxPoints = GetPointsForSmallLootbox(placeInMatch, currentWarshipRating)
             };
             return result;

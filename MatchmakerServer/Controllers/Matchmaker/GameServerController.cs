@@ -45,7 +45,7 @@ namespace AmoebaGameMatcherServer.Controllers.Matchmaker
                 return BadRequest();
             }
 
-            bool succes = await battleRoyaleMatchFinisher
+            bool success = await battleRoyaleMatchFinisher
                 .UpdatePlayerMatchResultInDbAsync(accountId.Value, placeInBattle.Value, matchId.Value);
             
             return Ok();

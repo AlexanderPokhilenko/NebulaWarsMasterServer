@@ -6,7 +6,8 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelCreation
 {
     public class WarshipPowerPointProductFactory
     {
-        public ProductModel Create(int cost, string previewImagePath, int increment, int warshipId, int maxValueForLevel, int currentAmount)
+        public ProductModel Create(int cost, string previewImagePath, int increment, int warshipId, 
+            int maxValueForLevel, int currentAmount, WarshipTypeEnum warshipTypeEnum)
         {
             if (warshipId == 0)
             {
@@ -32,7 +33,8 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelCreation
                     MaxValueForLevel = maxValueForLevel,
                     StartValue = currentAmount,
                     FinishValue = currentAmount+ increment,
-                    WarshipSkinName = null
+                    WarshipSkinName = null,
+                    WarshipTypeEnum =warshipTypeEnum 
                 }),
                 ProductSizeEnum = ProductSizeEnum.Small
             };

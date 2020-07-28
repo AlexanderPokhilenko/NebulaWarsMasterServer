@@ -81,6 +81,7 @@ namespace NetworkLibrary.NetworkLibrary.Http
         [Index(3)] public virtual int MaxValueForLevel { get; set; }
         [Index(0)] public virtual string WarshipSkinName { get; set; }
         [Index(4)] public virtual int WarshipId { get; set; }
+        [Index(5)] public virtual WarshipTypeEnum WarshipTypeEnum { get; set; }
     }
     
     /// <summary>

@@ -7,6 +7,12 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelCreation
 {
+    public class TmpWarshipDich
+    {
+        public int warshipId;
+        public WarshipTypeEnum warshipType;
+        
+    }
     public class WarshipPowerPointsProductsFactoryService
     {
         private const int NumberOfProducts = 6;
@@ -24,15 +30,17 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelCreation
         /// <returns></returns>
         public List<ProductModel> CreateWarshipPowerPointProducts(AccountDbDto accountDbDto)
         {
-            List<int> warshipIds = GetWarshipIds(accountDbDto);
+            List<TmpWarshipDich> warshipIds = GetWarshipModels(accountDbDto);
             List<ProductModel> warshipPowerPoints = new List<ProductModel>();
             for (int index = 0; index < NumberOfProducts; index++)
             {
-                int currentWarshipId = warshipIds[index];
+                int warshipId = warshipIds[index].warshipId;
+                WarshipTypeEnum warshipType = warshipIds[index].warshipType;
+                
                 WarshipDbDto warshipDbDto = accountDbDto.Warships
-                    .Single(dto => dto.Id == currentWarshipId);
+                    .Single(dto => dto.Id == warshipId);
                 string previewPath = warshipDbDto.WarshipType.Name.ToLower();
-                ProductModel wpp = factory.Create(140, previewPath, 42, currentWarshipId, 120,51);
+                ProductModel wpp = factory.Create(140, previewPath, 42, warshipId, 120,51, warshipType);
                 warshipPowerPoints.Add(wpp);
             }
 
@@ -44,12 +52,16 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelCreation
         /// </summary>
         /// <param name="accountDbDto"></param>
         /// <returns></returns>
-        private List<int> GetWarshipIds(AccountDbDto accountDbDto)
+        private List<TmpWarshipDich> GetWarshipModels(AccountDbDto accountDbDto)
         {
             //Обеспечит одинаковые товары для аккаунта на протяжении дня.
             int randomSeed = DateTime.UtcNow.Day;
 
-            List<int> warshipIds = accountDbDto.Warships.Select(dto => dto.Id).ToList();
+            List<TmpWarshipDich> warshipIds = accountDbDto.Warships.Select(dto => new TmpWarshipDich()
+            {
+                warshipId = dto.Id,
+                warshipType = dto.WarshipTypeId
+            } ).ToList();
             //Если у аккаунта слишком мало кораблей, то они будут повторяться
             if (warshipIds.Count < NumberOfProducts)
             {

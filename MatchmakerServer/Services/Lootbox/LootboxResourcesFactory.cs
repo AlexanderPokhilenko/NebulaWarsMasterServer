@@ -11,12 +11,12 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
     /// <summary>
     /// Случайно создёт приз для лутбокса.
     /// </summary>
-    public class SmallLootboxPrizeFactory
+    public class LootboxResourcesFactory
     {
         private readonly int numberOfPrizeTypes;
         private readonly Random random = new Random();
 
-        public SmallLootboxPrizeFactory()
+        public LootboxResourcesFactory()
         {
             var resources =  new List<ResourceTypeEnum>
             {
@@ -49,11 +49,10 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
                 case ResourceTypeEnum.WarshipPowerPoints:
                 {
                     int warshipIndex = random.Next(warships.Count);
-                    var warship = warships[warshipIndex];
+                    WarshipDbDto warship = warships[warshipIndex];
 
                     int amount = random.Next(2, 15);
 
-                    warship.WarshipPowerPoints += amount;
                     var model = new WarshipPowerPointsResourceModel();
                     var test = WarshipPowerScale.GetModel(warship.WarshipPowerLevel);
                     if (test == null)
@@ -65,7 +64,9 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
                     model.FinishValue = warship.WarshipPowerPoints + amount;
                     model.StartValue = warship.WarshipPowerPoints;
                     model.WarshipId = warship.Id;
+                    model.WarshipTypeEnum = warship.WarshipTypeId;
 
+                    warship.WarshipPowerPoints += amount;
                     return new ResourceModel
                     {
                         SerializedModel = ZeroFormatterSerializer.Serialize(model),

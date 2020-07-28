@@ -105,6 +105,17 @@ namespace MatchmakerTest.DeleteMe
             string original = "ajisfbvj2974=21ok3,z1-o2,.cmefj=2c084f";
             string copy = original.Caesar(10).Caesar(-10);
             Assert.AreEqual(original, copy);
+        }  
+         
+        [TestMethod]
+        public void Test5()
+        {
+            WarshipPowerPointsResourceModel wpp = new WarshipPowerPointsResourceModel()
+            {
+                
+            };
+            string skinName = wpp.WarshipTypeEnum.ToString();
+            Console.WriteLine(skinName);
         }
     }
 }

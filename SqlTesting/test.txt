@@ -1,11 +1,22 @@
-﻿ {
-  ""purchaseTimeMillis"": ""1595000674505"",
-  ""purchaseState"": 0,
-  ""consumptionState"": 0,
-  ""developerPayload"": """",
-  ""orderId"": ""GPA.3347-1869-0815-86288"",
-  ""purchaseType"": 0,
-  ""acknowledgementState"": 0,
-  ""kind"": ""androidpublisher#productPurchase"",
-  ""obfuscatedExternalAccountId"": ""test""
-}
+﻿CREATE OR REPLACE FUNCTION warship_improvement_check()
+    RETURNS trigger AS
+$BODY$
+DECLARE
+    _current_improvements_count          integer;
+BEGIN
+    IF NEW.""IncrementTypeId"" = 5 THEN
+        SELECT COUNT(*) INTO _current_improvements_count FROM ""Increments"" WHERE ""Amount"" = NEW.""Amount"" AND ""WarshipId"" = NEW.""WarshipId"";
+        IF _current_improvements_count <> 0 THEN
+            RAISE EXCEPTION 'Warship with id % already was improved to level %!', NEW.""WarshipId"", NEW.""Amount"";
+        END IF;
+    END IF;
+
+    RETURN NEW;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER warship_improvement_checking
+    BEFORE INSERT OR UPDATE
+    ON ""Increments""
+    FOR EACH ROW
+EXECUTE PROCEDURE warship_improvement_check();

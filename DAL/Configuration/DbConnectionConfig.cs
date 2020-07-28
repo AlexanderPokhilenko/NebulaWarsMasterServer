@@ -9,7 +9,7 @@ namespace DataLayer.Configuration
         
         static DbConnectionConfig()
         {
-            string name = "R27";
+            string name = "R46";
             ConStrBuilder = new DbConnectionStringBuilder
             {
                 {"User ID", "postgres"},

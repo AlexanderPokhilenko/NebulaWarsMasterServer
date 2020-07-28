@@ -5,9 +5,35 @@ using AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation.IncrementC
 using DataLayer.Entities.Transactions.Decrement;
 using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
+using ZeroFormatter;
 
 namespace AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation
 {
+    public class CostCheckerService
+    {
+        public bool IsResourcesEnough(ProductModel productModel, int softCurrency, int hardCurrency)
+        {
+            switch (productModel.CostModel.CostTypeEnum)
+            {
+                case CostTypeEnum.SoftCurrency:
+                {
+                    var costModel = ZeroFormatterSerializer.Deserialize<InGameCurrencyCostModel>(productModel.CostModel
+                        .SerializedCostModel);
+                    return costModel.Cost <= softCurrency;
+                }
+                case CostTypeEnum.HardCurrency:
+                {
+                    var costModel = ZeroFormatterSerializer.Deserialize<InGameCurrencyCostModel>(productModel.CostModel
+                        .SerializedCostModel);
+                    return costModel.Cost <= hardCurrency;
+                }
+                case CostTypeEnum.Free:
+                    return true;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+    }
     /// <summary>
     /// Создаёт транзакцию по модели продукта
     /// </summary>

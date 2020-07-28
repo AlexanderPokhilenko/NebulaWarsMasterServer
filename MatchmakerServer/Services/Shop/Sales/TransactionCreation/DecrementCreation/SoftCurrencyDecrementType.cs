@@ -1,6 +1,7 @@
 ﻿using DataLayer.Entities.Transactions.Decrement;
 using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
+using ZeroFormatter;
 
 namespace AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation.DecrementCreation
 {
@@ -13,11 +14,13 @@ namespace AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation.Decrem
 
         public Decrement Create(ProductModel productModel)
         {
-            SoftCurrencyProductModel model = productModel;
+            InGameCurrencyCostModel costModel = ZeroFormatterSerializer
+                .Deserialize<InGameCurrencyCostModel>(productModel.CostModel.SerializedCostModel);
+            int amount = (int) costModel.Cost;
             return new Decrement
             {
                 DecrementTypeId = DecrementTypeEnum.SoftCurrency,
-                Amount = model.Amount
+                Amount = amount
             };
         }
     }

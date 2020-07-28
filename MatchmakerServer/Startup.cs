@@ -15,6 +15,7 @@ using DataLayer.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Npgsql;
 
@@ -63,7 +64,8 @@ namespace AmoebaGameMatcherServer
         {
             matchCreationInitiator.StartThread();
             googleApiAccessTokenManagerService.Initialize().Wait();
-            
+
+         
             //Заполнение данными
             new DataSeeder().Seed(dbContext);
             

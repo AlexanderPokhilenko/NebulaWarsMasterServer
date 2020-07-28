@@ -11,11 +11,11 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
     public class SmallLootboxDataFactory
     {
         private const int NumberOfPrizes = 3;
-        private readonly SmallLootboxPrizeFactory lootboxPrizeFactory;
+        private readonly LootboxResourcesFactory lootboxResourcesFactory;
 
         public SmallLootboxDataFactory()
         {
-            lootboxPrizeFactory = new SmallLootboxPrizeFactory();
+            lootboxResourcesFactory = new LootboxResourcesFactory();
         }
         
         public LootboxModel Create(List<WarshipDbDto> warships)
@@ -26,7 +26,7 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
             };
             for (int i = 0; i < NumberOfPrizes; i++)
             {
-                ResourceModel prize = lootboxPrizeFactory.Create(warships);
+                ResourceModel prize = lootboxResourcesFactory.Create(warships);
                 if (prize != null)
                 {
                     result.Prizes.Add(prize);

@@ -41,6 +41,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                 warshipDto.PowerLevel = warshipDbDto.WarshipPowerLevel;
                 warshipDto.WarshipCharacteristics = warshipsCharacteristicsService
                     .GetWarshipCharacteristics(warshipDbDto.WarshipType.Id);
+                warshipDto.WarshipTypeEnum = warshipDbDto.WarshipType.Id;
                
 
                 List<SkinTypeDto> skinTypeDtos = new List<SkinTypeDto>();

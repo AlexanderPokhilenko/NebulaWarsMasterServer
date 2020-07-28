@@ -31,11 +31,14 @@ namespace NetworkLibrary.NetworkLibrary.Http
     [ZeroFormattable]
     public class WarshipPowerPointsResourceModel
     {
+        //todo изменить модель
         [Index(0)] public virtual string WarshipSkinName { get; set; }
         [Index(1)] public virtual int StartValue { get; set; }
         [Index(2)] public virtual int FinishValue { get; set; }
         [Index(3)] public virtual int MaxValueForLevel { get; set; }
         [Index(4)] public virtual int? WarshipId { get; set; }
+        [Index(5)] public virtual WarshipTypeEnum WarshipTypeEnum { get; set; }
+
     }
 
     public enum ResourceTypeEnum

@@ -226,6 +226,7 @@
                 <e p="SkinTypesSeeder.cs" t="Include" />
                 <e p="TransactionTypesSeeder.cs" t="Include" />
                 <e p="WarshipCombatRoleSeeder.cs" t="Include" />
+                <e p="WarshipImprovementTrigger.cs" t="Include" />
                 <e p="WarshipTypesSeeder.cs" t="Include" />
               </e>
             </e>
@@ -283,9 +284,9 @@
           <e p="Lootbox" t="Include">
             <e p="LootboxDbWriterService.cs" t="Include" />
             <e p="LootboxFacadeService.cs" t="Include" />
+            <e p="LootboxResourcesFactory.cs" t="Include" />
             <e p="SmallLootboxDataFactory.cs" t="Include" />
             <e p="SmallLootboxOpenAllowingService.cs" t="Include" />
-            <e p="SmallLootboxPrizeFactory.cs" t="Include" />
           </e>
           <e p="MatchCreation" t="Include">
             <e p="BattleRoyaleBotFactoryService.cs" t="Include" />
@@ -326,6 +327,7 @@
           </e>
           <e p="Shop" t="Include">
             <e p="Sales" t="Include">
+              <e p="ProductChecker.cs" t="Include" />
               <e p="SellerService.cs" t="Include" />
               <e p="TransactionCreation" t="Include">
                 <e p="DecrementCreation" t="Include">
@@ -358,6 +360,7 @@
                 <e p="SoftCurrencySectionFactory.cs" t="Include" />
                 <e p="WarshipsSectionFactory.cs" t="Include" />
               </e>
+              <e p="SectionModelsComparator.cs" t="Include" />
               <e p="ShopModelCreation" t="Include">
                 <e p="DailyDealsSectionFactory.cs" t="Include" />
                 <e p="PrizeFactoryService.cs" t="Include" />
@@ -425,6 +428,7 @@
             <e p="WarshipPowerScale.cs.meta" t="Include" />
             <e p="WarshipRatingScaleModel.cs" t="Include" />
             <e p="WarshipRatingScaleModel.cs.meta" t="Include" />
+            <e p="WarshipTypeEnum.cs" t="Include" />
           </e>
           <e p="Lobby.meta" t="Include" />
           <e p="Match" t="Include">

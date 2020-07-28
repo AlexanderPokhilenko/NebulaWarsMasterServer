@@ -18,6 +18,7 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel
     public class ShopService
     {
         private readonly ApplicationDbContext dbContext;
+        private readonly SectionModelsComparator comparator;
         private readonly ShopWriterService shopWriterService;
         private readonly ShopModelDbReader shopModelDbReader;
         private readonly ShopFactoryService shopFactoryService;
@@ -29,6 +30,7 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel
             this.shopModelDbReader = shopModelDbReader;
             this.shopWriterService = shopWriterService;
             this.shopFactoryService = shopFactoryService;
+            comparator = new SectionModelsComparator();
         }
 
         public async Task<NetworkLibrary.NetworkLibrary.Http.ShopModel> GetShopModelAsync([NotNull] string playerServiceId)
@@ -57,10 +59,10 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel
             else
             {
                 //Если в БД есть модель, то сравнить содержимое моделей (без Id)
-                byte[] arr1 = ZeroFormatterSerializer.Serialize(shopModelFromDb.UiSections);
-                byte[] arr2 = ZeroFormatterSerializer.Serialize(shopModel.UiSections);
+                bool needToReplace = comparator.NeedToReplace(shopModelFromDb.UiSections, shopModel.UiSections);
+                
                 //Если модели магазинов отличаются, то в БД нужно сохранить новую
-                if (!arr1.SequenceEqual(arr2))
+                if (needToReplace)
                 {
                     Console.WriteLine("Модели отличаются");
                     shopModelWithId = await shopWriterService.Write(shopModel, account.Id);
