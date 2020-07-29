@@ -12,7 +12,8 @@ namespace AmoebaGameMatcherServer
 
         private static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
-            return WebHost.CreateDefaultBuilder(args).UseStartup<Startup>();
+            return WebHost.CreateDefaultBuilder(args).UseStartup<Startup>()
+                .UseUrls("http://localhost:53846/");
         }
     }
 }

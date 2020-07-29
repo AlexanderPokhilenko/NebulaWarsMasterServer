@@ -196,7 +196,6 @@
           <e p="ServicesExtension.cs" t="Include" />
           <e p="WarshipUpgradeFeature.cs" t="Include" />
         </e>
-        <e p="googleApiData.txt" t="Include" />
         <e p="MatchmakerServer.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">

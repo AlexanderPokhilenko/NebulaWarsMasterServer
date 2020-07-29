@@ -23,28 +23,32 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi.AccessTokenUtils
             {
                 GoogleApiGlobals.CheckNull();
                 
-                string currentDirectory = GoogleApiFileManager.GetCurrentDirectory();
-                Console.WriteLine($"{nameof(currentDirectory)} {currentDirectory}");
+                // string currentDirectory = GoogleApiFileManager.GetCurrentDirectory();
+                // Console.WriteLine($"{nameof(currentDirectory)} {currentDirectory}");
+                //
+                // if(GoogleApiGlobals.RecreateGoogleApiFile)
+                // {
+                //     GoogleApiFileManager.RemoveFile();
+                // }
                 
-                if(GoogleApiGlobals.RecreateGoogleApiFile)
+                GoogleApiAuthData authData = await GoogleApiFileManager.ReadApiData();
+                if (authData.Check(out string error1))
                 {
-                    GoogleApiFileManager.RemoveFile();
-                }
-                
-                GoogleApiAuthData apiAuthDataFromFile = await GoogleApiFileManager.ReadApiDataFromFile();
-                if (apiAuthDataFromFile.Check(out string error1))
-                {
-                    Console.WriteLine("Установлены данные из файла");
-                    apiAuthData = apiAuthDataFromFile;
+                    // Console.WriteLine("Установлены данные из файла");
+                    apiAuthData = authData;
                 }
                 else
                 {
-                    Console.WriteLine(error1);
-                    Console.WriteLine("Создание нового refresh токена");
-                    var initializeAccessTokenArg = GoogleApiGlobals.GetGoogleApiInitArg();
-                    apiAuthData = await TokenManagerService.InitializeAccessTokenAsync(initializeAccessTokenArg);
-                    await GoogleApiFileManager.WriteGoogleApiDataToFile(apiAuthData);
+                    throw new Exception("Проблема с  google api data");
                 }
+                // else
+                // {
+                //     Console.WriteLine(error1);
+                //     Console.WriteLine("Создание нового refresh токена");
+                //     var initializeAccessTokenArg = GoogleApiGlobals.GetGoogleApiInitArg();
+                //     apiAuthData = await TokenManagerService.InitializeAccessTokenAsync(initializeAccessTokenArg);
+                //     await GoogleApiFileManager.WriteGoogleApiDataToFile(apiAuthData);
+                // }
 
                 if (apiAuthData.Check(out string error2))
                 {
