@@ -90,8 +90,7 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
                     }
                 },
                 Increments = increments,
-                //награды из лутбокса обновляются на клиенте сразу
-                WasShown = true
+                WasShown = false
             };
             
             await dbContext.Transactions.AddAsync(transaction);

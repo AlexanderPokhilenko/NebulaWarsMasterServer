@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services.LobbyInitialization;
 using DataLayer;
@@ -13,36 +14,40 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
     /// </summary>
     public class LootboxFacadeService
     {
-        private readonly ApplicationDbContext dbContext;
         private readonly LootboxDbWriterService lootboxDbWriterService;
-        private readonly SmallLootboxOpenAllowingService allowingService;
         private readonly SmallLootboxDataFactory smallLootboxModelFactory;
         private readonly AccountDbReaderService accountDbReaderService;
-
-
-        public LootboxFacadeService(SmallLootboxOpenAllowingService allowingService,
+        
+        public LootboxFacadeService(
             SmallLootboxDataFactory smallLootboxModelFactory,
             LootboxDbWriterService lootboxDbWriterService,
-            ApplicationDbContext dbContext, AccountDbReaderService accountDbReaderService)
+             AccountDbReaderService accountDbReaderService)
         {
-            this.allowingService = allowingService;
+        
             this.smallLootboxModelFactory = smallLootboxModelFactory;
             this.lootboxDbWriterService = lootboxDbWriterService;
-            this.dbContext = dbContext;
+        
             this.accountDbReaderService = accountDbReaderService;
         }
-        
+
         [ItemCanBeNull]
         public async Task<LootboxModel> CreateLootboxModelAsync([NotNull] string playerServiceId)
         {
-            //У игрока достаточно денег на лутбокс?
-            if (!await allowingService.CanPlayerOpenLootboxAsync(playerServiceId))
+            //Достать аккаунт    
+            AccountDbDto accountDbDto = await accountDbReaderService.ReadAccountAsync(playerServiceId);
+
+            if (accountDbDto == null)
             {
+                Console.WriteLine("попытка купить лутбокс для аккаунта, которого не существует.");
                 return null;
             }
-
-            AccountDbDto accountDbDto = await accountDbReaderService.ReadAccountAsync(playerServiceId);
             
+            //Ресурсов для покупки хватает?
+            if (accountDbDto.LootboxPoints < 100)
+            {
+                Console.WriteLine("Не хватает ресурсов для покупки лутбокса");
+                return null;
+            }
 
             //Создать лутбокс
             LootboxModel lootboxModel = smallLootboxModelFactory.Create(accountDbDto.Warships);

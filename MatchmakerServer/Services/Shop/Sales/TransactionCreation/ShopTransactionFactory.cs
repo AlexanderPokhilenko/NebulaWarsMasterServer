@@ -61,7 +61,7 @@ namespace AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation
             Transaction transaction = new Transaction
             {
                 AccountId = accountId,
-                WasShown = true,
+                WasShown = false,
                 DateTime = DateTime.UtcNow,
                 TransactionTypeId = TransactionTypeEnum.ShopPurchase,
                 Increments = increments,
