@@ -24,11 +24,6 @@ namespace AmoebaGameMatcherServer.Services.Shop.Sales
 
             // Console.WriteLine(productModel1.ResourceTypeEnum+" "+productModel2.ResourceTypeEnum);
 
-            if (productModel1.SerializedModel.Length != productModel2.SerializedModel.Length)
-            {
-                // Console.WriteLine("SerializedModel.Length");
-                return false;
-            }
 
             // Console.WriteLine(productModel1.SerializedModel.Length+" "+productModel2.SerializedModel.Length);
 
