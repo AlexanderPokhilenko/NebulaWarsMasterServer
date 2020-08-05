@@ -4,6 +4,7 @@ using System.Linq;
 using AmoebaGameMatcherServer.Experimental;
 using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
+using ZeroFormatter;
 
 namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelCreation
 {
@@ -40,8 +41,13 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelCreation
                 WarshipDbDto warshipDbDto = accountDbDto.Warships
                     .Single(dto => dto.Id == warshipId);
                 string previewPath = warshipDbDto.WarshipType.Name.ToLower();
-                ProductModel wpp = factory.Create(140, previewPath, 42, warshipId, 120,51, warshipType);
+                ProductModel wpp = factory.Create(140, previewPath, 42, warshipId, warshipType);
                 warshipPowerPoints.Add(wpp);
+            }
+
+            foreach (var productModel in warshipPowerPoints)
+            {
+                WarshipPowerPointsProductModel model = productModel;
             }
 
             return warshipPowerPoints;

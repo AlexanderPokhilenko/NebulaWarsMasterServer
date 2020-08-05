@@ -11,17 +11,15 @@ namespace AmoebaGameMatcherServer.Services.Shop.Sales.TransactionCreation.Increm
         {
             List<Increment> increments = new List<Increment>();
             WarshipPowerPointsProductModel model = productModel;
-
-            Console.WriteLine(model.FinishValue);
-            Console.WriteLine(model.StartValue);
+            
+            
             Console.WriteLine(model.WarshipId);
-            Console.WriteLine(model.WarshipSkinName);
-            Console.WriteLine(model.MaxValueForLevel);
+            
             
             Increment increment = new Increment
             {
                 IncrementTypeId = IncrementTypeEnum.WarshipPowerPoints,
-                Amount = model.FinishValue-model.StartValue,
+                Amount = model.Increment,
                 WarshipId = model.WarshipId
             };
             increments.Add(increment);

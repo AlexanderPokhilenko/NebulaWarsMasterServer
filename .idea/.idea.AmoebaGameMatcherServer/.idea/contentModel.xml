@@ -293,6 +293,7 @@
             <e p="BattleRoyaleMatchDataFactory.cs" t="Include" />
             <e p="BotTemporaryIdFactory.cs" t="Include" />
             <e p="MatchDbWriterService.cs" t="Include" />
+            <e p="PlayerTemporaryIdsFactory.cs" t="Include" />
           </e>
           <e p="MatchCreationInitiation" t="Include">
             <e p="IPlayerTimeoutManager.cs" t="Include" />
@@ -428,6 +429,7 @@
             <e p="WarshipRatingScaleModel.cs" t="Include" />
             <e p="WarshipRatingScaleModel.cs.meta" t="Include" />
             <e p="WarshipTypeEnum.cs" t="Include" />
+            <e p="WarshipTypeEnum.cs.meta" t="Include" />
           </e>
           <e p="Lobby.meta" t="Include" />
           <e p="Match" t="Include">

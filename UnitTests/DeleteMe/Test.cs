@@ -116,6 +116,33 @@ namespace MatchmakerTest.DeleteMe
             };
             string skinName = wpp.WarshipTypeEnum.ToString();
             Console.WriteLine(skinName);
+        }  
+        
+        [TestMethod]
+        public void Test29()
+        {
+            WarshipPowerPointsProductModel model = new WarshipPowerPointsProductModel()
+            {
+                Increment = 16,
+                WarshipId = 4,
+                WarshipTypeEnum = WarshipTypeEnum.Sage,
+                SupportClientModel = null,
+            };
+
+            byte[] data = ZeroFormatterSerializer.Serialize(model);
+            var restored = ZeroFormatterSerializer
+                .Deserialize<WarshipPowerPointsProductModel>(data);
+
+            restored.SupportClientModel = new WppSupportClientModel()
+            {
+                StartValue = 654,
+                WarshipSkinName = "advjb",
+                MaxValueForLevel = 92992
+            };
+
+            var data2 = ZeroFormatterSerializer.Serialize(restored);
+            var restored2 = ZeroFormatterSerializer.Deserialize<WarshipPowerPointsProductModel>(data2);
+            int i = 9;
         }
     }
 }

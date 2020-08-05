@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services.GameServerNegotiation;
@@ -10,24 +9,6 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services.MatchCreation
 {
-    /// <summary>
-    /// Создаёт уникальные идентификаторы для игроков на время одного боя.
-    /// </summary>
-    public static class PlayerTemporaryIdsFactory
-    {
-        public static List<ushort> Create(int numberOfPlayers)
-        {
-            Random random = new Random();
-            HashSet<ushort> set = new HashSet<ushort>(numberOfPlayers);
-            while (set.Count!=numberOfPlayers)
-            {
-                ushort tmpId = (ushort) random.Next(ushort.MaxValue);
-                set.Add(tmpId);
-            }
-
-            return set.ToList();
-        }
-    }
     /// <summary>
     /// Пытается начать матч для батл рояль режима.
     /// </summary>

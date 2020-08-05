@@ -41,29 +41,14 @@ namespace AmoebaGameMatcherServer.Services.Shop.Sales
                     var model1 = ZeroFormatterSerializer.Deserialize<WarshipPowerPointsProductModel>(productModel1.SerializedModel);
                     var model2 = ZeroFormatterSerializer.Deserialize<WarshipPowerPointsProductModel>(productModel2.SerializedModel);
                     
-                    if (model1.FinishValue!=model2.FinishValue)
+                    if (model1.Increment!=model2.Increment)
                     {
                         // Console.WriteLine("FinishValue ");
-                        return false;
-                    }
-                    if (model1.StartValue!=model2.StartValue)
-                    {
-                        // Console.WriteLine("StartValue ");
                         return false;
                     }
                     if (model1.WarshipId!=model2.WarshipId)
                     {
                         // Console.WriteLine("WarshipId");
-                        return false;
-                    }
-                    if (model1.WarshipSkinName!=model2.WarshipSkinName)
-                    {
-                        // Console.WriteLine("WarshipSkinName");
-                        return false;
-                    }
-                    if (model1.MaxValueForLevel!=model2.MaxValueForLevel)
-                    {
-                        // Console.WriteLine("MaxValueForLevel");
                         return false;
                     }
                     break;

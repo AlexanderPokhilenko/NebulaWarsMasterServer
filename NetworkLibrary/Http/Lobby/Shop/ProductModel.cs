@@ -76,12 +76,18 @@ namespace NetworkLibrary.NetworkLibrary.Http
     [ZeroFormattable]
     public class WarshipPowerPointsProductModel
     {
-        [Index(1)] public virtual int StartValue { get; set; }
-        [Index(2)] public virtual int FinishValue { get; set; }
-        [Index(3)] public virtual int MaxValueForLevel { get; set; }
+        [Index(0)] public virtual int Increment { get; set; }
+        [Index(1)] public virtual int WarshipId { get; set; }
+        [Index(2)] public virtual WarshipTypeEnum WarshipTypeEnum { get; set; }
+        [Index(3)] public virtual WppSupportClientModel SupportClientModel { get; set; }
+    }
+
+    [ZeroFormattable]
+    public class WppSupportClientModel
+    {
         [Index(0)] public virtual string WarshipSkinName { get; set; }
-        [Index(4)] public virtual int WarshipId { get; set; }
-        [Index(5)] public virtual WarshipTypeEnum WarshipTypeEnum { get; set; }
+        [Index(1)] public virtual int MaxValueForLevel { get; set; }
+        [Index(2)] public virtual int StartValue { get; set; }
     }
     
     /// <summary>
@@ -98,7 +104,7 @@ namespace NetworkLibrary.NetworkLibrary.Http
         [Index(5)] public virtual bool IsDisabled { get; set; }
         [Index(6)] public virtual ProductMark ProductMark { get; set; }
         [Index(7)] public virtual string PreviewImagePath { get; set; }
-
+        
         public static implicit operator HardCurrencyProductModel(ProductModel productModel)
         {
             var model = ZeroFormatterSerializer.Deserialize<HardCurrencyProductModel>(productModel.SerializedModel);
