@@ -134,7 +134,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                             new WarshipParameter
                             {
                                 Name = "Rotation speed",
-                                BaseValue = 180,
+                                BaseValue = 135,
                                 Increment = IncrementCoefficient.AngularVelocity,
                                 UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
                             },
@@ -369,7 +369,7 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
                             new WarshipParameter
                             {
                                 Name = "Average damage (per second)",
-                                BaseValue = 300,
+                                BaseValue = 200,
                                 Increment = IncrementCoefficient.Attack,
                                 UiIncrementTypeEnum = UiIncrementTypeEnum.Plus
                             }
