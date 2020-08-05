@@ -79,7 +79,7 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
                 ushort id = BotTemporaryIdFactory.Create();
                 BotModel botModel = new BotModel
                 {
-                    BotName = GenerateNicknameFromId(id),
+                    BotName = GenerateNickname(id, warshipName),
                     WarshipName = warshipName,
                     TemporaryId = id,
                     WarshipPowerLevel = 1
@@ -90,21 +90,26 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
             return bots;
         }
 
-        private string GenerateNicknameFromId(ushort id)
+        private string GenerateNickname(ushort id, string warshipName)
         {
             // разбиваем 2 байта (ushort) на 2 переменные по 1 байту
             var firstIndex = (byte)id;
             var secondIndex = (byte)((id >> 8) + firstIndex);
 
-            var rnd = Random.Next(3);
+            var rnd = Random.Next(5);
             switch (rnd)
             {
                 case 0:
                     return _adjectives[firstIndex % _adjectives.Length] + " " + _nouns[secondIndex % _nouns.Length];
                 case 1:
+                    if (firstIndex == secondIndex) return _adjectives[firstIndex % _adjectives.Length] + " " + char.ToUpper(warshipName[0]) + warshipName.Substring(1);
                     return _nouns[firstIndex % _nouns.Length] + "-" + _nouns[secondIndex % _nouns.Length];
                 case 2:
-                    return _nouns[firstIndex % _nouns.Length] + " " + _endings[secondIndex % _endings.Length];
+                    return _nouns[firstIndex % _nouns.Length] + " From " + _fromParts[secondIndex % _fromParts.Length];
+                case 3:
+                    return _adjectives[firstIndex % _adjectives.Length] + " " + _names[secondIndex % _names.Length];
+                case 4:
+                    return _names[firstIndex % _names.Length] + " The " + _nouns[secondIndex % _nouns.Length];
                 default:
                     return "ERROR";
             }
@@ -112,20 +117,26 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
 
         private readonly string[] _adjectives =
         {
-            "Great", "Cool", "Severe", "First", "Artificial", "Robotic", "Flying", "Skyborn",
-            "Nightmarish", "Horrible", "Gentle", "Grumpy", "Glitchy", "Drunken", "Creepy", "Defective"
+            "Great", "Cool", "Supreme", "Mighty", "Artificial", "Robotic", "Space", "Skyborn",
+            "Nightmarish", "Horrible", "Gentle", "Grumpy", "Glitchy", "Powerful", "Creepy", "Defective"
         };
 
         private readonly string[] _nouns =
         {
-            "Ace", "Conqueror", "Reaver", "Pirate", "Warrior", "Fighter", "Dominator", "Ninja",
-            "Demon", "Mutant", "Homunculus", "Sensei", "Machine", "Bot", "Pickle", "Reaper"
+            "Ace", "Conqueror", "Reaver", "Pirate", "Warrior", "Fighter", "Goblin", "Ninja",
+            "Demon", "Mutant", "Elite", "Samurai", "Machine", "Bot", "Monster", "Reaper"
         };
 
-        private readonly string[] _endings =
+        private readonly string[] _fromParts =
         {
-            "From Hell", "With Gun", "Without Heart", "[Still Alive]", "Dominus", "(But Not Quite)", "2020", "From Graveyard",
-            "Fully-Loaded", "Never Gives Up", "From Future", "Powered by Memes", "_Dead Inside_", "With Tentacles", "80 LVL", "From Nowhere"
+            "Hell", "Space", "Graveyard", "Future", "Nowhere", "Nightmare"
+        };
+
+        private readonly string[] _names =
+        {
+            "John", "Mary", "Jack", "Bill", "Jane", "Ivan", "Peter", "Taras",
+            "Benedict", "Suzanne", "Ulrich", "Vladimir", "Rick", "Timur", "Anton", "Alexis",
+            "James", "Jimmy", "Gandalf", "Timmy", "Arnold", "Harry", "Barbossa", "Amber"
         };
     }
 }
