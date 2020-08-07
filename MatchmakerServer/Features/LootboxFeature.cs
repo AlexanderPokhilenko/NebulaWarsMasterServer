@@ -10,6 +10,8 @@ namespace AmoebaGameMatcherServer.Features
             serviceCollection.AddTransient<LootboxFacadeService>();
             serviceCollection.AddTransient<SmallLootboxDataFactory>();
             serviceCollection.AddTransient<LootboxDbWriterService>();
+            serviceCollection.AddTransient<LootboxResourcesFactory>();
+            serviceCollection.AddTransient<LootboxResourceTypeFactory>();
         }
     }
 }

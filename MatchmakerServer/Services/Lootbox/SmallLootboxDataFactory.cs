@@ -13,9 +13,9 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
         private const int NumberOfPrizes = 3;
         private readonly LootboxResourcesFactory lootboxResourcesFactory;
 
-        public SmallLootboxDataFactory()
+        public SmallLootboxDataFactory(LootboxResourcesFactory lootboxResourcesFactory)
         {
-            lootboxResourcesFactory = new LootboxResourcesFactory();
+            this.lootboxResourcesFactory = lootboxResourcesFactory;
         }
         
         public LootboxModel Create(List<WarshipDbDto> warships)

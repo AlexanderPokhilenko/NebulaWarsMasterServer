@@ -13,24 +13,19 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
     /// </summary>
     public class LootboxResourcesFactory
     {
-        private readonly int numberOfPrizeTypes;
-        private readonly Random random = new Random();
+        private readonly Random random;
+        private readonly LootboxResourceTypeFactory lootboxResourceTypeFactory;
 
-        public LootboxResourcesFactory()
+        public LootboxResourcesFactory(LootboxResourceTypeFactory lootboxResourceTypeFactory)
         {
-            var resources =  new List<ResourceTypeEnum>
-            {
-                ResourceTypeEnum.SoftCurrency,
-                ResourceTypeEnum.HardCurrency,
-                ResourceTypeEnum.WarshipPowerPoints
-            };
-            numberOfPrizeTypes = resources.Count;
+            random = new Random();
+            this.lootboxResourceTypeFactory = lootboxResourceTypeFactory;
         }
-        
+
         [CanBeNull]
         public ResourceModel Create(List<WarshipDbDto> warships)
         {
-            ResourceTypeEnum resourceTypeEnum = (ResourceTypeEnum) random.Next(numberOfPrizeTypes);
+            ResourceTypeEnum resourceTypeEnum = lootboxResourceTypeFactory.CreateResourceType();
             switch (resourceTypeEnum)
             {
                 case ResourceTypeEnum.SoftCurrency:

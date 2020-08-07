@@ -284,6 +284,7 @@
             <e p="LootboxDbWriterService.cs" t="Include" />
             <e p="LootboxFacadeService.cs" t="Include" />
             <e p="LootboxResourcesFactory.cs" t="Include" />
+            <e p="LootboxResourceTypeFactory.cs" t="Include" />
             <e p="SmallLootboxDataFactory.cs" t="Include" />
             <e p="SmallLootboxOpenAllowingService.cs" t="Include" />
           </e>
@@ -515,6 +516,7 @@
           <e p="PlayerInfoManagerServiceTests.cs" t="Include" />
         </e>
         <e p="Lootbox" t="Include">
+          <e p="LootboxResourceTypeFactoryTests.cs" t="Include" />
           <e p="LootboxTests.cs" t="Include" />
         </e>
         <e p="MatchFinishing" t="Include">
