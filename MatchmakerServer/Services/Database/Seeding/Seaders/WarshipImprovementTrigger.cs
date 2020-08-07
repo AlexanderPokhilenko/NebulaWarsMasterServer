@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using DataLayer;
+using DataLayer.Tables;
 using Microsoft.EntityFrameworkCore;
 
 namespace AmoebaGameMatcherServer.Services.Database.Seeding.Seaders
@@ -10,38 +11,11 @@ namespace AmoebaGameMatcherServer.Services.Database.Seeding.Seaders
         {
             if (!dbContext.GameModeTypes.Any())
             {
-                // int warshipLevelId = (int) IncrementTypeEnum.WarshipLevel;
-                string trigger=
-                    @"
-CREATE OR REPLACE FUNCTION warship_improvement_check()
-    RETURNS trigger AS
-$BODY$
-DECLARE
-    _current_improvements_count          integer;
-BEGIN
-    IF NEW.""IncrementTypeId"" = 5 THEN
-        SELECT COUNT(*) INTO _current_improvements_count
- FROM ""Increments"" 
-WHERE ""Amount"" = NEW.""Amount"" 
-AND ""WarshipId"" = NEW.""WarshipId""
-AND ""IncrementTypeId""=5 ;
-        IF _current_improvements_count <> 0 THEN
-            RAISE EXCEPTION 'Warship with id % already was improved to level %!', NEW.""WarshipId"", NEW.""Amount"";
-        END IF;
-    END IF;
+                string uniqueIndex = $@"CREATE UNIQUE INDEX unique_warship_improvement ON ""{nameof(Increment)}s""
+ (""{nameof(Increment.Amount)}"", ""{nameof(Increment.WarshipId)}"") WHERE (""{nameof(Increment.IncrementTypeId)}"" =
+ {(int)IncrementTypeEnum.WarshipLevel});";
 
-    RETURN NEW;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER warship_improvement_checking
-    BEFORE INSERT OR UPDATE
-    ON ""Increments""
-    FOR EACH ROW
-EXECUTE PROCEDURE warship_improvement_check();
-";
-
-                dbContext.Database.ExecuteSqlCommand(trigger);
+                dbContext.Database.ExecuteSqlCommand(uniqueIndex);
             }
         }
     }
