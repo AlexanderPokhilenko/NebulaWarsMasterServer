@@ -4,7 +4,7 @@
     {
         public string GetBundleVersion()
         {
-            return "0.85";
+            return "0.86";
         }
     }
 }
