@@ -19,7 +19,7 @@ namespace AmoebaGameMatcherServer.Controllers.ProfileServer.Lobby
 
         [Route(nameof(Validate))]
         [HttpPost]
-        public async Task<ActionResult> Validate([FromForm]string sku, [FromForm]string token)
+        public async Task<ActionResult> Validate([FromForm] string sku, [FromForm] string token)
         {
             Console.WriteLine($"{nameof(sku)} {sku}");
             Console.WriteLine($"{nameof(token)} {token}");

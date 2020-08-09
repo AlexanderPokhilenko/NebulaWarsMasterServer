@@ -30,7 +30,6 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
             this.googleApiPurchasesWrapperService = googleApiPurchasesWrapperService;
         }
 
-        [ItemCanBeNull]
         public async Task<bool> ValidateAsync([NotNull] string sku, [NotNull] string token)
         {
             try

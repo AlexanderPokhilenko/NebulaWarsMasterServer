@@ -6,7 +6,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi.AccessTokenUtils
     {
         public GoogleApiProfile GetCurrentProfile()
         {
-            return new GoogleApiProfileNew();
+            return new GoogleApiProfileNewest();
         }
     }
 }
