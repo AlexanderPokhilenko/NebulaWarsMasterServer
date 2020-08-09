@@ -67,9 +67,9 @@ namespace AmoebaGameMatcherServer
 
          
             // //Заполнение данными
-            // new DataSeeder().Seed(dbContext);
-            //
-            //
+            new DataSeeder().Seed(dbContext);
+            
+            
             app.UseMvc();
         }
     }

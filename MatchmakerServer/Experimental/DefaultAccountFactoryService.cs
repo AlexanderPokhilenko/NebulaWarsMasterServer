@@ -83,7 +83,7 @@ namespace AmoebaGameMatcherServer.Experimental
             Transaction warshipsLevelTransaction = new Transaction
             {
                 AccountId = account.Id,
-                TransactionTypeId = TransactionTypeEnum.DailyPrize,
+                TransactionTypeId = TransactionTypeEnum.GameRegistration,
                 DateTime = DateTime.UtcNow,
                 WasShown = false,
                 Increments = new List<Increment>

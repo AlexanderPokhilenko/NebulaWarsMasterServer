@@ -9,4 +9,4 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi.AccessTokenUtils
             return new GoogleApiProfileNewest();
         }
     }
-}
+}    
