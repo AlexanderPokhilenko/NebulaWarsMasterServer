@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DataLayer;
+using Newtonsoft.Json;
 
 namespace AmoebaGameMatcherServer.Services.GoogleApi.AccessTokenUtils
 {
@@ -9,93 +10,68 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi.AccessTokenUtils
     /// </summary>
     public class CustomGoogleApiAccessTokenService
     {
-        private GoogleApiAuthData apiAuthData;
+        private string accessToken;
         private readonly object lockObj = new object();
+        private readonly GoogleApiProfileStorageService profileStorageService;
+        
+        public CustomGoogleApiAccessTokenService(GoogleApiProfileStorageService profileStorageService)
+        {
+            this.profileStorageService = profileStorageService;
+        }
         
         public async Task Initialize()
         {
-            if (apiAuthData != null)
-            {
-                throw new Exception($"{nameof(apiAuthData)} not null. Инициализация уже была проведена.");
-            }
-            
+            GoogleApiProfile googleApiProfile = profileStorageService.GetCurrentProfile();
             try
             {
-                GoogleApiGlobals.CheckNull();
-                
-                // string currentDirectory = GoogleApiFileManager.GetCurrentDirectory();
-                // Console.WriteLine($"{nameof(currentDirectory)} {currentDirectory}");
-                //
-                // if(GoogleApiGlobals.RecreateGoogleApiFile)
-                // {
-                //     GoogleApiFileManager.RemoveFile();
-                // }
-                
-                GoogleApiAuthData authData = await GoogleApiFileManager.ReadApiData();
-                if (authData.Check(out string error1))
+                GoogleApiAuthData authData;
+                bool haveRefreshToken = googleApiProfile.GoogleApiData != null; 
+                if (haveRefreshToken)
                 {
-                    // Console.WriteLine("Установлены данные из файла");
-                    apiAuthData = authData;
+                    Console.WriteLine("Refresh token уже есть");
+                    authData = JsonConvert
+                        .DeserializeObject<GoogleApiAuthData>(googleApiProfile.GoogleApiData);
                 }
                 else
                 {
-                    throw new Exception("Проблема с  google api data");
+                    Console.WriteLine("Создание нового refresh токена");
+                    InitializeAccessTokenArg initializeAccessTokenArg = googleApiProfile.GetGoogleApiInitArg();
+                    authData = await TokenManagerService.CreateRefreshTokenAsync(initializeAccessTokenArg);
+                    string text = JsonConvert.SerializeObject(authData);
+                    Console.WriteLine(text);
+                    throw new Exception("Введите refresh token в текущий google api profile "+text);
                 }
-                // else
-                // {
-                //     Console.WriteLine(error1);
-                //     Console.WriteLine("Создание нового refresh токена");
-                //     var initializeAccessTokenArg = GoogleApiGlobals.GetGoogleApiInitArg();
-                //     apiAuthData = await TokenManagerService.InitializeAccessTokenAsync(initializeAccessTokenArg);
-                //     await GoogleApiFileManager.WriteGoogleApiDataToFile(apiAuthData);
-                // }
-
-                if (apiAuthData.Check(out string error2))
+            
+                if (authData != null)
                 {
-                    if (apiAuthData.ExpiresInSec != null)
+                    AccessTokenUpdatingArg test = new AccessTokenUpdatingArg()
                     {
-#pragma warning disable 4014
-                        StartEndlessAccessTokenUpdatingAsync(2).ConfigureAwait(true);
-                        // StartEndlessAccessTokenUpdatingAsync(apiAuthData.ExpiresInSec.Value).ConfigureAwait(true);
-#pragma warning restore 4014
-                    }
-                }
-                else
-                {
-                    throw new Exception(error2);
+                        ClientId = googleApiProfile.ClientId,
+                        ClientSecret = googleApiProfile.ClientSecret,
+                        RefreshToken = authData.RefreshToken
+                    };
+                    Task task = StartEndlessAccessTokenUpdatingAsync(test);
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(e.Message+" "+e.StackTrace);
             }
         }
 
-        private async Task StartEndlessAccessTokenUpdatingAsync(int firstDelaySec)
+        private async Task StartEndlessAccessTokenUpdatingAsync(AccessTokenUpdatingArg tokenUpdatingArg, int firstDelaySec=2)
         {
             int delaySec = firstDelaySec;
             while (true)
             {
                 await Task.Delay(1000 * delaySec);
-                if (apiAuthData != null)
+                RefreshedData result = TokenManagerService.UpdateAccessToken(tokenUpdatingArg).Result;
+                lock (lockObj)
                 {
-                    AccessTokenUpdatingArg tokenUpdatingArg = new AccessTokenUpdatingArg
-                    {
-                        ClientId = GoogleApiGlobals.ClientId,
-                        ClientSecret = GoogleApiGlobals.ClientSecret,
-                        RefreshToken = apiAuthData.RefreshToken
-                    };
-                    var result = TokenManagerService.UpdateAccessToken(tokenUpdatingArg).Result;
-                    lock (lockObj)
-                    {
-                        apiAuthData.AccessToken = result.AccessToken;
-                    }
-                    delaySec = result.ExpiresInSec;
+                    accessToken = result.AccessToken;
                 }
-                else
-                {
-                    throw new Exception($"{nameof(apiAuthData)} was null");
-                }
+                delaySec = result.ExpiresInSec;
+              
             }
             // ReSharper disable once FunctionNeverReturns
         }
@@ -104,21 +80,12 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi.AccessTokenUtils
         {
             lock (lockObj)
             {
-                if (apiAuthData != null)
+                if (accessToken != null)
                 {
-                    if (apiAuthData.AccessToken != null)
-                    {
-                        return string.Copy(apiAuthData.AccessToken);
-                    }
-                    else
-                    {
-                        throw new Exception($"{nameof(apiAuthData.AccessToken)} was null");
-                    }
+                    return string.Copy(accessToken);
                 }
-                else
-                {
-                    throw new Exception($"{nameof(apiAuthData)} was null");
-                }
+
+                throw new Exception($"{nameof(accessToken)} was null");
             }
         }
     }

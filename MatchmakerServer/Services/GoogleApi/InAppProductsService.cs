@@ -12,10 +12,11 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
     {
         private readonly AllProductsUrlFactory urlFactory;
 
-        public InAppProductsService()
+        public InAppProductsService(AllProductsUrlFactory urlFactory)
         {
-            urlFactory = new AllProductsUrlFactory();
+            this.urlFactory = urlFactory;
         }
+        
         public async Task<string> InAppProducts(string accessToken)
         {
             HttpClient httpClient = new HttpClient();

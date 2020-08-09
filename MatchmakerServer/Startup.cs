@@ -66,10 +66,10 @@ namespace AmoebaGameMatcherServer
             googleApiAccessTokenManagerService.Initialize().Wait();
 
          
-            //Заполнение данными
-            new DataSeeder().Seed(dbContext);
-            
-            
+            // //Заполнение данными
+            // new DataSeeder().Seed(dbContext);
+            //
+            //
             app.UseMvc();
         }
     }

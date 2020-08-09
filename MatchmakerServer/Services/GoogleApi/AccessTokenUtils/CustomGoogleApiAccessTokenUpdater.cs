@@ -5,18 +5,18 @@ using System.Threading.Tasks;
 
 namespace AmoebaGameMatcherServer.Services.GoogleApi.AccessTokenUtils
 {
-    public static class CustomGoogleApiInitializer
+    public static class CustomGoogleApiAccessTokenUpdater
     {
-        public static async Task<string> GetAuthData(InitializeAccessTokenArg initAccessToken)
+        public static async Task<string> RenewAccessToken(AccessTokenUpdatingArg tokenUpdatingArg)
         {
+            Console.WriteLine("старт скачивания данных о новом токене \n\n\n");
             HttpClient httpClient = new HttpClient();
-            Dictionary<string, string> requestData = new Dictionary<string, string>()
+            Dictionary<string, string> requestData = new Dictionary<string, string>
             {
-                {"grant_type", "authorization_code"},
-                {"code", initAccessToken.Code},
-                {"client_id", initAccessToken.ClientId},
-                {"client_secret", initAccessToken.ClientSecret},
-                {"redirect_uri", initAccessToken.RedirectUri}
+                {"grant_type", "refresh_token"},
+                {"client_id", tokenUpdatingArg.ClientId},
+                {"client_secret", tokenUpdatingArg.ClientSecret},
+                {"refresh_token", tokenUpdatingArg.RefreshToken}
             };
             
             HttpContent  httpContent = new FormUrlEncodedContent(requestData);
@@ -34,7 +34,7 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi.AccessTokenUtils
                 return responseContent;
             }
 
-            throw new Exception("2 Не удалось получить токен.");
+            throw new Exception("1 Не удалось получить токен.");
         }
     }
 }

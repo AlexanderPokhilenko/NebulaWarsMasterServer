@@ -15,10 +15,11 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
         private readonly CustomGoogleApiAccessTokenService accessTokenService;
         private readonly PurchaseValidateUrlFactory purchaseValidateUrlFactory;
 
-        public GoogleApiPurchasesWrapperService(CustomGoogleApiAccessTokenService accessTokenService)
+        public GoogleApiPurchasesWrapperService(CustomGoogleApiAccessTokenService accessTokenService,
+            PurchaseValidateUrlFactory purchaseValidateUrlFactory)
         {
             this.accessTokenService = accessTokenService;
-            purchaseValidateUrlFactory = new PurchaseValidateUrlFactory();
+            this.purchaseValidateUrlFactory = purchaseValidateUrlFactory;
         }
         
         public async Task<string> ValidateAsync([NotNull] string sku, [NotNull] string token)

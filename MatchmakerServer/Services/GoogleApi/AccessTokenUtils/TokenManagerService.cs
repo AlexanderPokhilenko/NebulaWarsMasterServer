@@ -6,10 +6,9 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi.AccessTokenUtils
 {
     public static class TokenManagerService
     {
-        public static async Task<GoogleApiAuthData> InitializeAccessTokenAsync(InitializeAccessTokenArg initAccessToken)
+        public static async Task<GoogleApiAuthData> CreateRefreshTokenAsync(InitializeAccessTokenArg initAccessToken)
         {
             string responseContent = await CustomGoogleApiInitializer.GetAuthData(initAccessToken);
-            
             dynamic responseObj = JsonConvert.DeserializeObject(responseContent);
             
             // string tokenType = responseObj.token_type;
@@ -31,14 +30,11 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi.AccessTokenUtils
 
         public static async Task<RefreshedData> UpdateAccessToken(AccessTokenUpdatingArg tokenUpdatingArg)
         {
-            var responseContent = await CustomGoogleApiAccessTokenUpdater
-                .RenewAccessToken(tokenUpdatingArg);
-            
+            Console.WriteLine("Обновление access token");
+            string responseContent = await CustomGoogleApiAccessTokenUpdater.RenewAccessToken(tokenUpdatingArg);
             dynamic responseObj = JsonConvert.DeserializeObject(responseContent);
-            
             int expiresIn = responseObj.expires_in;
             string accessToken = responseObj.access_token;
-
             RefreshedData result = new RefreshedData
             {
                 AccessToken = accessToken,

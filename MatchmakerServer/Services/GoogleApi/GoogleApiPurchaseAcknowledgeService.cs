@@ -16,10 +16,11 @@ namespace AmoebaGameMatcherServer.Services.GoogleApi
         private readonly PurchaseAcknowledgeUrlFactory factory;
         private readonly CustomGoogleApiAccessTokenService accessTokenService;
         
-        public GoogleApiPurchaseAcknowledgeService(CustomGoogleApiAccessTokenService accessTokenService)
+        public GoogleApiPurchaseAcknowledgeService(CustomGoogleApiAccessTokenService accessTokenService,
+            PurchaseAcknowledgeUrlFactory factory)
         {
             this.accessTokenService = accessTokenService;
-            factory = new PurchaseAcknowledgeUrlFactory();
+            this.factory = factory;
         }
         
         public async Task Acknowledge(string productId, string token, string developerPayload)

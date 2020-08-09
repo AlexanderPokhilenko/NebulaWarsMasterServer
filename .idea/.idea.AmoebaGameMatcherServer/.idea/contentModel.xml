@@ -85,6 +85,7 @@
           <e p="AccessTokenUpdatingArg.cs" t="Include" />
           <e p="InitializeAccessTokenArg.cs" t="Include" />
         </e>
+        <e p="GoogleApiProfile.cs" t="Include" />
         <e p="Ignore.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -172,6 +173,7 @@
             </e>
             <e p="MatchResultController.cs" t="Include" />
           </e>
+          <e p="TestController.cs" t="Include" />
         </e>
         <e p="Experimental" t="Include">
           <e p="DefaultAccountFactoryService.cs" t="Include" />
@@ -242,9 +244,11 @@
           <e p="GoogleApi" t="Include">
             <e p="AccessTokenUtils" t="Include">
               <e p="CustomAccessTokenManager.cs" t="Include" />
+              <e p="CustomGoogleApiAccessTokenUpdater.cs" t="Include" />
               <e p="CustomGoogleApiInitializer.cs" t="Include" />
               <e p="GoogleApiAuthData.cs" t="Include" />
-              <e p="GoogleApiFileManager.cs" t="Include" />
+              <e p="GoogleApiProfileStorageService.cs" t="Include" />
+              <e p="PackageNameStorageService.cs" t="Include" />
               <e p="RefreshedData.cs" t="Include" />
               <e p="TokenManagerService.cs" t="Include" />
             </e>
