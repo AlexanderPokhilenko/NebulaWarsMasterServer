@@ -26,7 +26,6 @@ namespace IntegrationTests
         internal static LobbyModelController LobbyModelController;
         internal static AccountDbReaderService AccountReaderService;
         internal static LobbyModelFacadeService LobbyModelFacadeService;
-        internal static StubUsernameDbWriterService StubUsernameDbWriterService;
         internal static NotShownRewardsReaderService NotShownRewardsReaderService;
         internal static WarshipImprovementCostChecker WarshipImprovementCostChecker;
         internal static WarshipImprovementFacadeService WarshipImprovementFacadeService;
@@ -62,9 +61,10 @@ namespace IntegrationTests
             
             LobbyModelFacadeService = new LobbyModelFacadeService(AccountFacadeService, NotShownRewardsReaderService,
                 accountMapperService, bundleVersionService);
-            StubUsernameDbWriterService = new StubUsernameDbWriterService(DbContext);
             
-            LobbyModelController = new LobbyModelController(LobbyModelFacadeService, StubUsernameDbWriterService);
+            UsernameValidatorService usernameValidatorService = new UsernameValidatorService();
+            UsernameChangingService usernameChangingService = new UsernameChangingService(usernameValidatorService, DbContext);
+            LobbyModelController = new LobbyModelController(LobbyModelFacadeService, usernameChangingService);
             WarshipImprovementCostChecker = new WarshipImprovementCostChecker();
             WarshipImprovementFacadeService = new WarshipImprovementFacadeService(AccountReaderService, DbContext, WarshipImprovementCostChecker);
             

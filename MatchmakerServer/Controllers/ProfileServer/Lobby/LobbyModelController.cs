@@ -15,13 +15,13 @@ namespace AmoebaGameMatcherServer.Controllers.ProfileServer.Lobby
     public class LobbyModelController : ControllerBase
     {
         private readonly LobbyModelFacadeService lobbyModelFacadeService;
-        private readonly StubUsernameDbWriterService stubUsernameDbWriterService;
-        
+        private readonly UsernameChangingService usernameChangingService;
+
         public LobbyModelController(LobbyModelFacadeService lobbyModelFacadeService, 
-            StubUsernameDbWriterService stubUsernameDbWriterService)
+            UsernameChangingService usernameChangingService)
         {
             this.lobbyModelFacadeService = lobbyModelFacadeService;
-            this.stubUsernameDbWriterService = stubUsernameDbWriterService;
+            this.usernameChangingService = usernameChangingService;
         }
         
         [Route(nameof(Create))]
@@ -44,14 +44,49 @@ namespace AmoebaGameMatcherServer.Controllers.ProfileServer.Lobby
             }
 
             //обновить ник
-            if (lobbyModel.AccountDto.Username != username && username != null && username.Length < 20)
+            if (lobbyModel.AccountDto.Username != username && username != null)
             {
-                lobbyModel.AccountDto.Username = username;
-                await stubUsernameDbWriterService
-                    .WriteAsync(lobbyModel.AccountDto.AccountId, username);
+                var validationResult = await usernameChangingService.ChangeUsername(playerServiceId, username);
+                if (validationResult==UsernameValidationResultEnum.Ok)
+                {
+                    lobbyModel.AccountDto.Username = username;
+                }
             }
 
             return lobbyModel.SerializeToBase64String();
+        }
+        
+        [Route(nameof(SetUsername))]
+        [HttpPost]
+        public async Task<ActionResult<string>> SetUsername([FromForm] string playerServiceId, 
+            [FromForm] string username)
+        {
+            Console.WriteLine($"{nameof(playerServiceId)} {playerServiceId}");
+            if (string.IsNullOrEmpty(playerServiceId))
+            {
+                return BadRequest();
+            }
+            
+            if (string.IsNullOrEmpty(username))
+            {
+                return BadRequest();
+            }
+            
+            UsernameValidationResultEnum validationResult = await usernameChangingService
+                .ChangeUsername(playerServiceId, username);
+            UsernameValidationResult usernameValidationResult = new UsernameValidationResult()
+            {
+                UsernameValidationResultEnum = validationResult
+            };
+            string result = usernameValidationResult.SerializeToBase64String();
+            
+            if (validationResult != UsernameValidationResultEnum.Ok)
+            {
+                Console.WriteLine("Ник не обновлён.");
+                return BadRequest(result);
+            }
+
+            return Ok(result);
         }
     }
 }
