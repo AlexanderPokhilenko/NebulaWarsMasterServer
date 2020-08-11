@@ -175,25 +175,25 @@ namespace AmoebaGameMatcherServer.Experimental
                     {
                         IncrementTypeId = IncrementTypeEnum.WarshipPowerPoints,
                         WarshipId = account.Warships[0].Id,
-                        Amount = 15
+                        Amount = 0
                     },
                     new Increment
                     {
                         IncrementTypeId = IncrementTypeEnum.WarshipPowerPoints,
                         WarshipId = account.Warships[1].Id,
-                        Amount = 15
+                        Amount = 0
                     },
                     new Increment
                     {
                         IncrementTypeId = IncrementTypeEnum.WarshipPowerPoints,
                         WarshipId = account.Warships[2].Id,
-                        Amount = 15
+                        Amount = 0
                     },
                     new Increment
                     {
                         IncrementTypeId = IncrementTypeEnum.WarshipPowerPoints,
                         WarshipId = account.Warships[3].Id,
-                        Amount = 15
+                        Amount = 0
                     }
                 }
             };
