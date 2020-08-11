@@ -64,12 +64,12 @@ namespace AmoebaGameMatcherServer.Experimental
                             new Increment
                             {
                                 IncrementTypeId = IncrementTypeEnum.HardCurrency,
-                                Amount = 400
+                                Amount = 15
                             },
                             new Increment
                             {
                                 IncrementTypeId = IncrementTypeEnum.LootboxPoints,
-                                Amount = 100500
+                                Amount = 100*7
                             }
                         }
                     }
