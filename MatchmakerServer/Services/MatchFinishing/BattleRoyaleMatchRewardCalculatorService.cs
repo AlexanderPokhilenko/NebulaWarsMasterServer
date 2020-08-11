@@ -34,12 +34,7 @@
         
         private int GetPointsForSmallLootbox(int placeInMatch, int currentWarshipRating)
         {
-            if (placeInMatch < 5)
-            {
-                return 10;
-            }
-
-            return 20;
+            return 20 - 2 * (placeInMatch-1);
         }
     }
 }
