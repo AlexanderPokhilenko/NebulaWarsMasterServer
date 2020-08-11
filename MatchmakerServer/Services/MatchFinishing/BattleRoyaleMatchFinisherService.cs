@@ -34,8 +34,9 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             this.warshipRatingReaderService = warshipRatingReaderService;
         }
         
-        public async Task<bool> UpdatePlayerMatchResultInDbAsync(int accountId, int placeInMatch, int matchId)
+        public async Task<bool> UpdatePlayerMatchResultInDbAsync(int accountId, int placeInBattle, int matchId)
         {
+            Console.WriteLine($"placeInBattle = "+placeInBattle);
             Account account = await dbContext.Accounts.FindAsync(accountId);
             if (account == null)
             {
@@ -59,10 +60,10 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
             
             //Вычислить награду за бой
             MatchReward matchReward = battleRoyaleMatchRewardCalculatorService
-                .Calculate(placeInMatch, currentWarshipRating);
+                .Calculate(placeInBattle, currentWarshipRating);
             
             //Обновить место в бою
-            matchResult.PlaceInMatch = placeInMatch;
+            matchResult.PlaceInMatch = placeInBattle;
 
             //ОБновить ресурсы
             var increments = new List<Increment>();

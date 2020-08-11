@@ -1,4 +1,6 @@
-﻿namespace AmoebaGameMatcherServer.Services.MatchFinishing
+﻿using System;
+
+namespace AmoebaGameMatcherServer.Services.MatchFinishing
 {
     /// <summary>
     /// По результатам боя в батл рояль режиме присуждает награду игроку.
@@ -12,7 +14,7 @@
             warshipRatingCalculator = new BattleRoyaleWarshipRatingCalculator();
         }
         
-        public MatchReward Calculate(int placeInMatch, int currentWarshipRating)
+        public MatchReward Calculate(int placeInBattle, int currentWarshipRating)
         {
             //TODO добавить поддержку double tokens
             //TODO добавить поддержку сундуков
@@ -20,9 +22,10 @@
             
             MatchReward result = new MatchReward
             {
-                WarshipRatingDelta = GetWarshipRatingDelta(placeInMatch, currentWarshipRating),
-                LootboxPoints = GetPointsForSmallLootbox(placeInMatch, currentWarshipRating)
+                WarshipRatingDelta = GetWarshipRatingDelta(placeInBattle, currentWarshipRating),
+                LootboxPoints = GetPointsForSmallLootbox(placeInBattle, currentWarshipRating)
             };
+            Console.WriteLine("LootboxPoints = "+result.LootboxPoints);
             return result;
         }
             
@@ -32,9 +35,9 @@
             return warshipRatingDelta;
         }
         
-        private int GetPointsForSmallLootbox(int placeInMatch, int currentWarshipRating)
+        private int GetPointsForSmallLootbox(int placeInBattle, int currentWarshipRating)
         {
-            return 20 - 2 * (placeInMatch-1);
+            return 20 - 2 * placeInBattle;
         }
     }
 }
