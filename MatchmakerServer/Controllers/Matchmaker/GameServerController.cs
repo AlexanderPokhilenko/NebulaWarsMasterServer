@@ -22,6 +22,7 @@ namespace AmoebaGameMatcherServer.Controllers.Matchmaker
         public async Task<ActionResult> PlayerDeath([FromQuery] int? accountId, [FromQuery] int? placeInBattle, 
             [FromQuery] int? matchId, string secret)
         {
+            Console.WriteLine("placeInBattle "+placeInBattle);
             if (accountId == null)
             {
                 Console.WriteLine($"{nameof(PlayerDeath)} {nameof(accountId)} is null");
