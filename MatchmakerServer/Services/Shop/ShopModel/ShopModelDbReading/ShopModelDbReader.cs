@@ -24,10 +24,13 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel.ShopModelDbReading
         [ItemCanBeNull]
         public async Task<NetworkLibrary.NetworkLibrary.Http.ShopModel> ReadShopModel(int accountId)
         {
+            DateTime now = DateTime.UtcNow;
             ShopModelDb shopModelDb = await dbContext.ShopModels
-                .Where(shopModel1 => shopModel1.AccountId == accountId)
+                .Where(shopModel1 => shopModel1.AccountId == accountId
+                                     && shopModel1.CreationDateTime>now-TimeSpan.FromDays(1))
                 .OrderBy(shopModel1 => shopModel1.CreationDateTime)
                 .FirstOrDefaultAsync();
+            
             if (shopModelDb == null)
             {
                 return null;
