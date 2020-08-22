@@ -45,7 +45,8 @@ namespace AmoebaGameMatcherServer.Services.Shop.ShopModel
             }
             
             //Прочитать самую новую модель магазина из БД
-            NetworkLibrary.NetworkLibrary.Http.ShopModel shopModelFromDb = await shopModelDbReader.ReadShopModel(account.Id);
+            NetworkLibrary.NetworkLibrary.Http.ShopModel shopModelFromDb = await shopModelDbReader
+                .ReadShopModel(account.Id);
             //Создать новую модель магазина
             NetworkLibrary.NetworkLibrary.Http.ShopModel shopModel = await shopFactoryService.Create(playerServiceId);
 
