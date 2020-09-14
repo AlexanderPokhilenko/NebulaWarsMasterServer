@@ -53,6 +53,7 @@ namespace AmoebaGameMatcherServer.Controllers.ProfileServer.Lobby
                 }
             }
 
+            Console.WriteLine("Всё нормально");
             return lobbyModel.SerializeToBase64String();
         }
         
@@ -86,6 +87,7 @@ namespace AmoebaGameMatcherServer.Controllers.ProfileServer.Lobby
                 return BadRequest(result);
             }
 
+            Console.WriteLine("Всё нормально");
             return Ok(result);
         }
     }
