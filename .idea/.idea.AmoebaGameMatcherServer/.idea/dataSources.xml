@@ -7,5 +7,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://tikaytech.games:5432/DevR49</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="MainDb" uuid="bfeb7829-e862-4e73-9f8f-769e79d644e9">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://main-database-1.postgres.database.azure.com:5432/postgres</jdbc-url>
+    </data-source>
   </component>
 </project>

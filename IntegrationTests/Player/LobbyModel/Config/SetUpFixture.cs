@@ -8,6 +8,7 @@ using AmoebaGameMatcherServer.Services.Experimental;
 using AmoebaGameMatcherServer.Services.LobbyInitialization;
 using DataLayer;
 using DataLayer.Configuration;
+using DataLayer.DbContextFactories;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using NUnit.Framework;
@@ -26,16 +27,20 @@ namespace IntegrationTests
         internal static LobbyModelController LobbyModelController;
         internal static AccountDbReaderService AccountReaderService;
         internal static LobbyModelFacadeService LobbyModelFacadeService;
+        internal static DefaultAccountFactoryService DefaultAccountFactoryService;
         internal static NotShownRewardsReaderService NotShownRewardsReaderService;
         internal static WarshipImprovementCostChecker WarshipImprovementCostChecker;
         internal static WarshipImprovementFacadeService WarshipImprovementFacadeService;
-        internal static DefaultAccountFactoryService DefaultAccountFactoryService;
+        private static DbContextFactory dbContextFactory;
 
         [OneTimeSetUp]
-        public void Initialize()
+        public static void Initialize()
         {
+            string databaseName = "R50";
+            IDbConnectionConfig dbConnectionConfig = new DbConnectionConfig(databaseName); 
             //Создать БД
-            DbContext = new DbContextFactory().Create(DatabaseName);
+            dbContextFactory = new DbContextFactory(dbConnectionConfig);
+            DbContext = dbContextFactory.Create(DatabaseName);
             //Ввести базовые данные
             var seeder = new DataSeeder();
             seeder.Seed(DbContext);
@@ -43,7 +48,7 @@ namespace IntegrationTests
             DbContext.Accounts.FromSql(new RawSqlString("ALTER DATABASE {0} SET postgres WITH ROLLBACK IMMEDIATE"), DatabaseName);
             //Очиста аккаунта
             TruncateAccountsTable();
-            string connectionString = DbConnectionConfig.GetConnectionString(DatabaseName);
+            string connectionString = dbConnectionConfig.GetConnectionString();
             //Создать сервисы
             NpgsqlConnection npgsqlConnection = new NpgsqlConnection(connectionString);
             SkinsDbReaderService skinsDbReaderService = new SkinsDbReaderService(DbContext);
@@ -78,7 +83,7 @@ namespace IntegrationTests
 
         private static void ReloadDbContext()
         {
-            DbContext = new DbContextFactory().Create(DatabaseName);
+            DbContext = dbContextFactory.Create(DatabaseName);
         }
 
         private static void TruncateAccountsTable()

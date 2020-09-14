@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DataLayer;
+using DataLayer.DbContextFactories;
 using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services.MatchCreation
@@ -45,8 +46,7 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
                 Console.WriteLine("Error. Контекст не содержит названия кораблей");
                 Console.WriteLine("Error. Контекст не содержит названия кораблей");
                 Console.WriteLine("Error. Создание нового контекста");
-                ApplicationDbContext sukaContext = new DbContextFactory().Create(); 
-                warshipNames = sukaContext.WarshipTypes.Select(warshipType => warshipType.Name).ToList();
+                warshipNames = dbContext.WarshipTypes.Select(warshipType => warshipType.Name).ToList();
             }
             
             

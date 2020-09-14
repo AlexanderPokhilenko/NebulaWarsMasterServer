@@ -16,41 +16,42 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
         {
             this.dbContextFactory = dbContextFactory;
         }
+        
         /// <summary>
         /// Возвращает id матча после успешной записи в БД
         /// </summary>
         public async Task<Match> Write(MatchRoutingData matchRoutingData, List<int> warshipIds)
         {
-            ApplicationDbContext dbContext = dbContextFactory.Create();
-            
-            //Создать объекты для результатов боя игроков
-            List<MatchResult> matchResults = new List<MatchResult>();
-            foreach (int warshipId in warshipIds)
+            using (ApplicationDbContext dbContext = dbContextFactory.Create())
             {
-                MatchResult matchResult = new MatchResult
+                //Создать объекты для результатов боя игроков
+                List<MatchResult> matchResults = new List<MatchResult>();
+                foreach (int warshipId in warshipIds)
                 {
-                    WarshipId = warshipId,
-                    IsFinished = false
-                };
+                    MatchResult matchResult = new MatchResult
+                    {
+                        WarshipId = warshipId,
+                        IsFinished = false
+                    };
                 
-                Console.WriteLine($"{nameof(matchResult.WarshipId)} {matchResult.WarshipId}");
-                matchResults.Add(matchResult);
+                    Console.WriteLine($"{nameof(matchResult.WarshipId)} {matchResult.WarshipId}");
+                    matchResults.Add(matchResult);
+                }
+
+                //Создать матч
+                Match match = new Match
+                {
+                    StartTime = DateTime.UtcNow,
+                    GameServerIp = matchRoutingData.GameServerIp,
+                    GameServerUdpPort = matchRoutingData.GameServerPort,
+                    MatchResults = matchResults,
+                    GameModeId = GameModeEnum.BattleRoyale
+                };
+
+                await dbContext.Matches.AddAsync(match);
+                await dbContext.SaveChangesAsync();
+                return match;
             }
-
-            //Создать матч
-            Match match = new Match
-            {
-                StartTime = DateTime.UtcNow,
-                GameServerIp = matchRoutingData.GameServerIp,
-                GameServerUdpPort = matchRoutingData.GameServerPort,
-                MatchResults = matchResults,
-                GameModeId = GameModeEnum.BattleRoyale
-            };
-
-            await dbContext.Matches.AddAsync(match);
-            await dbContext.SaveChangesAsync();
-
-            return match;
         }
     }
 }

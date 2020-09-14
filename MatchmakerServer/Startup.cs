@@ -26,13 +26,6 @@ namespace AmoebaGameMatcherServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            services.AddTransient(provider =>
-            {
-                string connectionString = DbConnectionConfig.GetConnectionString();
-                return new NpgsqlConnection(connectionString);
-            });
-            
             services.AddFeature(new GoogleApiFeature());
             services.AddFeature(new DatabaseFeature());
             services.AddFeature(new LobbyInitializeFeature());

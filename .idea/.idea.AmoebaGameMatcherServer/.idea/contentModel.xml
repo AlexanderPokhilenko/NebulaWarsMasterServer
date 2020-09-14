@@ -33,13 +33,11 @@
             <e p="WarshipsConfiguration.cs" t="Include" />
             <e p="WarshipTypesConfiguration.cs" t="Include" />
           </e>
-          <e p="DbConnectionConfig.cs" t="Include" />
         </e>
         <e p="DAL.csproj" t="IncludeRecursive" />
         <e p="DbContextFactories" t="Include">
           <e p="DbContextFactory.cs" t="Include" />
           <e p="IDbContextFactory.cs" t="Include" />
-          <e p="InMemoryDbContextFactory.cs" t="Include" />
         </e>
         <e p="Entities" t="Include">
           <e p="Account.cs" t="Include" />
@@ -86,6 +84,7 @@
           <e p="InitializeAccessTokenArg.cs" t="Include" />
         </e>
         <e p="GoogleApiProfile.cs" t="Include" />
+        <e p="IDbConnectionConfig.cs" t="Include" />
         <e p="Ignore.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -95,6 +94,18 @@
           </e>
         </e>
         <e p="readme.txt" t="Include" />
+      </e>
+      <e p="DeleteMeDbTest" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="DeleteMeDbTest.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.2" t="Include">
+              <e p="DeleteMeDbTest.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
       </e>
       <e p="IntegrationTests" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />

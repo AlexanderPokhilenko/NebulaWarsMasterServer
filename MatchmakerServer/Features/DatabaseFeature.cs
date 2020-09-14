@@ -1,7 +1,9 @@
 ﻿using DataLayer;
 using DataLayer.Configuration;
+using DataLayer.DbContextFactories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Npgsql;
 
 namespace AmoebaGameMatcherServer.Features
 {
@@ -9,7 +11,11 @@ namespace AmoebaGameMatcherServer.Features
     {
         public override void Add(IServiceCollection serviceCollection)
         {
-            string connectionString = DbConnectionConfig.GetConnectionString();
+            string databaseName = "r51";
+            IDbConnectionConfig dbConnectionConfig = new DbConnectionConfig(databaseName);
+            string connectionString = dbConnectionConfig.GetConnectionString();
+
+            serviceCollection.AddTransient(provider => dbConnectionConfig);
             serviceCollection
                 .AddEntityFrameworkNpgsql()
                 .AddDbContext<ApplicationDbContext>(
@@ -17,6 +23,7 @@ namespace AmoebaGameMatcherServer.Features
                 .BuildServiceProvider();
 
             serviceCollection.AddTransient<IDbContextFactory, DbContextFactory>();
+            serviceCollection.AddTransient(provider => new NpgsqlConnection(connectionString));
         }
     }
 }
