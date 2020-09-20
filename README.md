@@ -1,6 +1,7 @@
-Это Asp.Net Core Web Api сервер, который нужен для работы онлайн-игры Nebula Wars.
-Gameplay video: https://www.youtube.com/watch?v=HmfbtCwhaSc . Google Play Market: https://play.google.com/store/apps/details?id=com.tikaytech.nebulaWars2&hl=en .
+It is an Asp.Net Core Web Api server that is needed to run the online game Nebula Wars.
+Gameplay video: https://www.youtube.com/watch?v=HmfbtCwhaSc
+Google Play Market: https://play.google.com/store/apps/details?id=com.tikaytech.nebulaWars2&hl=en .
 
-Он выполняет две подзадачи: матчмейкер и профиль-сервер.
-- Матчмейкер комплектует команды из игроков, которые ищут матч. После формирования команды игроков на игровой сервер (unity 3d) отправляется запрос на создание нового матча.
-- Профиль-сервер отвечает за регистрацию, хранение данных о ресурсах игрока, хранение данных о матча[ игрока, обслуживание работы внутиигрового магазина, проверку покупок за реальную валюту.
+The project performs two subtasks: a matchmaker and a profile server.
+- The Matchmaker sets up teams of players who are looking for a match. After forming a team of players, a request is sent to the game server (unity 3d) to create a new match.
+- The profile server is responsible for registration, storage of data about the player's resources, storage of data about the match of the player, maintenance of the in-game store, checking purchases for real currency.
