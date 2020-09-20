@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services.GameServerNegotiation;
 using AmoebaGameMatcherServer.Services.PlayerQueueing;
 using AmoebaGameMatcherServer.Services.Queues;
@@ -8,81 +10,94 @@ using NetworkLibrary.NetworkLibrary.Http;
 namespace AmoebaGameMatcherServer.Services.MatchCreation
 {
     /// <summary>
-    /// Полностью управляет созданием боя для батл рояль режима.
+    /// Пытается начать матч для батл рояль режима.
     /// </summary>
     public class BattleRoyaleMatchCreatorService
     {
-        private readonly BattleRoyaleMatchPackerService battleRoyaleMatchPackerService;
-        private readonly IGameServerNegotiatorService gameServerNegotiatorService;
-        private readonly MatchRoutingDataService matchRoutingDataService;
-        private readonly BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService;
         private readonly MatchDbWriterService matchDbWriterService;
+        private readonly MatchRoutingDataService matchRoutingDataService;
         private readonly BattleRoyaleQueueSingletonService battleRoyaleQueue;
+        private readonly IGameServerNegotiatorService gameServerNegotiatorService;
+        private readonly BattleRoyaleBotFactoryService battleRoyaleBotFactoryService;
+        private readonly BattleRoyaleQueueSingletonService battleRoyaleQueueSingletonService;
+        private readonly BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService;
 
-        public BattleRoyaleMatchCreatorService(BattleRoyaleMatchPackerService battleRoyaleMatchPackerService, 
-            IGameServerNegotiatorService gameServerNegotiatorService,
+        public BattleRoyaleMatchCreatorService(
+            MatchDbWriterService matchDbWriterService,
             MatchRoutingDataService matchRoutingDataService, 
-            BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService,
             BattleRoyaleQueueSingletonService battleRoyaleQueue,
-            MatchDbWriterService matchDbWriterService)
+            IGameServerNegotiatorService gameServerNegotiatorService,
+            BattleRoyaleBotFactoryService battleRoyaleBotFactoryService,
+            BattleRoyaleQueueSingletonService battleRoyaleQueueSingletonService,
+            BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService)
         {
-            this.battleRoyaleMatchPackerService = battleRoyaleMatchPackerService;
-            
-            this.gameServerNegotiatorService = gameServerNegotiatorService;
-            this.matchRoutingDataService = matchRoutingDataService;
-            this.unfinishedMatchesService = unfinishedMatchesService;
             this.battleRoyaleQueue = battleRoyaleQueue;
             this.matchDbWriterService = matchDbWriterService;
+            this.matchRoutingDataService = matchRoutingDataService;
+            this.unfinishedMatchesService = unfinishedMatchesService;
+            this.gameServerNegotiatorService = gameServerNegotiatorService;
+            this.battleRoyaleBotFactoryService = battleRoyaleBotFactoryService;
+            this.battleRoyaleQueueSingletonService = battleRoyaleQueueSingletonService;
         }
         
-        public async Task<MatchCreationMessage> 
-            TryCreateMatch(int maxNumberOfPlayersInBattle, bool botsCanBeUsed)
+        public async Task<bool> TryCreateMatch(int numberOfPlayersInMatch, bool botsCanBeUsed)
         {
-            //Достать игроков из очереди без извлечения
-            var (success, gameUnitsForMatch, playersQueueInfo) = battleRoyaleMatchPackerService
-                .GetPlayersForMatch(maxNumberOfPlayersInBattle, botsCanBeUsed);
+            GameUnits gameUnits = new GameUnits();
 
-            //Достаточно игроков?
-            if (!success)
+            List<MatchEntryRequest> requests = battleRoyaleQueueSingletonService
+                .TakeMatchEntryRequests(numberOfPlayersInMatch);
+            //Достать игроков из очереди без извлечения
+            gameUnits.Players =requests
+                .Select(request=>request.GetPlayerModel())
+                .ToList();
+            
+            //Если нужно дополнить ботами
+            if (0 < gameUnits.Players.Count && gameUnits.Players.Count < numberOfPlayersInMatch)
             {
-                return new MatchCreationMessage
+                //и можно дополнить ботами
+                if (botsCanBeUsed)
                 {
-                    Success = false,
-                    FailureReason = MatchCreationFailureReason.NotEnoughPlayers,
-                    MatchId = null
-                };
+                    //дополнить
+                    int numberOfBots = numberOfPlayersInMatch - gameUnits.Players.Count;
+                    gameUnits.Bots = battleRoyaleBotFactoryService.CreateBotModels(numberOfBots);
+                }
+            }
+            
+            //Достаточно игроков?
+            if (gameUnits.Players.Count + gameUnits.Bots?.Count != numberOfPlayersInMatch)
+            {
+                return false;
             }
 
+            // Присвоить временные id игрокам на один бой 
+             List<ushort> playerTmpIds = PlayerTemporaryIdsFactory.Create(gameUnits.Players.Count);
+             for(int i = 0; i < gameUnits.Players.Count; i++)
+             {
+                 PlayerModel playerModel = gameUnits.Players[i];
+                 playerModel.TemporaryId = playerTmpIds[i];
+             }
+
             //На каком сервере будет запускаться матч?
-            var matchRoutingData = matchRoutingDataService.GetMatchRoutingData();
+            MatchRoutingData matchRoutingData = matchRoutingDataService.GetMatchRoutingData();
 
             //Сделать запись об матче в БД
-            Match match = await matchDbWriterService.WriteMatchDataToDb(matchRoutingData, playersQueueInfo);
+            Match match = await matchDbWriterService
+                .Write(matchRoutingData, requests.Select(request => request.GetWarshipId()).ToList());
 
-            //Создать объект со всей инфой про бой
-            BattleRoyaleMatchData matchData = BattleRoyaleMatchDataFactory.Create(gameUnitsForMatch, match);
+            //Создать объект с информацией про бой
+            BattleRoyaleMatchModel matchModel = BattleRoyaleMatchDataFactory.Create(gameUnits, match);
             
             //Добавить игроков в таблицу тех кто в бою
-            unfinishedMatchesService.AddPlayersToMatch(matchData);
+            unfinishedMatchesService.AddPlayersToMatch(matchModel);
             
             //Извлечь игроков из очереди
-            battleRoyaleQueue.RemovePlayersFromQueue(matchData.GameUnitsForMatch.Players);
+            battleRoyaleQueue.RemovePlayersFromQueue(matchModel.GameUnits.Players);
             
             //Сообщить на гейм сервер
-            await gameServerNegotiatorService.SendRoomDataToGameServerAsync(matchData);
-            
-            return new MatchCreationMessage
-            {
-                Success = true,
-                FailureReason = null,
-                MatchId = matchData.MatchId
-            };
-        }
-    }
+            await gameServerNegotiatorService.SendRoomDataToGameServerAsync(matchModel);
 
-    public enum MatchCreationFailureReason
-    {
-        NotEnoughPlayers
+            return true;
+        }
     }
 }
 

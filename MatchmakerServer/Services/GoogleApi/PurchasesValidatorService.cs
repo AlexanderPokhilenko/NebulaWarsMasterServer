@@ -1,80 +1,78 @@
 ﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using DataLayer;
 using DataLayer.Tables;
+using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore;
+using NetworkLibrary.Http.Utils;
 using Newtonsoft.Json;
 
 namespace AmoebaGameMatcherServer.Services.GoogleApi
 {
     /// <summary>
-    /// Отвечает за начисление предметов после совершения покупки в google play store
+    /// Отвечает за начисление товаров после совершения покупки в google play store
     /// </summary>
     public class PurchasesValidatorService
     {
-        private readonly CustomGoogleApiAccessTokenService accessTokenService;
-        private readonly IDbContextFactory dbContextFactory;
+        private readonly ApplicationDbContext dbContext;
+        private readonly PurchaseRegistrationService purchaseRegistrationService;
+        private readonly GoogleApiPurchasesWrapperService googleApiPurchasesWrapperService;
+        private readonly RealPurchaseTransactionFactoryService realPurchaseTransactionFactory;
 
-        public PurchasesValidatorService(CustomGoogleApiAccessTokenService accessTokenService, 
-            IDbContextFactory dbContextFactory)
+        public PurchasesValidatorService(GoogleApiPurchasesWrapperService googleApiPurchasesWrapperService,
+            PurchaseRegistrationService purchaseRegistrationService, ApplicationDbContext dbContext, 
+            RealPurchaseTransactionFactoryService realPurchaseTransactionFactory)
         {
-            this.accessTokenService = accessTokenService;
-            this.dbContextFactory = dbContextFactory;
+            this.dbContext = dbContext;
+            this.realPurchaseTransactionFactory = realPurchaseTransactionFactory;
+            this.purchaseRegistrationService = purchaseRegistrationService;
+            this.googleApiPurchasesWrapperService = googleApiPurchasesWrapperService;
         }
 
-        public void Validate(string sku, string token)
+        public async Task<bool> ValidateAsync([NotNull] string sku, [NotNull] string token)
         {
-            Console.WriteLine($"{nameof(sku)} {sku} {nameof(token)} {token}");
-            
-            string accessToken = accessTokenService.GetAccessToken();
-            Console.WriteLine($"{nameof(accessToken)} {accessToken}");
-
-            string responseContent = GooglePurchasesApiWrapper.Get(sku, token, accessToken).Result;
-
-            if (responseContent != null)
-            {
-                Console.WriteLine($"{nameof(responseContent)} {responseContent}");
-                SaveResponseContentToDb(responseContent);
-            }
-            else
-            {
-                Console.WriteLine($"{nameof(responseContent)} was null");   
-            }
-        }
-
-        private void SaveResponseContentToDb(string responseContent)
-        {
-            dynamic responseObj = JsonConvert.DeserializeObject(responseContent);
             try
             {
-                string kind = responseObj.kind;
-                long purchaseTimeMillis = responseObj.purchaseTimeMillis;
-                int purchaseState = responseObj.purchaseState;
-                int consumptionState = responseObj.consumptionState;
-                string developerPayload = responseObj.developerPayload;
-                string orderId = responseObj.orderId;
-                int purchaseType = responseObj.purchaseType;
-                int acknowledgementState = responseObj.acknowledgementState;
-            
-                using (ApplicationDbContext dbContext = dbContextFactory.Create())
+                string googleResponseJson = await googleApiPurchasesWrapperService.ValidateAsync(sku, token);
+                bool responseIsOk = googleResponseJson != null;
+                if (responseIsOk)
                 {
-                    Purchase purchase = new Purchase
+                    Console.WriteLine($"{nameof(googleResponseJson)} {googleResponseJson}");
+                    GoogleResponse googleResponse = JsonConvert.DeserializeObject<GoogleResponse>(googleResponseJson);
+
+                    string accountServiceId = googleResponse.ObfuscatedExternalAccountId.Caesar(-10);
+                    Account account = await dbContext.Accounts
+                        .Where(account1 => account1.ServiceId == accountServiceId)
+                        .SingleOrDefaultAsync();
+                    if (account == null)
                     {
-                        Json = responseContent,
-                        Kind = kind,
-                        PurchaseTimeMillis = purchaseTimeMillis,
-                        PurchaseState = purchaseState,
-                        ConsumptionState = consumptionState,
-                        DeveloperPayload = developerPayload,
-                        OrderId = orderId,
-                        PurchaseType = purchaseType,
-                        AcknowledgementState = acknowledgementState
-                    };
-                    dbContext.Purchases.Add(purchase);
-                    dbContext.SaveChanges();
+                        throw new Exception("Не удалось найти аккаунт который был указан в полезной нагрузке." +
+                                            $"{nameof(accountServiceId)} {accountServiceId}");
+                    }
+
+                    Console.WriteLine("аккаунт найден");
+
+                    // внести данные про покупку в БД
+                    int realPurchaseModelId = await purchaseRegistrationService
+                        .WriteAndGetId(account.Id, sku, googleResponseJson);
+
+                    //записать транзакцию
+                    Transaction transaction = realPurchaseTransactionFactory.Create(account.Id, sku, realPurchaseModelId);
+                    
+                    //todo проверить транзакцию на адекватность
+                    await dbContext.Transactions.AddAsync(transaction);
+                    await dbContext.SaveChangesAsync();
+                    
+                    return true;
                 }
+
+                return false;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(e.Message+" "+e.StackTrace);
+                return false;
             }
         }
     }

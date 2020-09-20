@@ -5,6 +5,6 @@ namespace AmoebaGameMatcherServer.Services.GameServerNegotiation
 {
     public interface IGameServerNegotiatorService
     {
-        Task SendRoomDataToGameServerAsync(BattleRoyaleMatchData data);
+        Task SendRoomDataToGameServerAsync(BattleRoyaleMatchModel model);
     }
 }

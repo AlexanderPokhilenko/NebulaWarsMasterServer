@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AmoebaGameMatcherServer.Services
+namespace AmoebaGameMatcherServer.Experimental
 {
     /// <summary>
     /// Отвечает за периодический вызов callback-a
@@ -17,6 +17,7 @@ namespace AmoebaGameMatcherServer.Services
             this.callback = callback;
             this.delay = delay;
         }
+        
         public void StartThread()
         {
             Thread thread = new Thread(PeriodicMethodCall);

@@ -1,133 +1,172 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services.Queues;
 using DataLayer;
+using DataLayer.Entities.Transactions.Decrement;
 using DataLayer.Tables;
+using Libraries.NetworkLibrary.Experimental;
 using Microsoft.EntityFrameworkCore;
+using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services.MatchFinishing
 {
+    
     /// <summary>
-    /// Отвечает за дописывания результатов боя для батл рояль режима.
+    /// Отвечает за дописывание результатов матча для батл рояль режима.
     /// </summary>
     public class BattleRoyaleMatchFinisherService
     {
         private readonly ApplicationDbContext dbContext;
+        private readonly WarshipRatingReaderService warshipRatingReaderService;
         private readonly BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesSingletonService;
-        private readonly BattleRoyaleMatchRewardService battleRoyaleMatchRewardService;
+        private readonly BattleRoyaleMatchRewardCalculatorService battleRoyaleMatchRewardCalculatorService;
 
         public BattleRoyaleMatchFinisherService(ApplicationDbContext dbContext,
             BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesSingletonService,
-            BattleRoyaleMatchRewardService battleRoyaleMatchRewardService)
+            BattleRoyaleMatchRewardCalculatorService battleRoyaleMatchRewardCalculatorService,
+            WarshipRatingReaderService warshipRatingReaderService)
         {
             this.dbContext = dbContext;
             this.unfinishedMatchesSingletonService = unfinishedMatchesSingletonService;
-            this.battleRoyaleMatchRewardService = battleRoyaleMatchRewardService;
+            this.battleRoyaleMatchRewardCalculatorService = battleRoyaleMatchRewardCalculatorService;
+            this.warshipRatingReaderService = warshipRatingReaderService;
         }
         
-        public async Task PlayerDeath(int accountId, int placeInMatch, int matchId)
+        public async Task<bool> UpdatePlayerMatchResultInDbAsync(int accountId, int placeInBattle, int matchId)
         {
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine($"{nameof(accountId)} {accountId}");
-            Console.WriteLine($"{nameof(placeInMatch)} {placeInMatch}");
-            Console.WriteLine($"{nameof(matchId)} {matchId}");
-            Console.WriteLine();
-            Console.WriteLine();
-            
-            MatchResultForPlayer matchResultForPlayer = await dbContext
-                .MatchResultForPlayers
-                .SingleOrDefaultAsync(matchResult => 
-                    matchResult.MatchId == matchId 
-                    && matchResult.Warship.AccountId == accountId);
-
-            
-            if (matchResultForPlayer == null)
+            Console.WriteLine($"placeInBattle = "+placeInBattle);
+            Account account = await dbContext.Accounts.FindAsync(accountId);
+            if (account == null)
             {
-                Console.WriteLine("\n matchResultForPlayer is null\n");
-                return;
+                throw new Exception("Аккаунта не существует");
+            }
+                
+            bool isPlayerInMatch = unfinishedMatchesSingletonService.IsPlayerInMatch(account.ServiceId, matchId);
+            if (!isPlayerInMatch)
+            {
+                Console.WriteLine("Этот игрок не в бою UpdatePlayerMatchResultInDbAsync");
+                return false;
+            }
+            
+            //Достать пустой результат боя из БД
+            MatchResult matchResult = await dbContext.MatchResults
+                .Where(matchResult1 => matchResult1.MatchId == matchId && matchResult1.Warship.AccountId == accountId)
+                .SingleAsync();
+            
+            //Прочитать текущий рейтинг корабля. Он нужен для вычисления награды за бой.
+            int currentWarshipRating = await warshipRatingReaderService.ReadWarshipRatingAsync(matchResult.WarshipId);
+            
+            //Вычислить награду за бой
+            MatchReward matchReward = battleRoyaleMatchRewardCalculatorService
+                .Calculate(placeInBattle, currentWarshipRating);
+            
+            //Обновить место в бою
+            matchResult.PlaceInMatch = placeInBattle;
+
+            //ОБновить ресурсы
+            var increments = new List<Increment>();
+            var decrements = new List<Decrement>();
+
+            if (matchReward.SoftCurrency > 0)
+            {
+                increments.Add( new Increment
+                {
+                    Amount = matchReward.SoftCurrency,
+                    IncrementTypeId = IncrementTypeEnum.SoftCurrency,
+                    MatchRewardTypeId = MatchRewardTypeEnum.RankingReward 
+                });
             }
 
-            Account account = await dbContext.Accounts.SingleAsync(account1 => account1.Id == accountId);
-            Warship warship = await dbContext.Warships
-                .SingleAsync(warship1 => warship1.Id == matchResultForPlayer.WarshipId);
+            if (matchReward.LootboxPoints > 0)
+            {
+                increments.Add(
+                    new Increment
+                    {
+                        Amount = matchReward.LootboxPoints,
+                        IncrementTypeId = IncrementTypeEnum.LootboxPoints,
+                        MatchRewardTypeId = MatchRewardTypeEnum.RankingReward
+                    });
+            }
             
-            int currentWarshipRating = warship.Rating;
-            MatchReward matchReward = battleRoyaleMatchRewardService.GetMatchReward(placeInMatch, currentWarshipRating);
+            if (matchReward.WarshipRatingDelta > 0)
+            {
+                increments.Add(new Increment
+                {
+                    Amount = matchReward.WarshipRatingDelta,
+                    IncrementTypeId = IncrementTypeEnum.WarshipRating,
+                    WarshipId = matchResult.WarshipId,
+                    MatchRewardTypeId = MatchRewardTypeEnum.RankingReward
+                });
+            }
+            else if(matchReward.WarshipRatingDelta < 0)
+            {
+                decrements.Add(new Decrement
+                {
+                    DecrementTypeId = DecrementTypeEnum.WarshipRating,
+                    WarshipId = matchResult.WarshipId,
+                    Amount = Math.Abs(matchReward.WarshipRatingDelta)
+                });
+            }
+            
+            Transaction transaction = new Transaction
+            {
+                WasShown = false,
+                DateTime = DateTime.UtcNow,
+                Increments = increments,
+                Decrements = decrements,
+                TransactionTypeId = TransactionTypeEnum.MatchReward,
+                AccountId = accountId
+            };
 
+            matchResult.Transaction = transaction;
             
-            matchResultForPlayer.PlaceInMatch = placeInMatch;
-            matchResultForPlayer.PremiumCurrencyDelta = matchReward.PremiumCurrencyDelta;
-            matchResultForPlayer.RegularCurrencyDelta = matchReward.RegularCurrencyDelta;
-            matchResultForPlayer.WarshipRatingDelta = matchReward.WarshipRatingDelta;
-            matchResultForPlayer.PointsForBigChest = matchReward.PointsForBigChest;
-            matchResultForPlayer.PointsForSmallChest = matchReward.PointsForSmallLootbox;
-
-            LogMatchResult(matchResultForPlayer);
+            //Пометить, что игрок окончил бой
+            matchResult.IsFinished = true;
             
-            //изменить денормализованные показатели рейтинга
-            warship.Rating += matchResultForPlayer.WarshipRatingDelta.Value;
-            account.Rating += matchResultForPlayer.WarshipRatingDelta.Value;
-            
+            //Сохранить результат боя в БД
             await dbContext.SaveChangesAsync();
             
-            //удаление игрока из структуры данных
+            //Удалить игрока из памяти
             bool success = unfinishedMatchesSingletonService.TryRemovePlayerFromMatch(account.ServiceId);
             if (!success)
             {
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine("Не удалось удалить игрока из матча ");
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
+                throw new Exception("Не удалось удалить игрока из матча ");
             }
+
+            return true;
         }
 
-        private void LogMatchResult(MatchResultForPlayer matchResultForPlayer)
-        {
-    
-            Console.WriteLine($"{nameof(matchResultForPlayer.PremiumCurrencyDelta)} {matchResultForPlayer.PremiumCurrencyDelta}");
-            Console.WriteLine($"{nameof(matchResultForPlayer.RegularCurrencyDelta)} {matchResultForPlayer.RegularCurrencyDelta}");
-            Console.WriteLine($"{nameof(matchResultForPlayer.WarshipRatingDelta)} {matchResultForPlayer.WarshipRatingDelta}");
-            Console.WriteLine($"{nameof(matchResultForPlayer.PointsForBigChest)} {matchResultForPlayer.PointsForBigChest}");
-            Console.WriteLine($"{nameof(matchResultForPlayer.PointsForSmallChest)} {matchResultForPlayer.PointsForSmallChest}");
-        }
-        
-        public async Task DeleteRoom(int matchId)
-        {
-            await AddResultsOfMatchToDatabase(matchId);
-            bool success = unfinishedMatchesSingletonService.TryRemoveMatch(matchId);
-            if (!success)
-            {
-                Console.WriteLine("\nНе удалось удалить матч\n");
-            }
-        }
-
-        private async Task AddResultsOfMatchToDatabase(int matchId)
+        public async Task FinishMatchAndWriteToDbAsync(int matchId)
         {
             //Поставить дату окончания матча
-            var match = await dbContext.Matches
-                .Include(match1 => match1.MatchResultForPlayers)
+            Match match = await dbContext.Matches
+                .Include(match1 => match1.MatchResults)
+                .ThenInclude(matchResultResultForPlayer => matchResultResultForPlayer.Warship)
                 .Where(match1 => match1.Id == matchId)
                 .SingleOrDefaultAsync();
-
             match.FinishTime = DateTime.UtcNow;
             await dbContext.SaveChangesAsync();
             
             //Дозаписать результаты для победителей
             //Для них результаты не были записаны, так как они не умирали
-            var incompleteMatchResults = match.MatchResultForPlayers
-                .Where(matchResult => matchResult.RegularCurrencyDelta == null);
-
-            int index = 0;
-            foreach (var matchResultForPlayer in incompleteMatchResults)
+            var incompleteMatchResults = match.MatchResults
+                .Where(matchResult => matchResult.IsFinished == false)
+                .ToList();
+            
+            for(int i = 0; i < incompleteMatchResults.Count; i++)
             {
-                Console.WriteLine($"\nДозапись результата матча для игрока {matchResultForPlayer.Warship.AccountId}\n");
-                int placeInMatch = ++index;
-                await PlayerDeath(matchResultForPlayer.Warship.AccountId, placeInMatch, matchId);
+                MatchResult matchResult = incompleteMatchResults[i];
+                int placeInMatch = ++i;
+                await UpdatePlayerMatchResultInDbAsync(matchResult.Warship.AccountId, placeInMatch, matchId);
+            }
+            
+            //Удалить матч из памяти
+            bool success = unfinishedMatchesSingletonService.TryRemoveMatch(matchId);
+            if (!success)
+            {
+                throw new Exception("Не удалось удалить матч");
             }
         }
     }

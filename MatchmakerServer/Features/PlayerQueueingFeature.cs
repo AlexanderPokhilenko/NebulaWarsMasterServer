@@ -1,7 +1,7 @@
 ﻿using AmoebaGameMatcherServer.Services.PlayerQueueing;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AmoebaGameMatcherServer
+namespace AmoebaGameMatcherServer.Features
 {
     public class PlayerQueueingFeature:ServiceFeature
     {
@@ -11,7 +11,6 @@ namespace AmoebaGameMatcherServer
             serviceCollection.AddTransient<QueueExtenderService>();
             serviceCollection.AddTransient<MatchRoutingDataService>();
             serviceCollection.AddTransient<GameServersRoutingDataService>();
-            serviceCollection.AddTransient<IWarshipValidatorService, WarshipValidatorService>();
         }
     }
 }

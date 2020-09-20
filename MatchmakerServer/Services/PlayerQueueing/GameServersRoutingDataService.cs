@@ -1,14 +1,14 @@
-﻿using AmoebaGameMatcherServer.Utils;
+﻿using AmoebaGameMatcherServer.Experimental;
 
 namespace AmoebaGameMatcherServer.Services.PlayerQueueing
 {
     public class GameServersRoutingDataService
     {
-        public (string ip, int port) GetGameServerAddress()
+        public MatchRoutingData GetGameServerAddress()
         {
-            (string ip, int port) result;
-            result.ip = Globals.DefaultGameServerIp;
-            result.port = Globals.DefaultGameServerUdpPort;
+            MatchRoutingData result = 
+                new MatchRoutingData(Globals.DefaultGameServerIp, Globals.DefaultGameServerUdpPort);
+                
             return result;
         }
     }

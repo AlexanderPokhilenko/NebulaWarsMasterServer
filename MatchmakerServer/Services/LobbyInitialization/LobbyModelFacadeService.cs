@@ -1,67 +1,59 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AmoebaGameMatcherServer.Services.LobbyInitialization;
+using DataLayer.Tables;
 using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.LobbyInitialization
 {
     /// <summary>
-    /// Нужен для получения всей информации о аккаунте при загрузке игры.
+    /// Нужен для получения всей информации о аккаунте при входе в лобби.
     /// </summary>
     public class LobbyModelFacadeService
     {
+        private readonly WarshipRatingScale warshipRatingScale;
         private readonly AccountFacadeService accountFacadeService;
-        private readonly NotShownRewardDbUpdaterService notShownRewardDbUpdaterService;
-        private readonly WarshipRatingScaleService warshipRatingScaleService;
-        private readonly WarshipPowerScaleModelStorage warshipPowerScaleModelStorage;
+        private readonly AccountMapperService accountMapperService;
+        private readonly BundleVersionService bundleVersionService;
+        private readonly NotShownRewardsReaderService notShownRewardsReaderService;
 
-        public LobbyModelFacadeService(AccountFacadeService accountFacadeService, 
-            NotShownRewardDbUpdaterService notShownRewardDbUpdaterService, 
-            WarshipRatingScaleService warshipRatingScaleService,
-            WarshipPowerScaleModelStorage warshipPowerScaleModelStorage
-        )
+        public LobbyModelFacadeService(AccountFacadeService accountFacadeService,
+            NotShownRewardsReaderService notShownRewardsReaderService, AccountMapperService accountMapperService,
+            BundleVersionService bundleVersionService)
         {
+            warshipRatingScale = new WarshipRatingScale();
             this.accountFacadeService = accountFacadeService;
-            this.notShownRewardDbUpdaterService = notShownRewardDbUpdaterService;
-            this.warshipRatingScaleService = warshipRatingScaleService;
-            this.warshipPowerScaleModelStorage = warshipPowerScaleModelStorage;
+            this.accountMapperService = accountMapperService;
+            this.bundleVersionService = bundleVersionService;
+            this.notShownRewardsReaderService = notShownRewardsReaderService;
         }
 
-        public async Task<LobbyModel> Create([NotNull] string playerServiceId)
+        public async Task<LobbyModel> CreateAsync([NotNull] string playerServiceId)
         {
-            AccountModel accountModel = await accountFacadeService.GetOrCreateAccountData(playerServiceId);
-            if (accountModel == null)
+            AccountDbDto account = await accountFacadeService.ReadOrCreateAccountAsync(playerServiceId);
+            if (account == null)
             {
-                throw new Exception($"{nameof(accountModel)} is null");
-            }
-            
-            RewardsThatHaveNotBeenShown rewardsThatHaveNotBeenShown = await notShownRewardDbUpdaterService
-                .GetNotShownResultsAndMarkAsRead(playerServiceId);
-            if (rewardsThatHaveNotBeenShown == null)
-            { 
-                throw new Exception("rewardsThatHaveNotBeenShown was null");
+                throw new NullReferenceException(nameof(account));
             }
 
-            WarshipRatingScaleModel warshipRatingScaleModel = warshipRatingScaleService.GetWarshipRatingScaleModel();
+            RewardsThatHaveNotBeenShown rewardsThatHaveNotBeenShown = await notShownRewardsReaderService
+                .GetNotShownRewardAndMarkAsRead(playerServiceId);
+          
+            WarshipRatingScaleModel warshipRatingScaleModel = warshipRatingScale.GetWarshipRatingScaleModel();
             if (warshipRatingScaleModel == null)
             {
                 throw new Exception($"{nameof(warshipRatingScaleModel)} was null");
             }
 
-            WarshipPowerScaleModel warshipPowerScaleModel = warshipPowerScaleModelStorage.Create();
-            if (warshipPowerScaleModel == null)
-            {
-                throw new Exception($"{nameof(warshipPowerScaleModel)} was null");
-            }
-            
+            AccountDto accountDto = accountMapperService.Map(account);
             LobbyModel lobbyModel = new LobbyModel
             {
-                AccountModel = accountModel,
+                AccountDto = accountDto,
                 RewardsThatHaveNotBeenShown = rewardsThatHaveNotBeenShown,
-                WarshipRatingScaleModel = warshipRatingScaleModel,
-                WarshipPowerScaleModel = warshipPowerScaleModel
+                WarshipRatingScaleModel = warshipRatingScaleModel
             };
+
+            lobbyModel.BundleVersion = bundleVersionService.GetBundleVersion();
             
             return lobbyModel;
         }

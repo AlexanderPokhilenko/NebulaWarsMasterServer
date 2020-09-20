@@ -1,11 +1,23 @@
-﻿using AmoebaGameMatcherServer.Services.GoogleApi;
+﻿using System;
+using System.Linq;
+using AmoebaGameMatcherServer.Controllers;
+using AmoebaGameMatcherServer.Controllers.ProfileServer.Lobby;
+using AmoebaGameMatcherServer.Features;
+using AmoebaGameMatcherServer.Services;
+using AmoebaGameMatcherServer.Services.Database.Seeding;
+using AmoebaGameMatcherServer.Services.GoogleApi;
+using AmoebaGameMatcherServer.Services.GoogleApi.AccessTokenUtils;
 using AmoebaGameMatcherServer.Services.MatchCreationInitiation;
 using AmoebaGameMatcherServer.Services.Queues;
+using Dapper;
 using DataLayer;
+using DataLayer.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Npgsql;
 
 namespace AmoebaGameMatcherServer
 {
@@ -14,7 +26,6 @@ namespace AmoebaGameMatcherServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            
             services.AddFeature(new GoogleApiFeature());
             services.AddFeature(new DatabaseFeature());
             services.AddFeature(new LobbyInitializeFeature());
@@ -25,7 +36,14 @@ namespace AmoebaGameMatcherServer
             services.AddFeature(new GameServerNegotiationFeature());
             services.AddFeature(new LootboxFeature());
             services.AddFeature(new PurchasingFeature());
-
+            services.AddFeature(new WarshipUpgradeFeature());
+            services.AddFeature(new ShopFeature());
+            
+            services.AddTransient<CurrentSkinChangingService>();
+            
+            
+            services.AddTransient<BundleVersionService>();
+            
             //Общие очереди игроков
             services.AddSingleton<BattleRoyaleQueueSingletonService>();
             services.AddSingleton<BattleRoyaleUnfinishedMatchesSingletonService>();
@@ -35,14 +53,16 @@ namespace AmoebaGameMatcherServer
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
             MatchCreationInitiatorSingletonService matchCreationInitiator, 
             CustomGoogleApiAccessTokenService googleApiAccessTokenManagerService,
-            ApplicationDbContext dbContext)
+            ApplicationDbContext dbContext, NpgsqlConnection npgsqlConnection)
         {
             matchCreationInitiator.StartThread();
             googleApiAccessTokenManagerService.Initialize().Wait();
 
-            //Заполнение данными
-            new DataSeeder().TrySeed(dbContext);
-
+         
+            // //Заполнение данными
+            new DataSeeder().Seed(dbContext);
+            
+            
             app.UseMvc();
         }
     }

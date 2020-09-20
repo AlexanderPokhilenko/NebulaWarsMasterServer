@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="15006130-5b4c-4db2-86be-c620da9ac48d" name="MainServer" url="https://tikaytech.games">
+        <fileTransfer rootFolder="/home/ubuntu" accessType="SFTP" host="tikaytech.games" port="22" sshConfigId="80a84664-66cb-4eca-ae83-dfde2ff47edd" sshConfig="ubuntu@tikaytech.games:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

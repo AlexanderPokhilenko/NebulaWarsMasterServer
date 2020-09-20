@@ -1,7 +1,7 @@
-﻿using AmoebaGameMatcherServer.Controllers;
+﻿using AmoebaGameMatcherServer.Services.Lootbox;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AmoebaGameMatcherServer
+namespace AmoebaGameMatcherServer.Features
 {
     public class LootboxFeature:ServiceFeature
     {
@@ -9,8 +9,9 @@ namespace AmoebaGameMatcherServer
         {
             serviceCollection.AddTransient<LootboxFacadeService>();
             serviceCollection.AddTransient<SmallLootboxDataFactory>();
-            serviceCollection.AddTransient<SmallLootboxOpenAllowingService>();
             serviceCollection.AddTransient<LootboxDbWriterService>();
+            serviceCollection.AddTransient<LootboxResourcesFactory>();
+            serviceCollection.AddTransient<LootboxResourceTypeFactory>();
         }
     }
 }

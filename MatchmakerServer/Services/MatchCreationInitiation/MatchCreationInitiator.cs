@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AmoebaGameMatcherServer.Experimental;
 using AmoebaGameMatcherServer.Services.MatchCreation;
-using AmoebaGameMatcherServer.Utils;
 
 namespace AmoebaGameMatcherServer.Services.MatchCreationInitiation
 {
@@ -10,8 +10,8 @@ namespace AmoebaGameMatcherServer.Services.MatchCreationInitiation
     /// </summary>
     public class MatchCreationInitiator
     {
-        private readonly BattleRoyaleMatchCreatorService battleRoyaleMatchCreatorService;
         private readonly IPlayerTimeoutManager playerTimeoutManager;
+        private readonly BattleRoyaleMatchCreatorService battleRoyaleMatchCreatorService;
         private readonly int numberOfPlayers = Globals.NumbersOfPlayersInBattleRoyaleMatch;
 
         public MatchCreationInitiator(BattleRoyaleMatchCreatorService battleRoyaleMatchCreatorService,
@@ -25,16 +25,15 @@ namespace AmoebaGameMatcherServer.Services.MatchCreationInitiation
         {
             bool matchWasCreated = false;
             
-            //Собирай бои только из игроков, пока можешь
-            bool tryMore = true;
-            while (tryMore)
+            //Собери бои только из игроков, пока хватает игроков
+            while (true)
             {
-                var result = 
-                    await battleRoyaleMatchCreatorService.TryCreateMatch(numberOfPlayers, false);
-                tryMore = result.Success;
-                if (!result.Success)
+                bool success = await battleRoyaleMatchCreatorService.TryCreateMatch(numberOfPlayers, false);
+                
+                if (!success)
                 {
-                    Console.WriteLine("Не удалось собрать матч по причине "+result.FailureReason);
+                    Console.WriteLine("Не удалось собрать матч");
+                    break;
                 }
                 else
                 {
@@ -45,11 +44,11 @@ namespace AmoebaGameMatcherServer.Services.MatchCreationInitiation
             //Собери бой с ботами, если кто-то долго ждёт
             if (playerTimeoutManager.IsWaitingTimeExceeded())
             {
-                var result = 
-                    await battleRoyaleMatchCreatorService.TryCreateMatch(numberOfPlayers, true);
-                if (!result.Success)
+                bool success = await battleRoyaleMatchCreatorService
+                    .TryCreateMatch(numberOfPlayers, true);
+                if (!success)
                 {
-                    Console.WriteLine("Не удалось собрать матч по причине "+result.FailureReason);
+                    Console.WriteLine("Не удалось собрать матч");
                 }
                 else
                 {

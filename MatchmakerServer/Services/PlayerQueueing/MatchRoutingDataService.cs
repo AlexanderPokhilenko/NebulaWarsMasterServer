@@ -14,11 +14,7 @@
 
         public MatchRoutingData GetMatchRoutingData()
         {
-            var result = new MatchRoutingData();
-            var (ip, port) = serversRoutingDataService.GetGameServerAddress();
-            result.GameServerIp = ip;
-            result.GameServerPort = port;
-            return result;
+            return serversRoutingDataService.GetGameServerAddress();
         }
     }
 }

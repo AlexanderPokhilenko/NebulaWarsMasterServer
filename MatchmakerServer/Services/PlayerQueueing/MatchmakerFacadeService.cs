@@ -6,7 +6,6 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services.PlayerQueueing
 {
-    //TODO добавить в ответ сообщение об ошибке, если в БД не было найдено указанных игроком данных.
     /// <summary>
     /// Отвечает за обработку запросов на вход в бой от клиентов.
     /// </summary>
@@ -16,7 +15,8 @@ namespace AmoebaGameMatcherServer.Services.PlayerQueueing
         private readonly BattleRoyaleQueueSingletonService queueSingletonService;
         private readonly BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService;
 
-        public MatchmakerFacadeService(QueueExtenderService queueExtenderService, 
+        public MatchmakerFacadeService(
+            QueueExtenderService queueExtenderService, 
             BattleRoyaleQueueSingletonService queueSingletonService,
             BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService)
         {
@@ -26,39 +26,38 @@ namespace AmoebaGameMatcherServer.Services.PlayerQueueing
         }
 
         [ItemNotNull]
-        public async Task<MatchmakerResponse> GetMatchData([NotNull] string playerId, int warshipId)
+        public async Task<MatchmakerResponse> GetMatchDataAsync([NotNull] string playerServiceId, int warshipId)
         {
             //Данные для окна ожидания боя
             MatchmakerResponse response = new MatchmakerResponse
             {
-                NumberOfPlayersInQueue = queueSingletonService.GetNumberOfPlayersInQueue(),
+                NumberOfPlayersInQueue = queueSingletonService.GetNumberOfPlayers(),
                 NumberOfPlayersInBattles = unfinishedMatchesService.GetNumberOfPlayersInBattles()
             };
-            
             //Игрок в очереди?
-            if (queueSingletonService.IsPlayerInQueue(playerId))
+            if (queueSingletonService.Contains(playerServiceId))
             {
-                Console.WriteLine("IsPlayerInQueue");
+                Console.WriteLine("PlayerInQueue");
                 response.PlayerInQueue = true;
                 return response;
             }
             //Игрок в бою?
-            else if (unfinishedMatchesService.IsPlayerInMatch(playerId))
+            else if (unfinishedMatchesService.IsPlayerInMatch(playerServiceId))
             {
                 Console.WriteLine("IsPlayerInMatch");
-                BattleRoyaleMatchData matchData = unfinishedMatchesService.GetMatchData(playerId);
+                BattleRoyaleMatchModel matchModel = unfinishedMatchesService.GetMatchModel(playerServiceId);
                 response.PlayerInBattle = true;
-                response.BattleRoyaleMatchData = matchData;
+                response.MatchModel = new BattleRoyaleClientMatchModel(matchModel, playerServiceId);
                 return response;
             }
             //Добавить в очередь
             else
             {
-                Console.WriteLine("TryEnqueuePlayer");
-                bool successfulQueuing = await queueExtenderService.TryEnqueuePlayer(playerId, warshipId); 
-                if (!successfulQueuing)
+                Console.WriteLine("TryEnqueuePlayerAsync");
+                bool success = await queueExtenderService.TryEnqueuePlayerAsync(playerServiceId, warshipId); 
+                if (!success)
                 {
-                    throw new Exception("Не удалось зарегистрировать игрока.");
+                    throw new Exception("Не удалось добавить игрока в очередь.");
                 }
                 response.PlayerHasJustBeenRegistered = true;
                 return response;

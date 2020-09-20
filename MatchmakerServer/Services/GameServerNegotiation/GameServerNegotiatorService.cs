@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using AmoebaGameMatcherServer.Utils;
+using AmoebaGameMatcherServer.Experimental;
 using NetworkLibrary.NetworkLibrary.Http;
 using ZeroFormatter;
 
@@ -15,15 +15,15 @@ namespace AmoebaGameMatcherServer.Services.GameServerNegotiation
     {
         private readonly HttpClient httpClient = new HttpClient();
         
-        public async Task SendRoomDataToGameServerAsync(BattleRoyaleMatchData data)
+        public async Task SendRoomDataToGameServerAsync(BattleRoyaleMatchModel model)
         {
-            if (string.IsNullOrEmpty(data.GameServerIp))
+            if (string.IsNullOrEmpty(model.GameServerIp))
             {
                 throw new Exception("При отправке данных на игровой сервер ip не указан");
             }
             
-            string serverIp = $"http://{data.GameServerIp}:{Globals.DefaultGameServerHttpPort}";
-            byte[] roomData = ZeroFormatterSerializer.Serialize(data);
+            string serverIp = $"http://{model.GameServerIp}:{Globals.DefaultGameServerHttpPort}";
+            byte[] roomData = ZeroFormatterSerializer.Serialize(model);
             Console.WriteLine($"Отправка данных на игровой сервер по ip = {serverIp} количество байт = {roomData.Length}");
             HttpContent content = new ByteArrayContent(roomData);
             var response = await httpClient.PostAsync(serverIp, content);

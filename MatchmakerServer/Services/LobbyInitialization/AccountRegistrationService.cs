@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using AmoebaGameMatcherServer.Experimental;
 using DataLayer;
 using DataLayer.Tables;
 
@@ -9,11 +10,11 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
     /// </summary>
     public class AccountRegistrationService
     {
-        private readonly ApplicationDbContext dbContext;
+        private readonly DefaultAccountFactoryService defaultAccountFactoryService;
 
-        public AccountRegistrationService(ApplicationDbContext dbContext)
+        public AccountRegistrationService(DefaultAccountFactoryService defaultAccountFactoryService)
         {
-            this.dbContext = dbContext;
+            this.defaultAccountFactoryService = defaultAccountFactoryService;
         }
 
         /// <summary>
@@ -21,11 +22,9 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
         /// </summary>
         /// <param name="serviceId"></param>
         /// <returns></returns>
-        public async Task<bool> TryRegisterAccount(string serviceId)
+        public async Task<bool> TryRegisterAccountAsync(string serviceId)
         {
-            Account account = DefaultAccountFactory.CreateDefaultAccount(serviceId);
-            await dbContext.Accounts.AddAsync(account);
-            await dbContext.SaveChangesAsync();
+            await defaultAccountFactoryService.CreateDefaultAccountAsync(serviceId);
             return true;
         }
     }

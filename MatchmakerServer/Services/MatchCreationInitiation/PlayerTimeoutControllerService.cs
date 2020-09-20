@@ -1,6 +1,6 @@
 ﻿using System;
+using AmoebaGameMatcherServer.Experimental;
 using AmoebaGameMatcherServer.Services.Queues;
-using AmoebaGameMatcherServer.Utils;
 
 namespace AmoebaGameMatcherServer.Services.MatchCreationInitiation
 {

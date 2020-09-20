@@ -1,8 +1,5 @@
-﻿using System;
-using AmoebaGameMatcherServer.NetworkLibrary;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using ZeroFormatter;
 
 namespace AmoebaGameMatcherServer
 {
@@ -10,13 +7,13 @@ namespace AmoebaGameMatcherServer
     {
         public static void Main(string[] args)
         {
-            
-            
             CreateWebHostBuilder(args).Build().Run();
         }
 
-        private static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+        private static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+            return WebHost.CreateDefaultBuilder(args).UseStartup<Startup>()
+                .UseUrls("http://localhost:53846/");
+        }
     }
 }

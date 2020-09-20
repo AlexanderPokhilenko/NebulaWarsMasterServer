@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services.Queues
@@ -9,37 +10,31 @@ namespace AmoebaGameMatcherServer.Services.Queues
     /// </summary>
     public class BattleRoyaleQueueSingletonService
     {
-        private readonly MyQueue unsortedPlayers = new MyQueue();
+        private readonly PlayersQueue unsortedPlayers = new PlayersQueue();
         
-        /// <summary>
-        /// Добавляет данные в очередь без проверки.
-        /// </summary>
-        public bool TryEnqueuePlayer(QueueInfoForPlayer playerInfo)
+        public bool TryEnqueue(MatchEntryRequest matchEntryRequest)
         {
-            return unsortedPlayers.TryEnqueuePlayer(playerInfo.GetPlayerServiceId(), playerInfo);
+            return unsortedPlayers.TryEnqueue(matchEntryRequest.GetPlayerServiceId(), matchEntryRequest);
         }
 
-        public bool TryRemovePlayerFromQueue(string playerServiceId)
+        public bool TryRemove(string playerServiceId)
         {
             Console.WriteLine("Удаление игрока с id = "+playerServiceId + " из очереди.");
             return unsortedPlayers.TryRemove(playerServiceId);
         }
         
-        public bool IsPlayerInQueue(string playerId)
+        public bool Contains(string playerServiceId)
         {
-            Console.WriteLine($"Обработка запроса от игрока. кол-во в очереди {unsortedPlayers.GetCountOfPlayers()}. ");
-            return unsortedPlayers.ContainsPlayer(playerId);
+            Console.WriteLine($"Обработка запроса от игрока. кол-во в очереди {unsortedPlayers.GetNumberOfPlayers()}. ");
+            return unsortedPlayers.Contains(playerServiceId);
         }
         
-        public int GetNumberOfPlayersInQueue()
+        public int GetNumberOfPlayers()
         {
-            return unsortedPlayers.GetCountOfPlayers();
+            return unsortedPlayers.GetNumberOfPlayers();
         }
 
-        /// <summary>
-        /// Нужно для сервиса запуска боя.
-        /// </summary>
-        /// <returns>Возвращает время самого старого запроса на вход в бой, если запросы есть.</returns>
+        [CanBeNull]
         public DateTime? GetOldestRequestTime()
         {
             return unsortedPlayers.GetOldestRequestTime();
@@ -49,16 +44,16 @@ namespace AmoebaGameMatcherServer.Services.Queues
         /// Возвращает игроков без исключения из очереди 
         /// </summary>
         /// <param name="maxNumberOfPlayersInBattle"></param>
-        public List<QueueInfoForPlayer> GetPlayersQueueInfo(int maxNumberOfPlayersInBattle)
+        public List<MatchEntryRequest> TakeMatchEntryRequests(int maxNumberOfPlayersInBattle)
         {
             return unsortedPlayers.TakeHead(maxNumberOfPlayersInBattle);
         }
         
-        public void RemovePlayersFromQueue(List<PlayerInfoForMatch> sukaList)
+        public void RemovePlayersFromQueue(List<PlayerModel> playerModels)
         {
-            foreach (var sukaInfo in sukaList)
+            foreach (PlayerModel playerModel in playerModels)
             {
-                TryRemovePlayerFromQueue(sukaInfo.ServiceId);
+                TryRemove(playerModel.ServiceId);
             }
         }
     }

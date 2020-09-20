@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DataLayer.Tables;
 using JetBrains.Annotations;
-using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services.LobbyInitialization
 {
@@ -22,27 +22,26 @@ namespace AmoebaGameMatcherServer.Services.LobbyInitialization
             this.accountRegistrationService = accountRegistrationService;
         }
         
-        [ItemCanBeNull]
-        public async Task<AccountModel> GetOrCreateAccountData([NotNull] string serviceId)
+        [NotNull]
+        public async Task<AccountDbDto> ReadOrCreateAccountAsync([NotNull] string serviceId)
         {
-            AccountModel accountInfo = await accountDbReaderService.GetAccountModel(serviceId);
+            AccountDbDto account = await accountDbReaderService.ReadAccountAsync(serviceId);
             
-            if (accountInfo == null)
+            if (account == null)
             {
                 Console.WriteLine("Попытка создать аккаунт");
-                if (await accountRegistrationService.TryRegisterAccount(serviceId))
+                if (await accountRegistrationService.TryRegisterAccountAsync(serviceId))
                 {
                     Console.WriteLine("Успешная регистрация");
-                    accountInfo = await accountDbReaderService.GetAccountModel(serviceId);
+                    account = await accountDbReaderService.ReadAccountAsync(serviceId);
                 }
                 else
                 {
-                    Console.WriteLine("Не удалось выполнить регистрацию аккаунта");
-                    return null;
+                    throw new Exception("Не удалось выполнить регистрацию аккаунта");
                 }
             }
 
-            return accountInfo;
+            return account;
         }
     }
 }

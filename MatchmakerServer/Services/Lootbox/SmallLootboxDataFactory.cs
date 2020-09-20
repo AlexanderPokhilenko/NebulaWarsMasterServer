@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using AmoebaGameMatcherServer.Services.LobbyInitialization;
+using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace AmoebaGameMatcherServer.Controllers
+namespace AmoebaGameMatcherServer.Services.Lootbox
 {
     /// <summary>
     /// Случайно создаёт маленький лутбокс с NumberOfPrizes призами.
@@ -9,23 +11,26 @@ namespace AmoebaGameMatcherServer.Controllers
     public class SmallLootboxDataFactory
     {
         private const int NumberOfPrizes = 3;
-        private readonly SmallLootboxPrizeFactory lootboxPrizeFactory;
+        private readonly LootboxResourcesFactory lootboxResourcesFactory;
 
-        public SmallLootboxDataFactory()
+        public SmallLootboxDataFactory(LootboxResourcesFactory lootboxResourcesFactory)
         {
-            lootboxPrizeFactory = new SmallLootboxPrizeFactory();
+            this.lootboxResourcesFactory = lootboxResourcesFactory;
         }
         
-        public LootboxModel Create(int[] warshipIds)
+        public LootboxModel Create(List<WarshipDbDto> warships)
         {
-            LootboxModel result = new LootboxModel()
+            LootboxModel result = new LootboxModel
             {
-                Prizes = new List<LootboxPrizeModel>(NumberOfPrizes)
+                Prizes = new List<ResourceModel>(NumberOfPrizes)
             };
             for (int i = 0; i < NumberOfPrizes; i++)
             {
-                LootboxPrizeModel prize = lootboxPrizeFactory.Create(warshipIds);
-                result.Prizes.Add(prize);
+                ResourceModel prize = lootboxResourcesFactory.Create(warships);
+                if (prize != null)
+                {
+                    result.Prizes.Add(prize);
+                }
             }
 
             return result;

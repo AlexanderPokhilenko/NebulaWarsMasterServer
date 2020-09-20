@@ -5,21 +5,19 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services.Queues
 {
-    //TODO сделать это говно многопоточным
     /// <summary>
     /// Хранит данные о текущих боях.
     /// </summary>
     public class BattleRoyaleUnfinishedMatchesSingletonService
     {
-        // номер матча + участники комнаты
-        private readonly ConcurrentDictionary<int, BattleRoyaleMatchData> matchesData;
-        // id игрока + номер его матча
+        //matchId + участники комнаты
+        private readonly ConcurrentDictionary<int, BattleRoyaleMatchModel> matches;
+        // serviceId + matchId
         private readonly ConcurrentDictionary<string, int> playersInMatches;
-        
 
         public BattleRoyaleUnfinishedMatchesSingletonService()
         {
-            matchesData = new ConcurrentDictionary<int, BattleRoyaleMatchData>();
+            matches = new ConcurrentDictionary<int, BattleRoyaleMatchModel>();
             playersInMatches = new ConcurrentDictionary<string, int>();
         }
         
@@ -33,27 +31,46 @@ namespace AmoebaGameMatcherServer.Services.Queues
             return playersInMatches.ContainsKey(playerServiceId);
         }
         
-        public BattleRoyaleMatchData GetMatchData(string playerServiceId)
+        public bool IsPlayerInMatch(string playerServiceId, int matchId)
         {
-            if (IsPlayerInMatch(playerServiceId))
+            if (playersInMatches.TryGetValue(playerServiceId, out int realMatchId))
             {
-                playersInMatches.TryGetValue(playerServiceId, out int roomNumber);
-                matchesData.TryGetValue(roomNumber, out var roomData);
-                return roomData;
+                if (matchId == realMatchId)
+                {
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("Этот игрок в бою, но не в этом");
+                }
             }
             else
             {
-                throw new Exception($"Игрок с id={playerServiceId} не находится в словаре игроков в бою");
+                Console.WriteLine("Этот игрок не в бою");
+            }
+
+            return false;
+        }
+        
+        public BattleRoyaleMatchModel GetMatchModel(string playerServiceId)
+        {
+            if (playersInMatches.TryGetValue(playerServiceId, out int matchId))
+            {
+                matches.TryGetValue(matchId, out var battleRoyaleMatchData);
+                return battleRoyaleMatchData;    
+            }
+            else
+            {
+                throw new Exception("Этот игрок не находится в бою");
             }
         }
         
-        public bool TryRemovePlayerFromMatch(string playerId)
+        public bool TryRemovePlayerFromMatch(string serviceId)
         {
-            Console.WriteLine($"{nameof(playerId)} {playerId}");
-            if (playersInMatches.ContainsKey(playerId))
+            if (playersInMatches.ContainsKey(serviceId))
             {
                 Console.WriteLine("Игрок есть в списке игроков в бою");
-                if (playersInMatches.Remove(playerId, out _))
+                if (playersInMatches.Remove(serviceId, out _))
                 {
                     Console.WriteLine("Успешное удаление игрока из списка игроков в бою.");
                     return true;
@@ -66,7 +83,7 @@ namespace AmoebaGameMatcherServer.Services.Queues
             }
             else
             {
-                Console.WriteLine("Игрока нет в списке игроков в бою");
+                Console.WriteLine("Игрока не в бою");
                 return false;
             }
         }
@@ -75,20 +92,16 @@ namespace AmoebaGameMatcherServer.Services.Queues
         {
             bool success=true;
             //получить всех игроков
-            var matchData = matchesData[matchId];
+            var matchModel = matches[matchId];
             
-            //убрать их из коллецкии игроков
-            foreach (var player in matchData.GameUnitsForMatch.Players)
+            //убрать их из коллекции игроков
+            foreach (var player in matchModel.GameUnits.Players)
             {
-                if (!playersInMatches.TryRemove(player.ServiceId, out _))
-                {
-                    Console.WriteLine($"{nameof(TryRemoveMatch)} Не удалось убрать игрока {nameof(player.ServiceId)} {player.ServiceId} из коллекции игроков в бою.");
-                    success = false;
-                }
+                playersInMatches.TryRemove(player.ServiceId, out _);
             }
             
             //убрать комнату
-            if(!matchesData.TryRemove(matchId, out _))
+            if(!matches.TryRemove(matchId, out _))
             {
                 Console.WriteLine($"{nameof(TryRemoveMatch)} Не удалось удалить комнату {nameof(matchId)} {matchId}.");
                 success = false;
@@ -98,12 +111,12 @@ namespace AmoebaGameMatcherServer.Services.Queues
         }
         
         //TODO добавить чеки
-        public void AddPlayersToMatch(BattleRoyaleMatchData matchData)
+        public void AddPlayersToMatch(BattleRoyaleMatchModel matchModel)
         {
-            matchesData.TryAdd(matchData.MatchId, matchData);
-            foreach (var playerInfoForMatch in matchData.GameUnitsForMatch.Players)
+            matches.TryAdd(matchModel.MatchId, matchModel);
+            foreach (var playerInfoForMatch in matchModel.GameUnits.Players)
             {
-                playersInMatches.TryAdd(playerInfoForMatch.ServiceId, matchData.MatchId);
+                playersInMatches.TryAdd(playerInfoForMatch.ServiceId, matchModel.MatchId);
             }
         }
     }

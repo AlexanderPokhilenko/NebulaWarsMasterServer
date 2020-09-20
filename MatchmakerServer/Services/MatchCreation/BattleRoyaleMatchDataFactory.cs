@@ -8,17 +8,17 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
     /// </summary>
     public static class BattleRoyaleMatchDataFactory
     {
-        public static BattleRoyaleMatchData Create(GameUnitsForMatch gameUnitsForMatch, Match match)
+        public static BattleRoyaleMatchModel Create(GameUnits gameUnits, Match match)
         {
-            var result = new BattleRoyaleMatchData
+            BattleRoyaleMatchModel result = new BattleRoyaleMatchModel
             {
                 MatchId = match.Id,
                 GameServerIp = match.GameServerIp,
                 GameServerPort = match.GameServerUdpPort,
-                GameUnitsForMatch = new GameUnitsForMatch
+                GameUnits = new GameUnits
                 {
-                    Bots = gameUnitsForMatch.Bots,
-                    Players = gameUnitsForMatch.Players
+                    Bots = gameUnits.Bots,
+                    Players = gameUnits.Players
                 }
             };
             return result;

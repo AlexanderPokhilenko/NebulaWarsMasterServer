@@ -1,104 +1,196 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Zenit\.nuget\packages\microsoft.net.test.sdk\16.0.1\build\netcoreapp1.0" t="Include">
+    <e p="C:\Users\staro\.nuget\packages\microsoft.net.test.sdk\16.0.1\build\netcoreapp1.0" t="Include">
       <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
     </e>
-    <e p="C:\Users\Zenit\.nuget\packages\mstest.testadapter\1.4.0\build\_common\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll" t="Include" />
-    <e p="C:\Users\Zenit\.nuget\packages\mstest.testadapter\1.4.0\build\_common\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll" t="Include" />
-    <e p="C:\Users\Zenit\.nuget\packages\mstest.testadapter\1.4.0\build\netcoreapp1.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll" t="Include" />
-    <e p="C:\Users\Zenit\.Rider2019.3\config\consoles\db" t="IncludeRecursive" />
-    <e p="C:\Users\Zenit\.Rider2019.3\config\extensions" t="IncludeRecursive" />
-    <e p="C:\Users\Zenit\.Rider2019.3\config\scratches" t="IncludeRecursive" />
-    <e p="C:\Users\Zenit\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Zenit\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_AmoebaGameMatcherServer.-161366829.00" t="ExcludeRecursive" />
-    <e p="C:\Users\Zenit\RiderProjects\AmoebaGameMatcherServer" t="IncludeFlat">
+    <e p="C:\Users\staro\.nuget\packages\mstest.testadapter\1.4.0\build\_common\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll" t="Include" />
+    <e p="C:\Users\staro\.nuget\packages\mstest.testadapter\1.4.0\build\_common\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll" t="Include" />
+    <e p="C:\Users\staro\.nuget\packages\mstest.testadapter\1.4.0\build\netcoreapp1.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll" t="Include" />
+    <e p="C:\Users\staro\.nuget\packages\nunit3testadapter\3.11.0\build\netcoreapp1.0\nunit.engine.netstandard.dll" t="Include" />
+    <e p="C:\Users\staro\.nuget\packages\nunit3testadapter\3.11.0\build\netcoreapp1.0\NUnit3.TestAdapter.dll" t="Include" />
+    <e p="C:\Users\staro\.nuget\packages\nunit3testadapter\3.11.0\build\netcoreapp1.0\NUnit3.TestAdapter.pdb" t="Include" />
+    <e p="C:\Users\staro\AppData\local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\staro\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_AmoebaGameMatcherServer.155691618.00" t="ExcludeRecursive" />
+    <e p="C:\Users\staro\AppData\Roaming\JetBrains\Rider2020.1\consoles\db" t="IncludeRecursive" />
+    <e p="C:\Users\staro\AppData\Roaming\JetBrains\Rider2020.1\extensions" t="IncludeRecursive" />
+    <e p="C:\Users\staro\RiderProjects\AmoebaGameMatcherServer" t="IncludeFlat">
       <e p="AmoebaGameMatcherServer.sln" t="IncludeFlat" />
-      <e p="DataLayer" t="IncludeRecursive">
+      <e p="DAL" t="IncludeRecursive">
         <e p="ApplicationDbContext.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
-        <e p="DataLayer.csproj" t="IncludeRecursive" />
-        <e p="DbConfigIgnore.cs" t="Include" />
-        <e p="DbContext" t="Include">
+        <e p="Configuration" t="Include">
+          <e p="Constraints" t="Include">
+            <e p="AccountsConfiguration.cs" t="Include" />
+            <e p="DecrementsConfiguration.cs" t="Include" />
+            <e p="IncrementsConfiguration.cs" t="Include" />
+            <e p="MatchResultsConfiguration.cs" t="Include" />
+            <e p="ProductModelDbConfiguration.cs" t="Include" />
+            <e p="RealPurchaseModelConfiguration.cs" t="Include" />
+            <e p="ResourcesConfiguration.cs" t="Include" />
+            <e p="SkinTypeConfiguration.cs" t="Include" />
+            <e p="TransactionsConfiguration.cs" t="Include" />
+            <e p="WarshipsConfiguration.cs" t="Include" />
+            <e p="WarshipTypesConfiguration.cs" t="Include" />
+          </e>
+        </e>
+        <e p="DAL.csproj" t="IncludeRecursive" />
+        <e p="DbContextFactories" t="Include">
           <e p="DbContextFactory.cs" t="Include" />
           <e p="IDbContextFactory.cs" t="Include" />
-          <e p="InMemoryDbContextFactory.cs" t="Include" />
         </e>
         <e p="Entities" t="Include">
           <e p="Account.cs" t="Include" />
-          <e p="Lootboxes" t="Include">
-            <e p="LootboxDb.cs" t="Include" />
-            <e p="LootboxPrizePointsForSmallLootbox.cs" t="Include" />
-            <e p="LootboxPrizeRegularCurrency.cs" t="Include" />
-            <e p="LootboxPrizeWarshipPowerPoints.cs" t="Include" />
-            <e p="LootboxType.cs" t="Include" />
-          </e>
+          <e p="AccountDbDto.cs" t="Include" />
           <e p="Matches" t="Include">
+            <e p="GameModeEnum.cs" t="Include" />
+            <e p="GameModeType.cs" t="Include" />
             <e p="Match.cs" t="Include" />
-            <e p="MatchResultForPlayer.cs" t="Include" />
-            <e p="MatchReward.cs" t="Include" />
+            <e p="MatchResult.cs" t="Include" />
             <e p="WarshipImprovementPurchase.cs" t="Include" />
           </e>
-          <e p="Purchase.cs" t="Include" />
-          <e p="Shop" t="Include">
-            <e p="CurrencyTypeEnum.cs" t="Include" />
-            <e p="Kit.cs" t="Include" />
-            <e p="Order.cs" t="Include" />
-            <e p="Product.cs" t="Include" />
-            <e p="ProductTypeEnum.cs" t="Include" />
+          <e p="TestPurchase.cs" t="Include" />
+          <e p="Transactions" t="Include">
+            <e p="Decrement" t="Include">
+              <e p="Decrement.cs" t="Include" />
+              <e p="DecrementType.cs" t="Include" />
+              <e p="DecrementTypeEnum.cs" t="Include" />
+              <e p="RealPurchaseModel.cs" t="Include" />
+            </e>
+            <e p="Increment" t="Include">
+              <e p="Increment.cs" t="Include" />
+              <e p="IncrementType.cs" t="Include" />
+              <e p="IncrementTypeEnum.cs" t="Include" />
+              <e p="MatchRewardType.cs" t="Include" />
+            </e>
+            <e p="Transaction" t="Include">
+              <e p="ProductModelDb.cs" t="Include" />
+              <e p="Transaction.cs" t="Include" />
+              <e p="TransactionType.cs" t="Include" />
+            </e>
           </e>
           <e p="Warships" t="Include">
+            <e p="SkinType.cs" t="Include" />
             <e p="Warship.cs" t="Include" />
             <e p="WarshipCombatRole.cs" t="Include" />
+            <e p="WarshipCombatRoleEnum.cs" t="Include" />
+            <e p="WarshipDbDto.cs" t="Include" />
             <e p="WarshipType.cs" t="Include" />
+            <e p="WarshipTypeEnum.cs" t="Include" />
           </e>
-        </e>
-        <e p="EntitiesConfiguration" t="Include">
-          <e p="AccountsConfiguration.cs" t="Include" />
-          <e p="DataSeeder.cs" t="Include" />
-          <e p="MatchResultsConfiguration.cs" t="Include" />
-          <e p="WarshipsConfiguration.cs" t="Include" />
         </e>
         <e p="GoogleApi" t="Include">
           <e p="AccessTokenUpdatingArg.cs" t="Include" />
           <e p="InitializeAccessTokenArg.cs" t="Include" />
         </e>
+        <e p="GoogleApiProfile.cs" t="Include" />
+        <e p="IDbConnectionConfig.cs" t="Include" />
+        <e p="Ignore.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp2.2" t="Include">
-              <e p="DataLayer.AssemblyInfo.cs" t="Include" />
+              <e p="DAL.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
         </e>
         <e p="readme.txt" t="Include" />
+      </e>
+      <e p="DeleteMeDbTest" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="DeleteMeDbTest.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.2" t="Include">
+              <e p="DeleteMeDbTest.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+      </e>
+      <e p="IntegrationTests" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="IntegrationTests.csproj" t="IncludeRecursive" />
+        <e p="MatchCreationTests" t="Include">
+          <e p="BattleCreatingTests.cs" t="Include" />
+          <e p="BattleRoyaleQueueSingletonServiceTests.cs" t="Include" />
+          <e p="GameUnitsForMatchTests.cs" t="Include" />
+          <e p="QueueExtenderServiceTests.cs" t="Include" />
+          <e p="readme.txt" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.2" t="Include">
+              <e p="IntegrationTests.AssemblyInfo.cs" t="Include" />
+              <e p="IntegrationTests.Program.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Player" t="Include">
+          <e p="LobbyModel" t="Include">
+            <e p="Config" t="Include">
+              <e p="BaseIntegrationFixture.cs" t="Include" />
+              <e p="SetUpFixture.cs" t="Include" />
+            </e>
+            <e p="Tests" t="Include">
+              <e p="AccountDbReaderTests.cs" t="Include" />
+              <e p="AccountFacadeServiceTests.cs" t="Include" />
+              <e p="LobbyModelFacadeServiceTests.cs" t="Include" />
+              <e p="NotShownRewardsTests.cs" t="Include" />
+              <e p="WarshipImprovementPurchasingTests.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="readme.txt" t="Include" />
+      </e>
+      <e p="LibraryForTests" t="IncludeRecursive">
+        <e p="AccountBuilder" t="Include">
+          <e p="AccountBuilder.cs" t="Include" />
+          <e p="AccountDirector.cs" t="Include" />
+          <e p="AccountExtensions.cs" t="Include" />
+          <e p="BigAccountDirector.cs" t="Include" />
+          <e p="MediumAccountDirector.cs" t="Include" />
+          <e p="SmallAccountDirector.cs" t="Include" />
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="LibraryForTests.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.2" t="Include">
+              <e p="LibraryForTests.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
       </e>
       <e p="MatchmakerServer" t="IncludeRecursive">
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Controllers" t="Include">
-          <e p="GameServer" t="Include">
+          <e p="Matchmaker" t="Include">
             <e p="GameServerController.cs" t="Include" />
-          </e>
-          <e p="Player" t="Include">
-            <e p="Lobby" t="Include">
-              <e p="LobbyDataController.cs" t="Include" />
-              <e p="WarshipImprovementPurchasingController.cs" t="Include" />
-            </e>
-            <e p="LootboxController.cs" t="Include" />
             <e p="PlayerController.cs" t="Include" />
-            <e p="Purchases" t="Include">
-              <e p="PurchasesController.cs" t="Include" />
-              <e p="TestController.cs" t="Include" />
-            </e>
-            <e p="ShopController.cs" t="Include" />
           </e>
+          <e p="ProfileServer" t="Include">
+            <e p="Lobby" t="Include">
+              <e p="CurrentSkinChangingService.cs" t="Include" />
+              <e p="LobbyModelController.cs" t="Include" />
+              <e p="LootboxController.cs" t="Include" />
+              <e p="PurchasesController.cs" t="Include" />
+              <e p="ShopController.cs" t="Include" />
+              <e p="SkinController.cs" t="Include" />
+              <e p="WarshipImprovementPurchasingController.cs" t="Include" />
+              <e p="WarshipLevelController.cs" t="Include" />
+            </e>
+            <e p="MatchResultController.cs" t="Include" />
+          </e>
+          <e p="TestController.cs" t="Include" />
         </e>
         <e p="Experimental" t="Include">
-          <e p="DefaultAccountFactory.cs" t="Include" />
+          <e p="DefaultAccountFactoryService.cs" t="Include" />
+          <e p="DichExtensions.cs" t="Include" />
           <e p="Globals.cs" t="Include" />
-          <e p="GoogleApiGlobals.cs" t="Include" />
           <e p="GooglePurchasesValidationController.cs" t="Include" />
+          <e p="ListExtension.cs" t="Include" />
           <e p="PeriodicTaskExecutor.cs" t="Include" />
         </e>
         <e p="Features" t="Include">
@@ -114,100 +206,9 @@
           <e p="PurchasingFeature.cs" t="Include" />
           <e p="ServiceFeature.cs" t="Include" />
           <e p="ServicesExtension.cs" t="Include" />
+          <e p="WarshipUpgradeFeature.cs" t="Include" />
         </e>
-        <e p="googleApiData.txt" t="Include" />
         <e p="MatchmakerServer.csproj" t="IncludeRecursive" />
-        <e p="NetworkLibrary" t="Include">
-          <e p="Experimental" t="Include">
-            <e p="MatchResult.cs" t="Include" />
-            <e p="PlayerAchievements.cs.meta" t="Include" />
-          </e>
-          <e p="Http" t="Include">
-            <e p="AccountInfo.cs.meta" t="Include" />
-            <e p="AccountModel.cs" t="Include" />
-            <e p="BattleRoyaleMatchData.cs" t="Include" />
-            <e p="BattleRoyaleMatchData.cs.meta" t="Include" />
-            <e p="BotInfo.cs" t="Include" />
-            <e p="BotInfo.cs.meta" t="Include" />
-            <e p="GameMatcherResponse.cs.meta" t="Include" />
-            <e p="GameRoomValidationResult.cs" t="Include" />
-            <e p="GameRoomValidationResult.cs.meta" t="Include" />
-            <e p="GameUnit.cs" t="Include" />
-            <e p="GameUnit.cs.meta" t="Include" />
-            <e p="GameUnitsEnum.cs" t="Include" />
-            <e p="GameUnitsForMatch.cs" t="Include" />
-            <e p="GameUnitsForMatch.cs.meta" t="Include" />
-            <e p="LobbyModel.cs" t="Include" />
-            <e p="LootboxModel.cs" t="Include" />
-            <e p="MatchmakerResponse.cs" t="Include" />
-            <e p="MatchType.cs" t="Include" />
-            <e p="MatchType.cs.meta" t="Include" />
-            <e p="PlayerInfoForMatch.cs" t="Include" />
-            <e p="PlayerInfoForMatch.cs.meta" t="Include" />
-            <e p="RewardsThatHaveNotBeenShown.cs" t="Include" />
-            <e p="ShopModel.cs" t="Include" />
-            <e p="WarshipCopy.cs.meta" t="Include" />
-            <e p="WarshipModel.cs" t="Include" />
-            <e p="WarshipPowerLevelModel.cs" t="Include" />
-            <e p="WarshipPowerScaleModel.cs" t="Include" />
-            <e p="WarshipRatingScaleModel.cs" t="Include" />
-          </e>
-          <e p="Test.cs" t="Include" />
-          <e p="Udp" t="Include">
-            <e p="Common" t="Include">
-              <e p="DeliveryConfirmationMessage.cs" t="Include" />
-              <e p="DeliveryConfirmationMessage.cs.meta" t="Include" />
-            </e>
-            <e p="PlayerToServer" t="Include">
-              <e p="BattleExitMessage.cs" t="Include" />
-              <e p="BattleExitMessage.cs.meta" t="Include" />
-              <e p="PlayerInputMessage.cs" t="Include" />
-              <e p="PlayerInputMessage.cs.meta" t="Include" />
-              <e p="PlayerPingMessage.cs" t="Include" />
-              <e p="PlayerPingMessage.cs.meta" t="Include" />
-            </e>
-            <e p="PlayerToServer.meta" t="Include" />
-            <e p="ServerToPlayer" t="Include">
-              <e p="BattleStatus" t="Include">
-                <e p="KillMessage.cs" t="Include" />
-                <e p="KillMessage.cs.meta" t="Include" />
-                <e p="PlayerTrackingMessage.cs" t="Include" />
-                <e p="PlayerTrackingMessage.cs.meta" t="Include" />
-                <e p="PointTrackingMessage.cs" t="Include" />
-                <e p="PointTrackingMessage.cs.meta" t="Include" />
-                <e p="ShowPlayerAchievementsMessage.cs" t="Include" />
-                <e p="ShowPlayerAchievementsMessage.cs.meta" t="Include" />
-              </e>
-              <e p="BattleStatus.meta" t="Include" />
-              <e p="Health" t="Include">
-                <e p="HealthPointsMessage.cs" t="Include" />
-                <e p="HealthPointsMessage.cs.meta" t="Include" />
-                <e p="MaxHealthPointsMessage.cs" t="Include" />
-                <e p="MaxHealthPointsMessage.cs.meta" t="Include" />
-              </e>
-              <e p="Health.meta" t="Include" />
-              <e p="PositionMessages" t="Include">
-                <e p="PositionsMessage.cs" t="Include" />
-                <e p="PositionsMessage.cs.meta" t="Include" />
-                <e p="ViewTransform.cs" t="Include" />
-                <e p="ViewTransform.cs.meta" t="Include" />
-              </e>
-              <e p="PositionMessages.meta" t="Include" />
-            </e>
-            <e p="ServerToPlayer.meta" t="Include" />
-            <e p="Utils" t="Include">
-              <e p="MessageFactory.cs" t="Include" />
-              <e p="MessageFactory.cs.meta" t="Include" />
-              <e p="MessagesContainer.cs" t="Include" />
-              <e p="MessagesContainer.cs.meta" t="Include" />
-              <e p="MessageWrapper.cs" t="Include" />
-              <e p="MessageWrapper.cs.meta" t="Include" />
-              <e p="ViewTypeId.cs" t="Include" />
-              <e p="ViewTypeId.cs.meta" t="Include" />
-            </e>
-            <e p="Utils.meta" t="Include" />
-          </e>
-        </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp2.2" t="Include">
@@ -222,46 +223,94 @@
         </e>
         <e p="readme.txt" t="Include" />
         <e p="Services" t="Include">
+          <e p="BundleVersionService.cs" t="Include" />
+          <e p="Database" t="Include">
+            <e p="Seeding" t="Include">
+              <e p="DataSeeder.cs" t="Include" />
+              <e p="Seaders" t="Include">
+                <e p="AccountSeeder.cs" t="Include" />
+                <e p="DecrementTypeSeeder.cs" t="Include" />
+                <e p="GameModeSeeder.cs" t="Include" />
+                <e p="IncrementTypeSeeder.cs" t="Include" />
+                <e p="MatchRewardTypeSeeder.cs" t="Include" />
+                <e p="ProductTypesSeeder.cs" t="Include" />
+                <e p="SkinTypesSeeder.cs" t="Include" />
+                <e p="TransactionTypesSeeder.cs" t="Include" />
+                <e p="WarshipCombatRoleSeeder.cs" t="Include" />
+                <e p="WarshipImprovementTrigger.cs" t="Include" />
+                <e p="WarshipTypesSeeder.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="Experimental" t="Include">
+            <e p="WarshipImprovementCostChecker.cs" t="Include" />
+            <e p="WarshipImprovementFacadeService.cs" t="Include" />
+          </e>
           <e p="GameServerNegotiation" t="Include">
             <e p="GameServerNegotiatorService.cs" t="Include" />
             <e p="GameServerNegotiatorServiceStub.cs" t="Include" />
             <e p="IGameServerNegotiatorService.cs" t="Include" />
-            <e p="MatchCreationMessage.cs" t="Include" />
           </e>
           <e p="GoogleApi" t="Include">
-            <e p="CustomAccessTokenManager.cs" t="Include" />
-            <e p="CustomGoogleApiInitializer.cs" t="Include" />
-            <e p="GoogleApiFileManager.cs" t="Include" />
-            <e p="GooglePurchasesApiWrapper.cs" t="Include" />
-            <e p="GooglePurchasesWrapperService.cs" t="Include" />
-            <e p="IpAppProductsService.cs" t="Include" />
-            <e p="MyGoogleApiData.cs" t="Include" />
+            <e p="AccessTokenUtils" t="Include">
+              <e p="CustomAccessTokenManager.cs" t="Include" />
+              <e p="CustomGoogleApiAccessTokenUpdater.cs" t="Include" />
+              <e p="CustomGoogleApiInitializer.cs" t="Include" />
+              <e p="GoogleApiAuthData.cs" t="Include" />
+              <e p="GoogleApiProfileStorageService.cs" t="Include" />
+              <e p="PackageNameStorageService.cs" t="Include" />
+              <e p="RefreshedData.cs" t="Include" />
+              <e p="TokenManagerService.cs" t="Include" />
+            </e>
+            <e p="GoogleApiPurchaseAcknowledgeService.cs" t="Include" />
+            <e p="GoogleApiPurchasesWrapperService.cs" t="Include" />
+            <e p="GoogleResponse.cs" t="Include" />
+            <e p="HardCurrencyTransactionFactory.cs" t="Include" />
+            <e p="InAppProductsService.cs" t="Include" />
+            <e p="OrderConfirmationService.cs" t="Include" />
+            <e p="PurchaseRegistrationService.cs" t="Include" />
             <e p="PurchasesValidatorService.cs" t="Include" />
-            <e p="RefreshedData.cs" t="Include" />
-            <e p="TokenManagerService.cs" t="Include" />
+            <e p="RealPurchaseTransactionFactoryService.cs" t="Include" />
+            <e p="UrlFactories" t="Include">
+              <e p="AllProductsUrlFactory.cs" t="Include" />
+              <e p="PurchaseAcknowledgeUrlFactory.cs" t="Include" />
+              <e p="PurchaseValidateUrlFactory.cs" t="Include" />
+            </e>
           </e>
           <e p="LobbyInitialization" t="Include">
             <e p="AccountDbReaderService.cs" t="Include" />
             <e p="AccountFacadeService.cs" t="Include" />
+            <e p="AccountMapperService.cs" t="Include" />
             <e p="AccountRegistrationService.cs" t="Include" />
+            <e p="AccountResources.cs" t="Include" />
+            <e p="AccountResourcesDbReader.cs" t="Include" />
+            <e p="DapperHelperNotShownReward.cs" t="Include" />
+            <e p="DbAccountWarshipReaderService.cs" t="Include" />
+            <e p="DbWarshipsStatisticsReader.cs" t="Include" />
             <e p="LobbyModelFacadeService.cs" t="Include" />
-            <e p="NotShownRewardDbUpdaterService.cs" t="Include" />
-            <e p="WarshipImprovementFacadeService.cs" t="Include" />
-            <e p="WarshipPowerScaleModelStorage.cs" t="Include" />
-            <e p="WarshipRatingScaleService.cs" t="Include" />
+            <e p="NotShownRewardsReaderService.cs" t="Include" />
+            <e p="SkinsDbReaderService.cs" t="Include" />
+            <e p="UsernameChangingService.cs" t="Include" />
+            <e p="UsernameValidatorService.cs" t="Include" />
+            <e p="WarshipRatingScale.cs" t="Include" />
+            <e p="WarshipsCharacteristicsService.cs" t="Include" />
+            <e p="WarshipStatistics.cs" t="Include" />
           </e>
           <e p="Lootbox" t="Include">
             <e p="LootboxDbWriterService.cs" t="Include" />
             <e p="LootboxFacadeService.cs" t="Include" />
+            <e p="LootboxResourcesFactory.cs" t="Include" />
+            <e p="LootboxResourceTypeFactory.cs" t="Include" />
             <e p="SmallLootboxDataFactory.cs" t="Include" />
             <e p="SmallLootboxOpenAllowingService.cs" t="Include" />
-            <e p="SmallLootboxPrizeFactory.cs" t="Include" />
           </e>
           <e p="MatchCreation" t="Include">
+            <e p="BattleRoyaleBotFactoryService.cs" t="Include" />
             <e p="BattleRoyaleMatchCreatorService.cs" t="Include" />
             <e p="BattleRoyaleMatchDataFactory.cs" t="Include" />
-            <e p="BattleRoyaleMatchPackerService.cs" t="Include" />
+            <e p="BotTemporaryIdFactory.cs" t="Include" />
             <e p="MatchDbWriterService.cs" t="Include" />
+            <e p="PlayerTemporaryIdsFactory.cs" t="Include" />
           </e>
           <e p="MatchCreationInitiation" t="Include">
             <e p="IPlayerTimeoutManager.cs" t="Include" />
@@ -271,10 +320,13 @@
             <e p="PlayerTimeoutManagerServiceStub.cs" t="Include" />
           </e>
           <e p="MatchFinishing" t="Include">
+            <e p="BattleRoyaleMatchFinisherFacadeService.cs" t="Include" />
             <e p="BattleRoyaleMatchFinisherService.cs" t="Include" />
-            <e p="BattleRoyaleMatchRewardService.cs" t="Include" />
+            <e p="BattleRoyaleMatchRewardCalculatorService.cs" t="Include" />
             <e p="BattleRoyaleWarshipRatingCalculator.cs" t="Include" />
-            <e p="PlayerMatchREsultDbReaderService.cs" t="Include" />
+            <e p="MatchReward.cs" t="Include" />
+            <e p="PlayerMatchResultDbReaderService.cs" t="Include" />
+            <e p="WarshipRatingReaderService.cs" t="Include" />
           </e>
           <e p="PlayerQueueing" t="Include">
             <e p="GameServersRoutingDataService.cs" t="Include" />
@@ -283,35 +335,194 @@
             <e p="MatchRoutingData.cs" t="Include" />
             <e p="MatchRoutingDataService.cs" t="Include" />
             <e p="QueueExtenderService.cs" t="Include" />
-            <e p="WarshipValidatorService.cs" t="Include" />
           </e>
           <e p="Queues" t="Include">
             <e p="BattleRoyaleQueueSingletonService.cs" t="Include" />
             <e p="BattleRoyaleUnfinishedMatchesSingletonService.cs" t="Include" />
-            <e p="MyQueue.cs" t="Include" />
-            <e p="QueueInfoForPlayer.cs" t="Include" />
+            <e p="MatchEntryRequest.cs" t="Include" />
+            <e p="PlayersQueue.cs" t="Include" />
           </e>
           <e p="Shop" t="Include">
-            <e p="DailyDealsUiContainerService.cs" t="Include" />
-            <e p="ShopFacadeService.cs" t="Include" />
-            <e p="ShopFreeGiftManagerService.cs" t="Include" />
-            <e p="ShopGemsService.cs" t="Include" />
-            <e p="ShopLootboxService.cs" t="Include" />
-            <e p="ShopRegularCurrencyService.cs" t="Include" />
-            <e p="ShopSkinsService.cs" t="Include" />
-            <e p="ShopWarshipPowerImprovementService.cs" t="Include" />
+            <e p="Sales" t="Include">
+              <e p="ProductChecker.cs" t="Include" />
+              <e p="SellerService.cs" t="Include" />
+              <e p="TransactionCreation" t="Include">
+                <e p="DecrementCreation" t="Include">
+                  <e p="DecrementFactoryService.cs" t="Include" />
+                  <e p="FreeDecrementType.cs" t="Include" />
+                  <e p="HardCurrencyDecrementType.cs" t="Include" />
+                  <e p="IDecrementFactory.cs" t="Include" />
+                  <e p="SoftCurrencyDecrementType.cs" t="Include" />
+                </e>
+                <e p="IncrementCreation" t="Include">
+                  <e p="IIncrementsFactory.cs" t="Include" />
+                  <e p="IncrementFactoryService.cs" t="Include" />
+                  <e p="LootboxIncrementsFactory.cs" t="Include" />
+                  <e p="LootboxSetIncrementsFactory.cs" t="Include" />
+                  <e p="SoftCurrencyIncrementsFactory.cs" t="Include" />
+                  <e p="WarshipPowerPointsIncrementsFactory.cs" t="Include" />
+                </e>
+                <e p="ShopTransactionFactory.cs" t="Include" />
+              </e>
+            </e>
+            <e p="ShopModel" t="Include">
+              <e p="DeleteMeShopSectionFactories" t="Include">
+                <e p="DiscountsSectionFactory.cs" t="Include" />
+                <e p="ForeignServiceProducts.cs" t="Include" />
+                <e p="HardCurrencySectionFactory.cs" t="Include" />
+                <e p="LootboxSectionFactory.cs" t="Include" />
+                <e p="SkinsSectionFactory.cs" t="Include" />
+                <e p="SmallHardCurrencyFactory.cs" t="Include" />
+                <e p="SmallSoftCurrencyProductModelFactory.cs" t="Include" />
+                <e p="SoftCurrencySectionFactory.cs" t="Include" />
+                <e p="WarshipsSectionFactory.cs" t="Include" />
+              </e>
+              <e p="SectionModelsComparator.cs" t="Include" />
+              <e p="ShopModelCreation" t="Include">
+                <e p="DailyDealsSectionFactory.cs" t="Include" />
+                <e p="PrizeFactoryService.cs" t="Include" />
+                <e p="ShopFactoryService.cs" t="Include" />
+                <e p="WarshipPowerPointProductFactory.cs" t="Include" />
+                <e p="WarshipPowerPointsProductsFactoryService.cs" t="Include" />
+              </e>
+              <e p="ShopModelDbReading" t="Include">
+                <e p="ShopModelDbReader.cs" t="Include" />
+              </e>
+              <e p="ShopModelDbWriting" t="Include">
+                <e p="ShopWriterService.cs" t="Include" />
+              </e>
+              <e p="ShopModelService.cs" t="Include" />
+            </e>
           </e>
         </e>
+        <e p="ShopFeature.cs" t="Include" />
         <e p="Startup.cs" t="Include" />
       </e>
-      <e p="MatchmakerTests" t="IncludeRecursive">
+      <e p="NetworkLibrary" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
+        <e p="Http" t="Include">
+          <e p="Lobby" t="Include">
+            <e p="AccountModel.cs" t="Include" />
+            <e p="AccountModel.cs.meta" t="Include" />
+            <e p="LobbyModel.cs" t="Include" />
+            <e p="LobbyModel.cs.meta" t="Include" />
+            <e p="LootboxModel.cs" t="Include" />
+            <e p="LootboxModel.cs.meta" t="Include" />
+            <e p="RewardsThatHaveNotBeenShown.cs" t="Include" />
+            <e p="RewardsThatHaveNotBeenShown.cs.meta" t="Include" />
+            <e p="Shop" t="Include">
+              <e p="CostTypeEnum.cs" t="Include" />
+              <e p="CostTypeEnum.cs.meta" t="Include" />
+              <e p="DiscountPrice.cs" t="Include" />
+              <e p="DiscountPrice.cs.meta" t="Include" />
+              <e p="ForeignServiceProduct.cs" t="Include" />
+              <e p="ForeignServiceProduct.cs.meta" t="Include" />
+              <e p="MarkType.cs" t="Include" />
+              <e p="MarkType.cs.meta" t="Include" />
+              <e p="ProductMark.cs" t="Include" />
+              <e p="ProductMark.cs.meta" t="Include" />
+              <e p="ProductModel.cs" t="Include" />
+              <e p="ProductModel.cs.meta" t="Include" />
+              <e p="ProductSizeEnum.cs" t="Include" />
+              <e p="ProductSizeEnum.cs.meta" t="Include" />
+              <e p="SectionModel.cs" t="Include" />
+              <e p="SectionModel.cs.meta" t="Include" />
+              <e p="ShopModel.cs" t="Include" />
+              <e p="ShopModel.cs.meta" t="Include" />
+              <e p="TransactionTypeEnum.cs" t="Include" />
+              <e p="TransactionTypeEnum.cs.meta" t="Include" />
+              <e p="WarshipModel.cs" t="Include" />
+              <e p="WarshipModel.cs.meta" t="Include" />
+              <e p="WarshipPowerPointsProduct.cs" t="Include" />
+              <e p="WarshipPowerPointsProduct.cs.meta" t="Include" />
+            </e>
+            <e p="Shop.meta" t="Include" />
+            <e p="UsernameValidationResultEnum.cs" t="Include" />
+            <e p="WarshipImprovementModel.cs" t="Include" />
+            <e p="WarshipImprovementModel.cs.meta" t="Include" />
+            <e p="WarshipModel.cs" t="Include" />
+            <e p="WarshipModel.cs.meta" t="Include" />
+            <e p="WarshipPowerScale.cs" t="Include" />
+            <e p="WarshipPowerScale.cs.meta" t="Include" />
+            <e p="WarshipRatingScaleModel.cs" t="Include" />
+            <e p="WarshipRatingScaleModel.cs.meta" t="Include" />
+            <e p="WarshipTypeEnum.cs" t="Include" />
+            <e p="WarshipTypeEnum.cs.meta" t="Include" />
+          </e>
+          <e p="Lobby.meta" t="Include" />
+          <e p="Match" t="Include">
+            <e p="GameRoomValidationResult.cs" t="Include" />
+            <e p="GameRoomValidationResult.cs.meta" t="Include" />
+            <e p="Matchmker" t="Include">
+              <e p="MatchmakerResponse.cs" t="Include" />
+              <e p="MatchmakerResponse.cs.meta" t="Include" />
+            </e>
+            <e p="Matchmker.meta" t="Include" />
+            <e p="MatchModel" t="Include">
+              <e p="BattleRoyaleClientMatchModel.cs" t="Include" />
+              <e p="BattleRoyaleClientMatchModel.cs.meta" t="Include" />
+              <e p="BattleRoyaleMatchModel.cs" t="Include" />
+              <e p="BattleRoyaleMatchModel.cs.meta" t="Include" />
+              <e p="BattleRoyalePlayerModel.cs" t="Include" />
+              <e p="BattleRoyalePlayerModel.cs.meta" t="Include" />
+              <e p="BotModel.cs" t="Include" />
+              <e p="BotModel.cs.meta" t="Include" />
+              <e p="GameUnits.cs" t="Include" />
+              <e p="GameUnits.cs.meta" t="Include" />
+              <e p="PlayerInfoForMatch.cs" t="Include" />
+              <e p="PlayerInfoForMatch.cs.meta" t="Include" />
+            </e>
+            <e p="MatchModel.meta" t="Include" />
+            <e p="MatchResultDto.cs" t="Include" />
+            <e p="MatchResultDto.cs.meta" t="Include" />
+            <e p="MatchRewardTypeEnum.cs" t="Include" />
+            <e p="MatchRewardTypeEnum.cs.meta" t="Include" />
+            <e p="MatchType.cs" t="Include" />
+            <e p="MatchType.cs.meta" t="Include" />
+          </e>
+          <e p="Match.meta" t="Include" />
+          <e p="Utils" t="Include">
+            <e p="CaesarExtension.cs" t="Include" />
+            <e p="CaesarExtension.cs.meta" t="Include" />
+          </e>
+          <e p="Utils.meta" t="Include" />
+        </e>
+        <e p="NetworkLibrary.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.2" t="Include">
+              <e p="NetworkLibrary.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="SqlTesting" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="getAccountData.sql" t="Include" />
+        <e p="getNotShownRewards.sql" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.2" t="Include">
+              <e p="SqlTesting.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="SqlTesting.csproj" t="IncludeRecursive" />
+        <e p="test.txt" t="Include" />
+      </e>
+      <e p="UnitTests" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="DeleteMe" t="Include">
+          <e p="Test.cs" t="Include" />
+        </e>
         <e p="Experimental" t="Include">
           <e p="LazyLoadingTests.cs" t="Include" />
           <e p="UselessDich" t="Include">
             <e p="AccountsDbTests.cs" t="Include" />
             <e p="MatchDataDbWriterServiceTests.cs" t="Include" />
-            <e p="ZeroFormatterDich.cs" t="Include" />
+            <e p="UniqueStringFactory.cs" t="Include" />
           </e>
         </e>
         <e p="LobbyInitTests" t="Include">
@@ -320,38 +531,25 @@
           <e p="LinqSumTests.cs" t="Include" />
           <e p="NotShownRewardDbUpdaterServiceTests.cs" t="Include" />
           <e p="PlayerInfoManagerServiceTests.cs" t="Include" />
+          <e p="UsernameTests.cs" t="Include" />
         </e>
         <e p="Lootbox" t="Include">
+          <e p="LootboxResourceTypeFactoryTests.cs" t="Include" />
           <e p="LootboxTests.cs" t="Include" />
-        </e>
-        <e p="MatchCreationTests" t="Include">
-          <e p="BattleCreatingTests.cs" t="Include" />
-          <e p="BattleRoyaleQueueSingletonServiceTests.cs" t="Include" />
-          <e p="GameUnitsForMatchTests.cs" t="Include" />
-          <e p="QueueExtenderServiceTests.cs" t="Include" />
-          <e p="readme.txt" t="Include" />
         </e>
         <e p="MatchFinishing" t="Include">
           <e p="BattleRoyaleWarshipRatingCalculatorTests.cs" t="Include" />
         </e>
-        <e p="MatchmakerTests.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp2.2" t="Include">
-              <e p="MatchmakerTests.AssemblyInfo.cs" t="Include" />
+              <e p="UnitTests.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
         </e>
-        <e p="readme.txt" t="Include" />
-        <e p="TestFactories" t="Include">
-          <e p="MatchResultFactory.cs" t="Include" />
-          <e p="PlayersQueueInfoFactory.cs" t="Include" />
-          <e p="TestsAccountFactory.cs" t="Include" />
-          <e p="UniqueStringFactory.cs" t="Include" />
-        </e>
+        <e p="UnitTests.csproj" t="IncludeRecursive" />
         <e p="WarshipValidatorServiceStub.cs" t="Include" />
       </e>
-      <e p="packages" t="ExcludeRecursive" />
     </e>
   </component>
 </project>

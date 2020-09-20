@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <RootNamespace>DataLayer</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="2.2.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.2.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.2.0" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\NetworkLibrary\NetworkLibrary.csproj" />
+    </ItemGroup>
+
+</Project>

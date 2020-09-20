@@ -48,7 +48,7 @@
 //                 // var test = service.;
 //
 //                 PurchasesResource.ProductsResource.GetRequest request =
-//                     service.Purchases.Products.BuyImprovement(PackageName, inAppItemId, purchaseToken);
+//                     service.Purchases.Resources.BuyImprovement(PackageName, inAppItemId, purchaseToken);
 //
 //                 ProductPurchase result = request.Execute();
 //                 Console.WriteLine(JsonConvert.SerializeObject(result));
