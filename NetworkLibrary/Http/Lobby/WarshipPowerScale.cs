@@ -1,18 +1,20 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System.Collections.Generic;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
+                       using System.Collections.Generic;
+using NetworkLibrary.NetworkLibrary.Http;
 
-namespace NetworkLibrary.NetworkLibrary.Http
+namespace NetworkLibrary.Http.Lobby
 {
     /// <summary>
     /// Информация о шкале силы для кораблей. 
     /// </summary>
     public static class WarshipPowerScale
     {
-        private const int ExpectedCapacity = 10;
         private static int currentCount = 3;
+        private const int ExpectedCapacity = 10;
+        private const int SoftCurrencyCoefficient = 5;
+        private const int PowerPointsCoefficient = 10;
         private static readonly List<int> Fibonacci = new List<int>(ExpectedCapacity) { 2, 3, 5 };
         private static readonly List<int> TripleSum = new List<int>(ExpectedCapacity) { 4, 7, 15 };
-        private const int powerPointsCoefficient = 10;
-        private const int softCurrencyCoefficient = 5;
 
         static WarshipPowerScale()
         {
@@ -26,12 +28,13 @@ namespace NetworkLibrary.NetworkLibrary.Http
                 Fill(powerLevel);
             }
 
+            //todo это нужно исправить тест не проходит
             powerLevel--; // Мы считаем с 1, а не с 0
 
             return new WarshipImprovementModel
             {
-                PowerPointsCost = Fibonacci[powerLevel] * powerPointsCoefficient,
-                SoftCurrencyCost = TripleSum[powerLevel] * softCurrencyCoefficient
+                PowerPointsCost = Fibonacci[powerLevel] * PowerPointsCoefficient,
+                SoftCurrencyCost = TripleSum[powerLevel] * SoftCurrencyCoefficient
             };
         }
 

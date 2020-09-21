@@ -4,7 +4,6 @@
 //
 // namespace MatchmakerTest
 // {
-//     //TODO говно
 //     [TestClass]
 //     public class BattleRoyaleQueueSingletonServiceTests
 //     {

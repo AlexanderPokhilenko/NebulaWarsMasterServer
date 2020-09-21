@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AmoebaGameMatcherServer.Services.LobbyInitialization;
 using DataLayer.Tables;
 using JetBrains.Annotations;
+using NetworkLibrary.Http.Lobby;
 using NetworkLibrary.NetworkLibrary.Http;
 using ZeroFormatter;
 

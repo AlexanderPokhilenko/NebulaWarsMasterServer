@@ -12,13 +12,13 @@
 // using DataLayer.Tables;
 // using Microsoft.EntityFrameworkCore;
 // using Microsoft.VisualStudio.TestTools.UnitTesting;
+// using NUnit.Framework;
 //
 // //TODO длинна теста слишком велика
-// //TODO нормально назвать тесты
 //
 // namespace MatchmakerTest
 // {
-//     [TestClass]
+//     [TestFixture]
 //     public class BattleCreatingTests
 //     {
 //         /// <summary>
@@ -26,7 +26,7 @@
 //         /// Создаёт базу с 10-ю аккунтами. Аккаунты добавляются в очередь. Запускается сбор матча.
 //         /// Аккаунты достаются из очереди и переходят в состояние "В бою". Информация про бой записывается в БД.
 //         /// </summary>
-//         [TestMethod]
+//         [Test]
 //         public async Task Test2()
 //         {
 //             //Arrange

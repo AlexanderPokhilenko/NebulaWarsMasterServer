@@ -1,5 +1,4 @@
-using AmoebaGameMatcherServer;
-using AmoebaGameMatcherServer.Controllers;
+using System;
 using AmoebaGameMatcherServer.Controllers.ProfileServer.Lobby;
 using AmoebaGameMatcherServer.Experimental;
 using AmoebaGameMatcherServer.Services;
@@ -13,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using NUnit.Framework;
 
-namespace IntegrationTests
+namespace IntegrationTests.Player.LobbyModel.Config
 {
     /// <summary>
     /// Отвечает за настройку БД и создание сервисов.
@@ -36,8 +35,8 @@ namespace IntegrationTests
         [OneTimeSetUp]
         public static void Initialize()
         {
-            string databaseName = "R50";
-            IDbConnectionConfig dbConnectionConfig = new DbConnectionConfig(databaseName); 
+            Console.WriteLine("Initialization");
+            IDbConnectionConfig dbConnectionConfig = new DbConnectionConfig(DatabaseName); 
             //Создать БД
             dbContextFactory = new DbContextFactory(dbConnectionConfig);
             DbContext = dbContextFactory.Create(DatabaseName);

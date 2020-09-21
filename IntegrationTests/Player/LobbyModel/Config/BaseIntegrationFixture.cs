@@ -1,13 +1,11 @@
-﻿using AmoebaGameMatcherServer.Controllers;
-using AmoebaGameMatcherServer.Controllers.ProfileServer.Lobby;
+﻿using AmoebaGameMatcherServer.Controllers.ProfileServer.Lobby;
 using AmoebaGameMatcherServer.Experimental;
-using AmoebaGameMatcherServer.Services;
 using AmoebaGameMatcherServer.Services.Experimental;
 using AmoebaGameMatcherServer.Services.LobbyInitialization;
 using DataLayer;
 using NUnit.Framework;
 
-namespace IntegrationTests
+namespace IntegrationTests.Player.LobbyModel.Config
 {
     /// <summary>
     /// Отвечает за очистку БД после каждого теста.
@@ -23,6 +21,12 @@ namespace IntegrationTests
         protected WarshipImprovementFacadeService WarshipImprovementFacadeService => SetUpFixture.WarshipImprovementFacadeService;
         protected WarshipImprovementCostChecker WarshipImprovementCostChecker => SetUpFixture.WarshipImprovementCostChecker;
         protected DefaultAccountFactoryService DefaultAccountFactoryService => SetUpFixture.DefaultAccountFactoryService;
+
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            SetUpFixture.Initialize();
+        }
         
         [SetUp]
         public void ResetChangeTracker()

@@ -95,18 +95,6 @@
         </e>
         <e p="readme.txt" t="Include" />
       </e>
-      <e p="DeleteMeDbTest" t="IncludeRecursive">
-        <e p="bin" t="ExcludeRecursive" />
-        <e p="DeleteMeDbTest.csproj" t="IncludeRecursive" />
-        <e p="obj" t="ExcludeRecursive">
-          <e p="Debug" t="Include">
-            <e p="netcoreapp2.2" t="Include">
-              <e p="DeleteMeDbTest.AssemblyInfo.cs" t="Include" />
-            </e>
-          </e>
-        </e>
-        <e p="Program.cs" t="Include" />
-      </e>
       <e p="IntegrationTests" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="IntegrationTests.csproj" t="IncludeRecursive" />
@@ -115,7 +103,6 @@
           <e p="BattleRoyaleQueueSingletonServiceTests.cs" t="Include" />
           <e p="GameUnitsForMatchTests.cs" t="Include" />
           <e p="QueueExtenderServiceTests.cs" t="Include" />
-          <e p="readme.txt" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -134,13 +121,13 @@
             <e p="Tests" t="Include">
               <e p="AccountDbReaderTests.cs" t="Include" />
               <e p="AccountFacadeServiceTests.cs" t="Include" />
+              <e p="LobbyControllerTests.cs" t="Include" />
               <e p="LobbyModelFacadeServiceTests.cs" t="Include" />
               <e p="NotShownRewardsTests.cs" t="Include" />
               <e p="WarshipImprovementPurchasingTests.cs" t="Include" />
             </e>
           </e>
         </e>
-        <e p="readme.txt" t="Include" />
       </e>
       <e p="LibraryForTests" t="IncludeRecursive">
         <e p="AccountBuilder" t="Include">
@@ -221,7 +208,7 @@
         <e p="Properties" t="Include">
           <e p="launchSettings.json" t="Include" />
         </e>
-        <e p="readme.txt" t="Include" />
+        <e p="readme.md" t="Include" />
         <e p="Services" t="Include">
           <e p="BundleVersionService.cs" t="Include" />
           <e p="Database" t="Include">
@@ -514,9 +501,6 @@
       </e>
       <e p="UnitTests" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
-        <e p="DeleteMe" t="Include">
-          <e p="Test.cs" t="Include" />
-        </e>
         <e p="Experimental" t="Include">
           <e p="LazyLoadingTests.cs" t="Include" />
           <e p="UselessDich" t="Include">
@@ -534,7 +518,6 @@
           <e p="UsernameTests.cs" t="Include" />
         </e>
         <e p="Lootbox" t="Include">
-          <e p="LootboxResourceTypeFactoryTests.cs" t="Include" />
           <e p="LootboxTests.cs" t="Include" />
         </e>
         <e p="MatchFinishing" t="Include">
@@ -548,7 +531,6 @@
           </e>
         </e>
         <e p="UnitTests.csproj" t="IncludeRecursive" />
-        <e p="WarshipValidatorServiceStub.cs" t="Include" />
       </e>
     </e>
   </component>

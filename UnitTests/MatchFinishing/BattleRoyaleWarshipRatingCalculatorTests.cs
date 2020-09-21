@@ -1,9 +1,8 @@
 ﻿using System;
-using AmoebaGameMatcherServer.Services;
 using AmoebaGameMatcherServer.Services.MatchFinishing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MatchmakerTest
+namespace MatchmakerTest.MatchFinishing
 {
     [TestClass]
     public class BattleRoyaleWarshipRatingCalculatorTests
@@ -17,7 +16,7 @@ namespace MatchmakerTest
             //Arrange
             BattleRoyaleWarshipRatingCalculator ratingCalculator = new BattleRoyaleWarshipRatingCalculator();
             //Act
-            var warshipRatingDelta = ratingCalculator.GetWarshipRatingDelta(0, 1);
+            int warshipRatingDelta = ratingCalculator.GetWarshipRatingDelta(0, 1);
             //Assert
             Assert.AreEqual(10, warshipRatingDelta);
         }
@@ -32,7 +31,7 @@ namespace MatchmakerTest
             //Arrange
             BattleRoyaleWarshipRatingCalculator ratingCalculator = new BattleRoyaleWarshipRatingCalculator();
             //Act
-            var warshipRatingDelta = ratingCalculator.GetWarshipRatingDelta(-1, 5);
+            int warshipRatingDelta = ratingCalculator.GetWarshipRatingDelta(-1, 5);
             //Assert
             Assert.Fail();
         }
@@ -51,7 +50,7 @@ namespace MatchmakerTest
             //Arrange
             BattleRoyaleWarshipRatingCalculator ratingCalculator = new BattleRoyaleWarshipRatingCalculator();
             //Act
-            var warshipRatingDelta = ratingCalculator.GetWarshipRatingDelta(1, placeInMatch);
+            int warshipRatingDelta = ratingCalculator.GetWarshipRatingDelta(1, placeInMatch);
             //Assert
             Assert.Fail();
         }
@@ -66,7 +65,7 @@ namespace MatchmakerTest
             //Arrange
             BattleRoyaleWarshipRatingCalculator ratingCalculator = new BattleRoyaleWarshipRatingCalculator();
             //Act
-            var warshipRatingDelta = ratingCalculator.GetWarshipRatingDelta(warshipRating, 1);
+            int warshipRatingDelta = ratingCalculator.GetWarshipRatingDelta(warshipRating, 1);
             //Assert
             Assert.AreEqual(10, warshipRatingDelta);
         }

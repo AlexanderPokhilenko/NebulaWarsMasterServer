@@ -3,7 +3,6 @@
 // using Microsoft.VisualStudio.TestTools.UnitTesting;
 // using NetworkLibrary.NetworkLibrary.Http;
 //
-// //TODO это бесполезное говнище
 //
 // namespace MatchmakerTest
 // {

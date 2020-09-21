@@ -1,5 +1,6 @@
 ﻿using System;
 using AmoebaGameMatcherServer.Services.LobbyInitialization;
+using NetworkLibrary.Http.Lobby;
 using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services.Experimental

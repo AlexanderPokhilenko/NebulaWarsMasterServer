@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using DataLayer.Tables;
-using LibraryForTests;
+using IntegrationTests.Player.LobbyModel.Config;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 
-namespace IntegrationTests
+namespace IntegrationTests.Player.LobbyModel.Tests
 {
     [TestFixture]
     internal sealed class AccountFacadeServiceTests : BaseIntegrationFixture

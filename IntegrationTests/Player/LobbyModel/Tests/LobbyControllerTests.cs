@@ -1,13 +1,16 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using DataLayer.Tables;
 using IntegrationTests.Player.LobbyModel.Config;
 using LibraryForTests;
+using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
+using ZeroFormatter;
 
 namespace IntegrationTests.Player.LobbyModel.Tests
 {
     [TestFixture]
-    internal sealed class LobbyModelFacadeServiceTests : BaseIntegrationFixture
+    internal sealed class LobbyControllerTests : BaseIntegrationFixture
     {
         /// <summary>
         /// Сервис создаст аккаунт с таким serviceId, если такого нет в БД,
@@ -20,7 +23,10 @@ namespace IntegrationTests.Player.LobbyModel.Tests
             //Arrange
             string serviceId = "someServiceId";
             //Act
-            NetworkLibrary.NetworkLibrary.Http.LobbyModel lobbyModel = await LobbyModelFacadeService.CreateAsync(serviceId);
+            ActionResult<string> resultObj = await LobbyModelController.Create(serviceId, null);
+            string base64String = resultObj.Value;
+            byte[] data = Convert.FromBase64String(base64String);
+            NetworkLibrary.NetworkLibrary.Http.LobbyModel lobbyModel = ZeroFormatterSerializer.Deserialize<NetworkLibrary.NetworkLibrary.Http.LobbyModel>(data);
             
             //Assert
             Assert.IsNotNull(lobbyModel);
@@ -38,7 +44,7 @@ namespace IntegrationTests.Player.LobbyModel.Tests
                 Assert.IsNotNull(warshipDto.CombatRoleName);
             }
         }
-        
+         
         /// <summary>
         /// Сервис нормально прочитает аккаунт, который есть в БД, и отобразит в сериализуемый класс
         /// </summary>
@@ -72,9 +78,6 @@ namespace IntegrationTests.Player.LobbyModel.Tests
                 Assert.IsNotNull(warshipDto.Description);
                 Assert.IsNotNull(warshipDto.WarshipName);
                 Assert.IsNotNull(warshipDto.CombatRoleName);
-                // Assert.IsTrue(warshipDto.ViewTypeId==ViewTypeId.HareShip 
-                //               || warshipDto.ViewTypeId==ViewTypeId.BirdPlayer
-                //               ||warshipDto.ViewTypeId==ViewTypeId.SmileyPlayer);
             }
         }
     }

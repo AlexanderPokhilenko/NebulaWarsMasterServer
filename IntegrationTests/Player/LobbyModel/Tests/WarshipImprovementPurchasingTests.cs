@@ -1,10 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using DataLayer.Tables;
+using IntegrationTests.Player.LobbyModel.Config;
 using LibraryForTests;
 using NUnit.Framework;
 
-namespace IntegrationTests
+namespace IntegrationTests.Player.LobbyModel.Tests
 {
     [TestFixture]
     internal sealed class WarshipImprovementPurchasingTests : BaseIntegrationFixture
@@ -17,17 +19,19 @@ namespace IntegrationTests
             Account originalAccount = await DefaultAccountFactoryService.CreateDefaultAccountAsync(serviceId);
             int originalAccountSoftCurrency = originalAccount.GetAccountSoftCurrency();
             int warshipId = originalAccount.Warships.First().Id;
-            var warshipPowerPoints = originalAccount.GetWarshipPowerPoints(warshipId);
-            var warshipPowerLevel = originalAccount.GetWarshipPowerLevel(warshipId);
+            int warshipPowerPoints = originalAccount.GetWarshipPowerPoints(warshipId);
+            int warshipPowerLevel = originalAccount.GetWarshipPowerLevel(warshipId);
 
             //Act
-            WarshipImprovementCostChecker.CanAPurchaseBeMade(originalAccountSoftCurrency, warshipPowerPoints,
-                warshipPowerLevel, out var faultReason);
+            bool canAPurchaseBeMade = WarshipImprovementCostChecker
+                .CanAPurchaseBeMade(originalAccountSoftCurrency, warshipPowerPoints,
+                    warshipPowerLevel, out var faultReason);
+
+            Console.WriteLine($"{nameof(canAPurchaseBeMade)} = {canAPurchaseBeMade}");
             bool success = await WarshipImprovementFacadeService.TryBuyLevel(originalAccount.ServiceId, warshipId);
 
             //Assert
             Assert.IsTrue(success);
-            //todo кусок говна
         }
     }
 }

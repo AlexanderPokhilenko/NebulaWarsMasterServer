@@ -1,10 +1,11 @@
 ﻿using System.Threading.Tasks;
 using DataLayer.Tables;
+using IntegrationTests.Player.LobbyModel.Config;
 using LibraryForTests;
 using NetworkLibrary.NetworkLibrary.Http;
 using NUnit.Framework;
 
-namespace IntegrationTests
+namespace IntegrationTests.Player.LobbyModel.Tests
 {
     [TestFixture]
     internal sealed class NotShownRewardsTests : BaseIntegrationFixture

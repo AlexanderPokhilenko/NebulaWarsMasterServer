@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using AmoebaGameMatcherServer.Services;
 using DataLayer.Tables;
+using IntegrationTests.Player.LobbyModel.Config;
 using LibraryForTests;
 using NUnit.Framework;
 
-namespace IntegrationTests
+namespace IntegrationTests.Player.LobbyModel.Tests
 {
     [TestFixture]
     internal sealed class AccountDbReaderTests : BaseIntegrationFixture
