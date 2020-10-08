@@ -2,10 +2,7 @@
 
 namespace AmoebaGameMatcherServer.Services.MatchFinishing
 {
-    /// <summary>
-    /// По результатам боя в батл рояль режиме присуждает награду игроку.
-    /// </summary>
-    public class BattleRoyaleMatchRewardCalculatorService
+    public class BattleRoyaleMatchRewardCalculatorService : IBattleRoyaleMatchRewardCalculatorService
     {
         readonly BattleRoyaleWarshipRatingCalculator warshipRatingCalculator;
         

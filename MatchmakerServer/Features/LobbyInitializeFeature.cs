@@ -17,12 +17,12 @@ namespace AmoebaGameMatcherServer.Features
             serviceCollection.AddTransient<AccountDbReaderService>();
             serviceCollection.AddTransient<AccountRegistrationService>();
             serviceCollection.AddTransient<NotShownRewardsReaderService>();
-            serviceCollection.AddTransient<DbWarshipsStatisticsReader>();
+            serviceCollection.AddTransient<IDbWarshipsStatisticsReader, DbWarshipsStatisticsReader>();
             serviceCollection.AddTransient<WarshipsCharacteristicsService>();
             serviceCollection.AddTransient<AccountMapperService>();
             serviceCollection.AddTransient<WarshipImprovementCostChecker>();
-            serviceCollection.AddTransient<SkinsDbReaderService>();
-            serviceCollection.AddTransient<DbAccountWarshipReaderService>();
+            serviceCollection.AddTransient<ISkinsDbReaderService, SkinsDbReaderService>();
+            serviceCollection.AddTransient<IDbAccountWarshipReaderService, DbAccountWarshipReaderService>();
             serviceCollection.AddTransient<UsernameChangingService>();
             serviceCollection.AddTransient<UsernameValidatorService>();
             serviceCollection.AddTransient<AccountResourcesDbReader>();

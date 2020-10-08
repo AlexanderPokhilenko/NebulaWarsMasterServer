@@ -1,32 +1,27 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AmoebaGameMatcherServer.Services.Queues;
-using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services.PlayerQueueing
 {
-    /// <summary>
-    /// Отвечает за обработку запросов на вход в бой от клиентов.
-    /// </summary>
-    public class MatchmakerFacadeService
+    public class MatchmakerFacadeService : IMatchmakerFacadeService
     {
-        private readonly QueueExtenderService queueExtenderService;
-        private readonly BattleRoyaleQueueSingletonService queueSingletonService;
-        private readonly BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService;
+        private readonly IQueueExtenderService queueExtenderService;
+        private readonly IBattleRoyaleQueueSingletonService queueSingletonService;
+        private readonly IBattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService;
 
         public MatchmakerFacadeService(
-            QueueExtenderService queueExtenderService, 
-            BattleRoyaleQueueSingletonService queueSingletonService,
-            BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService)
+            IQueueExtenderService queueExtenderService, 
+            IBattleRoyaleQueueSingletonService queueSingletonService,
+            IBattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService)
         {
             this.queueExtenderService = queueExtenderService;
             this.queueSingletonService = queueSingletonService;
             this.unfinishedMatchesService = unfinishedMatchesService;
         }
 
-        [ItemNotNull]
-        public async Task<MatchmakerResponse> GetMatchDataAsync([NotNull] string playerServiceId, int warshipId)
+        public async Task<MatchmakerResponse> GetMatchDataAsync(string playerServiceId, int warshipId)
         {
             //Данные для окна ожидания боя
             MatchmakerResponse response = new MatchmakerResponse

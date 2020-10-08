@@ -5,10 +5,7 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services.Queues
 {
-    /// <summary>
-    /// Хранит данные о текущих боях.
-    /// </summary>
-    public class BattleRoyaleUnfinishedMatchesSingletonService
+    public class BattleRoyaleUnfinishedMatchesSingletonService : IBattleRoyaleUnfinishedMatchesSingletonService
     {
         //matchId + участники комнаты
         private readonly ConcurrentDictionary<int, BattleRoyaleMatchModel> matches;

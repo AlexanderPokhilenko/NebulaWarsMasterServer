@@ -16,11 +16,11 @@ namespace AmoebaGameMatcherServer.Controllers.Matchmaker
     [ApiController]
     public class PlayerController : ControllerBase
     {
-        private readonly MatchmakerFacadeService matchmakerFacadeService;
-        private readonly BattleRoyaleQueueSingletonService queueSingletonService;
+        private readonly IMatchmakerFacadeService matchmakerFacadeService;
+        private readonly IBattleRoyaleQueueSingletonService queueSingletonService;
 
-        public PlayerController(BattleRoyaleQueueSingletonService queueSingletonService,
-            MatchmakerFacadeService matchmakerFacadeService)
+        public PlayerController(IBattleRoyaleQueueSingletonService queueSingletonService,
+            IMatchmakerFacadeService matchmakerFacadeService)
         {
             this.queueSingletonService = queueSingletonService;
             this.matchmakerFacadeService = matchmakerFacadeService;

@@ -50,9 +50,9 @@ namespace IntegrationTests.Player.LobbyModel.Config
             string connectionString = dbConnectionConfig.GetConnectionString();
             //Создать сервисы
             NpgsqlConnection npgsqlConnection = new NpgsqlConnection(connectionString);
-            SkinsDbReaderService skinsDbReaderService = new SkinsDbReaderService(DbContext);
-            DbWarshipsStatisticsReader dbWarshipsStatisticsReader = new DbWarshipsStatisticsReader(npgsqlConnection);
-            DbAccountWarshipReaderService dbAccountWarshipReaderService = new DbAccountWarshipReaderService(dbWarshipsStatisticsReader, skinsDbReaderService);
+            ISkinsDbReaderService skinsDbReaderService = new ISkinsDbReaderService(DbContext);
+            IDbWarshipsStatisticsReader dbWarshipsStatisticsReader = new IDbWarshipsStatisticsReader(npgsqlConnection);
+            IDbAccountWarshipReaderService dbAccountWarshipReaderService = new IDbAccountWarshipReaderService(dbWarshipsStatisticsReader, skinsDbReaderService);
             AccountResourcesDbReader accountResourcesDbReader = new AccountResourcesDbReader(npgsqlConnection);
             AccountReaderService = new AccountDbReaderService(dbAccountWarshipReaderService, accountResourcesDbReader);
             NotShownRewardsReaderService = new NotShownRewardsReaderService(DbContext);
