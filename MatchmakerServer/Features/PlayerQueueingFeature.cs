@@ -7,8 +7,8 @@ namespace AmoebaGameMatcherServer.Features
     {
         public override void Add(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<MatchmakerFacadeService>();
-            serviceCollection.AddTransient<QueueExtenderService>();
+            serviceCollection.AddTransient<IMatchmakerFacadeService, MatchmakerFacadeService>();
+            serviceCollection.AddTransient<IQueueExtenderService, QueueExtenderService>();
             serviceCollection.AddTransient<MatchRoutingDataService>();
             serviceCollection.AddTransient<GameServersRoutingDataService>();
         }

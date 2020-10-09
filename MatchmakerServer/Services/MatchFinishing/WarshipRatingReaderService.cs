@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AmoebaGameMatcherServer.Services.MatchFinishing
 {
-    public class WarshipRatingReaderService
+    public class WarshipRatingReaderService : IWarshipRatingReaderService
     {
         private readonly ApplicationDbContext dbContext;
 

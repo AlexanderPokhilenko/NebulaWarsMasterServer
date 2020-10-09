@@ -7,10 +7,10 @@ namespace AmoebaGameMatcherServer.Features
     {
         public override void Add(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<BattleRoyaleMatchFinisherService>();
-            serviceCollection.AddTransient<BattleRoyaleMatchRewardCalculatorService>();
-            serviceCollection.AddTransient<PlayerMatchResultDbReaderService>();
-            serviceCollection.AddTransient<WarshipRatingReaderService>();
+            serviceCollection.AddTransient<IBattleRoyaleMatchFinisherService, BattleRoyaleMatchFinisherService>();
+            serviceCollection.AddTransient<IBattleRoyaleMatchRewardCalculatorService, BattleRoyaleMatchRewardCalculatorService>();
+            serviceCollection.AddTransient<IPlayerMatchResultDbReaderService, PlayerMatchResultDbReaderService>();
+            serviceCollection.AddTransient<IWarshipRatingReaderService, WarshipRatingReaderService>();
         }
     }
 }

@@ -3,26 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataLayer.Tables;
-using JetBrains.Annotations;
 
 namespace AmoebaGameMatcherServer.Services.LobbyInitialization
 {
-    /// <summary>
-    /// Читает всю информацию про корабли аккаунта.
-    /// </summary>
-    public class DbAccountWarshipReaderService
+    public class DbAccountWarshipReaderService : IDbAccountWarshipReaderService
     {
-        private readonly SkinsDbReaderService skinsDbReaderService;
-        private readonly DbWarshipsStatisticsReader dbWarshipsStatisticsReader;
+        private readonly ISkinsDbReaderService skinsDbReaderService;
+        private readonly IDbWarshipsStatisticsReader dbWarshipsStatisticsReader;
         
-        public DbAccountWarshipReaderService(DbWarshipsStatisticsReader dbWarshipsStatisticsReader,
-            SkinsDbReaderService skinsDbReaderService)
+        public DbAccountWarshipReaderService(IDbWarshipsStatisticsReader dbWarshipsStatisticsReader,
+            ISkinsDbReaderService skinsDbReaderService)
         {
             this.skinsDbReaderService = skinsDbReaderService;
             this.dbWarshipsStatisticsReader = dbWarshipsStatisticsReader;
         }
         
-        [ItemCanBeNull]
         public async Task<AccountDbDto> ReadAsync(string playerServiceId)
         {
             AccountDbDto accountDbDto = await dbWarshipsStatisticsReader.ReadAsync(playerServiceId);

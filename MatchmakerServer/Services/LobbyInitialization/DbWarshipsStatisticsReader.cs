@@ -4,15 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using DataLayer.Tables;
-using JetBrains.Annotations;
 using Npgsql;
 
 namespace AmoebaGameMatcherServer.Services.LobbyInitialization
 {
-    /// <summary>
-    /// Достаёт из БД данные про корабли аккаунта.
-    /// </summary>
-    public class DbWarshipsStatisticsReader
+    public class DbWarshipsStatisticsReader : IDbWarshipsStatisticsReader
     {
         private readonly NpgsqlConnection connection;
 
@@ -84,7 +80,7 @@ group by a.""Id"", w.""Id"", wt.""Id"", wcr.""Id"";
             this.connection = connection;
         }
         
-        public async Task<AccountDbDto> ReadAsync([NotNull] string serviceId)
+        public async Task<AccountDbDto> ReadAsync(string serviceId)
         {
             var parameters = new {serviceIdPar = serviceId};
             //accountId + account

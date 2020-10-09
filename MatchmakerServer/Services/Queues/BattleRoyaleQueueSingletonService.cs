@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
 
 namespace AmoebaGameMatcherServer.Services.Queues
 {
-    /// <summary>
-    /// Отвечает за добавление/удаление игроков в очередь батл рояль режима
-    /// </summary>
-    public class BattleRoyaleQueueSingletonService
+    public class BattleRoyaleQueueSingletonService : IBattleRoyaleQueueSingletonService
     {
         private readonly PlayersQueue unsortedPlayers = new PlayersQueue();
         
@@ -34,16 +30,11 @@ namespace AmoebaGameMatcherServer.Services.Queues
             return unsortedPlayers.GetNumberOfPlayers();
         }
 
-        [CanBeNull]
         public DateTime? GetOldestRequestTime()
         {
             return unsortedPlayers.GetOldestRequestTime();
         }
 
-        /// <summary>
-        /// Возвращает игроков без исключения из очереди 
-        /// </summary>
-        /// <param name="maxNumberOfPlayersInBattle"></param>
         public List<MatchEntryRequest> TakeMatchEntryRequests(int maxNumberOfPlayersInBattle)
         {
             return unsortedPlayers.TakeHead(maxNumberOfPlayersInBattle);

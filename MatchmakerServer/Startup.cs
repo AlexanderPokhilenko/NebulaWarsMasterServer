@@ -45,8 +45,8 @@ namespace AmoebaGameMatcherServer
             services.AddTransient<BundleVersionService>();
             
             //Общие очереди игроков
-            services.AddSingleton<BattleRoyaleQueueSingletonService>();
-            services.AddSingleton<BattleRoyaleUnfinishedMatchesSingletonService>();
+            services.AddSingleton<IBattleRoyaleQueueSingletonService, BattleRoyaleQueueSingletonService>();
+            services.AddSingleton<IBattleRoyaleUnfinishedMatchesSingletonService, BattleRoyaleUnfinishedMatchesSingletonService>();
             //Общие очереди игроков
         }
         

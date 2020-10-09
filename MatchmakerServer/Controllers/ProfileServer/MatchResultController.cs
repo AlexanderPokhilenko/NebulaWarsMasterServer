@@ -14,9 +14,9 @@ namespace AmoebaGameMatcherServer.Controllers.ProfileServer
     [ApiController]
     public class MatchResultController : ControllerBase
     {
-        private readonly PlayerMatchResultDbReaderService matchResultDbReaderService;
+        private readonly IPlayerMatchResultDbReaderService matchResultDbReaderService;
 
-        public MatchResultController(PlayerMatchResultDbReaderService matchResultDbReaderService)
+        public MatchResultController(IPlayerMatchResultDbReaderService matchResultDbReaderService)
         {
             this.matchResultDbReaderService = matchResultDbReaderService;
         }

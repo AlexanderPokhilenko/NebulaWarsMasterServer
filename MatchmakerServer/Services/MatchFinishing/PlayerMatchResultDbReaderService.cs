@@ -1,26 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DataLayer;
+﻿using DataLayer;
 using DataLayer.Tables;
 using Libraries.NetworkLibrary.Experimental;
 using Microsoft.EntityFrameworkCore;
-using NetworkLibrary.NetworkLibrary.Http;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using MatchResult = DataLayer.Tables.MatchResult;
 
 namespace AmoebaGameMatcherServer.Services.MatchFinishing
 {
-    /// <summary>
-    /// Достаёт из БД данные о конкретном бое для аккаунта.
-    /// </summary>
-    public class PlayerMatchResultDbReaderService
+    public class PlayerMatchResultDbReaderService : IPlayerMatchResultDbReaderService
     {
         private readonly ApplicationDbContext dbContext;
-        private readonly WarshipRatingReaderService warshipRatingReaderService;
+        private readonly IWarshipRatingReaderService warshipRatingReaderService;
 
         public PlayerMatchResultDbReaderService(ApplicationDbContext dbContext, 
-            WarshipRatingReaderService warshipRatingReaderService)
+            IWarshipRatingReaderService warshipRatingReaderService)
         {
             this.dbContext = dbContext;
             this.warshipRatingReaderService = warshipRatingReaderService;

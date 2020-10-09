@@ -7,9 +7,9 @@ namespace AmoebaGameMatcherServer.Services.MatchCreationInitiation
      
     public class PlayerTimeoutManagerService:IPlayerTimeoutManager
     {
-        private readonly BattleRoyaleQueueSingletonService battleRoyaleQueueService;
+        private readonly IBattleRoyaleQueueSingletonService battleRoyaleQueueService;
 
-        public PlayerTimeoutManagerService(BattleRoyaleQueueSingletonService battleRoyaleQueueService)
+        public PlayerTimeoutManagerService(IBattleRoyaleQueueSingletonService battleRoyaleQueueService)
         {
             this.battleRoyaleQueueService = battleRoyaleQueueService;
         }

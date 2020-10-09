@@ -1,32 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AmoebaGameMatcherServer.Services.Queues;
+﻿using AmoebaGameMatcherServer.Services.Queues;
 using DataLayer;
 using DataLayer.Entities.Transactions.Decrement;
 using DataLayer.Tables;
 using Libraries.NetworkLibrary.Experimental;
 using Microsoft.EntityFrameworkCore;
-using NetworkLibrary.NetworkLibrary.Http;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AmoebaGameMatcherServer.Services.MatchFinishing
 {
-    
-    /// <summary>
-    /// Отвечает за дописывание результатов матча для батл рояль режима.
-    /// </summary>
-    public class BattleRoyaleMatchFinisherService
+    public class BattleRoyaleMatchFinisherService : IBattleRoyaleMatchFinisherService
     {
         private readonly ApplicationDbContext dbContext;
-        private readonly WarshipRatingReaderService warshipRatingReaderService;
-        private readonly BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesSingletonService;
-        private readonly BattleRoyaleMatchRewardCalculatorService battleRoyaleMatchRewardCalculatorService;
+        private readonly IWarshipRatingReaderService warshipRatingReaderService;
+        private readonly IBattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesSingletonService;
+        private readonly IBattleRoyaleMatchRewardCalculatorService battleRoyaleMatchRewardCalculatorService;
 
         public BattleRoyaleMatchFinisherService(ApplicationDbContext dbContext,
-            BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesSingletonService,
-            BattleRoyaleMatchRewardCalculatorService battleRoyaleMatchRewardCalculatorService,
-            WarshipRatingReaderService warshipRatingReaderService)
+            IBattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesSingletonService,
+            IBattleRoyaleMatchRewardCalculatorService battleRoyaleMatchRewardCalculatorService,
+            IWarshipRatingReaderService warshipRatingReaderService)
         {
             this.dbContext = dbContext;
             this.unfinishedMatchesSingletonService = unfinishedMatchesSingletonService;

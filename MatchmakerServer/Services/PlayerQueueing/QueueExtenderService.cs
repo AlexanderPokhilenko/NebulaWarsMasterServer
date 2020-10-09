@@ -7,25 +7,18 @@ using DataLayer.Tables;
 
 namespace AmoebaGameMatcherServer.Services.PlayerQueueing
 {
-    /// <summary>
-    /// Отвечает за проверку данных игрока перед добавлением в очередь
-    /// </summary>
-    public class QueueExtenderService
+    public class QueueExtenderService : IQueueExtenderService
     {
-        private readonly DbAccountWarshipReaderService dbAccountWarshipReaderService;
-        private readonly BattleRoyaleQueueSingletonService battleRoyaleQueueSingletonServiceService;
+        private readonly IDbAccountWarshipReaderService dbAccountWarshipReaderService;
+        private readonly IBattleRoyaleQueueSingletonService battleRoyaleQueueSingletonServiceService;
 
-        public QueueExtenderService(BattleRoyaleQueueSingletonService battleRoyaleQueueSingletonServiceService,
-            DbAccountWarshipReaderService dbAccountWarshipReaderService)
+        public QueueExtenderService(IBattleRoyaleQueueSingletonService battleRoyaleQueueSingletonServiceService,
+            IDbAccountWarshipReaderService dbAccountWarshipReaderService)
         {
             this.battleRoyaleQueueSingletonServiceService = battleRoyaleQueueSingletonServiceService;
             this.dbAccountWarshipReaderService = dbAccountWarshipReaderService;
         }
-        
-        /// <summary>
-        /// Проверяет данные и добавляет игрока в очередь.
-        /// </summary>
-        /// <returns>Вернёт false если в БД нет таких данных или игрок уже в очереди.</returns>
+
         public async Task<bool> TryEnqueuePlayerAsync(string playerServiceId, int warshipId)
         {
             AccountDbDto accountDbDto = await dbAccountWarshipReaderService.ReadAsync(playerServiceId);

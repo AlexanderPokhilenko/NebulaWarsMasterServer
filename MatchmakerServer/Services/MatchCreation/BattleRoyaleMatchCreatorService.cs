@@ -16,20 +16,20 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
     {
         private readonly MatchDbWriterService matchDbWriterService;
         private readonly MatchRoutingDataService matchRoutingDataService;
-        private readonly BattleRoyaleQueueSingletonService battleRoyaleQueue;
+        private readonly IBattleRoyaleQueueSingletonService battleRoyaleQueue;
         private readonly IGameServerNegotiatorService gameServerNegotiatorService;
         private readonly BattleRoyaleBotFactoryService battleRoyaleBotFactoryService;
-        private readonly BattleRoyaleQueueSingletonService battleRoyaleQueueSingletonService;
-        private readonly BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService;
+        private readonly IBattleRoyaleQueueSingletonService battleRoyaleQueueSingletonService;
+        private readonly IBattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService;
 
         public BattleRoyaleMatchCreatorService(
             MatchDbWriterService matchDbWriterService,
             MatchRoutingDataService matchRoutingDataService, 
-            BattleRoyaleQueueSingletonService battleRoyaleQueue,
+            IBattleRoyaleQueueSingletonService battleRoyaleQueue,
             IGameServerNegotiatorService gameServerNegotiatorService,
             BattleRoyaleBotFactoryService battleRoyaleBotFactoryService,
-            BattleRoyaleQueueSingletonService battleRoyaleQueueSingletonService,
-            BattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService)
+            IBattleRoyaleQueueSingletonService battleRoyaleQueueSingletonService,
+            IBattleRoyaleUnfinishedMatchesSingletonService unfinishedMatchesService)
         {
             this.battleRoyaleQueue = battleRoyaleQueue;
             this.matchDbWriterService = matchDbWriterService;

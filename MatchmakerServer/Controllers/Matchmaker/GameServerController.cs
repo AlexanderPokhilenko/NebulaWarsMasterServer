@@ -10,9 +10,9 @@ namespace AmoebaGameMatcherServer.Controllers.Matchmaker
     [ApiController]
     public class GameServerController : ControllerBase
     {
-        private readonly BattleRoyaleMatchFinisherService battleRoyaleMatchFinisher;
+        private readonly IBattleRoyaleMatchFinisherService battleRoyaleMatchFinisher;
 
-        public GameServerController(BattleRoyaleMatchFinisherService battleRoyaleMatchFinisher)
+        public GameServerController(IBattleRoyaleMatchFinisherService battleRoyaleMatchFinisher)
         {
             this.battleRoyaleMatchFinisher = battleRoyaleMatchFinisher;
         }
