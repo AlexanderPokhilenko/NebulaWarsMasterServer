@@ -11,7 +11,7 @@ namespace MatchmakerTest.MatchFinishing
         /// Нормальные входные данные. Номальный ответ.
         /// </summary>
         [TestMethod]
-        public void Test1()
+        public void GetWarshipRatingDelta_NormalData_OK()
         {
             //Arrange
             BattleRoyaleWarshipRatingCalculator ratingCalculator = new BattleRoyaleWarshipRatingCalculator();
@@ -26,7 +26,7 @@ namespace MatchmakerTest.MatchFinishing
         /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void Test2()
+        public void GetWarshipRatingDelta_NegativeRating_ArgumentOutOfRangeException()
         {
             //Arrange
             BattleRoyaleWarshipRatingCalculator ratingCalculator = new BattleRoyaleWarshipRatingCalculator();
@@ -45,7 +45,7 @@ namespace MatchmakerTest.MatchFinishing
         [DataRow(-1)]
         [DataRow(11)]
         [DataRow(10001)]
-        public void Test3(int placeInMatch)
+        public void GetWarshipRatingDelta_InvalidPlaceInMatch_ArgumentOutOfRangeException(int placeInMatch)
         {
             //Arrange
             BattleRoyaleWarshipRatingCalculator ratingCalculator = new BattleRoyaleWarshipRatingCalculator();
@@ -59,8 +59,9 @@ namespace MatchmakerTest.MatchFinishing
         /// Рейтинг корабля больше максимального в таблице. Вернёт ответ по последнему интервалу.
         /// </summary>
         [TestMethod]
+        [DataRow(700)]
         [DataRow(1000)]
-        public void Test4(int warshipRating)
+        public void GetWarshipRatingDelta_BigRating_MaxDelta10(int warshipRating)
         {
             //Arrange
             BattleRoyaleWarshipRatingCalculator ratingCalculator = new BattleRoyaleWarshipRatingCalculator();
