@@ -1,11 +1,8 @@
 ﻿// using System.Threading.Tasks;
 // using AmoebaGameMatcherServer.Services.LobbyInitialization;
-// using DAL;
-// using DAL.Tables;
-// using Microsoft.EntityFrameworkCore;
 // using Microsoft.VisualStudio.TestTools.UnitTesting;
 //
-// namespace MatchmakerTest
+// namespace MatchmakerTest.LobbyInitTests
 // {
 //     [TestClass]
 //     public class PlayerInfoManagerServiceTests
@@ -34,7 +31,7 @@
 //             Assert.IsNotNull(accountInfo.Username);
 //
 //             var dbContext = dbFactory.CreateAsync();
-//             Account account = await dbContext.Accounts
+//             var account = await dbContext.Accounts
 //                 .Include(account1 => account1.Warships)
 //                 .ThenInclude(warship => warship.WarshipType)
 //                 .SingleOrDefaultAsync(account1 => account1.ServiceId == serviceId);

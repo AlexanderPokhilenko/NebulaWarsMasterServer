@@ -1,12 +1,10 @@
 ﻿// using System;
-// using System.Collections.Generic;
-// using System.Linq;
+// using DataLayer.Tables;
 // using System.Threading.Tasks;
-// using AmoebaGameMatcherServer.Controllers;
-// using DAL;
-// using DAL.Tables;
-// using Microsoft.EntityFrameworkCore;
+// using System.Collections.Generic;
+// using Libraries.NetworkLibrary.Experimental;
 // using Microsoft.VisualStudio.TestTools.UnitTesting;
+// using AmoebaGameMatcherServer.Services.LobbyInitialization;
 //
 // namespace MatchmakerTest
 // {
@@ -32,12 +30,12 @@
 //
 //             //Act
 //             var results = await notShownRewardService
-//                 .GetNotShownRewards(account.ServiceId);
+//                 .GetNotShownRewardAndMarkAsRead(account.ServiceId);
 //
 //             //Assert
 //             Assert.IsNotNull(results);
 //             Assert.AreEqual(4, results.HardCurrencyDelta);
-//             Assert.AreEqual(34, results.SoftCurrency);
+//             Assert.AreEqual(34, results.SoftCurrencyDelta);
 //             Assert.AreEqual(0, results.BigLootboxPoints);
 //             Assert.AreEqual(5, results.LootboxPoints);
 //

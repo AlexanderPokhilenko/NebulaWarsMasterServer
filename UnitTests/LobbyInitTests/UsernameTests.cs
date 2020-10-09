@@ -2,12 +2,12 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace MatchmakerTest
+namespace MatchmakerTest.LobbyInitTests
 {
     [TestClass]
     public class UsernameTests
     {
-        UsernameValidatorService usernameValidatorService = new UsernameValidatorService();
+        private readonly UsernameValidatorService usernameValidatorService = new UsernameValidatorService();
         
         [TestMethod]
         public void Test1()
@@ -16,6 +16,7 @@ namespace MatchmakerTest
             var resultEnum = usernameValidatorService.IsUsernameValid(username);
             Assert.AreEqual(UsernameValidationResultEnum.DoesNotBeginWithALetter, resultEnum);
         }
+        
         [TestMethod]
         public void Test2()
         {

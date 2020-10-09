@@ -512,7 +512,6 @@
         <e p="LobbyInitTests" t="Include">
           <e p="AccountDbReaderServiceTests.cs" t="Include" />
           <e p="AccountRegistrationServiceTests.cs" t="Include" />
-          <e p="LinqSumTests.cs" t="Include" />
           <e p="NotShownRewardDbUpdaterServiceTests.cs" t="Include" />
           <e p="PlayerInfoManagerServiceTests.cs" t="Include" />
           <e p="UsernameTests.cs" t="Include" />
