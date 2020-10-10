@@ -21,19 +21,6 @@ namespace AmoebaGameMatcherServer.Controllers
                 Console.WriteLine("--");
             }
             
-            Console.WriteLine("вызов");
-            Console.WriteLine("вызов");
-            Console.WriteLine("вызов");
-            Console.WriteLine("вызов");
-            Console.WriteLine("вызов");
-            Console.WriteLine("вызов");
-            Console.WriteLine("вызов");
-            Console.WriteLine("вызов");
-            Console.WriteLine("вызов");
-            Console.WriteLine("вызов");
-            Console.WriteLine("вызов");
-            Console.WriteLine("вызов");
-            Console.WriteLine("вызов");
             return Ok();
         }
     }

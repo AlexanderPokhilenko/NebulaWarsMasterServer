@@ -1,6 +1,6 @@
 ﻿// ﻿using System.Threading.Tasks;
-// using DAL;
-// using MatchmakerTest.Utils;
+// using AmoebaGameMatcherServer.Experimental;
+// using DataLayer;
 // using Microsoft.EntityFrameworkCore;
 // using Microsoft.VisualStudio.TestTools.UnitTesting;
 //
@@ -11,6 +11,17 @@
 //     [TestClass]
 //     public class AccountsDbTests
 //     {
+//         private ApplicationDbContext dbContext;
+//
+//         [TestInitialize]
+//         public void SetUp()
+//         {
+//             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+//                 .UseInMemoryDatabase("Test")
+//                 .Options;
+//
+//             dbContext = new ApplicationDbContext(options);
+//         }
 //         /// <summary>
 //         /// Id аккаунтов начинается с 1, а не с ноля.
 //         /// </summary>
@@ -18,7 +29,7 @@
 //         public async Task Test1()
 //         {
 //             //Arrange
-//             var account = TestsAccountFactory.CreateUniqueAccount();
+//             var account = new DefaultAccountFactoryService
 //             var dbContext = new InMemoryDbContextFactory(nameof(AccountsDbTests)).CreateAsync();
 //             
 //             //Act

@@ -66,7 +66,8 @@ namespace AmoebaGameMatcherServer.Services.Shop.Sales
             NetworkLibrary.NetworkLibrary.Http.ShopModel shopModel;
             try
             {
-                shopModel = ZeroFormatterSerializer.Deserialize<NetworkLibrary.NetworkLibrary.Http.ShopModel>(shopModelDb.SerializedModel);
+                shopModel = ZeroFormatterSerializer
+                    .Deserialize<NetworkLibrary.NetworkLibrary.Http.ShopModel>(shopModelDb.SerializedModel);
             }
             catch
             {

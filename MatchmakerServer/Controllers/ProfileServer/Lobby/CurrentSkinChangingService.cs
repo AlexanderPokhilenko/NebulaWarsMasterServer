@@ -42,7 +42,8 @@ namespace AmoebaGameMatcherServer.Controllers.ProfileServer.Lobby
                 .Select(increment => increment.SkinType)
                 .SingleOrDefaultAsync();
 
-            if (skinType == null)
+            bool isSkinBought = skinType != null; 
+            if (!isSkinBought)
             {
                 return false;
             }

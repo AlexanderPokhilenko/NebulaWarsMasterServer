@@ -22,7 +22,7 @@ namespace AmoebaGameMatcherServer.Controllers.ProfileServer.Lobby
         }
         
         /// <summary>
-        /// Создаёт разметку магазина для игрока.
+        /// Создаёт модель магазина для игрока.
         /// </summary>
         [Route(nameof(GetShopModel))]
         [HttpGet]
@@ -77,7 +77,8 @@ namespace AmoebaGameMatcherServer.Controllers.ProfileServer.Lobby
             
             Console.WriteLine($"{nameof(playerId)} {playerId} {nameof(productId)} {productId}");
 
-            await sellerService.BuyProduct(playerId, productId, base64ProductModel, shopModelId);
+            await sellerService.BuyProduct(playerId, productId, base64ProductModel,
+                shopModelId);
             return Ok();
         }
     }

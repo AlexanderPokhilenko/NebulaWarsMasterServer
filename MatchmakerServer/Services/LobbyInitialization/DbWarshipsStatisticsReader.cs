@@ -70,9 +70,6 @@ from ""Accounts"" A
          join ""WarshipCombatRoles"" wcr on wt.""WarshipCombatRoleId"" = wcr.""Id""
 where a.""ServiceId"" = @serviceIdPar
 group by a.""Id"", w.""Id"", wt.""Id"", wcr.""Id"";
-
-
-
             ";
 
         public DbWarshipsStatisticsReader(NpgsqlConnection connection)

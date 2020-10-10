@@ -3,13 +3,8 @@ using ZeroFormatter;
 
 namespace AmoebaGameMatcherServer.Experimental
 {
-    public static class DichExtensions
+    public static class SerializationExtensions
     {
-        /// <summary>
-        /// Я не смог найти другой способ отправлять массивы байт по http
-        /// </summary>
-        /// <param name="zeroFormattable"></param>
-        /// <returns></returns>
         public static string SerializeToBase64String<T>(this T zeroFormattable)
         {
             byte[] data = ZeroFormatterSerializer.Serialize(zeroFormattable);

@@ -15,8 +15,8 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
     public class LootboxFacadeService
     {
         private readonly LootboxDbWriterService lootboxDbWriterService;
-        private readonly SmallLootboxDataFactory smallLootboxModelFactory;
         private readonly AccountDbReaderService accountDbReaderService;
+        private readonly SmallLootboxDataFactory smallLootboxModelFactory;
         
         public LootboxFacadeService(
             SmallLootboxDataFactory smallLootboxModelFactory,
@@ -26,7 +26,6 @@ namespace AmoebaGameMatcherServer.Services.Lootbox
         
             this.smallLootboxModelFactory = smallLootboxModelFactory;
             this.lootboxDbWriterService = lootboxDbWriterService;
-        
             this.accountDbReaderService = accountDbReaderService;
         }
 

@@ -13,5 +13,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://main-database-1.postgres.database.azure.com:5432/postgres</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="postgres@main-database-1.postgres.database.azure.com" uuid="3fed2b7c-0f46-4ec3-8c18-ad267336ab1f">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://main-database-1.postgres.database.azure.com:5432/postgres</jdbc-url>
+    </data-source>
   </component>
 </project>
