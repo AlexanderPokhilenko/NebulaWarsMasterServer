@@ -16,7 +16,7 @@ namespace AmoebaGameMatcherServer.Services.Experimental
         public bool CanAPurchaseBeMade(int softCurrency, int warshipPowerLevel,  int warshipPowerPoints,
             out FaultReason? faultReason)
         {
-            Console.WriteLine($"{nameof(warshipPowerLevel)} {warshipPowerLevel} {nameof(warshipPowerPoints)} {warshipPowerPoints}");
+            // Console.WriteLine($"{nameof(warshipPowerLevel)} {warshipPowerLevel} {nameof(warshipPowerPoints)} {warshipPowerPoints}");
             //Достать цену улучшения
             WarshipImprovementModel improvementModel = WarshipPowerScale.GetModel(warshipPowerLevel);
 

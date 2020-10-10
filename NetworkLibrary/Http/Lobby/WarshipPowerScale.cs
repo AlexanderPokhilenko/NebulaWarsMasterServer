@@ -28,8 +28,8 @@ namespace NetworkLibrary.Http.Lobby
                 Fill(powerLevel);
             }
 
-            //todo это нужно исправить тест не проходит
             powerLevel--; // Мы считаем с 1, а не с 0
+
 
             return new WarshipImprovementModel
             {

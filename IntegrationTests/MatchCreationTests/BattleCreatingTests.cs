@@ -7,14 +7,11 @@
 // using AmoebaGameMatcherServer.Services.MatchCreationInitiation;
 // using AmoebaGameMatcherServer.Services.PlayerQueueing;
 // using AmoebaGameMatcherServer.Services.Queues;
-// using AmoebaGameMatcherServer.Utils;
 // using DataLayer;
 // using DataLayer.Tables;
+// using IntegrationTests.Player.LobbyModel.Config;
 // using Microsoft.EntityFrameworkCore;
-// using Microsoft.VisualStudio.TestTools.UnitTesting;
 // using NUnit.Framework;
-//
-// //TODO длинна теста слишком велика
 //
 // namespace MatchmakerTest
 // {

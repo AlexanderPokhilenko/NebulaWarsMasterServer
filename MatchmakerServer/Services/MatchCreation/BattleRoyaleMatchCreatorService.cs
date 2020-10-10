@@ -82,7 +82,7 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
 
             //Сделать запись об матче в БД
             Match match = await matchDbWriterService
-                .Write(matchRoutingData, requests.Select(request => request.GetWarshipId()).ToList());
+                .WriteAsync(matchRoutingData, requests.Select(request => request.GetWarshipId()).ToList());
 
             //Создать объект с информацией про бой
             BattleRoyaleMatchModel matchModel = BattleRoyaleMatchDataFactory.Create(gameUnits, match);

@@ -10,7 +10,7 @@ namespace MatchmakerTest.LobbyInitTests
         private readonly UsernameValidatorService usernameValidatorService = new UsernameValidatorService();
         
         [TestMethod]
-        public void Test1()
+        public void UsernameBeginsWithNumber_Fail()
         {
             string username = "53326d";
             var resultEnum = usernameValidatorService.IsUsernameValid(username);
@@ -18,7 +18,7 @@ namespace MatchmakerTest.LobbyInitTests
         }
         
         [TestMethod]
-        public void Test2()
+        public void UsernameIsValid_Ok()
         {
             string username = "a0123456789";
             var resultEnum = usernameValidatorService.IsUsernameValid(username);
@@ -26,7 +26,7 @@ namespace MatchmakerTest.LobbyInitTests
         }   
         
         [TestMethod]
-        public void Test3()
+        public void ShortUsername_Fail()
         {
             string username = "020";
             var resultEnum = usernameValidatorService.IsUsernameValid(username);
@@ -34,7 +34,7 @@ namespace MatchmakerTest.LobbyInitTests
         }
         
         [TestMethod]
-        public void Test4()
+        public void UsernameContainsInvalidCharacter_Fail()
         {
             string username = "w+62+62+62+62";
             var resultEnum = usernameValidatorService.IsUsernameValid(username);

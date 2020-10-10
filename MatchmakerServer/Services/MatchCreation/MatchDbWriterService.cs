@@ -20,7 +20,7 @@ namespace AmoebaGameMatcherServer.Services.MatchCreation
         /// <summary>
         /// Возвращает id матча после успешной записи в БД
         /// </summary>
-        public async Task<Match> Write(MatchRoutingData matchRoutingData, List<int> warshipIds)
+        public async Task<Match> WriteAsync(MatchRoutingData matchRoutingData, List<int> warshipIds)
         {
             using (ApplicationDbContext dbContext = dbContextFactory.Create())
             {
