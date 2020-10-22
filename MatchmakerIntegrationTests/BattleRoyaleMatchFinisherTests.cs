@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using AmoebaGameMatcherServer.Services.MatchFinishing;
 using AmoebaGameMatcherServer.Services.Queues;
 using DataLayer;
@@ -9,6 +6,9 @@ using Libraries.NetworkLibrary.Experimental;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using NetworkLibrary.NetworkLibrary.Http;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MatchmakerIntegrationTests
 {
@@ -147,27 +147,32 @@ namespace MatchmakerIntegrationTests
 
             Assert.IsTrue(increments.All(i => i.MatchRewardTypeId == MatchRewardTypeEnum.RankingReward), "Incorrect reward type.");
 
-            if (lootboxReward > 0)
+            CheckReward(lootboxReward, IncrementTypeEnum.LootboxPoints, DecrementTypeEnum.LootboxPoints, "lootbox");
+            CheckReward(softCurrencyReward, IncrementTypeEnum.SoftCurrency, DecrementTypeEnum.SoftCurrency, "soft currency");
+            CheckReward(ratingReward, IncrementTypeEnum.WarshipRating, DecrementTypeEnum.WarshipRating, "rating", true);
+            
+            void CheckReward(int expectedReward, IncrementTypeEnum incrementType, DecrementTypeEnum decrementType, string rewardName, bool canHaveDecrement = false)
             {
-                var increment = increments.Single(i => i.IncrementTypeId == IncrementTypeEnum.LootboxPoints);
-                Assert.AreEqual(lootboxReward, increment.Amount, "Incorrect lootbox increment.");
-            }
+                var increment = increments.SingleOrDefault(i => i.IncrementTypeId == incrementType);
+                var decrement = decrements.SingleOrDefault(d => d.DecrementTypeId == decrementType);
 
-            if (softCurrencyReward > 0)
-            {
-                var increment = increments.Single(i => i.IncrementTypeId == IncrementTypeEnum.SoftCurrency);
-                Assert.AreEqual(softCurrencyReward, increment.Amount, "Incorrect soft currency increment.");
-            }
-
-            if (ratingReward > 0)
-            {
-                var increment = increments.Single(i => i.IncrementTypeId == IncrementTypeEnum.WarshipRating);
-                Assert.AreEqual(ratingReward, increment.Amount, "Incorrect rating increment.");
-            }
-            else if(ratingReward < 0)
-            {
-                var decrement = decrements.Single(d => d.DecrementTypeId == DecrementTypeEnum.WarshipRating);
-                Assert.AreEqual(-ratingReward, decrement.Amount, "Incorrect rating decrement.");
+                // ReSharper disable PossibleNullReferenceException
+                if (expectedReward > 0)
+                {
+                    Assert.AreEqual(expectedReward, increment.Amount, $"Incorrect {rewardName} increment.");
+                    Assert.IsNull(decrement, $"The {rewardName} decrement was not null.");
+                }
+                else if (expectedReward < 0 && canHaveDecrement)
+                {
+                    Assert.IsNull(increment, $"The {rewardName} increment was not null.");
+                    Assert.AreEqual(-expectedReward, decrement.Amount, $"Incorrect {rewardName} decrement.");
+                }
+                else
+                {
+                    Assert.IsNull(increment, $"The {rewardName} increment was not null.");
+                    Assert.IsNull(decrement, $"The {rewardName} decrement was not null.");
+                }
+                // ReSharper restore PossibleNullReferenceException
             }
         }
 
