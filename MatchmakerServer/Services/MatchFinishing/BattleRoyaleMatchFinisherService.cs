@@ -150,7 +150,7 @@ namespace AmoebaGameMatcherServer.Services.MatchFinishing
                 .Where(matchResult => matchResult.IsFinished == false)
                 .ToList();
             
-            for(int i = 0; i < incompleteMatchResults.Count; i++)
+            for(var i = 0; i < incompleteMatchResults.Count; )
             {
                 MatchResult matchResult = incompleteMatchResults[i];
                 int placeInMatch = ++i;
