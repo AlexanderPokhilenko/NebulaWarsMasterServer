@@ -1,21 +1,14 @@
-﻿using System;
-using System.Linq;
-using AmoebaGameMatcherServer.Controllers;
-using AmoebaGameMatcherServer.Controllers.ProfileServer.Lobby;
+﻿using AmoebaGameMatcherServer.Controllers.ProfileServer.Lobby;
 using AmoebaGameMatcherServer.Features;
 using AmoebaGameMatcherServer.Services;
 using AmoebaGameMatcherServer.Services.Database.Seeding;
-using AmoebaGameMatcherServer.Services.GoogleApi;
 using AmoebaGameMatcherServer.Services.GoogleApi.AccessTokenUtils;
 using AmoebaGameMatcherServer.Services.MatchCreationInitiation;
 using AmoebaGameMatcherServer.Services.Queues;
-using Dapper;
 using DataLayer;
-using DataLayer.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Npgsql;
 
