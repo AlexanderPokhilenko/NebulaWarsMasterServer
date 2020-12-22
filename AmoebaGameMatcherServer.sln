@@ -9,15 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{C0E2E203-8C80-4AC8-A6DD-D77C14C267CB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{3205B9C2-43A4-4DA2-A0F2-794375DA311C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlTesting", "SqlTesting\SqlTesting.csproj", "{C054F515-B21B-4E47-86F3-CECE1E659A36}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryForTests", "LibraryForTests\LibraryForTests.csproj", "{17BE13FC-60F0-4EDC-808B-D2C506451C7C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkLibrary", "NetworkLibrary\NetworkLibrary.csproj", "{F48B387F-45CB-4898-9A3B-6E241AF13815}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchmakerIntegrationTests", "MatchmakerIntegrationTests\MatchmakerIntegrationTests.csproj", "{C7473C46-FE18-4263-925D-57012B098187}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchmakerIntegrationTests", "MatchmakerIntegrationTests\MatchmakerIntegrationTests.csproj", "{C7473C46-FE18-4263-925D-57012B098187}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,18 +31,6 @@ Global
 		{C0E2E203-8C80-4AC8-A6DD-D77C14C267CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0E2E203-8C80-4AC8-A6DD-D77C14C267CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0E2E203-8C80-4AC8-A6DD-D77C14C267CB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3205B9C2-43A4-4DA2-A0F2-794375DA311C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3205B9C2-43A4-4DA2-A0F2-794375DA311C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3205B9C2-43A4-4DA2-A0F2-794375DA311C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3205B9C2-43A4-4DA2-A0F2-794375DA311C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C054F515-B21B-4E47-86F3-CECE1E659A36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C054F515-B21B-4E47-86F3-CECE1E659A36}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C054F515-B21B-4E47-86F3-CECE1E659A36}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C054F515-B21B-4E47-86F3-CECE1E659A36}.Release|Any CPU.Build.0 = Release|Any CPU
-		{17BE13FC-60F0-4EDC-808B-D2C506451C7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{17BE13FC-60F0-4EDC-808B-D2C506451C7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{17BE13FC-60F0-4EDC-808B-D2C506451C7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{17BE13FC-60F0-4EDC-808B-D2C506451C7C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F48B387F-45CB-4898-9A3B-6E241AF13815}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F48B387F-45CB-4898-9A3B-6E241AF13815}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F48B387F-45CB-4898-9A3B-6E241AF13815}.Release|Any CPU.ActiveCfg = Release|Any CPU
